@@ -1,165 +1,121 @@
 <?php 
 
-include_once 'Componentes.php'; 
-include_once '../controller/ProductoController.php';
+//include_once 'Componentes.php'; 
+include_once '../Controller/ProductoController.php';
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/stylesCat.css" rel="stylesheet">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Tables / Data - NiceAdmin Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container-fluid">
+    <main id="main" class="main">
 
+        <div class="pagetitle">
+            <h1>Data Tables</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">Tables</li>
+                    <li class="breadcrumb-item active">Data</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
 
-        <div class="col py-3">
-            <table id="tUsuarios" class="table table-dark table-striped">
-                <thead>
-                    <tr>
-                        <th>Productos</th>
-                    </tr>
-                    <th>ID</th>
-                    <th>Descripción</th>
-                    <th>Categoria</th>
-                    <th>Tipo</th>
-                    <th>XS</th>
-                    <th>S</th>
-                    <th>M</th>
-                    <th>L</th>
-                    <th>XL</th>
-                    <th>XXL</th>
-                    <th>Precio Venta</th>
-                    <th>Precio Credito</th>
-                    <th>Opciones</th>
-                </thead>
-                <tbody>
-                    <?php
-              VerProductosController();
-            ?>
-                </tbody>
-            </table>
-            <!--<a class="btn btn-dark btn-lg" id="nuevorproducto" href="NuevoProducto.php">Ingresar Producto</a>-->
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Datatables</h5>
+                            <!-- Table with stripped rows -->
+                            <a class="btn btn-dark btn-lg" id="nuevorproducto" href="NuevoProducto.php">Ingresar Producto</a>
+                            <table class="table datatable">
+                                <thead>
+                                    <!--Encabezado de la tabla-->
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Descripción</th>
+                                        <th>Categoría</th>
+                                        <th>Tipo</th>
+                                        <th>XS</th>
+                                        <th>S</th>
+                                        <th>M</th>
+                                        <th>L</th>
+                                        <th>XL</th>
+                                        <th>XXL</th>
+                                        <th>Precio Venta</th>
+                                        <th>Precio Crédito</th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                </thead>
+                                <!--Cuerpo de la tabla-->
+                                <tbody>
+                                    <?php ConsultarProductosController();?>
+                                    
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
 
-            <button type="button" class="btn btn-dark btn-lg" data-bs-toggle="modal"
-                data-bs-target="#Nuevo_Producto">Ingresar Producto</button>
-
-
-        </div>
-    </div>
-    <?php include 'NuevoProductoModal.php'?>
-
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../js/script_Producto.js"></script>
-
-</body>
-
-</html>
-<!--Modal nuevo producto-->
-<div class="modal fade" id="Nuevo_Producto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar nuevo Producto</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <form action="../controller/ProductoController.php" method="post"enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-4">
-                            <label for="Descripcion" class="col-form-label">Descripcion del
-                                Producto</label>
-                            <input type="text" class="form-control" id="txtDescripcion">
-                        </div>
-                        <div class="col-4">
-                            <label for="Categoria" class="col-form-label">Categoría</label>
-                            <select id="txtCategoria" name="txtCategoria" class="form-control" required>
-
-                                <?php
-                                        VerCategoriasController($producto["txtCategoria"]);
-                                        ?>
-
-                            </select>
-                        </div>
-                        <div class="col-4">
-                            <label for="Tipo" class="col-form-label">Tipo</label>
-                            <select id="txtTipo" name="txtTipo" class="form-control" required>
-                                <?php
-                                        VerTiposController($producto["id_categoria"]);
-                                        ?>
-
-
-                            </select>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
-                            <label for="PrecioVenta" class="col-form-label">Precio Venta</label>
-                            <input type="number" class="form-control" id="txtPrecioVenta">
-                        </div>
-                        <div class="col">
-                            <label for="PrecioCredito" class="col-form-label">Precio Crédito</label>
-                            <input type="number" class="form-control" id="txtPrecioCredito">
-                        </div>
-                        <div class="row row-cols-3">
-                            <div class="col">
-                                <label for="CantidadXS" class="col-form-label">Cantidad XS</label>
-                                <input type="number" class="form-control" id="txtCantidadXS">
-                            </div>
-                            <div class="col">
-                                <label for="CantidadS" class="col-form-label">Cantidad S</label>
-                                <input type="number" class="form-control" id="txtCantidadS">
-                            </div>
-                            <div class="col">
-                                <label for="CantidadM" class="col-form-label">Cantidad M</label>
-                                <input type="number" class="form-control" id="txtCantidadM">
-                            </div>
-                            <div class="col">
-                                <label for="CantidadL" class="col-form-label">Cantidad L</label>
-                                <input type="number" class="form-control" id="txtCantidadL">
-                            </div>
-                            <div class="col">
-                                <label for="CantidadXL" class="col-form-label">Cantidad XL</label>
-                                <input type="number" class="form-control" id="txtCantidadXL">
-                            </div>
-                            <div class="col">
-                                <label for="CantidadXXL" class="col-form-label">Cantidad XXL</label>
-                                <input type="number" class="form-control" id="txtCantidadXXL">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <label for="Imagen" class="col-form-label">Imagen</label>
-                                <div class="input-group">
-                                    <input type="file" class="form-control" id="inputImage"
-                                        aria-describedby="inputImage" aria-label="Upload">
-                                </div>
-                            </div>
-                        </div>
-
-                </form>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <input type="submit" class="botones" id="btnRegistrarProducto"
-                                            name="btnRegistrarProducto" value="Guardar">
+        </section>
 
-            </div>
-        </div>
+    </main><!-- End #main -->
 
-    </div>
-</div>
-</div>
+    <!-- ======= Footer ======= -->
+
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.min.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/Productos.js"></script>
+</body>
+
+</html>
