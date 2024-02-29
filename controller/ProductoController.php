@@ -1,12 +1,12 @@
 <?php
-include_once 'Componentes.php';
-include_once '../model/ProductoModel.php';
-        
-function VerProductosController()
+include_once '../Model/ProductoModel.php';
+      /*Carga la tabla de productos*/   
+function ConsultarProductosController()
 { 
-    $productos = VerProductos();
+    $productos = ConsultarProductosModel();
     while ($item = mysqli_fetch_array($productos)) 
     { 
+
         echo "<tr>";
         echo "<td>" . $item["IdProducto"] . "</td>";
         echo "<td>" . $item["Descripcion"] . "</td>";
@@ -20,104 +20,79 @@ function VerProductosController()
         echo "<td>" . $item["CantXXL"] . "</td>";
         echo "<td>" . $item["PrecioVenta"] . "</td>";
         echo "<td>" . $item["PrecioCredito"] . "</td>";
-        echo '<td>  <a class="btn btn-outline-light " href="../View/ActualizarProducto.php?q=' . $item["IdProducto"] .'">Editar</a>
-        || <button type="button" class="btn btn-dark btn-lg" data-bs-toggle="modal" data-bs-target="#Editar_Producto" data-productid="'. $item["IdProducto"] .'">Editar</button>
-        || <input type="button" onclick="Eliminar(' . $item["IdProducto"] . ');" value="Eliminar" id= "Eliminar" class="btn btn-outline-light">';
+        echo '<td><a class="btn btn-primary btn-outline-light btn-lg" href="../view/VerProducto.php?q=' . $item["IdProducto"] .'">Actualizar</a> ||
+         <input type="button" onclick="Eliminar(' . $item["IdProducto"] . ');" value="Eliminar" id= "Eliminar" class=" btn btn-primary btn btn-outline-light btn-lg"></td>';
         echo "</tr>";
     }
 }
-
-
-function VerProductoController($id)
+/*Muestra el producto seleccionado*/
+function CargarProductoController($id)
 { 
-    $producto = VerProducto($id);
+    $producto = CargarProductoModel($id);
     $item = mysqli_fetch_array($producto);
-    
 
     return $item;
-}
-
-function VerCategoriasController()
+}/*Muestra todas las categorias disponibles*/
+function ConsultarCategoriasController()
 { 
-    $categorias = VerCategorias();
+    $categorias = ConsultarCategoriasModel();
     while ($item = mysqli_fetch_array($categorias)) 
     {
         echo "<option value=" . $item["IdCategoria"] . ">" . $item["NombreCategoria"] . "</option>";
     }
-}
-function VerTiposController()
+}/*Muestra todos los tipos disponibles*/
+function ConsultarTiposController()
 { 
-    $tipos = VerTipos();
-    while ($item = mysqli_fetch_array($tipos)) 
+    $categorias = ConsultarTiposModel();
+    while ($item = mysqli_fetch_array($categorias)) 
     {
         echo "<option value=" . $item["IdTipo"] . ">" . $item["NombreTipo"] . "</option>";
     }
 }
-
-function p()
+/*Reacciona a la hora de apretar el btnRegistrarProducto y guarda el producto en la base de datos*/ 
+if(isset($_POST['btnRegistrarProducto']))
 {
-    $productos = VerProducto();
-    while ($item = mysqli_fetch_array($productos))
-    {
-        echo '<div class="producto antes" data-target="p-1" data-name="p-1">';
-        echo "<img src=".$item["imagen"] .">";
-        echo "<h3>".$item["detalle"] ."</h3>";
-        echo "<div>" .$item["precio"] . "</div>";
-        echo '<div class="botones">
-        <input type="button" class="btn btn-light" id="btnAgregarCarrito" name="btnAgregarCarrito"
-        value="Agregar al carrito" onclick="AgregarAlCarrito('. $item["id_producto"] .');">
-        </div>';
-        echo '</div>';
-    }
+    $Cantidad_XS=$_POST["txtxs"];
+    $descripcionP= $_POST["txtdescripcion"];
+    $Id_Categoria= $_POST["txtid_categoria"];
+    $Id_Tipo= $_POST["txtid_tipo"];
+    $Cantidad_XXL= $_POST["txtxxl"];
+    $Precio_Venta= $_POST["txtprecioventa"];
+    $Precio_Credito= $_POST["txtpreciocredito"];
+    $Cantidad_S= $_POST["txts"];
+    $Cantidad_M= $_POST["txtm"];
+    $Cantidad_L= $_POST["txtl"];
+    $Cantidad_XL= $_POST["txtxl"];
+    $imagenP= $_POST["txtimagen"];
 
+    RegistrarProductoModel($Cantidad_XS,$descripcionP,$Id_Categoria,$Id_Tipo,$imagenP,$Cantidad_XXL,$Precio_Venta,$Precio_Credito,$Cantidad_S,$Cantidad_M,$Cantidad_L,$Cantidad_XL);
+    Header("Location: ../View/Producto.php");
 }
 
-if(isset($_POST['Funcion']) == "Eliminar_Producto")
+if(isset($_POST['Funcion']) == "Eliminar")
 {
-    $id_producto = $_POST["id_producto"];
-    EliminarProductoModel($id_producto);
+    $id = $_POST["id"];
+    EliminarProductoModel($id);
 }
 
 if(isset($_POST['btnActualizarProducto']))
 {
-    $descripcionP=$_POST["txtDescripcion"];
-    $Id_Categoria=$_POST["txtCategoria"];
-    $Id_Tipo=$_POST["txtTipo"];
-    $Precio_Venta=$_POST["txtPrecioVenta"];
-    $Precio_Credito=$_POST["txtPrecioCredito"];
-    $Cantidad_XS=$_POST["txtCantidadXS"];
-    $Cantidad_S=$_POST["txtCantidadS"];
-    $Cantidad_M=$_POST["txtCantidadM"];
-    $Cantidad_L=$_POST["txtCantidadL"];
-    $Cantidad_XL=$_POST["txtCantidadXL"];
-    $Cantidad_XXL=$_POST["txtCantidadXXL"];
-    $Imagen=$_POST["inputImage"];
-    EditarProducto($id,$Nueva_Cant_XS,$Nueva_Descripcion,$Nuevo_Id_Categoria,$Nuevo_Id_Tipo,$Nueva_Imagen,$Nueva_Cant_XXL,$Nuevo_Precio_Venta,$Nuevo_Precio_Credito,
-    $Nueva_Cant_S,$Nueva_Cant_M,$Nueva_Cant_L,$Nueva_Cant_XL);
-    Header("Location: ../View/Productos.php");
+    $Nueva_Cant_XS=$_POST["txtxs"];
+    $Nueva_Descripcion= $_POST["txtdescripcion"];
+    $Nuevo_Id_Categoria= $_POST["txtid_categoria"];
+    $Nuevo_Id_Tipo= $_POST["txtid_tipo"];
+    $Nueva_Cant_XXL= $_POST["txtxxl"];
+    $Nuevo_Precio_Venta= $_POST["txtprecioventa"];
+    $Nuevo_Precio_Credito= $_POST["txtpreciocredito"];
+    $Nueva_Cant_S= $_POST["txts"];
+    $Nueva_Cant_M= $_POST["txtm"];
+    $Nueva_Cant_L= $_POST["txtl"];
+    $Nueva_Cant_XL= $_POST["txtxl"];
+    $Nueva_Imagen= $_POST["txtimagen"];
+    $id = $_POST["txtid_producto"];
+
+    ActualizarProductoModel($id,$Nueva_Cant_XS,$Nueva_Descripcion,$Nuevo_Id_Categoria,$Nuevo_Id_Tipo,$Nueva_Imagen,
+    $Nueva_Cant_XXL,$Nuevo_Precio_Venta,$Nuevo_Precio_Credito,$Nueva_Cant_S,$Nueva_Cant_M,$Nueva_Cant_L,$Nueva_Cant_XL);
+    Header("Location: ../View/Producto.php");
 }
-
-if(isset($_POST['btnRegistrarProducto']))
-{
-
-    $descripcionP=$_POST["txtDescripcion"];
-    $Id_Categoria=$_POST["txtCategoria"];
-    $Id_Tipo=$_POST["txtTipo"];
-    $Precio_Venta=$_POST["txtPrecioVenta"];
-    $Precio_Credito=$_POST["txtPrecioCredito"];
-    $Cantidad_XS=$_POST["txtCantidadXS"];
-    $Cantidad_S=$_POST["txtCantidadS"];
-    $Cantidad_M=$_POST["txtCantidadM"];
-    $Cantidad_L=$_POST["txtCantidadL"];
-    $Cantidad_XL=$_POST["txtCantidadXL"];
-    $Cantidad_XXL=$_POST["txtCantidadXXL"];
-    $Imagen=$_POST["inputImage"];
-    CrearProducto($Cantidad_XS,$descripcionP,$Id_Categoria,$Id_Tipo,$imagenP,$Cantidad_XXL,$Precio_Venta,$Precio_Credito,$Cantidad_S,$Cantidad_M,$Cantidad_L,$Cantidad_XL);
-    echo'estoy aqui';
-    Header("Location: ../view/Producto.php");
-}
-
-
-
-
 ?>

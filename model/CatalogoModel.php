@@ -10,7 +10,7 @@ function VerCatalogo()
 
     return $catalogo;
 }
-function VerProducto($id)
+function CargarProductoModel($id)
 { 
     $instancia = AbrirBD();
     $producto = $instancia -> query("CALL VerProducto('$id')");

@@ -1,5 +1,5 @@
 <?php
-include_once 'Componentes.php'; 
+//include_once 'Componentes.php'; 
 include_once '../Model/CatalogoModel.php';
         
 function VerCatalogoController()
@@ -18,7 +18,7 @@ function VerCatalogoController()
             echo '<div class="cvp">';
             echo '<h5 class="card-title font-weight-bold">'. $item["Descripcion"] . '</h5>'; // Display item description
             echo '<p class="card-text">₡'.$item["PrecioVenta"].'</p>'; // Display item price
-            echo '<a href="#" class="btn btn-primary">Go somewhere</a>'; // A link or button
+            echo '<a class="btn btn-primary btn-outline-light btn-lg" href="../view/VerProducto.php?q=' . $item["IdProducto"] .'">Más información</a>'; // A link or button
             echo '</div>'; 
             echo '</div>';
             echo '</div>';
@@ -31,11 +31,11 @@ function VerCatalogoController()
     }
 }
 
-
+/*<a class="btn btn-primary btn-outline-light btn-lg" href="../view/VerProducto.php?q=' . $item["IdProducto"] .'">Actualizar</a>*/
 
 function VerProductoController($id)
 { 
-    $producto = CargarCatalogoModel($id);
+    $producto = CargarProductoModel($id);
     $item = mysqli_fetch_array($producto);
 
     return $item;
