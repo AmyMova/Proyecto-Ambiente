@@ -54,7 +54,7 @@ $producto = CargarProductoController($IdProducto)
                                 <select id="txtid_tipo" name="txtid_tipo" class="form-control" required>
 
                                     <?php
-                        ConsultarTiposController($producto["IdTipo"]);
+                        ConsultarMarcasController($producto["IdMarca"]);
                         ?>
 
                                 </select>

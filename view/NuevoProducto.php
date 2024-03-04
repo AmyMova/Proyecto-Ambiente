@@ -45,7 +45,7 @@ include_once '../Controller/ProductoController.php';
                                         required>
                                         
                                         <?php
-                                        ConsultarTiposController($producto["IdTipo"]);
+                                        ConsultarMarcasController($producto["IdMarca"]);
                                         ?>
 
                                         </select> 

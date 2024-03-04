@@ -30,19 +30,19 @@ function ConsultarCategoriasModel()
     return $categorias;
 }
 /*Carga los tipos existentes para el select*/
-function ConsultarTiposModel()
+function ConsultarMarcasModel()
 { 
     $instancia = AbrirBD();
-    $categorias = $instancia -> query("CALL VerTipos()");
+    $categorias = $instancia -> query("CALL VerMarcas()");
     CerrarBD($instancia);  
 
     return $categorias;
 }
 /*Registra los productos a la base de datos*/
-function RegistrarProductoModel($Cantidad_XS,$descripcionP,$Id_Categoria,$Id_Tipo,$imagenP,$Cantidad_XXL,$Precio_Venta,$Precio_Credito,$Cantidad_S,$Cantidad_M,$Cantidad_L,$Cantidad_XL)
+function RegistrarProductoModel($Cantidad_XS,$descripcionP,$Id_Categoria,$Id_Marca,$imagenP,$Cantidad_XXL,$Precio_Venta,$Precio_Credito,$Cantidad_S,$Cantidad_M,$Cantidad_L,$Cantidad_XL)
 { 
     $instancia = AbrirBD();
-    $instancia -> query("CALL CrearProducto('$Cantidad_XS','$descripcionP','$Id_Categoria','$Id_Tipo','$imagenP','$Cantidad_XXL','$Precio_Venta','$Precio_Credito','$Cantidad_S','$Cantidad_M','$Cantidad_L','$Cantidad_XL')");
+    $instancia -> query("CALL CrearProducto('$Cantidad_XS','$descripcionP','$Id_Categoria','$Id_Marca','$imagenP','$Cantidad_XXL','$Precio_Venta','$Precio_Credito','$Cantidad_S','$Cantidad_M','$Cantidad_L','$Cantidad_XL')");
     CerrarBD($instancia);
 }
 /*Elimina el producto seleccionado de la base de datos*/
@@ -53,11 +53,11 @@ function EliminarProductoModel($id)
     CerrarBD($instancia);
 }
 /*Actualiza el producto seleccionado en la base de datos*/
-function ActualizarProductoModel($id,$Nueva_Cant_XS,$Nueva_Descripcion,$Nuevo_Id_Categoria,$Nuevo_Id_Tipo,$Nueva_Imagen,$Nueva_Cant_XXL,$Nuevo_Precio_Venta,$Nuevo_Precio_Credito,$Nueva_Cant_S,$Nueva_Cant_M,$Nueva_Cant_L,$Nueva_Cant_XL)
+function ActualizarProductoModel($id,$Nueva_Cant_XS,$Nueva_Descripcion,$Nuevo_Id_Categoria,$Nuevo_Id_Marca,$Nueva_Imagen,$Nueva_Cant_XXL,$Nuevo_Precio_Venta,$Nuevo_Precio_Credito,$Nueva_Cant_S,$Nueva_Cant_M,$Nueva_Cant_L,$Nueva_Cant_XL)
 { 
    
     $instancia = AbrirBD();
-    $instancia -> query("CALL EditarProducto('$id','$Nueva_Cant_XS','$Nueva_Descripcion','$Nuevo_Id_Categoria','$Nuevo_Id_Tipo','$Nueva_Imagen','$Nueva_Cant_XXL','$Nuevo_Precio_Venta','$Nuevo_Precio_Credito','$Nueva_Cant_S','$Nueva_Cant_M','$Nueva_Cant_L','$Nueva_Cant_XL')");
+    $instancia -> query("CALL EditarProducto('$id','$Nueva_Cant_XS','$Nueva_Descripcion','$Nuevo_Id_Categoria','$Nuevo_Id_Marca','$Nueva_Imagen','$Nueva_Cant_XXL','$Nuevo_Precio_Venta','$Nuevo_Precio_Credito','$Nueva_Cant_S','$Nueva_Cant_M','$Nueva_Cant_L','$Nueva_Cant_XL')");
     CerrarBD($instancia);
 }
 ?>
