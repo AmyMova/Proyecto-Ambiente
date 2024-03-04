@@ -11,7 +11,7 @@ function ConsultarProductosController()
         echo "<td>" . $item["IdProducto"] . "</td>";
         echo "<td>" . $item["Descripcion"] . "</td>";
         echo "<td>" . $item["NombreCategoria"] . "</td>";
-        echo "<td>" . $item["NombreTipo"] . "</td>";
+        echo "<td>" . $item["Marca"] . "</td>";
         echo "<td>" . $item["CantXS"] . "</td>";
         echo "<td>" . $item["CantS"] . "</td>";
         echo "<td>" . $item["CantM"] . "</td>";
@@ -41,12 +41,12 @@ function ConsultarCategoriasController()
         echo "<option value=" . $item["IdCategoria"] . ">" . $item["NombreCategoria"] . "</option>";
     }
 }/*Muestra todos los tipos disponibles*/
-function ConsultarTiposController()
+function ConsultarMarcasController()
 { 
-    $categorias = ConsultarTiposModel();
-    while ($item = mysqli_fetch_array($categorias)) 
+    $Marca = ConsultarMarcasModel();
+    while ($item = mysqli_fetch_array($Marca)) 
     {
-        echo "<option value=" . $item["IdTipo"] . ">" . $item["NombreTipo"] . "</option>";
+        echo "<option value=" . $item["IdMarca"] . ">" . $item["Marca"] . "</option>";
     }
 }
 /*Reacciona a la hora de apretar el btnRegistrarProducto y guarda el producto en la base de datos*/ 
@@ -55,7 +55,7 @@ if(isset($_POST['btnRegistrarProducto']))
     $Cantidad_XS=$_POST["txtxs"];
     $descripcionP= $_POST["txtdescripcion"];
     $Id_Categoria= $_POST["txtid_categoria"];
-    $Id_Tipo= $_POST["txtid_tipo"];
+    $Id_Marca= $_POST["txtid_tipo"];
     $Cantidad_XXL= $_POST["txtxxl"];
     $Precio_Venta= $_POST["txtprecioventa"];
     $Precio_Credito= $_POST["txtpreciocredito"];
@@ -65,7 +65,7 @@ if(isset($_POST['btnRegistrarProducto']))
     $Cantidad_XL= $_POST["txtxl"];
     $imagenP= $_POST["txtimagen"];
 
-    RegistrarProductoModel($Cantidad_XS,$descripcionP,$Id_Categoria,$Id_Tipo,$imagenP,$Cantidad_XXL,$Precio_Venta,$Precio_Credito,$Cantidad_S,$Cantidad_M,$Cantidad_L,$Cantidad_XL);
+    RegistrarProductoModel($Cantidad_XS,$descripcionP,$Id_Categoria,$Id_Marca,$imagenP,$Cantidad_XXL,$Precio_Venta,$Precio_Credito,$Cantidad_S,$Cantidad_M,$Cantidad_L,$Cantidad_XL);
     Header("Location: ../View/Producto.php");
 }
 
@@ -80,7 +80,7 @@ if(isset($_POST['btnActualizarProducto']))
     $Nueva_Cant_XS=$_POST["txtxs"];
     $Nueva_Descripcion= $_POST["txtdescripcion"];
     $Nuevo_Id_Categoria= $_POST["txtid_categoria"];
-    $Nuevo_Id_Tipo= $_POST["txtid_tipo"];
+    $Nuevo_Id_Marca= $_POST["txtid_tipo"];
     $Nueva_Cant_XXL= $_POST["txtxxl"];
     $Nuevo_Precio_Venta= $_POST["txtprecioventa"];
     $Nuevo_Precio_Credito= $_POST["txtpreciocredito"];
@@ -91,7 +91,7 @@ if(isset($_POST['btnActualizarProducto']))
     $Nueva_Imagen= $_POST["txtimagen"];
     $id = $_POST["txtid_producto"];
 
-    ActualizarProductoModel($id,$Nueva_Cant_XS,$Nueva_Descripcion,$Nuevo_Id_Categoria,$Nuevo_Id_Tipo,$Nueva_Imagen,
+    ActualizarProductoModel($id,$Nueva_Cant_XS,$Nueva_Descripcion,$Nuevo_Id_Categoria,$Nuevo_Id_Marca,$Nueva_Imagen,
     $Nueva_Cant_XXL,$Nuevo_Precio_Venta,$Nuevo_Precio_Credito,$Nueva_Cant_S,$Nueva_Cant_M,$Nueva_Cant_L,$Nueva_Cant_XL);
     Header("Location: ../View/Producto.php");
 }
