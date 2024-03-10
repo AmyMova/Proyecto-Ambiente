@@ -1,17 +1,21 @@
 <?php
+require_once "global.php";
 
-function AbrirBD()
+class Conexion
 {
-    $server = "127.0.0.1:3306";
-    $user = "root";
-    $password = "";
-    $database = "rosayanil";
-    return mysqli_connect($server, $user, $password, $database);
-}
+    function __construct()
+    {
+        # code...
+    }
+    public static function conectar(){
+        //conexion mysql
+        try {
+            $cn = new PDO("mysql:host=".DB_HOST_MYSQL.";dbname=".DB_NAME_MYSQL.";charset=utf8",DB_USER_MYSQL,DB_PASSWORD_MYSQL);
+            $cn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $cn;
+        } catch (PDOException $ex) {
+            die($ex->getMessage());
+        }
+    }
 
-function CerrarBD($instancia)
-{
-    mysqli_close($instancia);
 }
-
-?>
