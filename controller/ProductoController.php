@@ -1,98 +1,155 @@
 <?php
-include_once '../Model/ProductoModel.php';
-      /*Carga la tabla de productos*/   
-function ConsultarProductosController()
-{ 
-    $productos = ConsultarProductosModel();
-    while ($item = mysqli_fetch_array($productos)) 
-    { 
+    require_once '../Model/ProductoModel.php';
 
-        echo "<tr>";
-        echo "<td>" . $item["IdProducto"] . "</td>";
-        echo "<td>" . $item["Descripcion"] . "</td>";
-        echo "<td>" . $item["NombreCategoria"] . "</td>";
-        echo "<td>" . $item["Marca"] . "</td>";
-        echo "<td>" . $item["CantXS"] . "</td>";
-        echo "<td>" . $item["CantS"] . "</td>";
-        echo "<td>" . $item["CantM"] . "</td>";
-        echo "<td>" . $item["CantL"] . "</td>";
-        echo "<td>" . $item["CantXL"] . "</td>";
-        echo "<td>" . $item["CantXXL"] . "</td>";
-        echo "<td>" . $item["PrecioVenta"] . "</td>";
-        echo "<td>" . $item["PrecioCredito"] . "</td>";
-        echo '<td><a class="btn btn-primary btn-outline-light btn-lg" href="../view/VerProducto.php?q=' . $item["IdProducto"] .'">Actualizar</a> ||
-         <input type="button" onclick="Eliminar(' . $item["IdProducto"] . ');" value="Eliminar" id= "Eliminar" class=" btn btn-primary btn btn-outline-light btn-lg"></td>';
-        echo "</tr>";
-    }
-}
-/*Muestra el producto seleccionado*/
-function CargarProductoController($id)
-{ 
-    $producto = CargarProductoModel($id);
-    $item = mysqli_fetch_array($producto);
+    switch ($_GET["op"]) {
+        case 'ListarTablaProducto':
+            $producto = new Producto();
+            $productos = $producto->VerProductosDB();
+            $data = array();
+            foreach ($productos as $reg) {
+                $data[] = array(
+                    "0" => $reg->getIdProducto(),
+                    "1" => $reg->getDescripcion(),
+                    "2" => $reg->getNombreCategoria(),
+                    "3" => $reg->getMarca(),
+                    "4" => $reg->getCantXS(),
+                    "5" => $reg->getCantS(),
+                    "6" => $reg->getCantM(),
+                    "7" => $reg->getCantL(),
+                    "8" => $reg->getCantXL(),
+                    "9" => $reg->getCantXXL(),
+                    "10" => $reg->getPrecioVenta(),
+                    "11" => $reg->getPrecioCredito(),
+                    "12" => $reg->getImagen(),
+                    "13" =>'</button> <button class="btn btn-warning" id="modificarProducto">Modificar</button> '.
+                    '<button class="btn btn-danger" onclick="Eliminar(\''.$reg->getIdProducto().'\')">Eliminar</button>'
+                );
+            }
+            $resultados = array(
+                "sEcho" => 1, ##informacion para datatables
+                "iTotalRecords" =>count($data), ## total de registros al datatable
+                "iTotalDisplayRecords" => count($data), ## enviamos el total de registros a visualizar
+                "aaData" => $data
+            );
+            echo json_encode($resultados);
+        break;
+        case 'AgregarProducto':
+            $Descripcion=isset($_POST["descripcionP"])?trim($_POST["descripcionP"]):"";
+            $CantXS=isset($_POST["Cantidad_XS"])?trim($_POST["Cantidad_XS"]):"";
+            $CantS=isset($_POST["Cantidad_S"])?trim($_POST["Cantidad_S"]):"";
+            $CantM=isset($_POST["Cantidad_M"])?trim($_POST["Cantidad_M"]):"";
+            $CantL=isset($_POST["Cantidad_L"])?trim($_POST["Cantidad_L"]):"";
+            $CantXL=isset($_POST["Cantidad_XL"])?trim($_POST["Cantidad_XL"]):"";
+            $CantXXL=isset($_POST["Cantidad_XXL"])?trim($_POST["Cantidad_XXL"]):"";
+            $IdCategoria=isset($_POST["Id_Categoria"])?trim($_POST["Id_Categoria"]):"";
+            $IdMarca=isset($_POST["Id_Marca"])?trim($_POST["Id_Marca"]):"";
+            $PrecioVenta=isset($_POST["Precio_Venta"])?trim($_POST["Precio_Venta"]):"";
+            $PrecioCredito=isset($_POST["Precio_Credito"])?trim($_POST["Precio_Credito"]):"";
+            $Imagen=isset($_POST["imagenP"])?trim($_POST["imagenP"]):"";
+            
+                  $producto = new Producto();
 
-    return $item;
-}/*Muestra todas las categorias disponibles*/
-function ConsultarCategoriasController()
-{ 
-    $categorias = ConsultarCategoriasModel();
-    while ($item = mysqli_fetch_array($categorias)) 
-    {
-        echo "<option value=" . $item["IdCategoria"] . ">" . $item["NombreCategoria"] . "</option>";
-    }
-}/*Muestra todos los tipos disponibles*/
-function ConsultarMarcasController()
-{ 
-    $Marca = ConsultarMarcasModel();
-    while ($item = mysqli_fetch_array($Marca)) 
-    {
-        echo "<option value=" . $item["IdMarca"] . ">" . $item["Marca"] . "</option>";
-    }
-}
-/*Reacciona a la hora de apretar el btnRegistrarProducto y guarda el producto en la base de datos*/ 
-if(isset($_POST['btnRegistrarProducto']))
-{
-    $Cantidad_XS=$_POST["txtxs"];
-    $descripcionP= $_POST["txtdescripcion"];
-    $Id_Categoria= $_POST["txtid_categoria"];
-    $Id_Marca= $_POST["txtid_tipo"];
-    $Cantidad_XXL= $_POST["txtxxl"];
-    $Precio_Venta= $_POST["txtprecioventa"];
-    $Precio_Credito= $_POST["txtpreciocredito"];
-    $Cantidad_S= $_POST["txts"];
-    $Cantidad_M= $_POST["txtm"];
-    $Cantidad_L= $_POST["txtl"];
-    $Cantidad_XL= $_POST["txtxl"];
-    $imagenP= $_POST["txtimagen"];
+                  $producto->setDescripcion($Descripcion);
+                  $encontrado=$producto->verificarExistenciaProductoDb();
+                  if($encontrado == 1) {
+                  $producto->setCantXS($CantXS);
+                  $producto->setCantS($CantS);
+                  $producto->setCantM($CantM);
+                  $producto->setCantL($CantL);
+                  $producto->setCantXL($CantXL);
+                  $producto->setCantXXL($CantXXL);
+                  $producto->setIdCategoria($IdCategoria);
+                  $producto->setIdMarca($IdMarca);
+                  $producto->setPrecioCredito($PrecioCredito);
+                  $producto->setPrecioVenta($PrecioVenta);
+                  $producto->setImagen($Imagen);
+                  $producto->CrearProductoDB();
+                  if($producto->verificarExistenciaProductoDb()){
+                        echo 1; //producto registrado 
+                      //  echo 4; //producto registrado y envio de correo fallido
+                    //}
+                }else{
+                    echo 3; //Fallo al realizar el registro
+                }
+            } else {
+                echo 2; //el producto ya existe
+            }
 
-    RegistrarProductoModel($Cantidad_XS,$descripcionP,$Id_Categoria,$Id_Marca,$imagenP,$Cantidad_XXL,$Precio_Venta,$Precio_Credito,$Cantidad_S,$Cantidad_M,$Cantidad_L,$Cantidad_XL);
-    Header("Location: ../View/Producto.php");
-}
+        break;
+        case 'MostrarProducto':
+            $producto = isset($_POST["product"]) ? $_POST["product"] : "";
+            $product = new Producto();
+            $product->setProducto($producto);
+            $encontrado = $product->mostrar($producto);
+            if ($encontrado != null) {
+                $arr = Array();
+                $arr[] = [
+                    "producto" => $encontrado->getProducto(),
+                    "descripcion" => $encontrado->getDescripcion(),
+                    "precioVenta" => $encontrado->getPrecioVenta()
+                ];
+    
+                echo json_encode($arr);
+            }else{
+                echo 0;
+            }
+        break;
+        case 'EditarProducto':
+            $IdProducto=isset($_POST["id"]) ? trim($_POST["id"]) : "";
+            $Descripcion=isset($_POST["Nueva_Descripcion"])?trim($_POST["Nueva_Descripcion"]):"";
+            $CantXS=isset($_POST["Nueva_Cant_XS"])?trim($_POST["Nueva_Cant_XS"]):"";
+            $CantS=isset($_POST["Nueva_Cant_S"])?trim($_POST["Nueva_Cant_S"]):"";
+            $CantM=isset($_POST["Nueva_Cant_M"])?trim($_POST["Nueva_Cant_M"]):"";
+            $CantL=isset($_POST["Nueva_Cant_L"])?trim($_POST["Nueva_Cant_L"]):"";
+            $CantXL=isset($_POST["Nueva_Cant_XL"])?trim($_POST["Nueva_Cant_XL"]):"";
+            $CantXXL=isset($_POST["Nueva_Cant_XXL"])?trim($_POST["Nueva_Cant_XXL"]):"";
+            $IdCategoria=isset($_POST["Nuevo_Id_Categoria"])?trim($_POST["Nuevo_Id_Categoria"]):"";
+            $IdMarca=isset($_POST["Nuevo_Id_Marca"])?trim($_POST["Nuevo_Id_Marca"]):"";
+            $PrecioVenta=isset($_POST["Nuevo_Precio_Venta"])?trim($_POST["Nuevo_Precio_Venta"]):"";
+            $PrecioCredito=isset($_POST["Nuevo_Precio_Credito"])?trim($_POST["Nuevo_Precio_Credito"]):"";
+            $Imagen=isset($_POST["Nueva_Imagen"])?trim($_POST["Nueva_Imagen"]):"";
 
-if(isset($_POST['Funcion']) == "Eliminar")
-{
-    $id = $_POST["id"];
-    EliminarProductoModel($id);
-}
+            $producto = new Producto();
 
-if(isset($_POST['btnActualizarProducto']))
-{
-    $Nueva_Cant_XS=$_POST["txtxs"];
-    $Nueva_Descripcion= $_POST["txtdescripcion"];
-    $Nuevo_Id_Categoria= $_POST["txtid_categoria"];
-    $Nuevo_Id_Marca= $_POST["txtid_tipo"];
-    $Nueva_Cant_XXL= $_POST["txtxxl"];
-    $Nuevo_Precio_Venta= $_POST["txtprecioventa"];
-    $Nuevo_Precio_Credito= $_POST["txtpreciocredito"];
-    $Nueva_Cant_S= $_POST["txts"];
-    $Nueva_Cant_M= $_POST["txtm"];
-    $Nueva_Cant_L= $_POST["txtl"];
-    $Nueva_Cant_XL= $_POST["txtxl"];
-    $Nueva_Imagen= $_POST["txtimagen"];
-    $id = $_POST["txtid_producto"];
+                  $producto->setDescripcion($Descripcion);
+                  $encontrado=$producto->verificarExistenciaProductoDb();
+              if ($encontrado == 1) {
+                $producto->llenarCampos($IdProducto);
 
-    ActualizarProductoModel($id,$Nueva_Cant_XS,$Nueva_Descripcion,$Nuevo_Id_Categoria,$Nuevo_Id_Marca,$Nueva_Imagen,
-    $Nueva_Cant_XXL,$Nuevo_Precio_Venta,$Nuevo_Precio_Credito,$Nueva_Cant_S,$Nueva_Cant_M,$Nueva_Cant_L,$Nueva_Cant_XL);
-    Header("Location: ../View/Producto.php");
-}
-?>
+                    $producto->setDescripcion($Descripcion);
+                  $producto->setCantXS($CantXS);
+                  $producto->setCantS($CantS);
+                  $producto->setCantM($CantM);
+                  $producto->setCantL($CantL);
+                  $producto->setCantXL($CantXL);
+                  $producto->setCantXXL($CantXXL);
+                  $producto->setIdCategoria($IdCategoria);
+                  $producto->setIdMarca($IdMarca);
+                  $producto->setImagen($Imagen);
+                  $producto->setPrecioCredito($PrecioCredito);
+                  $producto->setPrecioVenta($PrecioVenta);
+                  $producto->setIdProducto($IdProducto);
+                $modificados = $producto->EditarProducto();
+                if ($modificados > 0) {
+                    echo 1;
+                  } else {
+                    echo 0;
+                  }
+                }else{
+                  echo 2;	
+                }
+          break;
+            
+          case'EliminarProducto':
+            $ul = new Producto();
+            $ul->setIdProducto(trim($_POST['id']));
+            $encontrado=$ul->verificarExistenciaProductoByIDDb();
+            if($encontrado==1){
+                $ul->EliminarProducto();
+            }else{
+                echo 2;	
+              }
+            
+        }
+    
+  ?>
