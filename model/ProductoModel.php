@@ -184,6 +184,8 @@ class Producto extends Conexion
             foreach ($resultado->fetchAll() as $encontrado) {
                 $producto = new Producto();
                 $producto->setIdProducto($encontrado['IdProducto']);
+                $producto->setIdCategoria($encontrado['IdCategoria']);
+                $producto->setIdMarca($encontrado['IdMarca']);
                 $producto->setCantXS($encontrado['CantXS']);
                 $producto->setCantS($encontrado['CantS']);
                 $producto->setCantM($encontrado['CantM']);
@@ -247,24 +249,7 @@ class Producto extends Conexion
             return json_encode($error);
         }
     }
-    public static function mostrar($IdProducto)
-    {
-        $query = "Call VerProducto(id)";
-        $id = $IdProducto;
-        try {
-            self::getConexion();
-            $resultado = self::$cnx->prepare($query);
-            $resultado->bindParam(":id", $id, PDO::PARAM_STR);
-            $resultado->execute();
-            self::desconectar();
-            return $resultado->fetch();
-        } catch (PDOException $Exception) {
-            self::desconectar();
-            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
-            return $error;
-        }
-
-    }
+    
 
     public function EliminarProducto()
     {
@@ -370,27 +355,27 @@ class Producto extends Conexion
     }
 
     public function verificarExistenciaProductoDb()
-    {
-        $query = "SELECT * FROM producto where Descripcion=:Descripcion";
-        try {
-            self::getConexion();
-            $resultado = self::$cnx->prepare($query);
-            $Descripcion = $this->getDescripcion();
+{
+    $query = "SELECT COUNT(*) FROM producto WHERE Descripcion=:Descripcion";
+    try {
+        self::getConexion();
+        $resultado = self::$cnx->prepare($query);
+        $Descripcion = $this->getDescripcion();
 
-            $resultado->bindParam(":Descripcion", $Descripcion, PDO::PARAM_STR);
-            $resultado->execute();
-            self::desconectar();
-            $encontrado = false;
-            foreach ($resultado->fetchAll() as $reg) {
-                $encontrado = true;
-            }
-            return $encontrado;
-        } catch (PDOException $Exception) {
-            self::desconectar();
-            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
-            return $error;
-        }
+        $resultado->bindParam(":Descripcion", $Descripcion, PDO::PARAM_STR);
+        $resultado->execute();
+        $count = $resultado->fetchColumn();
+        self::desconectar();
+        
+        // Si count es mayor que 0, significa que el producto existe
+        return $count > 0;
+    } catch (PDOException $Exception) {
+        self::desconectar();
+        $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+        return $error;
     }
+}
+
     public function verificarExistenciaProductoByIDDb()
     {
         $query = "SELECT * FROM producto where IdProducto=:id";

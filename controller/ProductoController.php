@@ -22,7 +22,9 @@ switch ($_GET["op"]) {
                 "11" => $reg->getPrecioCredito(),
                 "12" => $reg->getImagen(),
                 "13" => '</button> <button class="btn btn-warning" id="modificarProducto">Modificar</button> ' .
-                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdProducto() . '\')">Eliminar</button>'
+                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdProducto() . '\')">Eliminar</button>',
+                    "14" => $reg->getIdCategoria(),
+                "15" => $reg->getIdMarca()
             );
         }
         $resultados = array(
@@ -45,13 +47,34 @@ switch ($_GET["op"]) {
         $IdMarca = isset($_POST["Id_Marca"]) ? trim($_POST["Id_Marca"]) : "";
         $PrecioVenta = isset($_POST["Precio_Venta"]) ? trim($_POST["Precio_Venta"]) : "";
         $PrecioCredito = isset($_POST["Precio_Credito"]) ? trim($_POST["Precio_Credito"]) : "";
-        $Imagen = isset($_POST["imagenP"]) ? trim($_POST["imagenP"]) : "";
+        
+        $newImageName = ""; 
+        if (isset($_FILES["imagenP"]["name"])) {
+            $imagenName = $_FILES["imagenP"]["name"];
+            $tmpName = $_FILES["imagenP"]["tmp_name"];
+
+            $validImageExtension = ['jpeg', 'jpg', 'png'];
+            $imageExtension = explode('.', $imagenName);
+
+            $name = $imageExtension[0];
+            $imageExtension = strtolower(end($imageExtension));
+
+            if (!in_array($imageExtension, $validImageExtension)) {
+                
+                $newImageName="imagenPredeterminada-65f0e2911dded.jpg";
+ 
+            } else {
+                $newImageName = $name . "-" . uniqid() . '.' . $imageExtension;
+                
+            }
+
+        }
 
         $producto = new Producto();
 
         $producto->setDescripcion($Descripcion);
         $encontrado = $producto->verificarExistenciaProductoDb();
-        if ($encontrado == 1) {
+        if ($encontrado == 0) {
             $producto->setCantXS($CantXS);
             $producto->setCantS($CantS);
             $producto->setCantM($CantM);
@@ -62,8 +85,9 @@ switch ($_GET["op"]) {
             $producto->setIdMarca($IdMarca);
             $producto->setPrecioCredito($PrecioCredito);
             $producto->setPrecioVenta($PrecioVenta);
-            $producto->setImagen($Imagen);
+            $producto->setImagen($newImageName);
             $producto->CrearProductoDB();
+            move_uploaded_file($tmpName, '../view/assets/img/'. $newImageName);
             if ($producto->verificarExistenciaProductoDb()) {
                 echo 1; //producto registrado 
                 //  echo 4; //producto registrado y envio de correo fallido
@@ -124,13 +148,13 @@ switch ($_GET["op"]) {
     case 'EliminarProducto':
         $producto = new Producto();
         $producto->setIdProducto(trim($_POST['IdProducto']));
-        $encontrado=$producto->verificarExistenciaProductoByIDDb();
-        if($encontrado==1){
+        $encontrado = $producto->verificarExistenciaProductoByIDDb();
+        if ($encontrado == 1) {
             $rspta = $producto->EliminarProducto();
-        }else{
-            $rspta="No encontrado";
+        } else {
+            $rspta = "No encontrado";
         }
-        
+
         echo $rspta;
 
 }

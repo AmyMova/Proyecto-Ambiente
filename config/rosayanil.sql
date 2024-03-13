@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-03-2024 a las 18:26:18
+-- Tiempo de generación: 12-03-2024 a las 01:18:06
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -45,9 +45,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `CrearMarca` (IN `Nombre_Tipo` VARCH
 END$$
 
 DROP PROCEDURE IF EXISTS `CrearProducto`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CrearProducto` (IN `Cantidad_XS` INT, IN `descripcionP` VARCHAR(100), IN `Id_Categoria` INT, IN `Id_Tipo` INT, IN `imagenP` VARCHAR(100), IN `Cantidad_XXL` INT, IN `Precio_Venta` DECIMAL, IN `Precio_Credito` DECIMAL, IN `Cantidad_S` INT, IN `Cantidad_M` INT, IN `Cantidad_L` INT, IN `Cantidad_XL` INT)   BEGIN
-    INSERT INTO producto(cantXS, descripcion, idcategoria, idtipo, imagen, cantXXL, precioVenta, precioCredito,CantS,CantM,CantL,CantXL)
-    VALUES (Cantidad_XS, descripcionP, Id_Categoria, Id_Tipo, imagenP, Cantidad_XXL, Precio_Venta, Precio_Credito,Cantidad_S,Cantidad_M,Cantidad_L,Cantidad_XL);
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CrearProducto` (IN `Cantidad_XS` INT, IN `descripcionP` VARCHAR(100), IN `Id_Categoria` INT, IN `Id_Marca` INT, IN `imagenP` VARCHAR(100), IN `Cantidad_XXL` INT, IN `Precio_Venta` DECIMAL, IN `Precio_Credito` DECIMAL, IN `Cantidad_S` INT, IN `Cantidad_M` INT, IN `Cantidad_L` INT, IN `Cantidad_XL` INT)   BEGIN
+    INSERT INTO producto(cantXS, descripcion, idcategoria, idMarca, imagen, cantXXL, precioVenta, precioCredito,CantS,CantM,CantL,CantXL)
+    VALUES (Cantidad_XS, descripcionP, Id_Categoria, Id_Marca, imagenP, Cantidad_XXL, Precio_Venta, Precio_Credito,Cantidad_S,Cantidad_M,Cantidad_L,Cantidad_XL);
 END$$
 
 DROP PROCEDURE IF EXISTS `EditarCategoria`$$
@@ -61,11 +61,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `EditarMarca` (IN `id` INT, IN `Nuev
 END$$
 
 DROP PROCEDURE IF EXISTS `EditarProducto`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `EditarProducto` (IN `id` INT, IN `Nueva_Cant_XS` INT, IN `Nueva_Descripcion` VARCHAR(100), IN `Nuevo_Id_Categoria` INT, IN `Nuevo_Id_Tipo` INT, IN `Nueva_Imagen` VARCHAR(100), IN `Nueva_Cant_XXL` INT, IN `Nuevo_Precio_Venta` DECIMAL, IN `Nuevo_Precio_Credito` DECIMAL, IN `Nueva_Cant_S` INT, IN `Nueva_Cant_M` INT, IN `Nueva_Cant_L` INT, IN `Nueva_Cant_XL` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EditarProducto` (IN `id` INT, IN `Nueva_Cant_XS` INT, IN `Nueva_Descripcion` VARCHAR(100), IN `Nuevo_Id_Categoria` INT, IN `Nuevo_Id_Marca` INT, IN `Nueva_Imagen` VARCHAR(100), IN `Nueva_Cant_XXL` INT, IN `Nuevo_Precio_Venta` DECIMAL, IN `Nuevo_Precio_Credito` DECIMAL, IN `Nueva_Cant_S` INT, IN `Nueva_Cant_M` INT, IN `Nueva_Cant_L` INT, IN `Nueva_Cant_XL` INT)   BEGIN
     UPDATE producto SET 
     descripcion =Nueva_Descripcion,
 IdCategoria= Nuevo_Id_Categoria,
-IdTipo=Nuevo_Id_Tipo,
+IdMarca=Nuevo_Id_Marca,
 Imagen=Nueva_Imagen,
 PrecioVenta=Nuevo_Precio_Venta,
 PrecioCredito=Nuevo_Precio_Credito,
@@ -105,12 +105,12 @@ WHERE
     IdMarca = id ; END$$
 
 DROP PROCEDURE IF EXISTS `EliminarProducto`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `EliminarProducto` (`id` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EliminarProducto` (IN `id` INT)   BEGIN
     DELETE
 FROM
     producto
 WHERE
-    Idproducto = id ; END$$
+    producto.Idproducto = id ; END$$
 
 DROP PROCEDURE IF EXISTS `EliminarUsuario`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `EliminarUsuario` (`id` INT)   BEGIN
@@ -199,7 +199,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `VerProducto` (IN `id` INT)   BEGIN
 
 DROP PROCEDURE IF EXISTS `VerProductos`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `VerProductos` ()   BEGIN
-    SELECT p.IdProducto,c.NombreCategoria,m.Marca,p.Descripcion,p.PrecioVenta,p.PrecioCredito,p.CantXS,p.CantS,p.CantM,p.CantL,p.CantXL,p.CantXXL FROM Producto p,categoria c, marca m where p.IdMarca=m.IdMarca and c.IdCategoria=p.IdCategoria;
+    SELECT p.IdProducto,c.NombreCategoria,m.Marca,p.Descripcion,p.PrecioVenta,p.PrecioCredito,p.CantXS,p.CantS,p.CantM,p.CantL,p.CantXL,p.CantXXL,p.Imagen FROM Producto p,categoria c, marca m where p.IdMarca=m.IdMarca and c.IdCategoria=p.IdCategoria;
 END$$
 
 DROP PROCEDURE IF EXISTS `VerRol`$$
@@ -354,8 +354,12 @@ CREATE TABLE `producto` (
 
 INSERT INTO `producto` (`IdProducto`, `IdCategoria`, `IdMarca`, `CantXS`, `CantS`, `CantM`, `CantL`, `CantXL`, `CantXXL`, `PrecioVenta`, `PrecioCredito`, `Descripcion`, `Imagen`) VALUES
 (1, 1, 1, 4, 4, 6, 2, 2, 2, 17500, 22500, 'Chaqueta', 'No Hay'),
-(2, 1, 1, 80, 6, 4, 8, 1000, 4, 20000, 25000, 'Chaqueta de cuero Cafe', 'Si hay imagen solo que hay problemas'),
-(3, 1, 1, 3513, 1321, 12, 51, 21, 13, 32, 654351, 'Chaqueta de cuero verde', 'No hay');
+(2, 1, 1, 80, 6, 4, 8, 10, 4, 20000, 25000, 'CHAQUETA DE CUERO CAFE', 'Si hay imagen solo que hay problemas'),
+(4, 1, 1, 10, 5, 12, 15, 0, 23, 10500, 15500, 'CAMISETA', 'No hay'),
+(5, 1, 1, 10, 5, 12, 15, 0, 23, 10500, 15500, 'CAMISETA', 'No hay'),
+(6, 1, 1, 25, 62, 12, 12, 10, 0, 11500, 12500, 'CAMISETA2', 'Si hay'),
+(7, 1, 1, 12, 5, 16, 19, 20, 0, 12050, 15050, 'CAMISETA3', 'No contiene'),
+(8, 1, 1, 12, 5, 16, 19, 20, 0, 12050, 15050, 'CAMISETA4', 'No contiene');
 
 -- --------------------------------------------------------
 
@@ -514,7 +518,7 @@ ALTER TABLE `marca`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `IdProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IdProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
