@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md 10">
-                            <form name="modulos_add" id="producto_add" method="POST">
+                            <form name="modulos_add" id="producto_add" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" id="existeModulo" name="existeModulo">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -108,8 +108,12 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="imagenP">Imagen</label>
-                                            <input type="text" class="form-control" id="imagenP" name="imagenP"
-                                                required>
+                                            <input type="file" class="form-control" id="imagenP" name="imagenP">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="preview">
+                                            <img src="" id="img" alt="Preview" style="width: 50px;height:50px;">
                                         </div>
                                     </div>
                                 </div>
@@ -223,9 +227,13 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="Nueva_Imagen">Imagen</label>
-                                            <input type="text" class="form-control" id="Nueva_Imagen"
-                                                name="Nueva_Imagen" required>
+                                            <label for="imagenP">Imagen</label>
+                                            <input type="file" class="form-control" id="imagenP" name="imagenP">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="preview">
+                                            <img src="" id="img" alt="Preview" style="width: 50px;height:50px;">
                                         </div>
                                     </div>
                                 </div>
@@ -314,6 +322,14 @@
     <script src="plugins/bootbox/bootbox.min.js"></script>
     <script src="plugins/toastr/toastr.js"></script>
     <script src="assets/js/Productos.js"></script>
+    <script type="text/javascript">
+        imagenP.onchange=evt=>{
+            const[file]=imagenP.files;
+            if(file){
+                img.src=URL.createObjectURL(file);
+            }
+        }
+        </script>
 </body>
 
 </html>

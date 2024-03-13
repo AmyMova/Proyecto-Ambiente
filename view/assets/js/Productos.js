@@ -60,21 +60,13 @@ $("#producto_add").on("submit", function (event) {
 
         case "2":
           toastr.error(
-            "El correo ya existe... Corrija e inténtelo nuevamente..."
+            "El producto ya existe... Corrija e inténtelo nuevamente..."
           );
           break;
 
         case "3":
           toastr.error("Hubo un error al tratar de ingresar los datos.");
           break;
-        /*
-        case '4':
-          toastr.success('producto registrado exitosamente.');
-          $('#producto_add')[0].reset();
-          tabla.api().ajax.reload();
-          toastr.error('Error al enviar el correo.');
-          break;*/
-
         default:
           toastr.error(datos);
           break;
@@ -91,6 +83,9 @@ $("#tbllistado tbody").on(
   function () {
     var data = $("#tbllistado").DataTable().row($(this).parents("tr")).data();
     limpiarForms();
+    var imagen=data[12];
+    var URLImagen="assets/img/"+imagen;
+
     $("#formulario_add").hide();
     $("#formulario_update").show();
     $("#id").val(data[0]);
@@ -103,9 +98,9 @@ $("#tbllistado tbody").on(
     $("#Nueva_Cant_L").val(data[7]);
     $("#Nueva_Cant_XL").val(data[8]);
     $("#Nueva_Cant_XXL").val(data[9]);
-    $("#Nuevo_Id_Marca").val(data[3]);
-    $("#Nuevo_Id_Categoria").val(data[2]);
-    $("#Nueva_Imagen").val(data[12]);
+    $("#Nuevo_Id_Marca").val(data[15]);
+    $("#Nuevo_Id_Categoria").val(data[14]);
+    $("#img").attr("src", URLImagen);
     return false;
   }
 );
