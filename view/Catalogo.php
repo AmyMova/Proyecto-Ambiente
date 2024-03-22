@@ -142,7 +142,7 @@
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
     <script src="plugins/bootbox/bootbox.min.js"></script>
     <script src="plugins/toastr/toastr.js"></script>
-    <script src="assets/js/Catalogos.js"></script>
+    <script src="assets/js/Catalogo.js"></script>
 </body>
 
 </html>
