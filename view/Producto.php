@@ -321,7 +321,7 @@
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
     <script src="plugins/bootbox/bootbox.min.js"></script>
     <script src="plugins/toastr/toastr.js"></script>
-    <script src="assets/js/Productos.js"></script>
+    <script src="assets/js/Producto.js"></script>
     <script type="text/javascript">
         imagenP.onchange=evt=>{
             const[file]=imagenP.files;
