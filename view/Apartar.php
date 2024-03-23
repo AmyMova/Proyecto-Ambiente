@@ -3,7 +3,6 @@ require_once '../Controller/ApartadoController.php';
 
 // Verificar si se recibió el total del carrito como parámetro en la URL
 $total = isset($_GET['total']) ? $_GET['total'] : '';
-
 ?>
 
 <!DOCTYPE html>
@@ -76,6 +75,22 @@ $total = isset($_GET['total']) ? $_GET['total'] : '';
         <!-- Mostrar el valor total del carrito recibido como parámetro -->
         <input type="text" id="valor_total" name="valor_total" placeholder="Ingrese el valor total" value="<?php echo $total; ?>" required><br><br>
 
+        <!-- Agregar campo para seleccionar el producto -->
+        <label for="producto">Producto:</label>
+        <select id="producto" name="producto">
+            <option value="Producto 1">Variedad de productos</option>
+            <option value="Producto 2">Un solo producto</option>
+            <!-- Agregar más opciones según los productos disponibles -->
+        </select><br><br>
+
+        <!-- Agregar campo para la cantidad total de productos -->
+        <label for="cantidad_total">Cantidad Total de Productos:</label>
+        <input type="number" id="cantidad_total" name="cantidad_total" placeholder="Ingrese la cantidad total" required><br><br>
+
+        <!-- Agregar campo para el precio total de los productos -->
+        <label for="precio_total">Precio Total de Productos:</label>
+        <input type="number" id="precio_total" name="precio_total" placeholder="Ingrese el precio total" required><br><br>
+
         <label for="duracion">Duración:</label>
         <select id="duracion" name="duracion">
             <option value="3 meses">3 meses</option>
@@ -107,7 +122,7 @@ $total = isset($_GET['total']) ? $_GET['total'] : '';
     <?php
     if (isset($_POST['crear_apartado'])) {
         $controller = new ApartadoController();
-        $controller->nuevoApartado($_POST['valor_total'], $_POST['duracion'], $_POST['aporte_usuario'], $_POST['metodo_pago']);
+        $controller->nuevoApartado($_POST['valor_total'], $_POST['duracion'], $_POST['aporte_usuario'], $_POST['metodo_pago'], $_POST['producto'], $_POST['cantidad_total'], $_POST['precio_total']);
     }
     ?>
 

@@ -1,15 +1,54 @@
 <?php
 
+require_once '../config/Conexion.php';
+
+
 class ApartadoModel {
-    public static function create($valorTotal, $duracion, $aporteUsuario, $metodoPago) {
-        // Aquí puedes insertar un nuevo apartado en la base de datos
-        // usando los parámetros proporcionados
+    public function agregarApartado($total, $duracion, $aporteUsuario, $metodoPago, $producto, $cantidadTotal, $precioTotal) {
+        // Obtener la conexión a la base de datos
+        $conexion = Conexion::conectar();
+        
+        // Preparar la consulta SQL para insertar el apartado
+        $sql = "INSERT INTO apartado (Total, Duracion, AporteUsuario, MetodoPago, Producto, CantidadTotalProductos, PrecioTotalProductos) 
+                VALUES (:total, :duracion, :aporteUsuario, :metodoPago, :producto, :cantidadTotal, :precioTotal)";
+        
+        // Preparar los valores para la consulta
+        $values = array(
+            ':total' => $total,
+            ':duracion' => $duracion,
+            ':aporteUsuario' => $aporteUsuario,
+            ':metodoPago' => $metodoPago,
+            ':producto' => $producto,
+            ':cantidadTotal' => $cantidadTotal,
+            ':precioTotal' => $precioTotal
+        );
 
-        // Supongamos que aquí insertas los datos en la base de datos
+        // Ejecutar la consulta
+        try {
+            $stmt = $conexion->prepare($sql);
+            $stmt->execute($values);
+            return true;
+        } catch (PDOException $e) {
+            echo "Error al ejecutar la consulta: " . $e->getMessage();
+            return false;
+        }
+    }
 
-        // Verifica si el apartado se creó correctamente
-        $apartadoCreado = true; // o realiza la validación adecuada en tu sistema
+    public function obtenerApartados() {
+        // Obtener la conexión a la base de datos
+        $conexion = Conexion::conectar();
 
-        return $apartadoCreado;
+        // Preparar la consulta SQL para obtener los apartados
+        $sql = "SELECT * FROM apartado";
+
+        // Ejecutar la consulta
+        try {
+            $stmt = $conexion->query($sql);
+            $apartados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $apartados;
+        } catch (PDOException $e) {
+            echo "Error al ejecutar la consulta: " . $e->getMessage();
+            return false;
+        }
     }
 }

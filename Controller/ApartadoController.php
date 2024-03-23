@@ -17,7 +17,7 @@ class ApartadoController {
         }
     }
 
-    public function nuevoApartado($valorTotal, $duracion, $aporteUsuario, $metodoPago) {
+    public function nuevoApartado($valorTotal, $duracion, $aporteUsuario, $metodoPago, $producto, $cantidadTotal, $precioTotal) {
         // Calcular el porcentaje mínimo a pagar
         $porcentajeMinimo = $this->calcularPorcentaje($duracion);
         
@@ -27,7 +27,7 @@ class ApartadoController {
         // Verificar si el aporte del usuario es suficiente
         if ($aporteUsuario >= $valorMinimo) {
             // Intentar crear el apartado en la base de datos
-            $apartadoCreado = ApartadoModel::create($valorTotal, $duracion, $aporteUsuario, $metodoPago);
+            $apartadoCreado = ApartadoModel::create($valorTotal, $duracion, $aporteUsuario, $metodoPago, $producto, $cantidadTotal, $precioTotal);
             
             if ($apartadoCreado) {
                 echo "<script>Swal.fire('Pago realizado correctamente');</script>";
