@@ -1,5 +1,9 @@
 <?php
 require_once '../Controller/ApartadoController.php';
+
+// Verificar si se recibió el total del carrito como parámetro en la URL
+$total = isset($_GET['total']) ? $_GET['total'] : '';
+
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +15,7 @@ require_once '../Controller/ApartadoController.php';
     <!-- Incluir SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
+        // Función para calcular el aporte del usuario
         function calcularAporte() {
             var valorTotal = parseFloat(document.getElementById("valor_total").value);
             var duracion = document.getElementById("duracion").value;
@@ -35,12 +40,13 @@ require_once '../Controller/ApartadoController.php';
             document.getElementById("aporte_usuario").value = aporteMinimo.toFixed(2);
         }
 
+        // Función para verificar el pago
         function pagar() {
             var aporteUsuario = parseFloat(document.getElementById("aporte_usuario").value);
             var valorMinimo = parseFloat(document.getElementById("valor_minimo").value);
 
             if (aporteUsuario >= valorMinimo) {
-                // Pagar realizado correctamente
+                // Pago realizado correctamente
                 Swal.fire("Pago realizado correctamente");
             } else {
                 // Cantidad incorrecta
@@ -51,6 +57,15 @@ require_once '../Controller/ApartadoController.php';
                 });
             }
         }
+
+        // Función para enviar el formulario
+        function submitForm() {
+            // Verificar el pago
+            pagar();
+            // Enviar el formulario
+            var form = document.querySelector('form');
+            form.submit();
+        }
     </script>
 </head>
 <body>
@@ -58,7 +73,8 @@ require_once '../Controller/ApartadoController.php';
     
     <form action="" method="post">
         <label for="valor_total">Valor Total:</label>
-        <input type="text" id="valor_total" name="valor_total" placeholder="Ingrese el valor total" required><br><br>
+        <!-- Mostrar el valor total del carrito recibido como parámetro -->
+        <input type="text" id="valor_total" name="valor_total" placeholder="Ingrese el valor total" value="<?php echo $total; ?>" required><br><br>
 
         <label for="duracion">Duración:</label>
         <select id="duracion" name="duracion">
@@ -78,10 +94,14 @@ require_once '../Controller/ApartadoController.php';
             <option value="Tarjeta">Tarjeta</option>
         </select><br><br>
 
+        <!-- Campo oculto para almacenar el valor total -->
+        <input type="hidden" name="total" id="totalHiddenInput" value="">
+
         <!-- Agregar un campo oculto para almacenar el valor mínimo -->
         <input type="hidden" id="valor_minimo" value="0">
 
-        <input type="submit" name="crear_apartado" value="Pagar" onclick="pagar()">
+        <button type="button" onclick="submitForm()">Pagar</button>
+
     </form>
 
     <?php

@@ -1,5 +1,6 @@
 <?php
 //Aqui van los llamados al controlador
+
 ?>
 
 <!DOCTYPE html>
@@ -57,17 +58,25 @@
                 </div>
 
                 <div id="carrito-acciones" class="carrito-acciones disabled">
-                    <div class="carrito-acciones-izquierda">
-                        <button id="carrito-acciones-vaciar" class="carrito-acciones-vaciar">Vaciar carrito</button>
-                    </div>
-                    <div class="carrito-acciones-derecha">
-                        <div class="carrito-acciones-total">
-                            <p>Total:</p>
-                            <p id="total">$3000</p>
-                        </div>
-                        <button id="carrito-acciones-comprar" class="carrito-acciones-comprar">Comprar ahora</button>
-                    </div>
-                </div>
+    <div class="carrito-acciones-izquierda">
+        <button id="carrito-acciones-vaciar" class="carrito-acciones-vaciar">Vaciar carrito</button>
+    </div>
+    <div class="carrito-acciones-derecha">
+        <div class="carrito-acciones-total">
+            <p>Total:</p>
+            <p id="total">$3000</p>
+        </div>
+        <form action="Apartar.php" method="get">
+            <input type="hidden" name="total" id="totalHiddenInput" value="">
+            <button type="submit" class="carrito-acciones-comprar">Apartar</button>
+
+        </form>
+
+        <button id="carrito-acciones-comprar" class="carrito-acciones-comprar">Comprar ahora</button>
+    </div>
+</div>
+
+
 
                 <p id="carrito-comprado" class="carrito-comprado disabled">Muchas gracias por tu compra. <i class="bi bi-emoji-laughing"></i></p>
 
