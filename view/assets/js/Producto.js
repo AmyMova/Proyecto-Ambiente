@@ -100,7 +100,7 @@ $("#tbllistado tbody").on(
     $("#Nueva_Cant_XXL").val(data[9]);
     $("#Nuevo_Id_Marca").val(data[15]);
     $("#Nuevo_Id_Categoria").val(data[14]);
-    $("#img").attr("src", URLImagen);
+    $("#img_edit").attr("src", URLImagen);
     return false;
   }
 );

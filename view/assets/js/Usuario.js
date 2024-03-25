@@ -84,7 +84,8 @@ $("#tbllistado tbody").on(
     function () {
         var data = $("#tbllistado").DataTable().row($(this).parents("tr")).data();
         limpiarForms();
-
+        var imagen=data[14];
+        var URLImagen="assets/img/"+imagen;
         $("#formulario_add").hide();
         $("#formulario_contrasenna").hide();
         $("#formulario_update").show();
@@ -103,6 +104,7 @@ $("#tbllistado tbody").on(
         $("#Nuevo_Dia_Cumpleanos").val(dia);
         $("#Nuevo_Mes_Cumpleanos").val(mes);
         $("#Nuevo_Ano_Cumpleanos").val(ano);
+        $("#img_edit").attr("src", URLImagen);
 
         return false;
     }

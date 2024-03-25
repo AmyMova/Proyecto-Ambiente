@@ -10,11 +10,10 @@ switch ($_GET["op"]) {
             $data[] = array(
                 "0" => $reg->getIdUsuario(),
                 "1" => $reg->getNombreCompleto(),
-                "5" => $reg->getNumeroTelefono(),
                 "2" => $reg->getCorreoElectronico(),
                 "3" => $reg->getFechaCumpleanos(),
                 "4" => $reg->getRol(),
-                "12" => $reg->getApellidoUsuario(),
+                "5" => $reg->getNumeroTelefono(),
                 "6" => $reg->getNumeroCedula(),
                 "7" => '<button class="btn btn-warning" id="modificarUsuario">Modificar</button> ' .
                     '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdUsuario() . '\')">Eliminar</button> ' ,
@@ -22,7 +21,9 @@ switch ($_GET["op"]) {
                 "9" => $reg->getDiaCumpleanos(),
                 "10" => $reg->getMesCumpleanos(),
                 "11" => $reg->getAnoCumpleanos(),
-                "13" => $reg->getNombreUsuario()
+                "12" => $reg->getApellidoUsuario(),
+                "13" => $reg->getNombreUsuario(),
+                "14" => $reg->getImagen()
             );
         }
         $resultados = array(
@@ -150,17 +151,16 @@ switch ($_GET["op"]) {
             $usuario->setDiaCumpleanos($DiaCumpleanos);
             $usuario->setNumeroTelefono($NumeroTelefono);
             $usuario->setImagen($newImageName);
-            $usuario->setIdUsuario($IdUsuario);
             $modificados = $usuario->EditarUsuario();
 
             if ($modificados > 0) {
-                echo 1;
-                if (!empty ($newImageName)) {
-                    if (!move_uploaded_file($tmpName, '../view/assets/img/' . $newImageName)) {
-                        echo "Error al subir la imagen.";
-                        exit;
-                    }
+                if (!empty($newImageName)) {
+                if (!move_uploaded_file($tmpName, '../view/assets/img/' . $newImageName)) {
+                    echo "Error al subir la imagen.";
+                    exit;
                 }
+            }
+                echo 1;
             } else {
                 echo 0;
             }

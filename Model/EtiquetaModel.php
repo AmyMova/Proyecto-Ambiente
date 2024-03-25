@@ -192,15 +192,10 @@ class Etiqueta extends Conexion
     }
     public function CrearEtiquetaDB()
     {
-        $query = "Call CrearEtiqueta(:Id_Categoria,:Id_Marca,:ImagenP,:DescripcionP,:Precio_Credito,:Precio_Venta,:idad_XS,:idad_S,:idad_M,:idad_L,:idad_XL,:idad_XXL)";
+        $query = "Call CrearEtiqueta(:Id_Producto,:XS,:S,:M,:L,:XL,:XXL)";
         try {
             self::getConexion();
             $IdProducto = $this->getIdProducto();
-            $IdMarca = $this->getIdMarca();
-            $Descripcion = $this->getDescripcion();
-            $Imagen = $this->getImagen();
-            $PrecioCredito = $this->getPrecioCredito();
-            $PrecioVenta = $this->getPrecioVenta();
             $XS = $this->getXS();
             $S = $this->getS();
             $M = $this->getM();
@@ -210,18 +205,13 @@ class Etiqueta extends Conexion
 
             $resultado = self::$cnx->prepare($query);
 
-            $resultado->bindParam(":idad_XS", $XS, PDO::PARAM_INT);
-            $resultado->bindParam(":idad_S", $S, PDO::PARAM_INT);
-            $resultado->bindParam(":idad_M", $M, PDO::PARAM_INT);
-            $resultado->bindParam(":idad_L", $L, PDO::PARAM_INT);
-            $resultado->bindParam(":idad_XL", $XL, PDO::PARAM_INT);
-            $resultado->bindParam(":idad_XXL", $XXL, PDO::PARAM_INT);
-            $resultado->bindParam(":DescripcionP", $Descripcion, PDO::PARAM_STR);
-            $resultado->bindParam(":ImagenP", $Imagen, PDO::PARAM_STR);
-            $resultado->bindParam(":Id_Categoria", $IdProducto, PDO::PARAM_INT);
-            $resultado->bindParam(":Id_Marca", $IdMarca, PDO::PARAM_INT);
-            $resultado->bindParam(":Precio_Venta", $PrecioVenta, PDO::PARAM_INT);
-            $resultado->bindParam(":Precio_Credito", $PrecioCredito, PDO::PARAM_INT);
+            $resultado->bindParam(":XS", $XS, PDO::PARAM_INT);
+            $resultado->bindParam(":S", $S, PDO::PARAM_INT);
+            $resultado->bindParam(":M", $M, PDO::PARAM_INT);
+            $resultado->bindParam(":L", $L, PDO::PARAM_INT);
+            $resultado->bindParam(":XL", $XL, PDO::PARAM_INT);
+            $resultado->bindParam(":XXL", $XXL, PDO::PARAM_INT);
+            $resultado->bindParam(":Id_Producto", $IdProducto, PDO::PARAM_INT);
             $resultado->execute();
             self::desconectar();
         } catch (PDOException $Exception) {
@@ -254,6 +244,26 @@ class Etiqueta extends Conexion
         }
     }
 
+    public function EliminarEtiquetas()
+    {
+        
+        $query = "Call EliminarEtiquetas()";
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            self::$cnx->beginTransaction();//desactiva el autocommit
+            $resultado->execute();
+            self::$cnx->commit();//realiza el commit y vuelve al modo autocommit
+            self::desconectar();
+            return $resultado->rowCount();
+        } catch (PDOException $Exception) {
+            self::$cnx->rollBack();
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            return $error;
+        }
+    }
+
 
     public function llenarCampos($id)
     {
@@ -267,9 +277,9 @@ class Etiqueta extends Conexion
             foreach ($resultado->fetchAll() as $encontrado) {
                 $this->setIdEtiqueta($encontrado['IdEtiqueta']);
                 $this->setIdProducto($encontrado['IdProducto']);
-                $this->setIdMarca($encontrado['IdMarca']);
+                $this->setMarca($encontrado['Marca']);
                 $this->setDescripcion($encontrado['Descripcion']);
-                $this->setImagen($encontrado['Imagen']);
+                $this->setCategoria($encontrado['Categoria']);
                 $this->setPrecioVenta($encontrado['PrecioVenta']);
                 $this->setPrecioCredito($encontrado['PrecioCredito']);
                 $this->setXS($encontrado['XS']);
@@ -278,8 +288,6 @@ class Etiqueta extends Conexion
                 $this->setL($encontrado['L']);
                 $this->setXL($encontrado['XL']);
                 $this->setXXL($encontrado['XXL']);
-                $this->setMarca($encontrado['Marca']);
-                $this->setCategoria($encontrado['Categoria']);
             }
         } catch (PDOException $Exception) {
             self::desconectar();
@@ -291,38 +299,31 @@ class Etiqueta extends Conexion
 
     public function EditarEtiqueta()
     {
-        $query = "Call EditarEtiqueta(:id,:Id_Categoria,:Id_Marca,:Nueva_Imagen,:Nueva_Descripcion,:Nuevo_Precio_Credito,:Nuevo_Precio_Venta,:Nueva__XS,:Nueva__S,:Nueva__M,:Nueva__L,:Nueva__XL,:Nueva__XXL)";
+        $query = "Call EditarEtiqueta(:id,:Id_Producto,:Nuevo_XS,:Nuevo_S,:Nuevo_M,:Nuevo_L,:Nuevo_XL,:Nuevo_XXL)";
         try {
             self::getConexion();
             $IdEtiqueta = $this->getIdEtiqueta();
             $IdProducto = $this->getIdProducto();
-            $IdMarca = $this->getIdMarca();
-            $Descripcion = strtoupper($this->getDescripcion());
-            $Imagen = $this->getImagen();
-            $PrecioCredito = $this->getPrecioCredito();
-            $PrecioVenta = $this->getPrecioVenta();
             $XS = $this->getXS();
             $S = $this->getS();
             $M = $this->getM();
+
             $L = $this->getL();
             $XL = $this->getXL();
             $XXL = $this->getXXL();
             $resultado = self::$cnx->prepare($query);
 
 
-            $resultado->bindParam(":Nueva__XS", $XS, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva__S", $S, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva__M", $M, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva__L", $L, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva__XL", $XL, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva__XXL", $XXL, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva_Descripcion", $Descripcion, PDO::PARAM_STR);
-            $resultado->bindParam(":Nueva_Imagen", $Imagen, PDO::PARAM_STR);
-            $resultado->bindParam(":Id_Categoria", $IdProducto, PDO::PARAM_INT);
-            $resultado->bindParam(":Id_Marca", $IdMarca, PDO::PARAM_INT);
+            $resultado->bindParam(":Nuevo_XS", $XS, PDO::PARAM_INT);
+            $resultado->bindParam(":Nuevo_S", $S, PDO::PARAM_INT);
+            $resultado->bindParam(":Nuevo_M", $M, PDO::PARAM_INT);
+
+            $resultado->bindParam(":Nuevo_L", $L, PDO::PARAM_INT);
+            $resultado->bindParam(":Nuevo_XL", $XL, PDO::PARAM_INT);
+            $resultado->bindParam(":Nuevo_XXL", $XXL, PDO::PARAM_INT);
+            $resultado->bindParam(":Id_Producto", $IdProducto, PDO::PARAM_INT);
+
             $resultado->bindParam(":id", $IdEtiqueta, PDO::PARAM_INT);
-            $resultado->bindParam(":Nuevo_Precio_Venta", $PrecioVenta, PDO::PARAM_INT);
-            $resultado->bindParam(":Nuevo_Precio_Credito", $PrecioCredito, PDO::PARAM_INT);
             self::$cnx->beginTransaction();//desactiva el autocommit
             $resultado->execute();
             self::$cnx->commit();//realiza el commit y vuelve al modo autocommit
@@ -338,13 +339,13 @@ class Etiqueta extends Conexion
 
     public function verificarExistenciaEtiquetaDb()
 {
-    $query = "SELECT COUNT(*) FROM producto WHERE Descripcion=:Descripcion";
+    $query = "SELECT COUNT(*) FROM etiqueta WHERE :id=IdProducto";
     try {
         self::getConexion();
         $resultado = self::$cnx->prepare($query);
-        $Descripcion = $this->getDescripcion();
+        $IdProducto = $this->getIdProducto();
 
-        $resultado->bindParam(":Descripcion", $Descripcion, PDO::PARAM_STR);
+        $resultado->bindParam(":id", $IdProducto, PDO::PARAM_INT);
         $resultado->execute();
         $count = $resultado->fetchColumn();
         self::desconectar();
@@ -360,7 +361,7 @@ class Etiqueta extends Conexion
 
     public function verificarExistenciaEtiquetaByIDDb()
     {
-        $query = "SELECT * FROM producto where IdEtiqueta=:id";
+        $query = "SELECT * FROM etiqueta where IdEtiqueta=:id";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
