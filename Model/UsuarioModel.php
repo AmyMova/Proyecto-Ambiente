@@ -18,8 +18,10 @@ class Usuario extends Conexion
     private $MesCumpleanos = null;
     private $AnoCumpleanos = null;
     private $IdRol = null;
-    private $NombreRol = null;
+    private $Rol = null;
     private $FechaCumpleanos = null;
+    private $Imagen = null;
+    private $NombreCompleto = null;
     /*=====  End of Atributos de la Clase  ======*/
 
     /*=============================================
@@ -139,13 +141,30 @@ class Usuario extends Conexion
     {
         $this->IdRol = $IdRol;
     }
-    public function getNombreRol()
+    public function getRol()
     {
-        return $this->NombreRol;
+        return $this->Rol;
     }
-    public function setNombreRol($NombreRol)
+    public function setRol($Rol)
     {
-        $this->NombreRol = $NombreRol;
+        $this->Rol = $Rol;
+    }
+
+    public function getImagen()
+    {
+        return $this->Imagen;
+    }
+    public function setImagen($Imagen)
+    {
+        $this->Imagen = $Imagen;
+    }
+    public function getNombreCompleto()
+    {
+        return $this->NombreCompleto;
+    }
+    public function setNombreCompleto($NombreCompleto)
+    {
+        $this->NombreCompleto = $NombreCompleto;
     }
     /*=====  End of Encapsuladores de la Clase  ======*/
 
@@ -176,6 +195,7 @@ class Usuario extends Conexion
                 $user->setIdUsuario($encontrado['IdUsuario']);
                 $user->setCorreoElectronico($encontrado['CorreoElectronico']);
                 $user->setNombreUsuario($encontrado['NombreUsuario']);
+                $user->setNombreCompleto($encontrado['NombreCompleto']);
                 $user->setIdRol($encontrado['IdRol']);
                 $user->setNumeroTelefono($encontrado['NumeroTelefono']);
                 $user->setApellidoUsuario($encontrado['ApellidoUsuario']);
@@ -185,7 +205,7 @@ class Usuario extends Conexion
                 $user->setMesCumpleanos($encontrado['MesCumpleanos']);
                 $user->setAnoCumpleanos($encontrado['AnoCumpleanos']);
 
-                $user->setNombreRol($encontrado['NombreRol']);
+                $user->setRol($encontrado['Rol']);
                 $arr[] = $user;
             }
             return $arr;
@@ -242,7 +262,8 @@ class Usuario extends Conexion
 
     public function guardarEnDb()
     {
-        $query = "Call CrearUsuario(:Nombre_Usuario,:Apellido_Usuario,:Numero_Cedula,:Numero_Telefono,:Correo_Electronico,:Contrasena,:Dia_Cumpleanos,:Mes_Cumpleanos,:Ano_Cumpleanos,:Id_Rol)";
+        $query =
+            "Call CrearUsuario(:Nombre_Usuario,:Apellido_Usuario,:Numero_Cedula,:Numero_Telefono,:Correo_Electronico,:Contrasena,:Imagen_Usuario,:Id_Rol,:Dia_Cumpleanos,:Mes_Cumpleanos,:Ano_Cumpleanos)";
         try {
             self::getConexion();
             $NombreUsuario = $this->getNombreUsuario();
@@ -255,9 +276,9 @@ class Usuario extends Conexion
             $MesCumpleanos = $this->getMesCumpleanos();
             $AnoCumpleanos = $this->getAnoCumpleanos();
             $IdRol = $this->getIdRol();
-
+            $Imagen = $this->getImagen();
             $resultado = self::$cnx->prepare($query);
-
+            $resultado->bindParam(":Imagen_Usuario", $Imagen, PDO::PARAM_STR);
             $resultado->bindParam(":Nombre_Usuario", $NombreUsuario, PDO::PARAM_STR);
             $resultado->bindParam(":Apellido_Usuario", $ApellidoUsuario, PDO::PARAM_STR);
             $resultado->bindParam(":Numero_Cedula", $NumeroCedula, PDO::PARAM_STR);
@@ -312,7 +333,9 @@ class Usuario extends Conexion
 
     public function EditarUsuario()
     {
-        $query = "Call EditarUsuario(:id,:Nombre_Usuario,:Apellido_Usuario,:Numero_Cedula,:Numero_Telefono,:Correo_Electronico,:Dia_Cumpleanos,:Mes_Cumpleanos,:Ano_Cumpleanos,:Id_Rol)";
+        $query =
+            "Call EditarUsuario(:id,:Nombre_Usuario,:Apellido_Usuario,:Numero_Cedula,
+            :Numero_Telefono,:Correo_Electronico,:Contrasena,:Imagen_Usuario,:Id_Rol,:Dia_Cumpleanos,:Mes_Cumpleanos,:Ano_Cumpleanos)";
         try {
             self::getConexion();
             $IdUsuario = $this->getIdUsuario();
@@ -325,6 +348,8 @@ class Usuario extends Conexion
             $MesCumpleanos = $this->getMesCumpleanos();
             $AnoCumpleanos = $this->getAnoCumpleanos();
             $IdRol = $this->getIdRol();
+            $Imagen = $this->getImagen();
+            $Contrasenna = $this->getContrasenna();
 
             $resultado = self::$cnx->prepare($query);
             $resultado->bindParam(":id", $IdUsuario, PDO::PARAM_INT);
@@ -337,29 +362,9 @@ class Usuario extends Conexion
             $resultado->bindParam(":Mes_Cumpleanos", $MesCumpleanos, PDO::PARAM_INT);
             $resultado->bindParam(":Ano_Cumpleanos", $AnoCumpleanos, PDO::PARAM_INT);
             $resultado->bindParam(":Id_Rol", $IdRol, PDO::PARAM_INT);
-            self::$cnx->beginTransaction(); // desactiva el autocommit
-            $resultado->execute();
-            self::$cnx->commit(); // realiza el commit y vuelve al modo autocommit
-            self::desconectar();
-            return $resultado->rowCount();
-        } catch (PDOException $Exception) {
-            self::$cnx->rollBack();
-            self::desconectar();
-            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
-            return $error;
-        }
-    }
-    public function EditarContrasenaUsuario()
-    {
-        $query = "Call CambiarContrasenna(:id,:Contrasena)";
-        try {
-            self::getConexion();
-            $IdUsuario = $this->getIdUsuario();
-            $Contrasenna = $this->getContrasenna();
-
-            $resultado = self::$cnx->prepare($query);
-            $resultado->bindParam(":id", $IdUsuario, PDO::PARAM_INT);
+            $resultado->bindParam(":Imagen_Usuario", $Imagen, PDO::PARAM_STR);
             $resultado->bindParam(":Contrasena", $Contrasenna, PDO::PARAM_STR);
+
             self::$cnx->beginTransaction(); // desactiva el autocommit
             $resultado->execute();
             self::$cnx->commit(); // realiza el commit y vuelve al modo autocommit
@@ -372,6 +377,7 @@ class Usuario extends Conexion
             return $error;
         }
     }
+    
     public function EliminarUsuario()
     {
         $IdUsuario = $this->getIdUsuario();

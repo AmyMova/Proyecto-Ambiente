@@ -21,7 +21,7 @@ class Catalogo extends Conexion
     private $Descripcion = null;
     private $Imagen = null;
     private $Marca = null;
-    private $NombreCategoria = null;
+    private $Categoria = null;
     /*=====  End of Atributos de la Clase  ======*/
 
     /*=============================================
@@ -141,13 +141,13 @@ class Catalogo extends Conexion
     {
         $this->Imagen = $Imagen;
     }
-    public function getNombreCategoria()
+    public function getCategoria()
     {
-        return $this->NombreCategoria;
+        return $this->Categoria;
     }
-    public function setNombreCategoria($NombreCategoria)
+    public function setCategoria($Categoria)
     {
-        $this->NombreCategoria = $NombreCategoria;
+        $this->Categoria = $Categoria;
     }
     public function getMarca()
     {
@@ -193,7 +193,7 @@ class Catalogo extends Conexion
                 $producto->setPrecioVenta($encontrado['PrecioVenta']);
                 $producto->setPrecioCredito($encontrado['PrecioCredito']);
                 $producto->setDescripcion($encontrado['Descripcion']);
-                $producto->setNombreCategoria($encontrado['NombreCategoria']);
+                $producto->setCategoria($encontrado['Categoria']);
                 $producto->setMarca($encontrado['Marca']);
                 $producto->setImagen($encontrado['Imagen']);
                 $arr[] = $producto;
@@ -230,7 +230,7 @@ class Catalogo extends Conexion
                 $this->setCantXL($encontrado['CantXL']);
                 $this->setCantXXL($encontrado['CantXXL']);
                 $this->setMarca($encontrado['Marca']);
-                $this->setNombreCategoria($encontrado['NombreCategoria']);
+                $this->setCategoria($encontrado['Categoria']);
             }
         } catch (PDOException $Exception) {
             self::desconectar();

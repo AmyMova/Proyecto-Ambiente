@@ -227,13 +227,13 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="imagenP">Imagen</label>
-                                            <input type="file" class="form-control" id="imagenP" name="imagenP">
+                                            <label for="Nueva_Imagen">Imagen</label>
+                                            <input type="file" class="form-control" id="Nueva_Imagen" name="Nueva_Imagen">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="preview">
-                                            <img src="" id="img" alt="Preview" style="width: 50px;height:50px;">
+                                        <div class="preview-edit">
+                                            <img src="" id="img_edit" alt="Preview" style="width: 50px;height:50px;">
                                         </div>
                                     </div>
                                 </div>
@@ -330,6 +330,15 @@
             }
         }
         </script>
+        <script type="text/javascript">
+        Nueva_Imagen.onchange=evt=>{
+            const[file]=Nueva_Imagen.files;
+            if(file){
+                img_edit.src=URL.createObjectURL(file);
+            }
+        }
+        </script>
+        
 </body>
 
 </html>

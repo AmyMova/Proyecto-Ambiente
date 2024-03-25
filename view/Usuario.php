@@ -97,6 +97,18 @@
                                                 required>
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="Imagen_Usuario">Imagen</label>
+                                            <input type="file" class="form-control" id="Imagen_Usuario"
+                                                name="Imagen_Usuario">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="preview">
+                                            <img src="" id="img" alt="Preview" style="width: 50px;height:50px;">
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -183,10 +195,23 @@
                                                 name="Nuevo_Correo" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Contrasena">Contraseña</label>
-                                            <input type="text" class="form-control" id="Contrasena" name="Contrasena">
+                                            <label for="Nueva_Contrasena">Contraseña</label>
+                                            <input type="text" class="form-control" id="Nueva_Contrasena" name="Nueva_Contrasena"
+                                                >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="Nueva_Imagen_Usuario">Imagen</label>
+                                            <input type="file" class="form-control" id="Nueva_Imagen_Usuario"
+                                                name="Nueva_Imagen_Usuario">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="preview">
+                                            <img src="" id="img_edit" alt="Preview" style="width: 50px;height:50px;">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -217,7 +242,7 @@
             </div>
             <!-- /.card-body -->
         </div>
-        <!--Formulario para cambio de contraseña-->
+        <!--Formulario para cambio de contraseña
         <div class="col-md-12" id="formulario_contrasenna">
             <div class="card card-dark">
                 <div class="card-header">
@@ -268,8 +293,8 @@
                     <div class="col-md-1"></div>
                 </div>
             </div>
-            <!-- /.card-body -->
-        </div>
+             /.card-body 
+        </div>-->
     </div>
     <!-- listado -->
     <div class="col-md-12">
@@ -286,7 +311,6 @@
                             <thead>
                                 <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Apellido</th>
                                 <th>Correo</th>
                                 <th>Fecha Cumpleaños</th>
                                 <th>Rol</th>
@@ -300,7 +324,6 @@
                             <tfooter>
                                 <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Apellido</th>
                                 <th>Correo</th>
                                 <th>Fecha Cumpleaños</th>
                                 <th>Rol</th>
@@ -329,6 +352,22 @@
     <script src="plugins/bootbox/bootbox.min.js"></script>
     <script src="plugins/toastr/toastr.js"></script>
     <script src="assets/js/Usuario.js"></script>
+    <script type="text/javascript">
+        Imagen_Usuario.onchange = evt => {
+            const [file] = Imagen_Usuario.files;
+            if (file) {
+                img.src = URL.createObjectURL(file);
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        Nueva_Imagen_Usuario.onchange = evt => {
+            const [file] = Nueva_Imagen_Usuario.files;
+            if (file) {
+                img_edit.src = URL.createObjectURL(file);
+            }
+        }
+    </script>
 
 </body>
 

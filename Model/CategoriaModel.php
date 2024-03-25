@@ -8,7 +8,7 @@ class Categoria extends Conexion
     =============================================*/
     protected static $cnx;
     private $IdCategoria = null;
-    private $NombreCategoria = null;
+    private $Categoria = null;
     /*=====  End of Atributos de la Clase  ======*/
 
     /*=============================================
@@ -32,13 +32,13 @@ class Categoria extends Conexion
     }
 
 
-    public function getNombreCategoria()
+    public function getCategoria()
     {
-        return $this->NombreCategoria;
+        return $this->Categoria;
     }
-    public function setNombreCategoria($NombreCategoria)
+    public function setCategoria($Categoria)
     {
-        $this->NombreCategoria = $NombreCategoria;
+        $this->Categoria = $Categoria;
     }
 
     /*=====  End of Encapsuladores de la Clase  ======*/
@@ -68,7 +68,7 @@ class Categoria extends Conexion
             foreach ($resultado->fetchAll() as $encontrado) {
                 $category = new Categoria();
                 $category->setIdCategoria($encontrado['IdCategoria']);
-                $category->setNombreCategoria($encontrado['NombreCategoria']);
+                $category->setCategoria($encontrado['Categoria']);
                 $arr[] = $category;
             }
             return $arr;
@@ -82,12 +82,12 @@ class Categoria extends Conexion
 
     public function verificarExistenciaDb()
     {
-        $query = "SELECT * FROM categoria where NombreCategoria=:NombreCategoria";
+        $query = "SELECT * FROM categoria where Categoria=:Categoria";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
-            $NombreCategoria = $this->getNombreCategoria();
-            $resultado->bindParam(":NombreCategoria", $NombreCategoria, PDO::PARAM_STR);
+            $Categoria = $this->getCategoria();
+            $resultado->bindParam(":Categoria", $Categoria, PDO::PARAM_STR);
             $resultado->execute();
             self::desconectar();
             $encontrado = false;
@@ -103,7 +103,7 @@ class Categoria extends Conexion
     }
     public function verificarExistenciaByIdDb()
     {
-        $query = "Call VerificarCategoriaById(:id)";
+        $query = "SELECT * FROM categoria where IdCategoria=:id";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
@@ -128,10 +128,10 @@ class Categoria extends Conexion
         $query = "Call CrearCategoria(:Nombre_Categoria)";
         try {
             self::getConexion();
-            $NombreCategoria = $this->getNombreCategoria();
+            $Categoria = $this->getCategoria();
 
             $resultado = self::$cnx->prepare($query);
-            $resultado->bindParam(":Nombre_Categoria", $NombreCategoria, PDO::PARAM_STR);
+            $resultado->bindParam(":Nombre_Categoria", $Categoria, PDO::PARAM_STR);
             $resultado->execute();
             self::desconectar();
         } catch (PDOException $Exception) {
@@ -153,7 +153,7 @@ class Categoria extends Conexion
             self::desconectar();
             foreach ($resultado->fetchAll() as $encontrado) {
                 $this->setIdCategoria($encontrado['IdCategoria']);
-                $this->setNombreCategoria($encontrado['NombreCategoria']);
+                $this->setCategoria($encontrado['Categoria']);
             }
         } catch (PDOException $Exception) {
             self::desconectar();
@@ -169,9 +169,9 @@ class Categoria extends Conexion
         try {
             self::getConexion();
             $IdCategoria = $this->getIdCategoria();
-            $NombreCategoria = $this->getNombreCategoria();
+            $Categoria = $this->getCategoria();
             $resultado = self::$cnx->prepare($query);
-            $resultado->bindParam(":Nuevo_Nombre_Categoria", $NombreCategoria, PDO::PARAM_STR);
+            $resultado->bindParam(":Nuevo_Nombre_Categoria", $Categoria, PDO::PARAM_STR);
             $resultado->bindParam(":id", $IdCategoria, PDO::PARAM_INT);
             self::$cnx->beginTransaction();//desactiva el autocommit
             $resultado->execute();

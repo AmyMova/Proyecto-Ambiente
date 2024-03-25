@@ -21,7 +21,7 @@ class Producto extends Conexion
     private $Descripcion = null;
     private $Imagen = null;
     private $Marca = null;
-    private $NombreCategoria = null;
+    private $Categoria = null;
     /*=====  End of Atributos de la Clase  ======*/
 
     /*=============================================
@@ -141,13 +141,13 @@ class Producto extends Conexion
     {
         $this->Imagen = $Imagen;
     }
-    public function getNombreCategoria()
+    public function getCategoria()
     {
-        return $this->NombreCategoria;
+        return $this->Categoria;
     }
-    public function setNombreCategoria($NombreCategoria)
+    public function setCategoria($Categoria)
     {
-        $this->NombreCategoria = $NombreCategoria;
+        $this->Categoria = $Categoria;
     }
     public function getMarca()
     {
@@ -195,7 +195,7 @@ class Producto extends Conexion
                 $producto->setPrecioVenta($encontrado['PrecioVenta']);
                 $producto->setPrecioCredito($encontrado['PrecioCredito']);
                 $producto->setDescripcion($encontrado['Descripcion']);
-                $producto->setNombreCategoria($encontrado['NombreCategoria']);
+                $producto->setCategoria($encontrado['Categoria']);
                 $producto->setMarca($encontrado['Marca']);
                 $producto->setImagen($encontrado['Imagen']);
                 $arr[] = $producto;
@@ -210,12 +210,12 @@ class Producto extends Conexion
     }
     public function CrearProductoDB()
     {
-        $query = "Call CrearProducto(:Cantidad_XS,:descripcionP,:Id_Categoria,:Id_Marca,:imagenP,:Cantidad_XXL,:Precio_Venta,:Precio_Credito,:Cantidad_S,:Cantidad_M,:Cantidad_L,:Cantidad_XL)";
+        $query = "Call CrearProducto(:Id_Categoria,:Id_Marca,:ImagenP,:DescripcionP,:Precio_Credito,:Precio_Venta,:Cantidad_XS,:Cantidad_S,:Cantidad_M,:Cantidad_L,:Cantidad_XL,:Cantidad_XXL)";
         try {
             self::getConexion();
             $IdCategoria = $this->getIdCategoria();
             $IdMarca = $this->getIdMarca();
-            $Descripcion = strtoupper($this->getDescripcion());
+            $Descripcion = $this->getDescripcion();
             $Imagen = $this->getImagen();
             $PrecioCredito = $this->getPrecioCredito();
             $PrecioVenta = $this->getPrecioVenta();
@@ -234,8 +234,8 @@ class Producto extends Conexion
             $resultado->bindParam(":Cantidad_L", $CantL, PDO::PARAM_INT);
             $resultado->bindParam(":Cantidad_XL", $CantXL, PDO::PARAM_INT);
             $resultado->bindParam(":Cantidad_XXL", $CantXXL, PDO::PARAM_INT);
-            $resultado->bindParam(":descripcionP", $Descripcion, PDO::PARAM_STR);
-            $resultado->bindParam(":imagenP", $Imagen, PDO::PARAM_STR);
+            $resultado->bindParam(":DescripcionP", $Descripcion, PDO::PARAM_STR);
+            $resultado->bindParam(":ImagenP", $Imagen, PDO::PARAM_STR);
             $resultado->bindParam(":Id_Categoria", $IdCategoria, PDO::PARAM_INT);
             $resultado->bindParam(":Id_Marca", $IdMarca, PDO::PARAM_INT);
             $resultado->bindParam(":Precio_Venta", $PrecioVenta, PDO::PARAM_INT);
@@ -297,7 +297,7 @@ class Producto extends Conexion
                 $this->setCantXL($encontrado['CantXL']);
                 $this->setCantXXL($encontrado['CantXXL']);
                 $this->setMarca($encontrado['Marca']);
-                $this->setNombreCategoria($encontrado['NombreCategoria']);
+                $this->setCategoria($encontrado['Categoria']);
             }
         } catch (PDOException $Exception) {
             self::desconectar();
@@ -309,7 +309,7 @@ class Producto extends Conexion
 
     public function EditarProducto()
     {
-        $query = "Call EditarProducto(:id,:Nueva_Cant_XS,:Nueva_Descripcion,:Nuevo_Id_Categoria,:Nuevo_Id_Marca,:Nueva_imagen,:Nueva_Cant_XXL,:Nuevo_Precio_Venta,:Nuevo_Precio_Credito,:Nueva_Cant_S,:Nueva_Cant_M,:Nueva_Cant_L,:Nueva_Cant_XL)";
+        $query = "Call EditarProducto(:id,:Id_Categoria,:Id_Marca,:Nueva_Imagen,:Nueva_Descripcion,:Nuevo_Precio_Credito,:Nuevo_Precio_Venta,:Nueva_Cant_XS,:Nueva_Cant_S,:Nueva_Cant_M,:Nueva_Cant_L,:Nueva_Cant_XL,:Nueva_Cant_XXL)";
         try {
             self::getConexion();
             $IdProducto = $this->getIdProducto();
@@ -335,9 +335,9 @@ class Producto extends Conexion
             $resultado->bindParam(":Nueva_Cant_XL", $CantXL, PDO::PARAM_INT);
             $resultado->bindParam(":Nueva_Cant_XXL", $CantXXL, PDO::PARAM_INT);
             $resultado->bindParam(":Nueva_Descripcion", $Descripcion, PDO::PARAM_STR);
-            $resultado->bindParam(":Nueva_imagen", $Imagen, PDO::PARAM_STR);
-            $resultado->bindParam(":Nuevo_Id_Categoria", $IdCategoria, PDO::PARAM_INT);
-            $resultado->bindParam(":Nuevo_Id_Marca", $IdMarca, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva_Imagen", $Imagen, PDO::PARAM_STR);
+            $resultado->bindParam(":Id_Categoria", $IdCategoria, PDO::PARAM_INT);
+            $resultado->bindParam(":Id_Marca", $IdMarca, PDO::PARAM_INT);
             $resultado->bindParam(":id", $IdProducto, PDO::PARAM_INT);
             $resultado->bindParam(":Nuevo_Precio_Venta", $PrecioVenta, PDO::PARAM_INT);
             $resultado->bindParam(":Nuevo_Precio_Credito", $PrecioCredito, PDO::PARAM_INT);

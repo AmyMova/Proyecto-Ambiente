@@ -8,7 +8,7 @@ class Rol extends Conexion
 	=============================================*/
         protected static $cnx;
 		private $IdRol=null;
-		private $NombreRol=null;
+		private $Rol=null;
 	/*=====  End of Atributos de la Clase  ======*/
 
     /*=============================================
@@ -28,13 +28,13 @@ class Rol extends Conexion
         {
             $this->IdRol = $IdRol;
         }
-        public function getNombreRol()
+        public function getRol()
         {
-            return $this->NombreRol;
+            return $this->Rol;
         }
-        public function setNombreRol($NombreRol)
+        public function setRol($Rol)
         {
-            $this->NombreRol = $NombreRol;
+            $this->Rol = $Rol;
         }
     /*=====  End of Encapsuladores de la Clase  ======*/
 
@@ -60,7 +60,7 @@ class Rol extends Conexion
                 foreach ($resultado->fetchAll() as $encontrado) {
                     $brand = new Rol();
                     $brand->setIdRol($encontrado['IdRol']);
-                    $brand->setNombreRol($encontrado['NombreRol']);
+                    $brand->setRol($encontrado['Rol']);
                     $arr[] = $brand;
                 }
                 return $arr;

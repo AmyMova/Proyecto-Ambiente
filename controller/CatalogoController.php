@@ -16,7 +16,7 @@ switch ($_GET["op"]) {
                 $data[] = array(
                     "IdProducto" => $reg->getIdProducto(),
                     "Descripcion" => $reg->getDescripcion(),
-                    "Categoria" => $reg->getNombreCategoria(),
+                    "Categoria" => $reg->getCategoria(),
                     "Marca" => $reg->getMarca(),
                     "CantXS" => $reg->getCantXS(),
                     "CantS" => $reg->getCantS(),

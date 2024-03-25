@@ -11,7 +11,7 @@ switch ($_GET["op"]) {
             foreach ($categorias as $reg) {
             $data[] = array(
                 "IdCategoria" => $reg->getIdCategoria(),
-                "Categoria" => $reg->getNombreCategoria(),
+                "Categoria" => $reg->getCategoria(),
                 "Opcion" => '<button class="btn btn-warning" id="modificarCategoria">Modificar</button>  ' .
                     '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdCategoria() . '\')">Eliminar</button>'
                 );
@@ -28,11 +28,11 @@ switch ($_GET["op"]) {
         echo json_encode($data);
         break;
     case 'AgregarCategoria':
-        $NombreCategoria = isset($_POST["Nombre_Categoria"]) ? trim($_POST["Nombre_Categoria"]) : "";
+        $Categoria = isset($_POST["Nombre_Categoria"]) ? trim($_POST["Nombre_Categoria"]) : "";
 
         $categoria = new Categoria();
 
-        $categoria->setNombreCategoria($NombreCategoria);
+        $categoria->setCategoria($Categoria);
         $encontrado = $categoria->verificarExistenciaDb();
         if ($encontrado == 0) {
             
@@ -52,7 +52,7 @@ switch ($_GET["op"]) {
         break;
     case 'EditarCategoria':
         $IdCategoria = isset($_POST["id"]) ? trim($_POST["id"]) : "";
-        $NombreCategoria = isset($_POST["Nuevo_Nombre_Categoria"]) ? trim($_POST["Nuevo_Nombre_Categoria"]) : "";
+        $Categoria = isset($_POST["Nuevo_Nombre_Categoria"]) ? trim($_POST["Nuevo_Nombre_Categoria"]) : "";
         
         $categoria = new Categoria();
 
@@ -61,7 +61,7 @@ switch ($_GET["op"]) {
         if ($encontrado == 1) {
             $categoria->llenarCampos($IdCategoria);
 
-            $categoria->setNombreCategoria($NombreCategoria);
+            $categoria->setCategoria($Categoria);
             $categoria->setIdCategoria($IdCategoria);
             $modificados = $categoria->actualizarCategoria();
             if ($modificados > 0) {

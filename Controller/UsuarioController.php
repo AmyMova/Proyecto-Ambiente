@@ -9,20 +9,20 @@ switch ($_GET["op"]) {
         foreach ($usuarios as $reg) {
             $data[] = array(
                 "0" => $reg->getIdUsuario(),
-                "1" => $reg->getNombreUsuario(),
-                "6" => $reg->getNumeroTelefono(),
-                "3" => $reg->getCorreoElectronico(),
-                "4" => $reg->getFechaCumpleanos(),
-                "5" => $reg->getNombreRol(),
-                "2" => $reg->getApellidoUsuario(),
-                "7" => $reg->getNumeroCedula(),
-                "8" => '<button class="btn btn-warning" id="modificarUsuario">Modificar</button> ' .
-                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdUsuario() . '\')">Eliminar</button>'.
-                    '<button class="btn btn-warning" id="modificarContrasena">Modificar Contrasena</button> ' ,
-                "9" => $reg->getIdRol(),
-                "10" => $reg->getDiaCumpleanos(),
-                "11" => $reg->getMesCumpleanos(),
-                "12" => $reg->getAnoCumpleanos()
+                "1" => $reg->getNombreCompleto(),
+                "5" => $reg->getNumeroTelefono(),
+                "2" => $reg->getCorreoElectronico(),
+                "3" => $reg->getFechaCumpleanos(),
+                "4" => $reg->getRol(),
+                "12" => $reg->getApellidoUsuario(),
+                "6" => $reg->getNumeroCedula(),
+                "7" => '<button class="btn btn-warning" id="modificarUsuario">Modificar</button> ' .
+                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdUsuario() . '\')">Eliminar</button> ' ,
+                "8" => $reg->getIdRol(),
+                "9" => $reg->getDiaCumpleanos(),
+                "10" => $reg->getMesCumpleanos(),
+                "11" => $reg->getAnoCumpleanos(),
+                "13" => $reg->getNombreUsuario()
             );
         }
         $resultados = array(
@@ -44,6 +44,30 @@ switch ($_GET["op"]) {
         $DiaCumpleanos = isset ($_POST["Dia_Cumpleanos"]) ? trim($_POST["Dia_Cumpleanos"]) : "";
         $NumeroTelefono = isset ($_POST["Telefono"]) ? trim($_POST["Telefono"]) : "";
         $Contrasenna = isset ($_POST["Contrasena"]) ? trim($_POST["Contrasena"]) : "";
+
+
+        $newImageName = "";
+        if (isset ($_FILES["Imagen_Usuario"]["name"])) {
+            $imagenName = $_FILES["Imagen_Usuario"]["name"];
+            $tmpName = $_FILES["Imagen_Usuario"]["tmp_name"];
+
+            $validImageExtension = ['jpeg', 'jpg', 'png'];
+            $imageExtension = explode('.', $imagenName);
+
+            $name = $imageExtension[0];
+            $imageExtension = strtolower(end($imageExtension));
+
+            if (!in_array($imageExtension, $validImageExtension)) {
+
+                $newImageName = "sinPerfil.png";
+
+            } else {
+                $newImageName = $name . "-" . uniqid() . '.' . $imageExtension;
+
+            }
+
+        }
+
         $usuario = new Usuario();
 
         $usuario->setNumeroCedula($NumeroCedula);
@@ -51,6 +75,7 @@ switch ($_GET["op"]) {
         if ($encontrado == 0) {
             $usuario->setApellidoUsuario($ApellidoUsuario);
             $usuario->setNombreUsuario($NombreUsuario);
+            $usuario->setImagen($newImageName);
             $usuario->setCorreoElectronico($CorreoElectronico);
             $usuario->setIdRol($IdRol);
             $usuario->setContrasenna($Contrasenna);
@@ -59,7 +84,7 @@ switch ($_GET["op"]) {
             $usuario->setDiaCumpleanos($DiaCumpleanos);
             $usuario->setNumeroTelefono($NumeroTelefono);
             $usuario->guardarEnDb();
-
+            move_uploaded_file($tmpName, '../view/assets/img/' . $newImageName);
             if ($usuario->verificarExistenciaDb()) {
                 echo 1; //usuario registrado 
                 //  echo 4; //usuario registrado y envio de correo fallido
@@ -83,10 +108,32 @@ switch ($_GET["op"]) {
         $MesCumpleanos = isset ($_POST["Nuevo_Mes_Cumpleanos"]) ? trim($_POST["Nuevo_Mes_Cumpleanos"]) : "";
         $DiaCumpleanos = isset ($_POST["Nuevo_Dia_Cumpleanos"]) ? trim($_POST["Nuevo_Dia_Cumpleanos"]) : "";
         $NumeroTelefono = isset ($_POST["Nuevo_Numero_Telefono"]) ? trim($_POST["Nuevo_Numero_Telefono"]) : "";
+        $Contrasenna = isset ($_POST["Nueva_Contrasena"]) ? trim($_POST["Nueva_Contrasena"]) : "";
+
+        $newImageName = "";
+        if (!empty($_FILES["Nueva_Imagen_Usuario"]["name"])) {
+            $imagenName = $_FILES["Nueva_Imagen_Usuario"]["name"];
+            $tmpName = $_FILES["Nueva_Imagen_Usuario"]["tmp_name"];
+    
+            // Validar el tipo de archivo y el tamaño de la imagen
+            $validImageExtensions = ['jpeg', 'jpg', 'png'];
+            $imageExtension = strtolower(pathinfo($imagenName, PATHINFO_EXTENSION));
+    
+            if (!in_array($imageExtension, $validImageExtensions) || $_FILES["Nueva_Imagen_Usuario"]["size"] > 5000000) { // 5MB límite de tamaño
+                echo "Error: La imagen debe ser en formato JPEG, JPG o PNG y no debe exceder los 5MB de tamaño.";
+                exit;
+            }
+    
+            // Generar un nuevo nombre único para la imagen
+            $newImageName = $imagenName . "-" . uniqid() . '.' . $imageExtension;
+        }
+        
+        if (empty ($Contrasenna)) {
+            $Contrasenna = "";
+        }
 
 
         $usuario = new Usuario();
-
 
         $usuario->setIdUsuario($IdUsuario);
         $encontrado = $usuario->verificarExistenciaByIdDb();
@@ -95,16 +142,25 @@ switch ($_GET["op"]) {
             $usuario->setNombreUsuario($NombreUsuario);
             $usuario->setApellidoUsuario($ApellidoUsuario);
             $usuario->setNumeroCedula($NumeroCedula);
-            $usuario->setCorreoElectronico($CorreoElectronico);
+            $usuario->setContrasenna($Contrasenna);
+            $usuario->setCorreoElectronico(strtolower($CorreoElectronico));
             $usuario->setIdRol($IdRol);
             $usuario->setAnoCumpleanos($AnoCumpleanos);
             $usuario->setMesCumpleanos($MesCumpleanos);
             $usuario->setDiaCumpleanos($DiaCumpleanos);
             $usuario->setNumeroTelefono($NumeroTelefono);
+            $usuario->setImagen($newImageName);
             $usuario->setIdUsuario($IdUsuario);
             $modificados = $usuario->EditarUsuario();
+
             if ($modificados > 0) {
                 echo 1;
+                if (!empty ($newImageName)) {
+                    if (!move_uploaded_file($tmpName, '../view/assets/img/' . $newImageName)) {
+                        echo "Error al subir la imagen.";
+                        exit;
+                    }
+                }
             } else {
                 echo 0;
             }
@@ -112,33 +168,6 @@ switch ($_GET["op"]) {
             echo 2;
         }
         break;
-        case 'CContrasena':
-            $IdUsuario = isset($_POST["ID"]) ? trim($_POST["ID"]) : "";
-            $CorreoElectronico = isset($_POST["CorreoElectronico"]) ? trim($_POST["CorreoElectronico"]) : "";
-            $Contrasenna = isset($_POST["Contra"]) ? trim($_POST["Contra"]) : "";
-        
-            $usuario = new Usuario();
-        
-            $usuario->setIdUsuario($IdUsuario);
-            $encontrado = $usuario->verificarExistenciaByIdDb();
-            if ($encontrado == 1) {
-                $usuario->llenarCampos($IdUsuario);
-                echo "Datos obtenidos de la base de datos: " . json_encode($usuario); // Agregar este echo
-                $usuario->setCorreoElectronico($CorreoElectronico);
-                $usuario->setContrasenna($Contrasenna);
-        
-                $usuario->setIdUsuario($IdUsuario);
-                $modificados = $usuario->EditarContrasenaUsuario();
-                if ($modificados > 0) {
-                    echo 1;
-                } else {
-                    echo 0;
-                }
-            } else {
-                echo 2;
-            }
-            break;
-        
 
     case 'EliminarUsuario':
         $usuario = new Usuario();

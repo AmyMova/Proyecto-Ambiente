@@ -11,7 +11,7 @@ switch ($_GET["op"]) {
             foreach ($rols as $reg) {
             $data[] = array(
                 "IdRol" => $reg->getIdRol(),
-                "Rol" => $reg->getNombreRol(),
+                "Rol" => $reg->getRol(),
                 "Opcion" => '<button class="btn btn-warning" id="modificarRol">Modificar</button>  ' .
                     '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdRol() . '\')">Eliminar</button>'
                 );

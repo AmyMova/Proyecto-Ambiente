@@ -89,16 +89,16 @@ $("#tbllistado tbody").on(
         $("#formulario_contrasenna").hide();
         $("#formulario_update").show();
         $("#id").val(data[0]);
-        $("#Nuevo_Nombre").val(data[1]);
-        $("#Nuevo_Apellido_Usuario").val(data[2]);
+        $("#Nuevo_Nombre").val(data[13]);
+        $("#Nuevo_Apellido_Usuario").val(data[12]);
         
-        $("#Nuevo_Correo").val(data[3]);
-        $("#Nuevo_Numero_Telefono").val(data[6]);
-        $("#Nuevo_Numero_Cedula").val(data[7]);
-        var Rol = data[9];
-        var dia = data[10];
-        var mes = data[11];
-        var ano = data[12];
+        $("#Nuevo_Correo").val(data[2]);
+        $("#Nuevo_Numero_Telefono").val(data[5]);
+        $("#Nuevo_Numero_Cedula").val(data[6]);
+        var Rol = data[8];
+        var dia = data[9];
+        var mes = data[10];
+        var ano = data[11];
         $("#Nuevo_Rol").val(Rol);
         $("#Nuevo_Dia_Cumpleanos").val(dia);
         $("#Nuevo_Mes_Cumpleanos").val(mes);
@@ -108,58 +108,9 @@ $("#tbllistado tbody").on(
     }
 );
 
-$("#tbllistado tbody").on(
-    "click",
-    'button[id="modificarContrasena"]',
-    function () {
-        var data = $("#tbllistado").DataTable().row($(this).parents("tr")).data();
-        limpiarForms();
-
-        $("#formulario_add").hide();
-        $("#formulario_update").hide();
-        $("#formulario_contrasenna").show();
-        $("#ID").val(data[0]);
-        $("#CorreoElectronico").val(data[3]);
-        
-        return false;
-    }
-);
 
 /*Funcion para modificacion de la contraseña del usuario*/
-$("#contrasena_update").on("submit", function (event) {
-    event.preventDefault();
-    bootbox.confirm("¿Desea modificar la contraseña?", function (result) {
-        if (result) {
-            var formData = new FormData($("#contrasena_update")[0]);
-            $.ajax({
-                url: "../Controller/UsuarioController.php?op=CContrasena",
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (datos) {
-                    //alert(datos);
-                    switch (datos) {
-                        case "0":
-                            toastr.error("Error: No se pudieron actualizar los datos");
-                            break;
-                        case "1":
-                            toastr.success("Contraseña actualizado exitosamente");
-                            tabla.api().ajax.reload();
-                            limpiarForms();
-                            $("#formulario_update").hide();
-                            $("#formulario_contrasenna").hide();
-                            $("#formulario_add").show();
-                            break;
-                        case "2":
-                            toastr.error("Error:Id no encontrado.");
-                            break;
-                    }
-                },
-            });
-        }
-    });
-});
+
 /*Funcion para modificacion de datos de usuario*/
 $("#usuario_update").on("submit", function (event) {
     event.preventDefault();
