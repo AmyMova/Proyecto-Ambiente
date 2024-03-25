@@ -204,7 +204,7 @@ class Usuario extends Conexion
                 $user->setDiaCumpleanos($encontrado['DiaCumpleanos']);
                 $user->setMesCumpleanos($encontrado['MesCumpleanos']);
                 $user->setAnoCumpleanos($encontrado['AnoCumpleanos']);
-
+                $user->setImagen($encontrado['Imagen']);
                 $user->setRol($encontrado['Rol']);
                 $arr[] = $user;
             }

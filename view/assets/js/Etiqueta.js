@@ -12,14 +12,14 @@ function limpiarForms() {
   }
   
   /*Funcion para cargar el listado en el Datatable*/
-  function ListarProductos() {
+  function ListarTablaEtiqueta() {
     tabla = $("#tbllistado").dataTable({
       aProcessing: true, //actiavmos el procesamiento de datatables
       aServerSide: true, //paginacion y filtrado del lado del serevr
       dom: "Bfrtip", //definimos los elementos del control de tabla
       buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
       ajax: {
-        url: "../Controller/ProductoController.php?op=ListarTablaProducto",
+        url: "../Controller/EtiquetaController.php?op=ListarTablaEtiqueta",
         type: "get",
         dataType: "json",
         error: function (e) {
@@ -35,17 +35,17 @@ function limpiarForms() {
   */
   $(function () {
     $("#formulario_update").hide();
-    ListarProductos();
+    ListarTablaEtiqueta();
   });
   /*
   CRUD
   */
-  $("#producto_add").on("submit", function (event) {
+  $("#etiqueta_add").on("submit", function (event) {
     event.preventDefault();
     $("#btnRegistar").prop("disabled", true);
-    var formData = new FormData($("#producto_add")[0]);
+    var formData = new FormData($("#etiqueta_add")[0]);
     $.ajax({
-      url: "../Controller/ProductoController.php?op=AgregarProducto",
+      url: "../Controller/EtiquetaController.php?op=AgregarEtiqueta",
       type: "POST",
       data: formData,
       contentType: false,
@@ -53,14 +53,14 @@ function limpiarForms() {
       success: function (datos) {
         switch (datos) {
           case "1":
-            toastr.success("Producto registrado");
-            $("#producto_add")[0].reset();
+            toastr.success("Etiqueta registrado");
+            $("#etiqueta_add")[0].reset();
             tabla.api().ajax.reload();
             break;
   
           case "2":
             toastr.error(
-              "El producto ya existe... Corrija e inténtelo nuevamente..."
+              "El etiqueta ya existe... Corrija e inténtelo nuevamente..."
             );
             break;
   
@@ -79,7 +79,7 @@ function limpiarForms() {
   /*Habilitacion de form de modificacion al presionar el boton en la tabla*/
   $("#tbllistado tbody").on(
     "click",
-    'button[id="modificarProducto"]',
+    'button[id="modificarEtiqueta"]',
     function () {
       var data = $("#tbllistado").DataTable().row($(this).parents("tr")).data();
       limpiarForms();
@@ -89,31 +89,26 @@ function limpiarForms() {
       $("#formulario_add").hide();
       $("#formulario_update").show();
       $("#id").val(data[0]);
-      $("#Nueva_Descripcion").val(data[1]);
-      $("#Nuevo_Precio_Venta").val(data[10]);
-      $("#Nuevo_Precio_Credito").val(data[11]);
-      $("#Nueva_Cant_XS").val(data[4]);
-      $("#Nueva_Cant_S").val(data[5]);
-      $("#Nueva_Cant_M").val(data[6]);
-      $("#Nueva_Cant_L").val(data[7]);
-      $("#Nueva_Cant_XL").val(data[8]);
-      $("#Nueva_Cant_XXL").val(data[9]);
-      $("#Nuevo_Id_Marca").val(data[15]);
-      $("#Nuevo_Id_Categoria").val(data[14]);
-      $("#img").attr("src", URLImagen);
+      $("#Nuevo_XS").val(data[4]);
+      $("#Nuevo_S").val(data[5]);
+      $("#Nuevo_M").val(data[6]);
+      $("#Nuevo_L").val(data[7]);
+      $("#Nuevo_XL").val(data[8]);
+      $("#Nuevo_XXL").val(data[9]);
+      $("#Id_Producto").val(data[13])
       return false;
     }
   );
   
-  /*Funcion para modificacion de datos de producto*/
-  /*Funcion para modificacion de datos de producto*/
-  $("#producto_update").on("submit", function (event) {
+  /*Funcion para modificacion de datos de etiqueta*/
+  /*Funcion para modificacion de datos de etiqueta*/
+  $("#etiqueta_update").on("submit", function (event) {
     event.preventDefault();
     bootbox.confirm("¿Desea modificar los datos?", function (result) {
       if (result) {
-        var formData = new FormData($("#producto_update")[0]);
+        var formData = new FormData($("#etiqueta_update")[0]);
         $.ajax({
-          url: "../Controller/ProductoController.php?op=EditarProducto",
+          url: "../Controller/EtiquetaController.php?op=EditarEtiqueta",
           type: "POST",
           data: formData,
           contentType: false,
@@ -125,14 +120,14 @@ function limpiarForms() {
                 toastr.error("Error: No se pudieron actualizar los datos");
                 break;
               case "1":
-                toastr.success("Producto actualizado exitosamente");
+                toastr.success("Etiqueta actualizado exitosamente");
                 tabla.api().ajax.reload();
                 limpiarForms();
                 $("#formulario_update").hide();
                 $("#formulario_add").show();
                 break;
               case "2":
-                toastr.error("Error:Descripción no pertenece al producto.");
+                toastr.error("Error:Id no pertenece a la etiqueta.");
                 break;
             }
           },
@@ -140,22 +135,22 @@ function limpiarForms() {
       }
     });
   });
-  function Eliminar(IdProducto) {
-    bootbox.confirm('¿Esta seguro de eliminar el producto?', function (result) {
+  function Eliminar(IdEtiqueta) {
+    bootbox.confirm('¿Esta seguro de eliminar el etiqueta?', function (result) {
       if (result) {
         $.post(
-          '../Controller/ProductoController.php?op=EliminarProducto',
-          { IdProducto: IdProducto },
+          '../Controller/EtiquetaController.php?op=EliminarEtiqueta',
+          { IdEtiqueta: IdEtiqueta },
           function (data, textStatus, xhr) {
             switch (data) {
               case '1':
-                toastr.success('Producto Eliminado');
+                toastr.success('Etiqueta Eliminado');
                 tabla.api().ajax.reload();
                 break;
   
               case '0':
                 toastr.error(
-                  'Error: El producto no puede eliminarse. Consulte con el administrador...'
+                  'Error: El etiqueta no puede eliminarse. Consulte con el administrador...'
                 );
                 break;
   

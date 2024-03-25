@@ -153,15 +153,15 @@ switch ($_GET["op"]) {
             $producto->setImagen($newImageName);
             $producto->setPrecioCredito($PrecioCredito);
             $producto->setPrecioVenta($PrecioVenta);
-            $producto->setIdProducto($IdProducto);
             $modificados = $producto->EditarProducto();
-            if (!empty($newImageName)) {
+            
+            if ($modificados > 0) {
+                if (!empty($newImageName)) {
                 if (!move_uploaded_file($tmpName, '../view/assets/img/' . $newImageName)) {
                     echo "Error al subir la imagen.";
                     exit;
                 }
             }
-            if ($modificados > 0) {
                 echo 1;
             } else {
                 echo 0;

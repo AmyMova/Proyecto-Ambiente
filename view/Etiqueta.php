@@ -17,105 +17,60 @@
         <div class="col-md-12" id="formulario_add">
             <div class="card card-dark">
                 <div class="card-header">
-                    <h3 class="card-title">Agregar un Producto</h3>
+                    <h3 class="card-title">Agregar una Etiqueta</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md 10">
-                            <form name="modulos_add" id="producto_add" method="POST" enctype="multipart/form-data">
+                            <form name="modulos_add" id="etiqueta_add" method="POST">
                                 <input type="hidden" id="existeModulo" name="existeModulo">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="descripcionP">Descripción</label>
-                                            <input type="text" class="form-control" id="descripcionP"
-                                                name="descripcionP" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="Precio_Venta">Precio Venta</label>
-                                            <input type="text" class="form-control" id="Precio_Venta"
-                                                name="Precio_Venta" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="Precio_Credito">Precio Crédito</label>
-                                            <input type="text" class="form-control" id="Precio_Credito"
-                                                name="Precio_Credito" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="Cantidad_XS">XS</label>
-                                            <input type="number" class="form-control" id="Cantidad_XS"
-                                                name="Cantidad_XS" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="Cantidad_S">S</label>
-                                            <input type="number" class="form-control" id="Cantidad_S" name="Cantidad_S"
+                                            <label for="IdProducto">IdProducto</label>
+                                            <input type="text" class="form-control" id="IdProducto" name="IdProducto"
                                                 required>
                                         </div>
                                     </div>
+
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Cantidad_M">M</label>
-                                            <input type="number" class="form-control" id="Cantidad_M" name="Cantidad_M"
-                                                required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="Cantidad_L">L</label>
-                                            <input type="number" class="form-control" id="Cantidad_L" name="Cantidad_L"
-                                                required>
+                                            <label for="XS">XS</label>
+                                            <input type="number" class="form-control" id="XS" name="XS" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Cantidad_XL">XL</label>
-                                            <input type="number" class="form-control" id="Cantidad_XL"
-                                                name="Cantidad_XL" required>
+                                            <label for="S">S</label>
+                                            <input type="number" class="form-control" id="S" name="S" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Cantidad_XXL">XXL</label>
-                                            <input type="number" class="form-control" id="Cantidad_XXL"
-                                                name="Cantidad_XXL" required>
+                                            <label for="M">M</label>
+                                            <input type="number" class="form-control" id="M" name="M" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Id_Marca">Marca</label>
-                                            <select name="Id_Marca" id="Id_Marca" class="form-control">
-                                                <option value="1" selected>Cuero</option>
-                                            </select>
+                                            <label for="L">L</label>
+                                            <input type="number" class="form-control" id="L" name="L" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Id_Categoria">Categoria</label>
-                                            <select name="Id_Categoria" id="Id_Categoria" class="form-control">
-                                                <option value="1" selected>Sweater</option>
-                                            </select>
+                                            <label for="XL">XL</label>
+                                            <input type="number" class="form-control" id="XL" name="XL" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="imagenP">Imagen</label>
-                                            <input type="file" class="form-control" id="imagenP" name="imagenP">
+                                            <label for="XXL">XXL</label>
+                                            <input type="number" class="form-control" id="XXL" name="XXL" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="preview">
-                                            <img src="" id="img" alt="Preview" style="width: 50px;height:50px;">
-                                        </div>
-                                    </div>
+
                                 </div>
 
                                 <div class="row">
@@ -136,104 +91,63 @@
         <div class="col-md-12" id="formulario_update">
             <div class="card card-dark">
                 <div class="card-header">
-                    <h3 class="card-title">Modificar un Producto</h3>
+                    <h3 class="card-title">Modificar una Etiqueta</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md 10">
-                            <form name="producto_update" id="producto_update" method="POST">
+                            <form name="etiqueta_update" id="etiqueta_update" method="POST">
                                 <input type="hidden" class="form-control" id="id" name="id">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="Nueva_Descripcion">Descripción</label>
-                                            <input type="text" class="form-control" id="Nueva_Descripcion"
-                                                name="Nueva_Descripcion" required>
+                                            <label for="Id_Producto">IdProducto</label>
+                                            <input type="text" class="form-control" id="Id_Producto" name="Id_Producto"
+                                                required>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+
+                                    <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Nuevo_Precio_Venta">Precio Venta</label>
-                                            <input type="number" class="form-control" id="Nuevo_Precio_Venta"
-                                                name="Nuevo_Precio_Venta" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="Nuevo_Precio_Credito">Precio Crédito</label>
-                                            <input type="number" class="form-control" id="Nuevo_Precio_Credito"
-                                                name="Nuevo_Precio_Credito" required>
+                                            <label for="Nuevo_XS">XS</label>
+                                            <input type="number" class="form-control" id="Nuevo_XS" name="Nuevo_XS"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Nueva_Cant_XS">XS</label>
-                                            <input type="number" class="form-control" id="Nueva_Cant_XS"
-                                                name="Nueva_Cant_XS" required>
+                                            <label for="Nuevo_S">S</label>
+                                            <input type="number" class="form-control" id="Nuevo_S" name="Nuevo_S"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Nueva_Cant_S">S</label>
-                                            <input type="number" class="form-control" id="Nueva_Cant_S"
-                                                name="Nueva_Cant_S" required>
+                                            <label for="Nuevo_M">M</label>
+                                            <input type="number" class="form-control" id="Nuevo_M" name="Nuevo_M"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Nueva_Cant_M">M</label>
-                                            <input type="number" class="form-control" id="Nueva_Cant_M"
-                                                name="Nueva_Cant_M" required>
+                                            <label for="Nuevo_L">L</label>
+                                            <input type="number" class="form-control" id="Nuevo_L" name="Nuevo_L"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Nueva_Cant_L">L</label>
-                                            <input type="number" class="form-control" id="Nueva_Cant_L"
-                                                name="Nueva_Cant_L" required>
+                                            <label for="Nuevo_XL">XL</label>
+                                            <input type="number" class="form-control" id="Nuevo_XL" name="Nuevo_XL"
+                                                required>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="Nueva_Cant_XL">XL</label>
-                                            <input type="number" class="form-control" id="Nueva_Cant_XL"
-                                                name="Nueva_Cant_XL" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="Nueva_Cant_XXL">XXL</label>
-                                            <input type="number" class="form-control" id="Nueva_Cant_XXL"
-                                                name="Nueva_Cant_XXL" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="Nuevo_Id_Marca">Marca</label>
-                                            <select name="Nuevo_Id_Marca" id="Nuevo_Id_Marca" class="form-control">
-                                                <option value="1" selected>Cuero</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="Nuevo_Id_Categoria">Categoria</label>
-                                            <select name="Nuevo_Id_Categoria" id="Nuevo_Id_Categoria"
-                                                class="form-control">
-                                                <option value="1" selected>Sweater</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="Nueva_Imagen">Imagen</label>
-                                            <input type="file" class="form-control" id="Nueva_Imagen" name="Nueva_Imagen">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="preview-edit">
-                                            <img src="" id="img_edit" alt="Preview" style="width: 50px;height:50px;">
+                                            <label for="Nuevo_XXL">XXL</label>
+                                            <input type="number" class="form-control" id="Nuevo_XXL" name="Nuevo_XXL"
+                                                required>
                                         </div>
                                     </div>
                                 </div>
@@ -257,16 +171,23 @@
         </div>
     </div>
     <!-- listado -->
+
     <div class="col-md-12">
         <div class="card card-dark">
             <div class="card-header">
-                <h3 class="card-title">Productos existentes</h3>
+                <h3 class="card-title">Etiquetas existentes</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body p-0">
                 <div class="row mt-2">
                     <div class="col-md-1"></div>
                     <div class="col-md-10">
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <input type="button" class="form-control btn btn-info" value="Imprimir Etiquetas"
+                                    onclick="Imprimir()">
+                            </div>
+                        </div>
                         <table id="tbllistado" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <th>ID</th>
@@ -281,7 +202,6 @@
                                 <th>XXL</th>
                                 <th>Precio Venta</th>
                                 <th>Precio Crédito</th>
-                                <th>Imagen</th>
                                 <th>Opciones</th>
                             </thead>
                             <tbody>
@@ -299,7 +219,6 @@
                                 <th>XXL</th>
                                 <th>Precio Venta</th>
                                 <th>Precio Crédito</th>
-                                <th>Imagen</th>
                                 <th>Opciones</th>
                             </tfooter>
                         </table>
@@ -321,25 +240,6 @@
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
     <script src="plugins/bootbox/bootbox.min.js"></script>
     <script src="plugins/toastr/toastr.js"></script>
-    <script src="assets/js/Producto.js"></script>
-    <script type="text/javascript">
-        imagenP.onchange=evt=>{
-            const[file]=imagenP.files;
-            if(file){
-                img.src=URL.createObjectURL(file);
-            }
-        }
-        </script>
-        <script type="text/javascript">
-        Nueva_Imagen.onchange=evt=>{
-            const[file]=Nueva_Imagen.files;
-            if(file){
-                img_edit.src=URL.createObjectURL(file);
-            }
-        }
-        </script>
-        
-</body>
+    <script src="assets/js/Etiqueta.js"></script>
 
 </html>
-

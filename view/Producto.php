@@ -142,7 +142,7 @@
                     <div class="row">
                         <div class="col-md-1"></div>
                         <div class="col-md 10">
-                            <form name="producto_update" id="producto_update" method="POST">
+                            <form name="modulos_update" id="producto_update" method="POST"enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" id="id" name="id">
                                 <div class="row">
                                     <div class="col-md-4">
