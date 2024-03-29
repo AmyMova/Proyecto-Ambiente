@@ -64,7 +64,6 @@
     <div class="carrito-acciones-derecha">
         <div class="carrito-acciones-total">
             <p>Total:</p>
-            <p id="total">$3000</p>
         </div>
         <form action="Apartar.php" method="get">
             <input type="hidden" name="total" id="totalHiddenInput" value="">
