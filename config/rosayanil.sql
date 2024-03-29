@@ -240,21 +240,15 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `apartado`;
 CREATE TABLE `apartado` (
-  `IdApartado` int(11) NOT NULL,
-  `IdUsuario` int(11) NOT NULL,
-  `Producto` varchar(100) NOT NULL,
-  `CantidadTotalProductos` int(11) NOT NULL,
-  `PrecioTotalProductos` decimal(10,0) NOT NULL,
-  `Pago1` decimal(10,0) DEFAULT NULL,
-  `Pago2` decimal(10,0) DEFAULT NULL,
-  `pago3` decimal(10,0) DEFAULT NULL,
-  `FechaPago1` datetime DEFAULT NULL,
-  `FechaPago2` datetime DEFAULT NULL,
-  `FechaPago3` datetime DEFAULT NULL,
-  `Notificacion1` bit(1) DEFAULT NULL,
-  `Notificacion2` bit(1) DEFAULT NULL,
-  `Notificacion3` bit(1) DEFAULT NULL
+  `ValorTotal` decimal(10,0) NOT NULL,
+  `Producto` varchar(100) NOT NULL,  
+  `CantidadTotal` int(11) NOT NULL,  
+  `PrecioTotal` decimal(10,0) NOT NULL,
+  `Duracion` varchar(50) NOT NULL,
+  `AporteUsuario` decimal(10,2) NOT NULL,
+  `MetodoPago` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 
