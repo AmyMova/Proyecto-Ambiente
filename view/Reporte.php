@@ -1,44 +1,88 @@
-<?php
-// Incluir el modelo ApartadoModel.php
-require_once '../Model/ApartadoModel.php';
-
-// Obtener los datos de la base de datos utilizando el modelo
-$apartadoModel = new ApartadoModel();
-$apartados = $apartadoModel->obtenerApartados(); // Esta función debe ser implementada en ApartadoModel.php
-
-// Mostrar los datos en el reporte
-?>
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte de Apartados</title>
+    <title>Reporte</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Agrega los estilos necesarios para la tabla -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css">
 </head>
-<body>
-    <h1>Reporte de Apartados</h1>
 
-    <!-- Aquí puedes diseñar cómo deseas mostrar los datos en el reporte -->
-    <table>
-        <tr>
-            <th>ID Apartado</th>
-            <th>ID Usuario</th>
-            <th>Producto</th>
-            <th>Cantidad Total de Productos</th>
-            <th>Precio Total de Productos</th>
-            <!-- Agregar más encabezados según sea necesario -->
-        </tr>
-        <?php foreach ($apartados as $apartado): ?>
-        <tr>
-            <td><?php echo $apartado['IdApartado']; ?></td>
-            <td><?php echo $apartado['IdUsuario']; ?></td>
-            <td><?php echo $apartado['Producto']; ?></td>
-            <td><?php echo $apartado['CantidadTotalProductos']; ?></td>
-            <td><?php echo $apartado['PrecioTotalProductos']; ?></td>
-            <!-- Agregar más columnas según sea necesario -->
-        </tr>
-        <?php endforeach; ?>
-    </table>
+<body>
+
+    <!-- Navbar vertical -->
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Apartado</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+    </ul>
+
+    <!-- Aquí agregamos la tabla de listado de apartados -->
+    <div class="col-md-12">
+        <div class="card card-dark">
+            <div class="card-header">
+                <h3 class="card-title">Listado de Apartados</h3>
+            </div>
+            <div class="card-body p-0">
+                <div class="row mt-2">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <table id="tbllistado" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <!-- Encabezados de la tabla -->
+                                <th>IdApartado</th>
+                                <th>ValorTotal</th>
+                                <th>Producto</th>
+                                <th>CantidadTotal</th>
+                                <th>PrecioTotal</th>
+                                <th>Duracion</th>
+                                <th>AporteUsuario</th>
+                                <th>MetodoPago</th>
+                                <th>NombreCliente</th>
+                                <th>FechaApartado</th>
+                                <th>CorreoCliente</th>
+                                <!-- Añadir más columnas según sea necesario -->
+                            </thead>
+                            <tbody>
+                                <!-- Filas de la tabla -->
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="plugins/DataTables/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
+    <script src="plugins/bootbox/bootbox.min.js"></script>
+    <script src="plugins/toastr/toastr.js"></script>
+    <!-- Tu script personalizado -->
+    <script src="assets/js/NewApartado.js"></script>
+    <script>
+        // Llamar a la función para listar los apartados cuando la página se cargue
+        $(document).ready(function() {
+            ListarApartados();
+        });
+    </script>
 </body>
+
 </html>

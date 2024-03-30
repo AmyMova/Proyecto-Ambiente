@@ -55,7 +55,7 @@
                 </ul>
             </nav>
             <footer>
-                <p class="texto-footer">© 2022 Rosa y Anil</p>
+                <p class="texto-footer">© 2024 Rosa y Anil</p>
             </footer>
         </aside>
         <main>
