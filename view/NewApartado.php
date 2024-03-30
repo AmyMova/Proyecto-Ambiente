@@ -9,6 +9,8 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/toastr/toastr.css">
+    <link rel="stylesheet" href="../view/assets/css/Apartado.css">
+
 </head>
 
 <body>
@@ -25,8 +27,7 @@
                         <div class="col-md-10">
                             <form name="form-apartado" id="form-apartado" method="POST" enctype="multipart/form-data">
                                 <div class="row">
-                                    <!-- Aquí colocar los campos para capturar los datos del apartado -->
-                                    <!-- Por ejemplo: -->
+                                    <!-- Campos para capturar los datos del apartado -->
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="valor_total">Valor Total</label>
@@ -45,7 +46,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="CantidadTotal">CantidadTotal</label>
+                                            <label for="CantidadTotal">Cantidad Total</label>
                                             <input type="text" class="form-control" id="CantidadTotal" 
                                             name="CantidadTotal" required>
                                         </div>
@@ -53,7 +54,7 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="PrecioTotal">PrecioTotal</label>
+                                            <label for="PrecioTotal">Precio Total</label>
                                             <input type="text" class="form-control" id="PrecioTotal" 
                                             name="PrecioTotal" required>
                                         </div>
@@ -61,22 +62,44 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="Duracion">Duracion</label>
+                                            <label for="Duracion">Duración</label>
                                             <input type="text" class="form-control" id="Duracion" name="Duracion" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="AporteUsuario">AporteUsuario</label>
+                                            <label for="AporteUsuario">Aporte Usuario</label>
                                             <input type="text" class="form-control" id="AporteUsuario" name="AporteUsuario" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="MetodoPago">MetodoPago</label>
+                                            <label for="MetodoPago">Método de Pago</label>
                                             <input type="text" class="form-control" id="MetodoPago" name="MetodoPago" required>
+                                        </div>
+                                    </div>
+
+                                
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="NombreCliente">Nombre del Cliente</label>
+                                            <input type="text" class="form-control" id="NombreCliente" name="NombreCliente" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="FechaApartado">Fecha del Apartado</label>
+                                            <input type="text" class="form-control" id="FechaApartado" name="FechaApartado" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="CorreoCliente">Correo del Cliente</label>
+                                            <input type="email" class="form-control" id="CorreoCliente" name="CorreoCliente" required>
                                         </div>
                                     </div>
                              
@@ -94,59 +117,48 @@
                 </div>
             </div>
         </div>
-        <!-- Tabla de listado de apartados -->
-        <div class="col-md-12">
-            <div class="card card-dark">
-                <div class="card-header">
-                    <h3 class="card-title">Listado de Apartados</h3>
-                </div>
-                <div class="card-body p-0">
-                    <div class="row mt-2">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10">
-                            <table id="tbllistado" class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <!-- Encabezados de la tabla -->
-                                    <th>ID</th>
-                                    <th>Valor Total</th>
-                                    <th>Producto</th>
-                                    <th>Cantidad Total</th>
-                                    <th>Precio Total</th>
-                                    <th>Duración</th>
-                                    <th>Aporte Usuario</th>
-                                    <th>Método de Pago</th>
-                                    <!-- Añadir más columnas según sea necesario -->
-                                </thead>
-                                <tbody>
-                                    <!-- Filas de la tabla -->
-                                </tbody>
-                                <!-- Pie de la tabla -->
-                                <tfooter>
-                                    <!-- Encabezados de la tabla -->
-                                    <th>ID</th>
-                                    <th>Valor Total</th>
-                                    <th>Producto</th>
-                                    <th>Cantidad Total</th>
-                                    <th>Precio Total</th>
-                                    <th>Duración</th>
-                                    <th>Aporte Usuario</th>
-                                    <th>Método de Pago</th>
-                                    <!-- Añadir más columnas según sea necesario -->
-                                </tfooter>
-                            </table>
-                        </div>
-                        <div class="col-md-1"></div>
+    </div>
+    <!-- Aquí agregamos la tabla de listado de apartados -->
+    <div class="col-md-12">
+        <div class="card card-dark">
+            <div class="card-header">
+                <h3 class="card-title">Listado de Apartados</h3>
+            </div>
+            <div class="card-body p-0">
+                <div class="row mt-2">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <table id="tbllistado" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <!-- Encabezados de la tabla -->
+                                <th>IdApartado</th>
+                                <th>ValorTotal</th>
+                                <th>Producto</th>
+                                <th>CantidadTotal</th>
+                                <th>PrecioTotal</th>
+                                <th>Duracion</th>
+                                <th>AporteUsuario</th>
+                                <th>MetodoPago</th>
+                                <th>NombreCliente</th>
+                                <th>FechaApartado</th>
+                                <th>CorreoCliente</th>
+                                
+                            </thead>
+                            <tbody>
+                                <!-- Filas de la tabla -->
+                            </tbody>
+
+                        </table>
                     </div>
+                    <div class="col-md-1"></div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Scripts -->
 <script src="plugins/jquery/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="plugins/DataTables/datatables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
+
 <script src="plugins/bootbox/bootbox.min.js"></script>
 <script src="plugins/toastr/toastr.js"></script>
 <!-- Tu script personalizado -->

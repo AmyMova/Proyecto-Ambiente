@@ -14,6 +14,9 @@ class NewApartadoModel extends Conexion
     private $Duracion = null;
     private $AporteUsuario = null;
     private $MetodoPago = null;
+    private $NombreCliente = null;
+    private $FechaApartado = null;
+    private $CorreoCliente = null;
     /*=====  End of Atributos de la Clase  ======*/
 
     /*=============================================
@@ -89,6 +92,33 @@ class NewApartadoModel extends Conexion
     {
         $this->MetodoPago = $MetodoPago;
     }
+
+    public function getNombreCliente()
+    {
+        return $this->NombreCliente;
+    }
+    public function setNombreCliente($NombreCliente)
+    {
+        $this->NombreCliente = $NombreCliente;
+    }
+
+    public function getFechaApartado()
+    {
+        return $this->FechaApartado;
+    }
+    public function setFechaApartado($FechaApartado)
+    {
+        $this->FechaApartado = $FechaApartado;
+    }
+
+    public function getCorreoCliente()
+    {
+        return $this->CorreoCliente;
+    }
+    public function setCorreoCliente($CorreoCliente)
+    {
+        $this->CorreoCliente = $CorreoCliente;
+    }
     /*=====  End of Encapsuladores de la Clase  ======*/
 
     /*=============================================
@@ -104,19 +134,22 @@ class NewApartadoModel extends Conexion
         self::$cnx = null;
     }
 
-    public function agregarApartado($valor_total, $Producto, $CantidadTotal, $PrecioTotal, $Duracion, $AporteUsuario, $MetodoPago)
+    public function agregarApartado($valor_total, $Producto, $CantidadTotal, $PrecioTotal, $Duracion, $AporteUsuario, $MetodoPago, $NombreCliente, $FechaApartado, $CorreoCliente)
     {
-        $query = "CALL CrearApartado(:p_ValorTotal, :Producto, :CantidadTotal, :PrecioTotal, :Duracion, :AporteUsuario, :MetodoPago)";
+        $query = "CALL CrearApartado(:ValorTotal, :Producto, :CantidadTotal, :PrecioTotal, :Duracion, :AporteUsuario, :MetodoPago, :NombreCliente, :FechaApartado, :CorreoCliente)";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
-            $resultado->bindParam(":p_ValorTotal", $valor_total, PDO::PARAM_STR);
+            $resultado->bindParam(":ValorTotal", $valor_total, PDO::PARAM_STR);
             $resultado->bindParam(":Producto", $Producto, PDO::PARAM_STR);
             $resultado->bindParam(":CantidadTotal", $CantidadTotal, PDO::PARAM_STR);
             $resultado->bindParam(":PrecioTotal", $PrecioTotal, PDO::PARAM_STR);
             $resultado->bindParam(":Duracion", $Duracion, PDO::PARAM_STR);
             $resultado->bindParam(":AporteUsuario", $AporteUsuario, PDO::PARAM_STR);
             $resultado->bindParam(":MetodoPago", $MetodoPago, PDO::PARAM_STR);
+            $resultado->bindParam(":NombreCliente", $NombreCliente, PDO::PARAM_STR);
+            $resultado->bindParam(":FechaApartado", $FechaApartado, PDO::PARAM_STR);
+            $resultado->bindParam(":CorreoCliente", $CorreoCliente, PDO::PARAM_STR);
             $resultado->execute();
             self::desconectar();
             return true;
@@ -126,6 +159,50 @@ class NewApartadoModel extends Conexion
             return $error;
         }
     }
+
+    public function VerApartado($id = null)
+    {
+        $query = "CALL VerApartado(:id)";
+        $arr = array();
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            // Si se proporciona un ID, se pasa como parámetro, de lo contrario, se pasa null
+            if ($id !== null) {
+                $resultado->bindParam(":id", $id, PDO::PARAM_INT);
+            } else {
+                // Si no se proporciona un ID, se asigna un valor null al parámetro
+                $id = null;
+                $resultado->bindParam(":id", $id, PDO::PARAM_NULL);
+            }
+            $resultado->execute();
+            self::desconectar();
+            foreach ($resultado->fetchAll() as $encontrado) {
+                $apartado = new NewApartadoModel(); 
+                $apartado->setIdApartado($encontrado['IdApartado']);
+                $apartado->setValorTotal($encontrado['ValorTotal']);
+                $apartado->setProducto($encontrado['Producto']);
+                $apartado->setCantidadTotal($encontrado['CantidadTotal']);
+                $apartado->setPrecioTotal($encontrado['PrecioTotal']);
+                $apartado->setDuracion($encontrado['Duracion']);
+                $apartado->setAporteUsuario($encontrado['AporteUsuario']);
+                $apartado->setMetodoPago($encontrado['MetodoPago']);
+                $apartado->setNombreCliente($encontrado['NombreCliente']);
+                $apartado->setFechaApartado($encontrado['FechaApartado']);
+                $apartado->setCorreoCliente($encontrado['CorreoCliente']);
+                $arr[] = $apartado;
+            }
+            return $arr;
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            return json_encode($error);
+        }
+    }
+    
+    
+    
+    
     /*=====  End of Metodos de la Clase  ======*/
 }
 ?>

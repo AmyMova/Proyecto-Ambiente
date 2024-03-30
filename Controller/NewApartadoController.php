@@ -1,16 +1,74 @@
 <?php
+// Incluir el modelo de Apartado
 require_once '../Model/NewApartadoModel.php';
 
+// Verificar la operación solicitada
 switch ($_GET["op"]) {
+    case 'ListarTablaApartado':
+        $apartadoModel = new NewApartadoModel();
+
+        // Obtener todos los apartados
+        $apartados = $apartadoModel->VerApartado();
+
+        // Verificar si se obtuvieron los apartados correctamente
+        if ($apartados !== false) {
+            $data = array();
+            foreach ($apartados as $apartado) {
+                $data[] = array(
+                    "0" => $apartado->getIdApartado(),
+                    "1" => $apartado->getValorTotal(),
+                    "2" => $apartado->getProducto(),
+                    "3" => $apartado->getCantidadTotal(),
+                    "4" => $apartado->getPrecioTotal(),
+                    "5" => $apartado->getDuracion(),
+                    "6" => $apartado->getAporteUsuario(),
+                    "7" => $apartado->getMetodoPago(),
+                    "8" => $apartado->getNombreCliente(),
+                    "9" => $apartado->getFechaApartado(),
+                    "10" => $apartado->getCorreoCliente(),
+                );
+            }
+            
+            $resultados = array(
+                "sEcho" => 1, // Información para datatables
+                "iTotalRecords" => count($data), // Total de registros al datatable
+                "iTotalDisplayRecords" => count($data), // Enviamos el total de registros a visualizar
+                "aaData" => $data
+            );
+            echo json_encode($resultados);
+        } else {
+            // Error al obtener los apartados
+            echo json_encode(array("error" => true, "message" => "Error al obtener los apartados."));
+        }
+        break;
+
+    case 'EliminarApartado':
+        // Obtener el ID del apartado a eliminar
+        $idApartado = isset($_POST["idApartado"]) ? $_POST["idApartado"] : "";
+        if (!empty($idApartado)) {
+            $apartadoModel = new NewApartadoModel();
+            // Llamar al método para eliminar el apartado
+            $resultado = $apartadoModel->eliminarApartado($idApartado);
+            if ($resultado) {
+                echo json_encode(array("success" => true, "message" => "Apartado eliminado correctamente."));
+            } else {
+                echo json_encode(array("success" => false, "message" => "Hubo un error al eliminar el apartado."));
+            }
+        } else {
+            echo json_encode(array("success" => false, "message" => "ID de apartado no válido."));
+        }
+        break;
+
     case 'AgregarApartado':
-        // Verificar si se han enviado todos los datos necesarios y que no están vacíos
-        if (
-            isset($_POST["valor_total"]) && isset($_POST["Producto"]) && isset($_POST["CantidadTotal"]) &&
-            isset($_POST["PrecioTotal"]) && isset($_POST["Duracion"]) && isset($_POST["AporteUsuario"]) &&
-            isset($_POST["MetodoPago"]) && !empty($_POST["valor_total"]) && !empty($_POST["Producto"]) &&
-            !empty($_POST["CantidadTotal"]) && !empty($_POST["PrecioTotal"]) && !empty($_POST["Duracion"]) &&
-            !empty($_POST["AporteUsuario"]) && !empty($_POST["MetodoPago"])
-        ) {
+        // Verificar si se enviaron todos los datos necesarios y que no están vacíos
+        $required_fields = ["valor_total", "Producto", "CantidadTotal", "PrecioTotal", "Duracion", "AporteUsuario", "MetodoPago", "NombreCliente", "FechaApartado", "CorreoCliente"];
+        $missing_fields = [];
+        foreach ($required_fields as $field) {
+            if (!isset($_POST[$field]) || empty($_POST[$field])) {
+                $missing_fields[] = $field;
+            }
+        }
+        if (empty($missing_fields)) {
             // Obtener los datos del formulario
             $valor_total = $_POST["valor_total"];
             $Producto = $_POST["Producto"];
@@ -19,25 +77,27 @@ switch ($_GET["op"]) {
             $Duracion = $_POST["Duracion"];
             $AporteUsuario = $_POST["AporteUsuario"];
             $MetodoPago = $_POST["MetodoPago"];
+            $NombreCliente = $_POST["NombreCliente"];
+            $FechaApartado = $_POST["FechaApartado"];
+            $CorreoCliente = $_POST["CorreoCliente"];
 
             // Crear una instancia del modelo de Apartado
             $apartadoModel = new NewApartadoModel();
 
             // Llamar al método para agregar un nuevo apartado
-            $resultado = $apartadoModel->agregarApartado($valor_total, $Producto, $CantidadTotal, $PrecioTotal, $Duracion, $AporteUsuario, $MetodoPago);
+            $resultado = $apartadoModel->agregarApartado($valor_total, $Producto, $CantidadTotal, $PrecioTotal, $Duracion, $AporteUsuario, $MetodoPago, $NombreCliente, $FechaApartado, $CorreoCliente);
 
-            if ($resultado) {
+            if ($resultado === true) {
                 // El apartado se agregó correctamente
                 echo json_encode(array("success" => true, "message" => "El apartado se agregó correctamente."));
             } else {
                 // Hubo un error al agregar el apartado
-                echo json_encode(array("success" => false, "message" => "Hubo un error al agregar el apartado."));
+                echo json_encode(array("success" => false, "message" => $resultado)); // Enviar el mensaje de error devuelto por el modelo
             }
         } else {
             // No se enviaron todos los datos necesarios o algunos están vacíos
-            echo json_encode(array("success" => false, "message" => "No se enviaron todos los datos necesarios para agregar el apartado o algunos están vacíos."));
+            echo json_encode(array("success" => false, "message" => "Faltan campos obligatorios: " . implode(", ", $missing_fields)));
         }
         break;
 }
-
 ?>
