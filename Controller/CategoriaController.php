@@ -9,18 +9,16 @@ switch ($_GET["op"]) {
 
         if (is_array($categorias) || is_object($categorias)) {
             foreach ($categorias as $reg) {
-            $data[] = array(
-                "IdCategoria" => $reg->getIdCategoria(),
-                "Categoria" => $reg->getCategoria(),
-                "Opcion" => '<button class="btn btn-warning" id="modificarCategoria">Modificar</button>  ' .
-                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdCategoria() . '\')">Eliminar</button>'
+                $data[] = array(
+                    "IdCategoria" => $reg->getIdCategoria(),
+                    "Categoria" => $reg->getCategoria(),
+                    "OpcionCategoria" => '<button class="btn btn-warning" id="modificarCategoria"><i class="ti-pencil-alt"></i></button> | ' .
+                    '<button class="btn btn-danger" onclick="EliminarCategoria(\'' . $reg->getIdCategoria() . '\')"><i class="ti-trash"></i></button>'
                 );
             }
 
 
         } else {
-            // Handle the case where $catalogos is not an array or object
-            // For example, log an error message or return an empty array
             error_log("Catalog data is not an array or object.");
             $data = array();
         }
@@ -35,9 +33,9 @@ switch ($_GET["op"]) {
         $categoria->setCategoria($Categoria);
         $encontrado = $categoria->verificarExistenciaDb();
         if ($encontrado == 0) {
-            
+
             $categoria->guardarEnDb();
-            
+
             if ($categoria->verificarExistenciaDb()) {
                 echo 1; //categoria registrado 
                 //  echo 4; //categoria registrado y envio de correo fallido
@@ -53,7 +51,7 @@ switch ($_GET["op"]) {
     case 'EditarCategoria':
         $IdCategoria = isset($_POST["id"]) ? trim($_POST["id"]) : "";
         $Categoria = isset($_POST["Nuevo_Nombre_Categoria"]) ? trim($_POST["Nuevo_Nombre_Categoria"]) : "";
-        
+
         $categoria = new Categoria();
 
         $categoria->setIdCategoria($IdCategoria);
@@ -73,7 +71,7 @@ switch ($_GET["op"]) {
             echo 2;
         }
         break;
-        
+
     case 'EliminarCategoria':
         $categoria = new Categoria();
         $categoria->setIdCategoria(trim($_POST['IdCategoria']));

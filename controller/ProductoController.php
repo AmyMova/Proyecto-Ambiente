@@ -19,10 +19,10 @@ switch ($_GET["op"]) {
                 "8" => $reg->getCantXL(),
                 "9" => $reg->getCantXXL(),
                 "10" => $reg->getPrecioVenta(),
-                "11" => $reg->getPrecioCredito(),
-                "12" => $reg->getImagen(),
-                "13" => '</button> <button class="btn btn-warning" id="modificarProducto">Modificar</button> ' .
-                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdProducto() . '\')">Eliminar</button>',
+                "11" => '<button class="btn waves-effect waves-light  btn-warning" id="modificarProducto"><i class="ti-pencil-alt"></i></button> | ' .
+                    '<button class="btn waves-effect waves-light  btn-danger" onclick="EliminarProducto(\'' . $reg->getIdProducto() . '\')"><i class="ti-trash"></i></button>',
+                    "12" => $reg->getPrecioCredito(),
+                    "13" => $reg->getImagen(),
                 "14" => $reg->getIdCategoria(),
                 "15" => $reg->getIdMarca()
             );

@@ -1,26 +1,68 @@
-
 $(document).ready(function () {
     $.ajax({
-        url: '../Controller/RolController.php?op=ListarRol',
+        url: './../../Controller/RolController.php?op=ListarRol',
         dataType: 'json',
-        success: function (data) {
-            console.log(data);
-            // Crear el contenido del dropdown
-            var dropdownContent = [];
-            data.forEach(function (rol) {
-                dropdownContent.push({ id: rol.IdRol, text: rol.Rol });
-            });
-            // Inicializar el dropdown como un Select2
-            $('#dropdown-roles').select2({
-                data: dropdownContent,
-                placeholder: 'Seleccionar Rol', // Placeholder del menú desplegable
-                allowClear: true, // Permitir borrar la selección
-                width: '100%', // Ancho del menú desplegable
-                dropdownAutoWidth: true // Ajustar automáticamente el ancho del menú desplegable
-            });
+        success: function (response) {
+            llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
         },
-        error: function (e) {
-            console.log(e.responseText);
+        error: function (xhr, status, error) {
+            console.error('Error al obtener los datos:', error);
         }
     });
+
+    // Función para rellenar el select con los datos recibidos del servidor
+    function llenarSelect(datos) {
+        var select = $('#Nuevo_Id_Rol');
+
+        // Limpiamos las opciones actuales
+        select.empty();
+
+        // Añadimos la opción predeterminada
+
+
+        // Creamos una opción por cada objeto en el JSON recibido del servidor
+        $.each(datos, function (i, dato) {
+            select.append($('<option>', {
+                value: dato.IdRol,
+                text: dato.Rol
+            }));
+        });
+
+        // Aplicamos la inicialización de Select2
+        select.select2();
+    }
+});
+$(document).ready(function () {
+    $.ajax({
+        url: './../../Controller/RolController.php?op=ListarRol',
+        dataType: 'json',
+        success: function (response) {
+            llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al obtener los datos:', error);
+        }
+    });
+
+    // Función para rellenar el select con los datos recibidos del servidor
+    function llenarSelect(datos) {
+        var select = $('#Id_Rol');
+
+        // Limpiamos las opciones actuales
+        select.empty();
+
+        // Añadimos la opción predeterminada
+
+
+        // Creamos una opción por cada objeto en el JSON recibido del servidor
+        $.each(datos, function (i, dato) {
+            select.append($('<option>', {
+                value: dato.IdRol,
+                text: dato.Rol
+            }));
+        });
+
+        // Aplicamos la inicialización de Select2
+        select.select2();
+    }
 });

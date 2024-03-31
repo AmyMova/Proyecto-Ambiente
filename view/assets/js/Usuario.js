@@ -1,25 +1,25 @@
 /*Funcion para limpieza de los formularios*/
-function limpiarForms() {
-    $("#modulos_add").trigger("reset");
-    $("#modulos_update").trigger("reset");
+function limpiarFormsUsuario() {
+    $("#modulos_agregar_usuario").trigger("reset");
+    $("#modulos_editar_usuario").trigger("reset");
 }
 
 /*Funcion para cancelacion del uso de formulario de modificación*/
-function cancelarForm() {
-    limpiarForms();
-    $("#formulario_add").show();
-    $("#formulario_update").hide();
+function cancelarFormUsuario() {
+    limpiarFormsUsuario();
+    $("#formulario_agregar_usuario").show();
+    $("#formulario_editar_usuario").hide();
 }
 
 /*Funcion para cargar el listado en el Datatable*/
 function ListarUsuarios() {
-    tabla = $("#tbllistado").dataTable({
+    tabla = $("#tblListadoUsuario").dataTable({
         aProcessing: true, //actiavmos el procesamiento de datatables
         aServerSide: true, //paginacion y filtrado del lado del serevr
         dom: "Bfrtip", //definimos los elementos del control de tabla
         buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
         ajax: {
-            url: "../Controller/UsuarioController.php?op=ListarTablaUsuario",
+            url: "./../../Controller/UsuarioController.php?op=ListarTablaUsuario",
             type: "get",
             dataType: "json",
             error: function (e) {
@@ -34,19 +34,28 @@ function ListarUsuarios() {
 Funcion Principal
 */
 $(function () {
-    $("#formulario_update").hide();
-    $("#formulario_contrasenna").hide();
+    $("#formulario_editar_usuario").hide();
+    $("#formulario_agregar_usuario").hide();
     ListarUsuarios();
 });
 /*
 CRUD
 */
-$("#usuario_add").on("submit", function (event) {
+$(document).ready(function() {
+    // Evento clic para el botón #agregarUsuario
+    $('#agregarUsuario').click(function() {
+        limpiarFormsUsuario();
+        $('#formulario_agregar_usuario').show();
+        $("#formulario_editar_usuario").hide();
+        return false; // Para evitar que el evento de clic se propague
+    });
+  });
+$("#usuario_agregar").on("submit", function (event) {
     event.preventDefault();
     $("#btnRegistar").prop("disabled", true);
-    var formData = new FormData($("#usuario_add")[0]);
+    var formData = new FormData($("#usuario_agregar")[0]);
     $.ajax({
-        url: "../Controller/UsuarioController.php?op=AgregarUsuario",
+        url: "./../../Controller/UsuarioController.php?op=AgregarUsuario",
         type: "POST",
         data: formData,
         contentType: false,
@@ -55,7 +64,7 @@ $("#usuario_add").on("submit", function (event) {
             switch (datos) {
                 case "1":
                     toastr.success("Usuario registrado");
-                    $("#usuario_add")[0].reset();
+                    $("#usuario_agregar")[0].reset();
                     tabla.api().ajax.reload();
                     break;
 
@@ -78,17 +87,16 @@ $("#usuario_add").on("submit", function (event) {
 });
 
 /*Habilitacion de form de modificacion al presionar el boton en la tabla*/
-$("#tbllistado tbody").on(
+$("#tblListadoUsuario tbody").on(
     "click",
     'button[id="modificarUsuario"]',
     function () {
-        var data = $("#tbllistado").DataTable().row($(this).parents("tr")).data();
-        limpiarForms();
+        var data = $("#tblListadoUsuario").DataTable().row($(this).parents("tr")).data();
+        limpiarFormsUsuario();
         var imagen=data[14];
         var URLImagen="assets/img/"+imagen;
-        $("#formulario_add").hide();
-        $("#formulario_contrasenna").hide();
-        $("#formulario_update").show();
+        $("#formulario_agregar_usuario").hide();
+        $("#formulario_editar_usuario").show();
         $("#id").val(data[0]);
         $("#Nuevo_Nombre").val(data[13]);
         $("#Nuevo_Apellido_Usuario").val(data[12]);
@@ -114,11 +122,11 @@ $("#tbllistado tbody").on(
 /*Funcion para modificacion de la contraseña del usuario*/
 
 /*Funcion para modificacion de datos de usuario*/
-$("#usuario_update").on("submit", function (event) {
+$("#usuario_editar").on("submit", function (event) {
     event.preventDefault();
     bootbox.confirm("¿Desea modificar los datos?", function (result) {
         if (result) {
-            var formData = new FormData($("#usuario_update")[0]);
+            var formData = new FormData($("#usuario_editar")[0]);
             $.ajax({
                 url: "../Controller/UsuarioController.php?op=EditarUsuario",
                 type: "POST",
@@ -134,9 +142,9 @@ $("#usuario_update").on("submit", function (event) {
                         case "1":
                             toastr.success("Usuario actualizado exitosamente");
                             tabla.api().ajax.reload();
-                            limpiarForms();
-                            $("#formulario_update").hide();
-                            $("#formulario_add").show();
+                            limpiarFormsUsuario();
+                            $("#formulario_editar_usuario").hide();
+                            $("#formulario_agregar_usuario").show();
                             break;
                         case "2":
                             toastr.error("Error:Id no pertenece al usuario.");

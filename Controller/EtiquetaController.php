@@ -20,8 +20,8 @@ switch ($_GET["op"]) {
                 "9" => $reg->getXXL(),
                 "10" => $reg->getPrecioVenta(),
                 "11" => $reg->getPrecioCredito(),
-                "12" => '</button> <button class="btn btn-warning" id="modificarEtiqueta">Modificar</button> ' .
-                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdEtiqueta() . '\')">Eliminar</button>',
+                "12" => '</button> <button class="btn btn-warning" id="modificarEtiqueta"><i class="ti-pencil-alt"></i></button> | ' .
+                    '<button class="btn btn-danger" onclick="EliminarEtiqueta(\'' . $reg->getIdEtiqueta() . '\')"><i class="ti-trash"></i></button>',
                 "13" => $reg->getIdProducto()
             );
         }

@@ -1,37 +1,34 @@
-/*Funcion para limpieza de los formularios*/
-function limpiarForms() {
-    $("#modulos_add").trigger("reset");
-    $("#modulos_update").trigger("reset");
+function limpiarFormsMarca() {
+    $("#modulos_agregar_marca").trigger("reset");
+    $("#modulos_editar").trigger("reset");
 }
 
 /*Funcion para cancelacion del uso de formulario de modificación*/
-function cancelarForm() {
-    limpiarForms();
-    $("#formulario_add").show();
-    $("#formulario_update").hide();
+function cancelarFormMarca() {
+    limpiarFormsMarca();
+    $("#formulario_agregar_marca").hide();
+    $("#formulario_editar_marca").hide();
 }
 
 $(document).ready(function () {
     $.ajax({
-        url: '../Controller/MarcaController.php?op=ListarMarca',
+        url: './../../Controller/MarcaController.php?op=ListarMarca',
         dataType: 'json',
         success: function (data) {
-            console.log(data);
             // Iterar sobre los datos y crear tarjetas de categoría
             data.forEach(function (marca) {
                 var tarjetaHTML =
-                    '<div class="col-3">' +
-                    '<div class="tarjeta-marca">' +
-                    '<div class="card my-3" >' +
-                    '<div class="card-body">' +
-                    '<h5 class="card-title">' + marca.IdMarca + '</h5>' +
-                    '<p class="card-text">' + marca.Marca + '</p>' +marca.Opcion +
-                    '</div>' +
-                    
-                    '</div>' +
-                    '</div>' +
+                    '<div class="col-sx-1 col-sm-4 col-md-4 col-lg-3 col-lx-2">' +
+                        '<div class="tarjeta-marca">' +
+                            '<div class="card" >' +
+                                '<div class="card-body">' +
+                                    '<h3 class="card-title">' + marca.IdMarca + '</h3>' +
+                                    '<p class="card-text">' + marca.Marca + '</p>' + marca.OpcionMarca +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
                     '</div>';
-                $('#contenedor-tarjetas').append(tarjetaHTML);
+                $('#contenedor-tarjetas-Marca').append(tarjetaHTML);
             })
         },
         error: function (e) {
@@ -39,14 +36,98 @@ $(document).ready(function () {
         }
     });
 });
+$(function () {
+    $("#formulario_agregar_marca").hide();
+    $("#formulario_editar_marca").hide();
+  });
+$(document).ready(function () {
+    $.ajax({
+        url: './../../Controller/MarcaController.php?op=ListarMarca',
+        dataType: 'json',
+        success: function (response) {
+            llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al obtener los datos:', error);
+        }
+    });
+
+    // Función para rellenar el select con los datos recibidos del servidor
+    function llenarSelect(datos) {
+        var select = $('#Nuevo_Id_Marca');
+
+        // Limpiamos las opciones actuales
+        select.empty();
+
+        // Añadimos la opción predeterminada
 
 
-$("#marca_add").on("submit", function (event) {
+        // Creamos una opción por cada objeto en el JSON recibido del servidor
+        $.each(datos, function (i, dato) {
+            select.append($('<option>', {
+                value: dato.IdMarca,
+                text: dato.Marca
+            }));
+        });
+
+        // Aplicamos la inicialización de Select2
+        select.select2();
+    }
+});
+
+$(document).ready(function () {
+    $.ajax({
+        url: './../../Controller/MarcaController.php?op=ListarMarca',
+        dataType: 'json',
+        success: function (response) {
+            llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al obtener los datos:', error);
+        }
+    });
+
+    // Función para rellenar el select con los datos recibidos del servidor
+    function llenarSelect(datos) {
+        var select = $('#Id_Marca');
+
+        // Limpiamos las opciones actuales
+        select.empty();
+
+        // Añadimos la opción predeterminada
+        select.append($('<option>', {
+            value: '',
+            text: 'Seleccionar'
+        }));
+
+        // Creamos una opción por cada objeto en el JSON recibido del servidor
+        $.each(datos, function (i, dato) {
+            select.append($('<option>', {
+                value: dato.IdMarca,
+                text: dato.Marca
+            }));
+        });
+
+        // Aplicamos la inicialización de Select2
+        select.select2();
+    }
+});
+$(document).ready(function() {
+    // Evento clic para el botón #agregarMarca
+    $('#agregarMarca').click(function() {
+        limpiarFormsMarca();
+        $('#formulario_agregar_marca').show();
+        $("#formulario_editar_marca").hide();
+        return false; // Para evitar que el evento de clic se propague
+    });
+  });
+  
+$("#marca_agregar").on("submit", function (event) {
     event.preventDefault();
     $("#btnRegistar").prop("disabled", true);
-    var formData = new FormData($("#marca_add")[0]);
+    var formData = new FormData($("#marca_agregar")[0]);
     $.ajax({
-        url: "../Controller/MarcaController.php?op=AgregarMarca",
+        url: "./../../Controller/MarcaController.php?op=AgregarMarca",
         type: "POST",
         data: formData,
         contentType: false,
@@ -54,14 +135,14 @@ $("#marca_add").on("submit", function (event) {
         success: function (datos) {
             switch (datos) {
                 case "1":
-                    toastr.success("Marca registrada");
-                    $("#marca_add")[0].reset();
+                    toastr.success("Marca registrado");
+                    $("#marca_agregar")[0].reset();
                     location.reload();
                     break;
 
                 case "2":
                     toastr.error(
-                        "La marca ya existe... Corrija e inténtelo nuevamente..."
+                        "La Marca ya existe... Corrija e inténtelo nuevamente..."
                     );
                     break;
 
@@ -80,31 +161,31 @@ $("#marca_add").on("submit", function (event) {
 /*Habilitacion de form de modificacion al presionar el boton en la tabla*/
 $(document).on("click", 'button[id="modificarMarca"]', function () {
     var card = $(this).closest('.card');
-   // var id = card.data('id').text();
+    // var id = card.data('id').text();
     var id = card.find('.card-title').text();
-    var marca = card.find('.card-text').text();
+    var Marca = card.find('.card-text').text();
 
     // Obtener otros datos necesarios según la estructura de tus tarjetas
 
-    limpiarForms();
-    $("#formulario_add").hide();
-    $("#formulario_update").show();
+    limpiarFormsMarca();
+    $("#formulario_agregar_marca").hide();
+    $("#formulario_editar_marca").show();
     $("#id").val(id);
-    $("#Nuevo_Nombre_Marca").val(marca);
+    $("#Nuevo_Nombre_Marca").val(Marca);
 
     // Llenar otros campos del formulario según sea necesario
 
     return false;
 });
-/*Funcion para modificacion de datos de producto*/
-/*Funcion para modificacion de datos de producto*/
-$("#marca_update").on("submit", function (event) {
+/*Funcion para modificacion de datos de marca*/
+/*Funcion para modificacion de datos de marca*/
+$("#marca_editar").on("submit", function (event) {
     event.preventDefault();
     bootbox.confirm("¿Desea modificar los datos?", function (result) {
         if (result) {
-            var formData = new FormData($("#marca_update")[0]);
+            var formData = new FormData($("#marca_editar")[0]);
             $.ajax({
-                url: "../Controller/MarcaController.php?op=EditarMarca",
+                url: "./../../Controller/MarcaController.php?op=EditarMarca",
                 type: "POST",
                 data: formData,
                 contentType: false,
@@ -113,14 +194,14 @@ $("#marca_update").on("submit", function (event) {
                     //alert(datos);
                     switch (datos) {
                         case "0":
-                            toastr.error("Error: No se pudieron actualizar los datos");
+                            toastr.error("Error: No se pudieron editar los datos");
                             break;
                         case "1":
                             toastr.success("Marca actualizada exitosamente");
                             location.reload();
-                            limpiarForms();
-                            $("#formulario_update").hide();
-                            $("#formulario_add").show();
+                            limpiarFormsMarca();
+                            $("#formulario_agregar_marca").hide();
+                            $("#formulario_editar_marca").hide();
                             break;
                         case "2":
                             toastr.error("Error:Id no existe.");
@@ -131,11 +212,10 @@ $("#marca_update").on("submit", function (event) {
         }
     });
 });
-function Eliminar(IdMarca) {
+function EliminarMarca(IdMarca) {
     bootbox.confirm('¿Esta seguro de eliminar la marca?', function (result) {
         if (result) {
-            $.post(
-                '../Controller/MarcaController.php?op=EliminarMarca',
+            $.post('./../../Controller/MarcaController.php?op=EliminarMarca',
                 { IdMarca: IdMarca },
                 function (data, textStatus, xhr) {
                     switch (data) {

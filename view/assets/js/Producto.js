@@ -1,25 +1,27 @@
 /*Funcion para limpieza de los formularios*/
-function limpiarForms() {
-  $("#modulos_add").trigger("reset");
-  $("#modulos_update").trigger("reset");
+function limpiarFormsProducto() {
+  $("#modulos_agregar_producto").trigger("reset");
+  $("#modulos_editar_producto").trigger("reset");
 }
 
 /*Funcion para cancelacion del uso de formulario de modificación*/
-function cancelarForm() {
-  limpiarForms();
-  $("#formulario_add").show();
-  $("#formulario_update").hide();
+function cancelarFormProducto() {
+  limpiarFormsProducto();
+  $("#formulario_agregar_producto").hide();
+  $("#formulario_editar_producto").hide();
+  
 }
+
 
 /*Funcion para cargar el listado en el Datatable*/
 function ListarProductos() {
-  tabla = $("#tbllistado").dataTable({
+  tabla = $("#tblListadoProducto").dataTable({
     aProcessing: true, //actiavmos el procesamiento de datatables
     aServerSide: true, //paginacion y filtrado del lado del serevr
     dom: "Bfrtip", //definimos los elementos del control de tabla
     buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
     ajax: {
-      url: "../Controller/ProductoController.php?op=ListarTablaProducto",
+      url: "./../../Controller/ProductoController.php?op=ListarTablaProducto",
       type: "get",
       dataType: "json",
       error: function (e) {
@@ -34,18 +36,19 @@ function ListarProductos() {
 Funcion Principal
 */
 $(function () {
-  $("#formulario_update").hide();
+  $("#formulario_editar_producto").hide();
+  $("#formulario_agregar_producto").hide();
   ListarProductos();
 });
 /*
 CRUD
 */
-$("#producto_add").on("submit", function (event) {
+$("#producto_agregar").on("submit", function (event) {
   event.preventDefault();
   $("#btnRegistar").prop("disabled", true);
-  var formData = new FormData($("#producto_add")[0]);
+  var formData = new FormData($("#producto_agregar")[0]);
   $.ajax({
-    url: "../Controller/ProductoController.php?op=AgregarProducto",
+    url: "./../../Controller/ProductoController.php?op=AgregarProducto",
     type: "POST",
     data: formData,
     contentType: false,
@@ -54,7 +57,7 @@ $("#producto_add").on("submit", function (event) {
       switch (datos) {
         case "1":
           toastr.success("Producto registrado");
-          $("#producto_add")[0].reset();
+          $("#producto_agregar")[0].reset();
           tabla.api().ajax.reload();
           break;
 
@@ -76,22 +79,32 @@ $("#producto_add").on("submit", function (event) {
   });
 });
 
+$(document).ready(function() {
+  // Evento clic para el botón #agregarProducto
+  $('#agregarProducto').click(function() {
+    limpiarFormsProducto();
+      $('#formulario_agregar_producto').show();
+      $("#formulario_editar_producto").hide();
+      return false; // Para evitar que el evento de clic se propague
+  });
+});
+
 /*Habilitacion de form de modificacion al presionar el boton en la tabla*/
-$("#tbllistado tbody").on(
+$("#tblListadoProducto tbody").on(
   "click",
   'button[id="modificarProducto"]',
   function () {
-    var data = $("#tbllistado").DataTable().row($(this).parents("tr")).data();
-    limpiarForms();
-    var imagen=data[12];
-    var URLImagen="assets/img/"+imagen;
+    var data = $("#tblListadoProducto").DataTable().row($(this).parents("tr")).data();
+    limpiarFormsProducto();
+    var imagen=data[13];
+    var URLImagen="../assets/img/"+imagen;
 
-    $("#formulario_add").hide();
-    $("#formulario_update").show();
+    $("#formulario_agregar_producto").hide();
+    $("#formulario_editar_producto").show();
     $("#id").val(data[0]);
     $("#Nueva_Descripcion").val(data[1]);
     $("#Nuevo_Precio_Venta").val(data[10]);
-    $("#Nuevo_Precio_Credito").val(data[11]);
+    $("#Nuevo_Precio_Credito").val(data[12]);
     $("#Nueva_Cant_XS").val(data[4]);
     $("#Nueva_Cant_S").val(data[5]);
     $("#Nueva_Cant_M").val(data[6]);
@@ -104,16 +117,14 @@ $("#tbllistado tbody").on(
     return false;
   }
 );
-
 /*Funcion para modificacion de datos de producto*/
-/*Funcion para modificacion de datos de producto*/
-$("#producto_update").on("submit", function (event) {
+$("#formulario_actualizar").on("submit", function (event) {
   event.preventDefault();
   bootbox.confirm("¿Desea modificar los datos?", function (result) {
     if (result) {
       var formData = new FormData($("#producto_update")[0]);
       $.ajax({
-        url: "../Controller/ProductoController.php?op=EditarProducto",
+        url: "./../../Controller/ProductoController.php?op=EditarProducto",
         type: "POST",
         data: formData,
         contentType: false,
@@ -127,9 +138,8 @@ $("#producto_update").on("submit", function (event) {
             case "1":
               toastr.success("Producto actualizado exitosamente");
               tabla.api().ajax.reload();
-              limpiarForms();
-              $("#formulario_update").hide();
-              $("#formulario_add").show();
+              limpiarFormsProducto();
+              $("#formulario_actualizar").hide();
               break;
             case "2":
               toastr.error("Error:Descripción no pertenece al producto.");
@@ -140,11 +150,12 @@ $("#producto_update").on("submit", function (event) {
     }
   });
 });
-function Eliminar(IdProducto) {
+/*Elimina el producto*/
+function EliminarProducto(IdProducto) {
   bootbox.confirm('¿Esta seguro de eliminar el producto?', function (result) {
     if (result) {
       $.post(
-        '../Controller/ProductoController.php?op=EliminarProducto',
+        './../../Controller/ProductoController.php?op=EliminarProducto',
         { IdProducto: IdProducto },
         function (data, textStatus, xhr) {
           switch (data) {

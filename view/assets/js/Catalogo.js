@@ -1,13 +1,11 @@
 /*Funcion para limpieza de los formularios*/
 function limpiarForms() {
-    $("#modulos_add").trigger("reset");
-    $("#modulos_update").trigger("reset");
+    $("#modulos_ver_informacion").trigger("reset");
 }
 
 /*Funcion para cancelacion del uso de formulario de modificación*/
 function cancelarForm() {
     limpiarForms();
-    $("#formulario_add").show();
     $("#formulario_update").hide();
 }
 
@@ -76,7 +74,6 @@ $(document).on("click", 'button[id="VerInformacion"]', function () {
     // Obtener otros datos necesarios según la estructura de tus tarjetas
 
     limpiarForms();
-    $("#formulario_add").hide();
     $("#formulario_update").show();
     $("#id").val(id);
     $("#Nueva_Descripcion").val(descripcion);

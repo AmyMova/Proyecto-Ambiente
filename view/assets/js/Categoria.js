@@ -1,37 +1,35 @@
 /*Funcion para limpieza de los formularios*/
-function limpiarForms() {
-    $("#modulos_add").trigger("reset");
-    $("#modulos_update").trigger("reset");
+function limpiarFormsCategoria() {
+    $("#modulos_agregar_categoria").trigger("reset");
+    $("#modulos_editar_categoria").trigger("reset");
 }
 
 /*Funcion para cancelacion del uso de formulario de modificación*/
-function cancelarForm() {
-    limpiarForms();
-    $("#formulario_add").show();
-    $("#formulario_update").hide();
+function cancelarFormCategoria() {
+    limpiarFormsCategoria();
+    $("#formulario_agregar_categoria").hide();
+    $("#formulario_editar_categoria").hide();
 }
-
+/* Aqui se crean las tarjetas para que estas se muestren en la página de categorias*/
 $(document).ready(function () {
     $.ajax({
-        url: '../Controller/CategoriaController.php?op=ListarCategoria',
+        url: './../../Controller/CategoriaController.php?op=ListarCategoria',
         dataType: 'json',
         success: function (data) {
-            console.log(data);
             // Iterar sobre los datos y crear tarjetas de categoría
             data.forEach(function (categoria) {
                 var tarjetaHTML =
-                    '<div class="col-3">' +
-                    '<div class="tarjeta-categoria">' +
-                    '<div class="card my-3" >' +
-                    '<div class="card-body">' +
-                    '<h5 class="card-title">' + categoria.IdCategoria + '</h5>' +
-                    '<p class="card-text">' + categoria.Categoria + '</p>' +categoria.Opcion +
-                    '</div>' +
-                    
-                    '</div>' +
-                    '</div>' +
+                    '<div class="col-sx-1 col-sm-4 col-md-4 col-lg-3 col-lx-2">' +
+                        '<div class="tarjeta-categoria">' +
+                            '<div class="card" >' +
+                                '<div class="card-body">' +
+                                    '<h3 class="card-title">' + categoria.IdCategoria + '</h3>' +
+                                    '<p class="card-text">' + categoria.Categoria + '</p>' + categoria.OpcionCategoria +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
                     '</div>';
-                $('#contenedor-tarjetas').append(tarjetaHTML);
+                $('#contenedor-tarjetas-Categoria').append(tarjetaHTML);
             })
         },
         error: function (e) {
@@ -39,12 +37,105 @@ $(document).ready(function () {
         }
     });
 });
-$("#categoria_add").on("submit", function (event) {
+
+
+
+/*Aqui se ocultan los formularios de crear y modificar*/
+$(function () {
+    $("#formulario_agregar_categoria").hide();
+    $("#formulario_editar_categoria").hide();
+  });
+
+  /*En esta parte se rellena el select del editar producto*/
+$(document).ready(function () {
+    $.ajax({
+        url: './../../Controller/CategoriaController.php?op=ListarCategoria',
+        dataType: 'json',
+        success: function (response) {
+            llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al obtener los datos:', error);
+        }
+    });
+
+    // Función para rellenar el select con los datos recibidos del servidor
+    function llenarSelect(datos) {
+        var select = $('#Nuevo_Id_Categoria');
+
+        // Limpiamos las opciones actuales
+        select.empty();
+
+        // Añadimos la opción predeterminada
+
+
+        // Creamos una opción por cada objeto en el JSON recibido del servidor
+        $.each(datos, function (i, dato) {
+            select.append($('<option>', {
+                value: dato.IdCategoria,
+                text: dato.Categoria
+            }));
+        });
+
+        // Aplicamos la inicialización de Select2
+        select.select2();
+    }
+});
+ /*En esta parte se rellena el select del crear producto*/
+$(document).ready(function () {
+    $.ajax({
+        url: './../../Controller/CategoriaController.php?op=ListarCategoria',
+        dataType: 'json',
+        success: function (response) {
+            llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al obtener los datos:', error);
+        }
+    });
+
+    // Función para rellenar el select con los datos recibidos del servidor
+    function llenarSelect(datos) {
+        var select = $('#Id_Categoria');
+
+        // Limpiamos las opciones actuales
+        select.empty();
+
+        // Añadimos la opción predeterminada
+        select.append($('<option>', {
+            value: '',
+            text: 'Seleccionar'
+        }));
+
+        // Creamos una opción por cada objeto en el JSON recibido del servidor
+        $.each(datos, function (i, dato) {
+            select.append($('<option>', {
+                value: dato.IdCategoria,
+                text: dato.Categoria
+            }));
+        });
+
+        // Aplicamos la inicialización de Select2
+        select.select2();
+    }
+});
+/*Eto es para poder mostrar el formulario de agregar*/
+$(document).ready(function() {
+    // Evento clic para el botón #agregarCategoria
+    $('#agregarCategoria').click(function() {
+        limpiarFormsCategoria();
+        $('#formulario_agregar_categoria').show();
+        $("#formulario_editar_categoria").hide();
+        return false; // Para evitar que el evento de clic se propague
+    });
+  });
+  /*Función para crear una categoria nueva*/
+$("#categoria_agregar").on("submit", function (event) {
     event.preventDefault();
     $("#btnRegistar").prop("disabled", true);
-    var formData = new FormData($("#categoria_add")[0]);
+    var formData = new FormData($("#categoria_agregar")[0]);
     $.ajax({
-        url: "../Controller/CategoriaController.php?op=AgregarCategoria",
+        url: "./../../Controller/CategoriaController.php?op=AgregarCategoria",
         type: "POST",
         data: formData,
         contentType: false,
@@ -53,13 +144,13 @@ $("#categoria_add").on("submit", function (event) {
             switch (datos) {
                 case "1":
                     toastr.success("Categoria registrado");
-                    $("#categoria_add")[0].reset();
+                    $("#categoria_agregar")[0].reset();
                     location.reload();
                     break;
 
                 case "2":
                     toastr.error(
-                        "El producto ya existe... Corrija e inténtelo nuevamente..."
+                        "La Categoria ya existe... Corrija e inténtelo nuevamente..."
                     );
                     break;
 
@@ -78,15 +169,15 @@ $("#categoria_add").on("submit", function (event) {
 /*Habilitacion de form de modificacion al presionar el boton en la tabla*/
 $(document).on("click", 'button[id="modificarCategoria"]', function () {
     var card = $(this).closest('.card');
-   // var id = card.data('id').text();
+    // var id = card.data('id').text();
     var id = card.find('.card-title').text();
     var Categoria = card.find('.card-text').text();
 
-    // Obtener otros datos necesarios según la estructura de tus tarjetas
+    // Obtener otros datos necesarios según la estructura de las tarjetas
 
-    limpiarForms();
-    $("#formulario_add").hide();
-    $("#formulario_update").show();
+    limpiarFormsCategoria();
+    $("#formulario_agregar_categoria").hide();
+    $("#formulario_editar_categoria").show();
     $("#id").val(id);
     $("#Nuevo_Nombre_Categoria").val(Categoria);
 
@@ -94,15 +185,14 @@ $(document).on("click", 'button[id="modificarCategoria"]', function () {
 
     return false;
 });
-/*Funcion para modificacion de datos de producto*/
-/*Funcion para modificacion de datos de producto*/
-$("#categoria_update").on("submit", function (event) {
+/*Funcion para modificacion de datos de categoria*/
+$("#categoria_editar").on("submit", function (event) {
     event.preventDefault();
     bootbox.confirm("¿Desea modificar los datos?", function (result) {
         if (result) {
-            var formData = new FormData($("#categoria_update")[0]);
+            var formData = new FormData($("#categoria_editar")[0]);
             $.ajax({
-                url: "../Controller/CategoriaController.php?op=EditarCategoria",
+                url: "./../../Controller/CategoriaController.php?op=EditarCategoria",
                 type: "POST",
                 data: formData,
                 contentType: false,
@@ -114,11 +204,11 @@ $("#categoria_update").on("submit", function (event) {
                             toastr.error("Error: No se pudieron actualizar los datos");
                             break;
                         case "1":
-                            toastr.success("Categoria actualizada exitosamente");
+                            toastr.success("Categoría actualizada exitosamente");
                             location.reload();
-                            limpiarForms();
-                            $("#formulario_update").hide();
-                            $("#formulario_add").show();
+                            limpiarFormsCategoria();
+                            $("#formulario_agregar_categoria").hide();
+                            $("#formulario_editar_categoria").hide();
                             break;
                         case "2":
                             toastr.error("Error:Id no existe.");
@@ -129,11 +219,11 @@ $("#categoria_update").on("submit", function (event) {
         }
     });
 });
-function Eliminar(IdCategoria) {
+/*Función para eliminar una categoria*/
+function EliminarCategoria(IdCategoria) {
     bootbox.confirm('¿Esta seguro de eliminar la categoria?', function (result) {
         if (result) {
-            $.post(
-                '../Controller/CategoriaController.php?op=EliminarCategoria',
+            $.post('./../../Controller/CategoriaController.php?op=EliminarCategoria',
                 { IdCategoria: IdCategoria },
                 function (data, textStatus, xhr) {
                     switch (data) {
