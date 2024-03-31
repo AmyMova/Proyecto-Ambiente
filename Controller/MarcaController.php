@@ -12,8 +12,8 @@ switch ($_GET["op"]) {
             $data[] = array(
                 "IdMarca" => $reg->getIdMarca(),
                 "Marca" => $reg->getMarca(),
-                "Opcion" => '<button class="btn btn-warning" id="modificarMarca">Modificar</button>  ' .
-                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdMarca() . '\')">Eliminar</button>'
+                "OpcionMarca" => '<button class="btn btn-warning" id="modificarMarca"><i class="ti-pencil-alt"></i></button> | ' .
+                    '<button class="btn btn-danger" onclick="EliminarMarca(\'' . $reg->getIdMarca() . '\')"><i class="ti-trash"></i></button>'
                 );
             }
 
