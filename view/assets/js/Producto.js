@@ -58,6 +58,7 @@ $("#producto_agregar").on("submit", function (event) {
         case "1":
           toastr.success("Producto registrado");
           $("#producto_agregar")[0].reset();
+          $("#formulario_agregar").hide();
           tabla.api().ajax.reload();
           break;
 
@@ -111,8 +112,10 @@ $("#tblListadoProducto tbody").on(
     $("#Nueva_Cant_L").val(data[7]);
     $("#Nueva_Cant_XL").val(data[8]);
     $("#Nueva_Cant_XXL").val(data[9]);
-    $("#Nuevo_Id_Marca").val(data[15]);
-    $("#Nuevo_Id_Categoria").val(data[14]);
+    var idMarca=data[15];
+    var idCategoria=data[14];
+    $("#Nuevo_Id_Marca").val(idMarca);
+    $("#Nuevo_Id_Categoria").val(idCategoria);
     $("#img_edit").attr("src", URLImagen);
     return false;
   }

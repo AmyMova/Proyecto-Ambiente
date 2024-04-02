@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     // Función para rellenar el select con los datos recibidos del servidor
     function llenarSelect(datos) {
-        var select = $('#Nuevo_Id_Rol');
+        var select = $('#Nuevo_Rol');
 
         // Limpiamos las opciones actuales
         select.empty();
@@ -32,6 +32,8 @@ $(document).ready(function () {
         select.select2();
     }
 });
+
+
 $(document).ready(function () {
     $.ajax({
         url: './../../Controller/RolController.php?op=ListarRol',

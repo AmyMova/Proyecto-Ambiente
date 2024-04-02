@@ -195,14 +195,14 @@
                                     <th>L</th>
                                     <th>XL</th>
                                     <th>XXL</th>
-                                    <th>Precio Venta</th>
-                                    <th>Precio Crédito</th>
+                                    <th>Precio V.</th>
+                                    <th>Precio C.</th>
                                     <th>Opciones</th>
                                 </thead>
                                 <tbody>
                                 </tbody>
                                 <tfooter>
-                                    <th>ID</th>
+                                <th>ID</th>
                                     <th>Descripción</th>
                                     <th>Categoría</th>
                                     <th>Marca</th>
@@ -212,8 +212,8 @@
                                     <th>L</th>
                                     <th>XL</th>
                                     <th>XXL</th>
-                                    <th>Precio Venta</th>
-                                    <th>Precio Crédito</th>
+                                    <th>Precio V.</th>
+                                    <th>Precio C.</th>
                                     <th>Opciones</th>
                                 </tfooter>
                             </table>
