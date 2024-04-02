@@ -1,9 +1,9 @@
 /*Funcion para limpieza de los formularios*/
-function limpiarForms() {
+function limpiarFormsMovimiento() {
     $("#modulo_read").trigger("reset");
   }
-  function cancelarForm() {
-    limpiarForms();
+  function cancelarFormMovimiento() {
+    limpiarFormsMovimiento();
     
   }
   /*Funcion para cancelacion del uso de formulario de modificación*/
@@ -11,13 +11,13 @@ function limpiarForms() {
   
   /*Funcion para cargar el listado en el Datatable*/
   function ListarMovimientos() {
-    tabla = $("#tbllistado").dataTable({
+    tabla = $("#tblListadoMovimiento").dataTable({
       aProcessing: true, //actiavmos el procesamiento de datatables
       aServerSide: true, //paginacion y filtrado del lado del serevr
       dom: "Bfrtip", //definimos los elementos del control de tabla
       buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
       ajax: {
-        url: "../Controller/MovimientoController.php?op=ListarTablaMovimientos",
+        url: "./../../Controller/MovimientoController.php?op=ListarTablaMovimientos",
         type: "get",
         dataType: "json",
         error: function (e) {
@@ -35,12 +35,12 @@ function limpiarForms() {
     ListarMovimientos();
   });
   /*Habilitacion de form de modificacion al presionar el boton en la tabla*/
-  $("#tbllistado tbody").on(
+  $("#tblListadoMovimiento tbody").on(
     "click",
     'button[id="VerMás"]',
     function () {
-      var data = $("#tbllistado").DataTable().row($(this).parents("tr")).data();
-      limpiarForms();
+      var data = $("#tblListadoMovimiento").DataTable().row($(this).parents("tr")).data();
+      limpiarFormsMovimiento();
       
       $("#id").val(data[0]);
       $("#Descripcion").val(data[1]);

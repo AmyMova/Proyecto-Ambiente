@@ -1,3 +1,17 @@
+const contrasenna=document.getElementById("Contrasena");
+const GenerarContrasena = (length) => {
+    let result = "";
+    const x = "a b c d e f g h i j k l m n o p q r s t u v w x y z 1 2 3 4 5 6 7 8 9 0 ° | ! # $ % & / ? ¿ ¡ - + * / , . _ ; :  ".split(" ");
+    for (i = 0; i < length; i++) {
+        const random = Math.floor(Math.random() * x.length);
+        result += x[random];
+    }
+    return result;
+};
+
+
+
+
 /*Funcion para limpieza de los formularios*/
 function limpiarFormsUsuario() {
     $("#modulos_agregar_usuario").trigger("reset");
@@ -7,7 +21,7 @@ function limpiarFormsUsuario() {
 /*Funcion para cancelacion del uso de formulario de modificación*/
 function cancelarFormUsuario() {
     limpiarFormsUsuario();
-    $("#formulario_agregar_usuario").show();
+    $("#formulario_agregar_usuario").hide();
     $("#formulario_editar_usuario").hide();
 }
 
@@ -41,15 +55,16 @@ $(function () {
 /*
 CRUD
 */
-$(document).ready(function() {
+$(document).ready(function () {
     // Evento clic para el botón #agregarUsuario
-    $('#agregarUsuario').click(function() {
+    $('#agregarUsuario').click(function () {
         limpiarFormsUsuario();
         $('#formulario_agregar_usuario').show();
+        contrasenna.value=GenerarContrasena(8);
         $("#formulario_editar_usuario").hide();
         return false; // Para evitar que el evento de clic se propague
     });
-  });
+});
 $("#usuario_agregar").on("submit", function (event) {
     event.preventDefault();
     $("#btnRegistar").prop("disabled", true);
@@ -65,6 +80,7 @@ $("#usuario_agregar").on("submit", function (event) {
                 case "1":
                     toastr.success("Usuario registrado");
                     $("#usuario_agregar")[0].reset();
+                    $("#formulario_agregar_usuario").hide();
                     tabla.api().ajax.reload();
                     break;
 
@@ -93,18 +109,18 @@ $("#tblListadoUsuario tbody").on(
     function () {
         var data = $("#tblListadoUsuario").DataTable().row($(this).parents("tr")).data();
         limpiarFormsUsuario();
-        var imagen=data[14];
-        var URLImagen="assets/img/"+imagen;
+        var imagen = data[14];
+        var URLImagen = "assets/img/" + imagen;
         $("#formulario_agregar_usuario").hide();
         $("#formulario_editar_usuario").show();
         $("#id").val(data[0]);
         $("#Nuevo_Nombre").val(data[13]);
         $("#Nuevo_Apellido_Usuario").val(data[12]);
-        
-        $("#Nuevo_Correo").val(data[2]);
-        $("#Nuevo_Numero_Telefono").val(data[5]);
-        $("#Nuevo_Numero_Cedula").val(data[6]);
-        var Rol = data[8];
+
+        $("#Nuevo_Correo").val(data[8]);
+        $("#Nuevo_Numero_Telefono").val(data[4]);
+        $("#Nuevo_Numero_Cedula").val(data[5]);
+        var Rol = data[7];
         var dia = data[9];
         var mes = data[10];
         var ano = data[11];
@@ -128,7 +144,7 @@ $("#usuario_editar").on("submit", function (event) {
         if (result) {
             var formData = new FormData($("#usuario_editar")[0]);
             $.ajax({
-                url: "../Controller/UsuarioController.php?op=EditarUsuario",
+                url: "./../../Controller/UsuarioController.php?op=EditarUsuario",
                 type: "POST",
                 data: formData,
                 contentType: false,
@@ -159,7 +175,7 @@ function Eliminar(IdUsuario) {
     bootbox.confirm('¿Esta seguro de eliminar el usuario?', function (result) {
         if (result) {
             $.post(
-                '../Controller/UsuarioController.php?op=EliminarUsuario',
+                './../../Controller/UsuarioController.php?op=EliminarUsuario',
                 { IdUsuario: IdUsuario },
                 function (data, textStatus, xhr) {
                     switch (data) {

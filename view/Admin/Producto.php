@@ -97,7 +97,7 @@
                                         </div>
                                         <div class="col-4">
                                             <div class="input-group">
-                                                <label class="input-group" for="Id_Categoria">Categoria</label><br>
+                                                <label class="input-group" for="Id_Categoria">Categoría</label><br>
                                                 <select class="select2 form-control custom-select" name="Id_Categoria"
                                                     id="Id_Categoria">
                                                     <option>Seleccionar</option>
@@ -245,9 +245,9 @@
 
                                         <div class="col">
                                             <div class="input-group">
-                                                <label class="input-group" for="Nuevo_Id_Categoria">Categoria</label>
+                                                <label class="input-group" for="Nuevo_Id_Categoria">Categoría</label>
                                                 <select name="Nuevo_Id_Categoria" id="Nuevo_Id_Categoria"
-                                                    class="form-control">
+                                                class="select2 form-control custom-select">
                                                 </select>
                                             </div>
                                         </div>
@@ -309,7 +309,7 @@
                                 <thead>
                                     <th>ID</th>
                                     <th>Descripción</th>
-                                    <th>Categoria</th>
+                                    <th>Categoría</th>
                                     <th>Marca</th>
                                     <th>XS</th>
                                     <th>S</th>
@@ -325,7 +325,7 @@
                                 <tfooter>
                                     <th>ID</th>
                                     <th>Descripción</th>
-                                    <th>Categoria</th>
+                                    <th>Categoría</th>
                                     <th>Marca</th>
                                     <th>XS</th>
                                     <th>S</th>

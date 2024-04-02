@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css">
@@ -172,7 +173,7 @@
                                 <li class="sidebar-item"><a href="Grafica.php" class="sidebar-link"><i class="fa-solid fa-chart-line"></i><span class="hide-menu"> Gráficas </span></a></li>
                                 <li class="sidebar-item"><a href="Movimiento.php" class="sidebar-link"><i class="mdi mdi-email-alert"></i><span class="hide-menu"> Movimientos </span></a></li>
                                 <li class="sidebar-item"><a href="Reporte.php" class="sidebar-link"><i class="fa-solid fa-table"></i><span class="hide-menu"> Reportes </span></a></li>
-                                <li class="sidebar-item"><a href="Errores-php" class="sidebar-link"><i class="fa-solid fa-bug"></i><span class="hide-menu"> Errores </span></a></li>
+                                <li class="sidebar-item"><a href="Error.php" class="sidebar-link"><i class="fa-solid fa-bug"></i><span class="hide-menu"> Errores </span></a></li>
                             </ul>
                         </li>
                         <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Ventas</span></li>

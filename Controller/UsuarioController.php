@@ -10,14 +10,14 @@ switch ($_GET["op"]) {
             $data[] = array(
                 "0" => $reg->getIdUsuario(),
                 "1" => $reg->getNombreCompleto(),
-                "2" => $reg->getCorreoElectronico(),
-                "3" => $reg->getFechaCumpleanos(),
-                "4" => $reg->getRol(),
-                "5" => $reg->getNumeroTelefono(),
-                "6" => $reg->getNumeroCedula(),
-                "7" => '<button class="btn btn-warning" id="modificarUsuario">Modificar</button> ' .
-                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdUsuario() . '\')">Eliminar</button> ' ,
-                "8" => $reg->getIdRol(),
+                "2" => $reg->getFechaCumpleanos(),
+                "3" => $reg->getRol(),
+                "4" => $reg->getNumeroTelefono(),
+                "5" => $reg->getNumeroCedula(),
+                "6" => '<button class="btn btn-warning" id="modificarUsuario"><i class="ti-pencil-alt"></i></button> | ' .
+                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdUsuario() . '\')"><i class="ti-trash"></i></button> ' ,
+                "7" => $reg->getIdRol(),
+                "8" => $reg->getCorreoElectronico(),
                 "9" => $reg->getDiaCumpleanos(),
                 "10" => $reg->getMesCumpleanos(),
                 "11" => $reg->getAnoCumpleanos(),
@@ -35,7 +35,7 @@ switch ($_GET["op"]) {
         echo json_encode($resultados);
         break;
     case 'AgregarUsuario':
-        $NombreUsuario = isset ($_POST["nombre_Usuario"]) ? trim($_POST["nombre_Usuario"]) : "";
+        $NombreUsuario = isset ($_POST["Nombre_Usuario"]) ? trim($_POST["Nombre_Usuario"]) : "";
         $ApellidoUsuario = isset ($_POST["Apellido_Usuario"]) ? trim($_POST["Apellido_Usuario"]) : "";
         $NumeroCedula = isset ($_POST["Numero_Cedula"]) ? trim($_POST["Numero_Cedula"]) : "";
         $CorreoElectronico = isset ($_POST["Correo"]) ? trim($_POST["Correo"]) : "";
