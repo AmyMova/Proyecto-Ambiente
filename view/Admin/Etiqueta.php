@@ -61,16 +61,16 @@
                                 </div>
 
                                 <div class="row">
-                                <div class="button-group ">
-                                    <input type="submit" id="btnRegistar" class="btn btn-success" value="Registrar">
+                                    <div class="button-group ">
+                                        <input type="submit" id="btnRegistar" class="btn btn-success" value="Registrar">
 
-                                    <input type="reset" class="btn btn-warning " value="Borrar datos">
+                                        <input type="reset" class="btn btn-warning " value="Borrar datos">
 
-                                    <input type="button" id="btnCancelar" class="btn btn-secondary" value="Cancelar"
-                                        onclick="cancelarFormEtiqueta()">
+                                        <input type="button" id="btnCancelar" class="btn btn-secondary" value="Cancelar"
+                                            onclick="cancelarFormEtiqueta()">
 
+                                    </div>
                                 </div>
-                            </div>
                             </form>
 
                         </div>
@@ -83,13 +83,13 @@
 
         <!-- Formulario de modificacion de xxx -->
         <<div id="formulario_editar_etiqueta">
-        <div class="card card-dark">
-            <div class="card-header">
-                <h3 class="card-title">Modificar una Etiqueta</h3>
-            </div>
-            <div class="card-body">
-                <div class="row justify-content-center">
-                    <div class="col">
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Modificar una Etiqueta</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-center">
+                        <div class="col">
                             <form name="etiqueta_editar" id="etiqueta_editar" method="POST">
                                 <input type="hidden" class="form-control" id="id" name="id">
                                 <div class="row">
@@ -160,70 +160,75 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- /.card-body -->
-
     </div>
-    <!-- listado -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-dark">
-                <div class="card-header">
-                    <h3 class="card-title">Etiquetas existentes</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body ">
+    <!-- /.card-body -->
 
-                    <div class="row ">
+</div>
+<!-- listado -->
+<div class="row">
+    <div class="col-12">
+        <div class="card card-dark">
+            <div class="card-header">
+                <h3 class="card-title">Etiquetas existentes</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body ">
 
-                        <div class="col">
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <button class="btn waves-effect waves-light  btn-success"
-                                        id="agregarEtiqueta">Agregar</button>
-                                </div>
+                <div class="row ">
+
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn waves-effect waves-light  btn-success"
+                                    id="agregarEtiqueta">Agregar</button>
+                                <a role="button" class="btn waves-effect waves-light  btn-info"
+                                    href="ImprimirEtiqueta.php">Imprimir</a>
+                                <button class="btn waves-effect waves-light  btn-danger" onclick="EliminarEtiquetas();">Limpiar
+                                    Etiquetas</button>
                             </div>
-                            <table id="tblListadoEtiqueta" class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <th>ID</th>
-                                    <th>Descripción</th>
-                                    <th>Categoría</th>
-                                    <th>Marca</th>
-                                    <th>XS</th>
-                                    <th>S</th>
-                                    <th>M</th>
-                                    <th>L</th>
-                                    <th>XL</th>
-                                    <th>XXL</th>
-                                    <th>Precio V.</th>
-                                    <th>Precio C.</th>
-                                    <th>Opciones</th>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tfooter>
-                                <th>ID</th>
-                                    <th>Descripción</th>
-                                    <th>Categoría</th>
-                                    <th>Marca</th>
-                                    <th>XS</th>
-                                    <th>S</th>
-                                    <th>M</th>
-                                    <th>L</th>
-                                    <th>XL</th>
-                                    <th>XXL</th>
-                                    <th>Precio V.</th>
-                                    <th>Precio C.</th>
-                                    <th>Opciones</th>
-                                </tfooter>
-                            </table>
                         </div>
+                        <br>
+                        <table id="tblListadoEtiqueta" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <th>ID</th>
+                                <th>Descripción</th>
+                                <th>Categoría</th>
+                                <th>Marca</th>
+                                <th>XS</th>
+                                <th>S</th>
+                                <th>M</th>
+                                <th>L</th>
+                                <th>XL</th>
+                                <th>XXL</th>
+                                <th>Precio V.</th>
+                                <th>Precio C.</th>
+                                <th>Opciones</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfooter>
+                                <th>ID</th>
+                                <th>Descripción</th>
+                                <th>Categoría</th>
+                                <th>Marca</th>
+                                <th>XS</th>
+                                <th>S</th>
+                                <th>M</th>
+                                <th>L</th>
+                                <th>XL</th>
+                                <th>XXL</th>
+                                <th>Precio V.</th>
+                                <th>Precio C.</th>
+                                <th>Opciones</th>
+                            </tfooter>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- sample modal content -->
+</div>
+<!-- sample modal content -->
 
 
 
@@ -231,4 +236,4 @@
 
 
 
-    <?php include ("Component\Footer.php") ?>
+<?php include ("Component\Footer.php") ?>

@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html dir="ltr" lang="es">
 <!--Conseguir la informacion del usuario para poner en la foto de perfil y el nombre del usuario-->
@@ -113,8 +115,8 @@
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/img/users/2.jpg" alt="user" class="rounded-circle" width="40"><!--Encontrar la foto del usuario-->
-                                <span class="m-l-5 font-medium d-none d-sm-inline-block">Jonathan Doe<!--Encontrar el nombre del usuario--> <i class="mdi mdi-chevron-down"></i></span>
+                                <img src="../assets/img/<?php echo $_SESSION["Imagen"]?>" alt="user" class="rounded-circle" width="40"><!--Encontrar la foto del usuario-->
+                                <span class="m-l-5 font-medium d-none d-sm-inline-block"><?php echo $_SESSION["NombreUsuario"]," ",  $_SESSION["ApellidoUsuario"]?><!--Encontrar el nombre del usuario--> <i class="mdi mdi-chevron-down"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <span class="with-arrow">
@@ -122,17 +124,17 @@
                                 </span>
                                 <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
                                     <div class="">
-                                        <img src="../assets/img/users/2.jpg" alt="user" class="rounded-circle" width="60">
+                                        <img src="../assets/img/<?php echo $_SESSION["Imagen"]?>" alt="user" class="rounded-circle" width="60" height="60">
                                     </div>
                                     <div class="m-l-10">
-                                        <h4 class="m-b-0">Jonathan Doe</h4><!--Encontrar el nombre del usuario-->
-                                        <p class=" m-b-0">jon@gmail.com</p><!--Encontrar el correo del usuario-->
+                                        <h4 class="m-b-0"><?php echo $_SESSION["NombreUsuario"]," ",  $_SESSION["ApellidoUsuario"]?></h4><!--Encontrar el nombre del usuario-->
+                                        <p class=" m-b-0"><?php echo $_SESSION["CorreoElectronico"]?></p><!--Encontrar el correo del usuario-->
                                     </div>
                                 </div>
                                 <a class="dropdown-item" href="../UsuarioPersonal.php">
                                     <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="../Autenticacion/Login.php">
                                     <i class="fa fa-power-off m-r-5 m-l-5"></i> Cerrar Sesión</a><!--Cerrar la sesion del usuario-->
                                 
                             </div>
@@ -161,7 +163,7 @@
                         
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-boxes"></i><span class="hide-menu">Inventario </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="Producto.php" class="sidebar-link"><i class=" fas fa-box"></i><span class="hide-menu"> Producto </span></a></li>
+                                <li class="sidebar-item"><a href="Producto.php?p=<?php echo $_SESSION["IdUsuario"]; ?>" class="sidebar-link"><i class=" fas fa-box"></i><span class="hide-menu"> Producto </span></a></li>
                                 <li class="sidebar-item"><a href="Categoria.php" class="sidebar-link"><i class=" fas fa-box"></i><span class="hide-menu"> Categoría </span></a></li>
                                 <li class="sidebar-item"><a href="Marca.php" class="sidebar-link"><i class=" fas fa-box"></i><span class="hide-menu"> Marca </span></a></li>
                                 <li class="sidebar-item"><a href="Etiqueta.php" class="sidebar-link"><i class="fa-solid fa-ticket-simple"></i></i><span class="hide-menu"> Etiqueta </span></a></li>

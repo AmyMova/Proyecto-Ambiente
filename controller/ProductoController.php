@@ -137,8 +137,8 @@ switch ($_GET["op"]) {
         $producto = new Producto();
 
         $producto->setIdProducto($IdProducto);
-        $encontrado = $producto->verificarExistenciaProductoByIDDb();
-        if ($encontrado == 1) {
+        $encontrado = $producto->verificarExistenciaProductoByIdDb();
+        if ($encontrado === 1) {
             $producto->llenarCampos($IdProducto);
 
             $producto->setDescripcion($Descripcion);
@@ -153,6 +153,7 @@ switch ($_GET["op"]) {
             $producto->setImagen($newImageName);
             $producto->setPrecioCredito($PrecioCredito);
             $producto->setPrecioVenta($PrecioVenta);
+            $producto->setIdProducto($IdProducto);
             $modificados = $producto->EditarProducto();
             
             if ($modificados > 0) {
@@ -173,7 +174,7 @@ switch ($_GET["op"]) {
     case 'EliminarProducto':
         $producto = new Producto();
         $producto->setIdProducto(trim($_POST['IdProducto']));
-        $encontrado = $producto->verificarExistenciaProductoByIDDb();
+        $encontrado = $producto->verificarExistenciaProductoByIdDb();
         if ($encontrado == 1) {
             $rspta = $producto->EliminarProducto();
         } else {

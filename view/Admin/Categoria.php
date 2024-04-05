@@ -14,9 +14,9 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="Nombre_Categoria">Categoría</label>
+                                        <label for="Nombre_Categoria">Categoría<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="Nombre_Categoria"
-                                            name="Nombre_Categoria" required>
+                                            name="Nombre_Categoria"minlength="8" maxlength="20" required>
                                     </div>
                                 </div>
                             </div>
@@ -57,15 +57,15 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="id">IdCategoria</label>
+                                        <label for="id">ID</label>
                                         <input type="text" class="form-control" id="id" name="id" readonly>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="Nuevo_Nombre_Categoria">Categoria</label>
+                                        <label for="Nuevo_Nombre_Categoria">Categoría<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="Nuevo_Nombre_Categoria"
-                                            name="Nuevo_Nombre_Categoria" required>
+                                            name="Nuevo_Nombre_Categoria"minlength="8" maxlength="20" required>
                                     </div>
                                 </div>
                             </div>

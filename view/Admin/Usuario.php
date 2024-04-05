@@ -31,7 +31,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Numero_Cedula">Cédula</label>
+                                                <label for="Numero_Cedula">Cédula<span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Numero_Cedula"
                                                     name="Numero_Cedula" maxlength='9' onblur="fetchDataApi()" required>
                                             </div>
@@ -42,7 +42,7 @@
                                     <div class="row ">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Dia_Cumpleanos">Día Cumpleaños</label>
+                                                <label for="Dia_Cumpleanos">Día Cumpleaños<span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Dia_Cumpleanos"
                                                     name="Dia_Cumpleanos" required>
                                             </div>
@@ -50,7 +50,7 @@
 
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Mes_Cumpleanos">Mes Cumpleaños</label>
+                                                <label for="Mes_Cumpleanos">Mes Cumpleaños<span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Mes_Cumpleanos"
                                                     name="Mes_Cumpleanos" value="1" max="12" min="1"
                                                     data-validation-max-message="No existe ese mes"
@@ -59,13 +59,13 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Ano_Cumpleanos">Año Cumpleaños</label>
+                                                <label for="Ano_Cumpleanos">Año Cumpleaños<span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Ano_Cumpleanos"
                                                     name="Ano_Cumpleanos" required>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <label class="input-group" for="Id_Rol">Rol</label>
+                                            <label class="input-group" for="Id_Rol">Rol<span class="text-danger">*</span></label>
                                             <select name="Id_Rol" id="Id_Rol" class="form-control">
                                             </select>
                                         </div>
@@ -75,14 +75,14 @@
                                     <div class="row ">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Telefono">Teléfono</label>
+                                                <label for="Telefono">Teléfono<span class="text-danger">*</span></label>
                                                 <input type="text" maxlength='8' class="form-control" id="Telefono"
                                                     name="Telefono" required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Correo">Correo Electronico</label>
+                                                <label for="Correo">Correo Electronico<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="Correo" name="Correo"
                                                     required>
                                             </div>
@@ -150,19 +150,19 @@
                                             <div class="form-group">
                                                 <label for="Nuevo_Nombre">Nombre</label>
                                                 <input type="text" class="form-control" id="Nuevo_Nombre"
-                                                    name="Nuevo_Nombre" required>
+                                                    name="Nuevo_Nombre" readonly>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="Nuevo_Apellido_Usuario">Apellidos</label>
                                                 <input type="text" class="form-control" id="Nuevo_Apellido_Usuario"
-                                                    name="Nuevo_Apellido_Usuario" required>
+                                                    name="Nuevo_Apellido_Usuario" readonly>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Numero_Cedula">Cédula</label>
+                                                <label for="Nuevo_Numero_Cedula">Cédula<span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Nuevo_Numero_Cedula"
                                                     name="Nuevo_Numero_Cedula" required>
                                             </div>
@@ -174,27 +174,27 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Dia_Cumpleanos">Día Cumpleaños</label>
+                                                <label for="Nuevo_Dia_Cumpleanos">Día Cumpleaños<span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Nuevo_Dia_Cumpleanos"
                                                     name="Nuevo_Dia_Cumpleanos" required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Mes_Cumpleanos">Mes Cumpleaños</label>
+                                                <label for="Nuevo_Mes_Cumpleanos">Mes Cumpleaños<span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Nuevo_Mes_Cumpleanos"
                                                     name="Nuevo_Mes_Cumpleanos" required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Ano_Cumpleanos">Año Cumpleaños</label>
+                                                <label for="Nuevo_Ano_Cumpleanos">Año Cumpleaños<span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Nuevo_Ano_Cumpleanos"
                                                     name="Nuevo_Ano_Cumpleanos" required>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <label class="input-group" for="Nuevo_Rol">Rol</label>
+                                            <label class="input-group" for="Nuevo_Rol">Rol<span class="text-danger">*</span></label>
                                             <select name="Nuevo_Rol" id="Nuevo_Rol" class="form-control">
                                             </select>
                                         </div>
@@ -205,14 +205,14 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Numero_Telefono">Telefono</label>
+                                                <label for="Nuevo_Numero_Telefono">Teléfono<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="Nuevo_Numero_Telefono"
                                                     name="Nuevo_Numero_Telefono" required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Correo">Correo Electronico</label>
+                                                <label for="Nuevo_Correo">Correo Electronico<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="Nuevo_Correo"
                                                     name="Nuevo_Correo" required>
                                             </div>
@@ -275,9 +275,8 @@
                                     <th>Nombre</th>
                                     <th>Fecha Cumpleaños</th>
                                     <th>Rol</th>
-                                    <th>Telefono</th>
+                                    <th>Teléfono</th>
                                     <th>Cédula</th>
-
                                     <th>Opciones</th>
                                 </thead>
                                 <tbody>
@@ -287,9 +286,8 @@
                                     <th>Nombre</th>
                                     <th>Fecha Cumpleaños</th>
                                     <th>Rol</th>
-                                    <th>Telefono</th>
+                                    <th>Teléfono</th>
                                     <th>Cédula</th>
-
                                     <th>Opciones</th>
                                 </tfooter>
                             </table>
@@ -315,29 +313,6 @@
                 img_edit_usuario.src = URL.createObjectURL(file);
             }
         }
-    </script>
-    <script type="text/javascript">
-        async function fetchDataApi() {
-            try {
-                const Cedula = document.getElementById("Numero_Cedula").value;
-                const response = await fetch(`https://apis.gometa.org/cedulas/${Cedula}`);
-                if (!response.ok) {
-                    throw new Error("No se encontró esa cédula");
-                }
-                const data = await response.json();
-                const nombreApi = data.results[0].firstname;
-                const apellidoApi = data.results[0].lastname;
-                console.log(data);
-                const nombre = document.getElementById("Nombre_Usuario");
-                const apellido = document.getElementById("Apellido_Usuario");
-                nombre.value = nombreApi;
-                apellido.value = apellidoApi;
-
-            }
-            catch (error) {
-                console.error(error);
-            }
-        };
     </script>
 
 

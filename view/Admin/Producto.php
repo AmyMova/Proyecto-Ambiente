@@ -1,134 +1,164 @@
-<?php include ("Component\Header.php") ?>
-<div class="container-fluid">
+<?php include ("Component\Header.php"); ?><!-- Aqui se llama el encabezado de la pagina -->
+<div class="container-fluid"><!-- Aqui se agrega el contenedor fluido para que la pagina sea responsive -->
+
     <div class="row justify-content-center">
-        <!-- Formulario de creacion de xxx -->
-        <div class="col-lg-12" id="formulario_agregar_producto">
+        <!-- Formulario de creacion de productos -->
+        <div class="col-xs-2 col-sm-12 col-md-12 col-lg-12" id="formulario_agregar_producto">
             <div class="card card-dark">
+                <!-- Encabezado del formulario para crear productos -->
                 <div class="card-header">
                     <h3 class="card-title">Agregar un Producto</h3>
                 </div>
-                <div class="card-body">
+                <!-- Encabezado del formulario para crear productos -->
+
+                <div class="card-body"><!-- Aqui empieza la tarjeta que contiene el formulario de crear productos -->
                     <div class="row">
-                        <div class="col-md-9">
-                            <form name="modulos_agregar_producto" id="producto_agregar" method="POST" enctype="multipart/form-data">
+                        <div class="col-xs-2 col-sm-12 col-md-12 col-lg-9">
+                            <form name="modulos_agregar_producto" id="producto_agregar" method="POST"
+                                enctype="multipart/form-data">
+                                <!-- se agrega el enctype para que el formulario acepte imagenes -->
                                 <input type="hidden" id="existeModulo" name="existeModulo">
-                                <div class="col-9 ">
+                                <div class="col ">
                                     <div class="row row-cols-3">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="descripcionP">Descripción</label>
-                                                <input type="text" class="form-control" id="descripcionP"
-                                                    name="descripcionP" required>
+                                                <label class="input-group" for="descripcionP">Descripción<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="descripcionP" required
+                                                    data-validation-required-message="Este campo es necesario"
+                                                    name="descripcionP" minlength="10" maxlength="50"
+                                                    onkeyup="EliminarNumeros();"><!-- Esta función elimina los números que se encuentran en el campo -->
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
-                                                <label for="Precio_Venta">Precio Venta</label>
+                                            <div class="input-group">
+                                                <label class="input-group" for="Precio_Venta">Precio Venta<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="Precio_Venta"
-                                                    name="Precio_Venta" required>
+                                                    name="Precio_Venta" onkeyup="EliminarLetras();"
+                                                    required><!-- Esta función elimina las letras que se encuentran en el campo -->
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">₡</span>
+                                                    <span class="input-group-text">,00</span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="form-group">
-                                                <label for="Precio_Credito">Precio Crédito</label>
+                                            <div class="input-group">
+                                                <label class="input-group" for="Precio_Credito">Precio Crédito<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="Precio_Credito"
-                                                    name="Precio_Credito" required>
+                                                    name="Precio_Credito" onkeyup="EliminarLetras();"
+                                                    required><!-- Esta función elimina las letras que se encuentran en el campo -->
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">₡</span>
+                                                    <span class="input-group-text">,00</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-9">
+
+                                <div class="col">
                                     <div class="row text-center">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Cantidad_XS">XS</label>
+                                                <label class="input-group" for="Cantidad_XS">XS</label>
                                                 <input type="number" class="form-control" id="Cantidad_XS"
-                                                    name="Cantidad_XS" required>
+                                                    name="Cantidad_XS" value="0" min=0 max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Cantidad_S">S</label>
+                                                <label class="input-group" for="Cantidad_S">S</label>
                                                 <input type="number" class="form-control" id="Cantidad_S"
-                                                    name="Cantidad_S" required>
+                                                    name="Cantidad_S" value="0" min=0 max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Cantidad_M">M</label>
+                                                <label class="input-group" for="Cantidad_M">M</label>
                                                 <input type="number" class="form-control" id="Cantidad_M"
-                                                    name="Cantidad_M" required>
+                                                    name="Cantidad_M" value="0" min=0 max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Cantidad_L">L</label>
+                                                <label class="input-group" for="Cantidad_L">L</label>
                                                 <input type="number" class="form-control" id="Cantidad_L"
-                                                    name="Cantidad_L" required>
+                                                    name="Cantidad_L" value="0" min=0 max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Cantidad_XL">XL</label>
+                                                <label class="input-group" for="Cantidad_XL">XL</label>
                                                 <input type="number" class="form-control" id="Cantidad_XL"
-                                                    name="Cantidad_XL" required>
+                                                    name="Cantidad_XL" value="0" min=0 max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Cantidad_XXL">XXL</label>
+                                                <label class="input-group" for="Cantidad_XXL">XXL</label>
                                                 <input type="number" class="form-control" id="Cantidad_XXL"
-                                                    name="Cantidad_XXL" required>
+                                                    name="Cantidad_XXL" value="0" min=0 max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-9">
+
+                                <div class="col">
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col">
                                             <div class="input-group">
-                                                <label class="input-group" for="Id_Marca">Marca</label><br>
+                                                <label class="input-group" class="input-group"
+                                                    for="Id_Marca">Marca</label><br>
                                                 <select class="select2 form-control custom-select" name="Id_Marca"
                                                     id="Id_Marca">
-                                                    <option>Seleccionar</option>
+                                                    <option>Seleccionar</option><!-- se hizo un select en el cual se puede buscar información dicha informacion se pasa por medio de un json -->
                                                 </select>
 
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col">
                                             <div class="input-group">
-                                                <label class="input-group" for="Id_Categoria">Categoría</label><br>
+                                                <label class="input-group" class="input-group"
+                                                    for="Id_Categoria">Categoría</label><br>
                                                 <select class="select2 form-control custom-select" name="Id_Categoria"
                                                     id="Id_Categoria">
-                                                    <option>Seleccionar</option>
+                                                    <option>Seleccionar</option><!-- se hizo un select en el cual se puede buscar información dicha informacion se pasa por medio de un json -->
                                                 </select>
 
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="imagenP">Imagen</label>
-                                                <input type="file" class="form-control" id="imagenP" name="imagenP">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label class="input-group" for="imagenP">Imagen</label><!-- Aqui es donde se agrega la imagen  -->
+                                                <input accept="image/png,image/jpeg,image/jpg" type="file"
+                                                    class="form-control" id="imagenP" name="imagenP"><!-- este input solo acepta imagenes de tipo: jpg,png y jpeg -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
-                                    <div class="button-group ">
-                                        <input type="submit" id="btnRegistar" class="btn btn-success" value="Registrar">
+                                    <div class="button-group "><!-- grupo de botones con diferentes funciones -->
+                                        <input type="submit" id="btnRegistar" class="btn btn-success" value="Registrar"><!-- registra lo que tiene el formulario -->
 
-                                        <input type="reset" class="btn btn-warning " value="Borrar datos">
+                                        <input type="reset" class="btn btn-warning " value="Borrar datos"><!-- Borra los datos del formulario -->
 
                                         <input type="button" id="btnCancelar" class="btn btn-secondary" value="Cancelar"
-                                            onclick="cancelarFormProducto()">
+                                            onclick="cancelarFormProducto()"><!-- Cancela y oculta el formulario -->
 
                                     </div>
                                 </div>
                             </form>
 
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col"><!-- Aqui es donde se visualiza la imagen a guardar -->
                             <div class="card">
                                 <div class="preview">
                                     <img src="" id="img" alt="Preview" width="280px" height="275px">
@@ -137,141 +167,160 @@
                         </div>
 
                     </div>
-                    <!-- /.card-body -->
-                </div>
+                    
+                </div><!-- Aqui termina la tarjeta que contiene el formulario de crear productos -->
             </div>
-        </div>
+        </div><!-- Aqui termina el Formulario de creacion de productos -->
 
 
-        <!-- Formulario de modificacion de xxx -->
-        <div class="col-lg-12" id="formulario_editar_producto">
+        <!-- Formulario de modificacion de productos -->
+        <div class="col-xs-2 col-sm-12 col-md-12 col-lg-12" id="formulario_editar_producto">
             <div class="card card-dark">
+                <!-- Encabezado de la tarjeta del formulario de productos -->
                 <div class="card-header">
                     <h3 class="card-title">Modificar un Producto</h3>
                 </div>
+                <!-- Encabezado de la tarjeta del formulario de productos -->
+                <!-- Aqui empieza el cuerpo de la tarjeta del formulario de productos -->
                 <div class="card-body">
                     <div class="row justify-content-center">
-                        <div class="col-lg-9">
-                            <form name="modulos_update" id="producto_update" method="POST"
+                        <div class="col-xs-2 col-sm-12 col-md-12 col-lg-9">
+                            <form name="modulos_editar_producto" id="producto_editar" method="POST"
                                 enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" id="id" name="id">
-                                <div class="col-9">
+                                
+                                <div class="col">
                                     <div class="row row-cols-3">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nueva_Descripcion">Descripción</label>
+                                                <label class="input-group" for="Nueva_Descripcion">Descripción<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="Nueva_Descripcion"
-                                                    name="Nueva_Descripcion" required>
+                                                    name="Nueva_Descripcion" minlength="10" maxlength="50"
+                                                    onkeyup="EliminarNumeros();" required><!-- Esta función elimina los números que se encuentran en el campo -->
                                             </div>
                                         </div>
 
                                         <div class="col">
-                                            <div class="form-group">
-                                                <label for="Nuevo_Precio_Venta">Precio Venta</label>
-                                                <input type="number" class="form-control" id="Nuevo_Precio_Venta"
-                                                    name="Nuevo_Precio_Venta" required>
+                                            <div class="input-group">
+                                                <label class="input-group" for="Nuevo_Precio_Venta">Precio Venta<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="Nuevo_Precio_Venta"
+                                                    name="Nuevo_Precio_Venta" onkeyup="EliminarLetras();" required><!-- Esta función elimina las letras que se encuentran en el campo -->
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">₡</span>
+                                                    <span class="input-group-text">,00</span>
+                                                </div>
                                             </div>
                                         </div>
-
                                         <div class="col">
-                                            <div class="form-group">
-                                                <label for="Nuevo_Precio_Credito">Precio Crédito</label>
-                                                <input type="number" class="form-control" id="Nuevo_Precio_Credito"
-                                                    name="Nuevo_Precio_Credito" required>
+                                            <div class="input-group">
+                                                <label class="input-group" for="Nuevo_Precio_Credito">Precio
+                                                    Venta<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" id="Nuevo_Precio_Credito"
+                                                    name="Nuevo_Precio_Credito" onkeyup="EliminarLetras();" required><!-- Esta función elimina las letras que se encuentran en el campo -->
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">₡</span>
+                                                    <span class="input-group-text">,00</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-9">
+                                <div class="col">
                                     <div class="row text-center">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nueva_Cant_XS">XS</label>
+                                                <label class="input-group" for="Nueva_Cant_XS">XS</label>
                                                 <input type="number" class="form-control" id="Nueva_Cant_XS"
-                                                    name="Nueva_Cant_XS" required>
+                                                    name="Nueva_Cant_XS" required  min=0 max=999><!-- se agrego un minimo y maximo -->
                                             </div>
                                         </div>
 
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nueva_Cant_S">S</label>
+                                                <label class="input-group" for="Nueva_Cant_S">S</label>
                                                 <input type="number" class="form-control" id="Nueva_Cant_S"
-                                                    name="Nueva_Cant_S" required>
+                                                    name="Nueva_Cant_S" required  min=0 max=999><!-- se agrego un minimo y maximo -->
                                             </div>
                                         </div>
 
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nueva_Cant_M">M</label>
+                                                <label class="input-group" for="Nueva_Cant_M">M</label>
                                                 <input type="number" class="form-control" id="Nueva_Cant_M"
-                                                    name="Nueva_Cant_M" required>
+                                                    name="Nueva_Cant_M" required  min=0 max=999><!-- se agrego un minimo y maximo -->
                                             </div>
                                         </div>
 
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nueva_Cant_L">L</label>
+                                                <label class="input-group" for="Nueva_Cant_L">L</label>
                                                 <input type="number" class="form-control" id="Nueva_Cant_L"
-                                                    name="Nueva_Cant_L" required>
+                                                    name="Nueva_Cant_L" required  min=0 max=999><!-- se agrego un minimo y maximo -->
                                             </div>
                                         </div>
 
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nueva_Cant_XL">XL</label>
+                                                <label class="input-group" for="Nueva_Cant_XL">XL</label>
                                                 <input type="number" class="form-control" id="Nueva_Cant_XL"
-                                                    name="Nueva_Cant_XL" required>
+                                                    name="Nueva_Cant_XL" required  min=0 max=999><!-- se agrego un minimo y maximo -->
                                             </div>
                                         </div>
 
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nueva_Cant_XXL">XXL</label>
+                                                <label class="input-group" for="Nueva_Cant_XXL">XXL</label>
                                                 <input type="number" class="form-control" id="Nueva_Cant_XXL"
-                                                    name="Nueva_Cant_XXL" required>
+                                                    name="Nueva_Cant_XXL" required  min=0 max=999><!-- se agrego un minimo y maximo -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-9">
+                                <div class="col">
                                     <div class="row">
                                         <div class="col">
                                             <div class="input-group">
-                                                <label class="input-group" for="Nuevo_Id_Marca">Marca</label>
-                                                <select name="Nuevo_Id_Marca" id="Nuevo_Id_Marca" class="form-control">
+                                                <label class="input-group" class="input-group"
+                                                    for="Nuevo_Id_Marca">Marca</label><!-- se hace un select con todas las marcas que existen en la bd y se selecciona el valor que tiene el producto -->
+                                                <select name="Nuevo_Id_Marca" id="Nuevo_Id_Marca" class="form-control select-marcas-editar">
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="col">
                                             <div class="input-group">
-                                                <label class="input-group" for="Nuevo_Id_Categoria">Categoría</label>
+                                                <label class="input-group" class="input-group"
+                                                    for="Nuevo_Id_Categoria">Categoría</label><!-- se hace un select con todas las categorias que existen en la bd y se selecciona el valor que tiene el producto -->
                                                 <select name="Nuevo_Id_Categoria" id="Nuevo_Id_Categoria"
-                                                class="select2 form-control custom-select">
+                                                    class="select2 form-control custom-select">
                                                 </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Nueva_Imagen">Imagen</label>
-                                                <input type="file" class="form-control" id="Nueva_Imagen"
-                                                    name="Nueva_Imagen">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label class="input-group" for="Nueva_Imagen">Imagen</label><!-- Aqui se aceptan las imagenes -->
+                                                <input accept="image/png,image/jpeg,image/jpg" type="file"
+                                                    class="form-control" id="Nueva_Imagen" name="Nueva_Imagen"><!-- solo puede aceptar imagenes de tipo png,jpg y jpeg -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row"><!-- Grupo de botones con diferentes funciones  -->
                                     <div class="button-group">
-                                        <input type="submit" class="btn btn-warning" value="Modificar">
+                                        <input type="submit" class="btn btn-warning" value="Modificar"><!-- se guardan los cambios -->
                                         <input type="button" class="btn btn-secondary" value="Cancelar"
-                                            onclick="cancelarFormProducto()">
+                                            onclick="cancelarFormProducto()"><!-- se cancelan los cambios que se iban a hacer y oculta el formulario -->
                                     </div>
                                 </div>
 
                             </form>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-3"><!-- Aqui se visualiza ya sea la imagen que ya esta guardada en la bd o la nueva imagen que se va a guardar -->
                             <div class="card">
                                 <div class="preview-edit">
                                     <img src="" id="img_edit" alt="Preview" width="280px" height="275px">
@@ -280,20 +329,25 @@
                         </div>
 
                     </div>
-                </div>
+                </div><!-- Aqui termina el cuerpo de la tarjeta del formulario de productos -->
             </div>
         </div>
-        <!-- /.card-body -->
-
     </div>
-    <!-- listado -->
+
+
+
+
+    <!-- listado de productos -->
     <div class="row">
         <div class="col-12">
             <div class="card card-dark">
+                <!--Encabezado y titulo de la tabla productos-->
                 <div class="card-header">
                     <h3 class="card-title">Productos existentes</h3>
+
                 </div>
-                <!-- /.card-header -->
+                <!-- Encabezado y titulo de la tabla productos -->
+                <!-- Cuerpo de la tabla productos -->
                 <div class="card-body ">
 
                     <div class="row ">
@@ -339,30 +393,31 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div><!-- Cuerpo de la tabla productos -->
+
             </div>
         </div>
     </div>
-    <!-- sample modal content -->
 
 
 
-</div>
-<script type="text/javascript">
-    imagenP.onchange = evt => {
-        const [file] = imagenP.files;
-        if (file) {
-            img.src = URL.createObjectURL(file);
+    <!-- Estos scripts cambian el preview de la imagen tanto para editar como al agregar  -->
+    <script type="text/javascript">
+        imagenP.onchange = evt => {
+            const [file] = imagenP.files;
+            if (file) {
+                img.src = URL.createObjectURL(file);
+            }
         }
-    }
-</script>
-<script type="text/javascript">
-    Nueva_Imagen.onchange = evt => {
-        const [file] = Nueva_Imagen.files;
-        if (file) {
-            img_edit.src = URL.createObjectURL(file);
+    </script>
+    <script type="text/javascript">
+        Nueva_Imagen.onchange = evt => {
+            const [file] = Nueva_Imagen.files;
+            if (file) {
+                img_edit.src = URL.createObjectURL(file);
+            }
         }
-    }
-</script>
+    </script>
 
-<?php include ("Component\Footer.php") ?>
+    <!-- Desde aqui se llama el footer -->
+    <?php include ("Component\Footer.php") ?>

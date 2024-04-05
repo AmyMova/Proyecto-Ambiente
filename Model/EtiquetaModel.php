@@ -359,6 +359,26 @@ class Etiqueta extends Conexion
     }
 }
 
+public function verificarCantidadDB()
+{
+    $query = "SELECT COUNT(*) FROM etiqueta";
+    try {
+        self::getConexion();
+        $resultado = self::$cnx->prepare($query);
+
+        $resultado->execute();
+        $count = $resultado->fetchAll();
+        self::desconectar();
+        
+        // Si count es mayor que 0, significa que el producto existe
+        return $count > 0;
+    } catch (PDOException $Exception) {
+        self::desconectar();
+        $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+        return $error;
+    }
+}
+
     public function verificarExistenciaEtiquetaByIDDb()
     {
         $query = "SELECT * FROM etiqueta where IdEtiqueta=:id";

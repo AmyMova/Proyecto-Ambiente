@@ -1,3 +1,7 @@
+<?php
+session_start();
+session_unset();?>
+
 <!DOCTYPE html>
 <html dir="ltr">
 
@@ -69,7 +73,8 @@
                                 </div>
                                 <div class="form-group text-center">
                                     <div class="col-xs-12 p-b-20">
-                                        <button class="btn btn-block btn-lg btn-info" type="submit">Iniciar Sesion</button>
+                                        <!--<button class="btn btn-block btn-lg btn-info" type="submit">Iniciar Sesión</button>Este es el boton para cuando se termine el formulario -->
+                                        <button class="btn btn-block btn-lg btn-info" href="Index.php">Iniciar Sesión</button><!--Boton temporal-->
                                     </div>
                                 </div>
                                 <div class="form-group m-b-0 m-t-10">
