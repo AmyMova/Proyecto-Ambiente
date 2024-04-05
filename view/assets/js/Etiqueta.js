@@ -19,7 +19,7 @@ function ListarEtiquetas() {
     aProcessing: true, //actiavmos el procesamiento de datatables
     aServerSide: true, //paginacion y filtrado del lado del serevr
     dom: "Bfrtip", //definimos los elementos del control de tabla
-    buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf","print"],
+    buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
     ajax: {
       url: "./../../Controller/EtiquetaController.php?op=ListarTablaEtiqueta",
       type: "get",
@@ -58,7 +58,7 @@ $("#etiqueta_agregar").on("submit", function (event) {
         case "1":
           toastr.success("Etiqueta registrado");
           $("#etiqueta_agregar")[0].reset();
-          tabla.api().ajax.reload();
+          location.reload();
           break;
 
         case "2":
@@ -130,7 +130,7 @@ $("#formulario_editar_etiqueta").on("submit", function (event) {
               break;
             case "1":
               toastr.success("Etiqueta actualizado exitosamente");
-              tabla.api().ajax.reload();
+              location.reload();
               limpiarFormsEtiqueta();
               $("#formulario_editar_etiqueta").hide();
               break;
@@ -154,12 +154,40 @@ function EliminarEtiqueta(IdEtiqueta) {
           switch (data) {
             case '1':
               toastr.success('Etiqueta Eliminado');
-              tabla.api().ajax.reload();
+              location.reload();
               break;
 
             case '0':
               toastr.error(
                 'Error: El etiqueta no puede eliminarse. Consulte con el administrador...'
+              );
+              break;
+
+            default:
+              toastr.error(data);
+              break;
+          }
+        }
+      );
+    }
+  });
+}
+
+function EliminarEtiquetas() {
+  bootbox.confirm('¿Esta seguro de eliminar todas las etiquetas?', function (result) {
+    if (result) {
+      $.post(
+        './../../Controller/EtiquetaController.php?op=EliminarEtiquetas',
+        function (data, textStatus, xhr) {
+          switch (data) {
+            case '1':
+              toastr.success('Etiquetas Eliminadas');
+              location.reload();
+              break;
+
+            case '0':
+              toastr.error(
+                'Error: Las etiquetas no pueden eliminarse. Consulte con el administrador...'
               );
               break;
 

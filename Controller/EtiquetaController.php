@@ -33,17 +33,38 @@ switch ($_GET["op"]) {
         );
         echo json_encode($resultados);
         break;
+    case 'ListarTarjetaEtiqueta':
+        $etiqueta = new Etiqueta();
+        $etiquetas = $etiqueta->VerEtiquetasDB();
+        $data = array();
+        foreach ($etiquetas as $reg) {
+            $data[] = array(
+                "Descripcion" => $reg->getDescripcion(),
+                "Categoria" => $reg->getCategoria(),
+                "Marca" => $reg->getMarca(),
+                "XS" => $reg->getXS(),
+                "S" => $reg->getS(),
+                "M" => $reg->getM(),
+                "L" => $reg->getL(),
+                "XL" => $reg->getXL(),
+                "XXL" => $reg->getXXL(),
+                "PrecioVenta" => $reg->getPrecioVenta(),
+                "PrecioCredito" => $reg->getPrecioCredito()
+            );
+        }
+        echo json_encode($data);
+        break;
     case 'AgregarEtiqueta':
-        $IdProducto = isset ($_POST["IdProducto"]) ? trim($_POST["IdProducto"]) : "";
-        $XS = isset ($_POST["XS"]) ? trim($_POST["XS"]) : "";
-        $S = isset ($_POST["S"]) ? trim($_POST["S"]) : "";
-        $M = isset ($_POST["M"]) ? trim($_POST["M"]) : "";
-        $L = isset ($_POST["L"]) ? trim($_POST["L"]) : "";
-        $XL = isset ($_POST["XL"]) ? trim($_POST["XL"]) : "";
-        $XXL = isset ($_POST["XXL"]) ? trim($_POST["XXL"]) : "";
-        
+        $IdProducto = isset($_POST["IdProducto"]) ? trim($_POST["IdProducto"]) : "";
+        $XS = isset($_POST["XS"]) ? trim($_POST["XS"]) : "";
+        $S = isset($_POST["S"]) ? trim($_POST["S"]) : "";
+        $M = isset($_POST["M"]) ? trim($_POST["M"]) : "";
+        $L = isset($_POST["L"]) ? trim($_POST["L"]) : "";
+        $XL = isset($_POST["XL"]) ? trim($_POST["XL"]) : "";
+        $XXL = isset($_POST["XXL"]) ? trim($_POST["XXL"]) : "";
 
-        
+
+
 
         $etiqueta = new Etiqueta();
 
@@ -72,14 +93,14 @@ switch ($_GET["op"]) {
 
         break;
     case 'EditarEtiqueta':
-        $IdEtiqueta = isset ($_POST["id"]) ? trim($_POST["id"]) : "";
-        $IdProducto = isset ($_POST["Id_Producto"]) ? trim($_POST["Id_Producto"]) : "";
-        $XS = isset ($_POST["Nuevo_XS"]) ? trim($_POST["Nuevo_XS"]) : "";
-        $S = isset ($_POST["Nuevo_S"]) ? trim($_POST["Nuevo_S"]) : "";
-        $M = isset ($_POST["Nuevo_M"]) ? trim($_POST["Nuevo_M"]) : "";
-        $L = isset ($_POST["Nuevo_L"]) ? trim($_POST["Nuevo_L"]) : "";
-        $XL = isset ($_POST["Nuevo_XL"]) ? trim($_POST["Nuevo_XL"]) : "";
-        $XXL = isset ($_POST["Nuevo_XXL"]) ? trim($_POST["Nuevo_XXL"]) : "";
+        $IdEtiqueta = isset($_POST["id"]) ? trim($_POST["id"]) : "";
+        $IdProducto = isset($_POST["Id_Producto"]) ? trim($_POST["Id_Producto"]) : "";
+        $XS = isset($_POST["Nuevo_XS"]) ? trim($_POST["Nuevo_XS"]) : "";
+        $S = isset($_POST["Nuevo_S"]) ? trim($_POST["Nuevo_S"]) : "";
+        $M = isset($_POST["Nuevo_M"]) ? trim($_POST["Nuevo_M"]) : "";
+        $L = isset($_POST["Nuevo_L"]) ? trim($_POST["Nuevo_L"]) : "";
+        $XL = isset($_POST["Nuevo_XL"]) ? trim($_POST["Nuevo_XL"]) : "";
+        $XXL = isset($_POST["Nuevo_XXL"]) ? trim($_POST["Nuevo_XXL"]) : "";
 
 
         $etiqueta = new Etiqueta();
@@ -97,7 +118,7 @@ switch ($_GET["op"]) {
             $etiqueta->setXXL($XXL);
             $etiqueta->setIdProducto($IdProducto);
             $modificados = $etiqueta->EditarEtiqueta();
-            
+
             if ($modificados > 0) {
                 echo 1;
             } else {
@@ -119,7 +140,17 @@ switch ($_GET["op"]) {
         }
 
         echo $rspta;
-        case 'EliminarEtiquetas':
+    case 'EliminarEtiquetas':
+        $etiqueta = new Etiqueta();
+        $encontrado = $etiqueta->verificarCantidadDB();
+        if ($encontrado == 1) {
             $etiqueta->EliminarEtiquetas();
+            $eliminado = $etiqueta->verificarCantidadDB();
+            if ($eliminado > 0) {
+                echo 1;
+            } else {
+                echo 0;
+            }
 
+        }
 }

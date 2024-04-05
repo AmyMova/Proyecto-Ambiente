@@ -46,79 +46,9 @@ $(function () {
     $("#formulario_editar_categoria").hide();
   });
 
-  /*En esta parte se rellena el select del editar producto*/
-$(document).ready(function () {
-    $.ajax({
-        url: './../../Controller/CategoriaController.php?op=ListarCategoria',
-        dataType: 'json',
-        success: function (response) {
-            llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
-        },
-        error: function (xhr, status, error) {
-            console.error('Error al obtener los datos:', error);
-        }
-    });
 
-    // Función para rellenar el select con los datos recibidos del servidor
-    function llenarSelect(datos) {
-        var select = $('#Nuevo_Id_Categoria');
-
-        // Limpiamos las opciones actuales
-        select.empty();
-
-        // Añadimos la opción predeterminada
-
-
-        // Creamos una opción por cada objeto en el JSON recibido del servidor
-        $.each(datos, function (i, dato) {
-            select.append($('<option>', {
-                value: dato.IdCategoria,
-                text: dato.Categoria
-            }));
-        });
-
-        // Aplicamos la inicialización de Select2
-        select.select2();
-    }
-});
  /*En esta parte se rellena el select del crear producto*/
-$(document).ready(function () {
-    $.ajax({
-        url: './../../Controller/CategoriaController.php?op=ListarCategoria',
-        dataType: 'json',
-        success: function (response) {
-            llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
-        },
-        error: function (xhr, status, error) {
-            console.error('Error al obtener los datos:', error);
-        }
-    });
 
-    // Función para rellenar el select con los datos recibidos del servidor
-    function llenarSelect(datos) {
-        var select = $('#Id_Categoria');
-
-        // Limpiamos las opciones actuales
-        select.empty();
-
-        // Añadimos la opción predeterminada
-        select.append($('<option>', {
-            value: '',
-            text: 'Seleccionar'
-        }));
-
-        // Creamos una opción por cada objeto en el JSON recibido del servidor
-        $.each(datos, function (i, dato) {
-            select.append($('<option>', {
-                value: dato.IdCategoria,
-                text: dato.Categoria
-            }));
-        });
-
-        // Aplicamos la inicialización de Select2
-        select.select2();
-    }
-});
 /*Eto es para poder mostrar el formulario de agregar*/
 $(document).ready(function() {
     // Evento clic para el botón #agregarCategoria

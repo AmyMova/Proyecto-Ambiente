@@ -4,7 +4,7 @@
     <div id="formulario_agregar_marca">
         <div class="card card-dark">
             <div class="card-header">
-                <h3 class="card-title">Agregar un Marca</h3>
+                <h3 class="card-title">Agregar una Marca</h3>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -14,9 +14,9 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="Nombre_Marca">Marca</label>
+                                        <label for="Nombre_Marca">Marca<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="Nombre_Marca"
-                                            name="Nombre_Marca" required>
+                                            name="Nombre_Marca"minlength="8" maxlength="20" required onkeyup="EliminarNumeros();">
                                     </div>
                                 </div>
                             </div>
@@ -37,13 +37,12 @@
                     </div>
                 </div>
             </div>
-            <!-- /.card-body -->
         </div>
     </div>
 
 
 
-    <!-- Formulario de modificacion de xxx -->
+    <!-- Formulario de modificacion de marca -->
     <div id="formulario_editar_marca">
         <div class="card card-dark">
             <div class="card-header">
@@ -57,15 +56,15 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="id">IdMarca</label>
+                                        <label for="id">ID</label>
                                         <input type="text" class="form-control" id="id" name="id" readonly>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="Nuevo_Nombre_Marca">Marca</label>
+                                        <label for="Nuevo_Nombre_Marca">Marca<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="Nuevo_Nombre_Marca"
-                                            name="Nuevo_Nombre_Marca" required>
+                                            name="Nuevo_Nombre_Marca" minlength="8" maxlength="20" required onkeyup="EliminarNumeros();">
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +78,6 @@
                         </form>
                     </div>
                 </div>
-                <!-- /.card-body -->
             </div>
         </div>
     </div>

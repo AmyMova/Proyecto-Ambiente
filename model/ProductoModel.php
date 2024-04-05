@@ -376,7 +376,7 @@ class Producto extends Conexion
     }
 }
 
-    public function verificarExistenciaProductoByIDDb()
+    public function verificarExistenciaProductoByIdDb()
     {
         $query = "SELECT * FROM producto where IdProducto=:id";
         try {

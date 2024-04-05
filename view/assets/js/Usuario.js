@@ -8,7 +8,27 @@ const GenerarContrasena = (length) => {
     }
     return result;
 };
+async function fetchDataApi() {
+    try {
+        const Cedula = document.getElementById("Numero_Cedula").value;
+        const response = await fetch(`https://apis.gometa.org/cedulas/${Cedula}`);
+        if (!response.ok) {
+            throw new Error("No se encontró esa cédula");
+        }
+        const data = await response.json();
+        const nombreApi = data.results[0].firstname;
+        const apellidoApi = data.results[0].lastname;
+        console.log(data);
+        const nombre = document.getElementById("Nombre_Usuario");
+        const apellido = document.getElementById("Apellido_Usuario");
+        nombre.value = nombreApi;
+        apellido.value = apellidoApi;
 
+    }
+    catch (error) {
+        console.error(error);
+    }
+};
 
 
 

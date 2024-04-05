@@ -80,13 +80,15 @@ $("#producto_agregar").on("submit", function (event) {
   });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
   // Evento clic para el botón #agregarProducto
-  $('#agregarProducto').click(function() {
+  $('#agregarProducto').click(function () {
     limpiarFormsProducto();
-      $('#formulario_agregar_producto').show();
-      $("#formulario_editar_producto").hide();
-      return false; // Para evitar que el evento de clic se propague
+    $('#formulario_agregar_producto').show();
+    RellenarSelectAgregarCategoria();
+    RellenarSelectAgregarMarca();
+    $("#formulario_editar_producto").hide();
+    return false; // Para evitar que el evento de clic se propague
   });
 });
 
@@ -112,16 +114,14 @@ $("#tblListadoProducto tbody").on(
     $("#Nueva_Cant_L").val(data[7]);
     $("#Nueva_Cant_XL").val(data[8]);
     $("#Nueva_Cant_XXL").val(data[9]);
-    var idMarca=data[15];
-    var idCategoria=data[14];
-    $("#Nuevo_Id_Marca").val(idMarca);
-    $("#Nuevo_Id_Categoria").val(idCategoria);
+    llenarSelectEditarMarca(data);
+    llenarSelectEditarCategoria(data);
     $("#img_edit").attr("src", URLImagen);
     return false;
   }
 );
 /*Funcion para modificacion de datos de producto*/
-$("#formulario_actualizar").on("submit", function (event) {
+$("#formulario_editar_producto").on("submit", function (event) {
   event.preventDefault();
   bootbox.confirm("¿Desea modificar los datos?", function (result) {
     if (result) {
@@ -142,10 +142,10 @@ $("#formulario_actualizar").on("submit", function (event) {
               toastr.success("Producto actualizado exitosamente");
               tabla.api().ajax.reload();
               limpiarFormsProducto();
-              $("#formulario_actualizar").hide();
+              $("#formulario_editar_producto").hide();
               break;
             case "2":
-              toastr.error("Error:Descripción no pertenece al producto.");
+              toastr.error("Error:Id no encontrado.");
               break;
           }
         },
@@ -164,7 +164,7 @@ function EliminarProducto(IdProducto) {
           switch (data) {
             case '1':
               toastr.success('Producto Eliminado');
-              tabla.api().ajax.reload();
+              location.reload();
               break;
 
             case '0':
@@ -181,4 +181,172 @@ function EliminarProducto(IdProducto) {
       );
     }
   });
+}
+
+function RellenarSelectAgregarCategoria() {
+  $.ajax({
+    url: './../../Controller/CategoriaController.php?op=ListarCategoria',
+    dataType: 'json',
+    success: function (response) {
+      llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
+    },
+    error: function (xhr, status, error) {
+      console.error('Error al obtener los datos:', error);
+    }
+  });
+
+  // Función para rellenar el select con los datos recibidos del servidor
+  function llenarSelect(datos) {
+    var select = $('#Id_Categoria');
+
+    // Limpiamos las opciones actuales
+    select.empty();
+    // Creamos una opción por cada objeto en el JSON recibido del servidor
+    $.each(datos, function (i, dato) {
+      select.append($('<option>', {
+        value: dato.IdCategoria,
+        text: dato.Categoria
+      }));
+    });
+
+    // Aplicamos la inicialización de Select2
+    select.select2();
+  }
+};
+
+function RellenarSelectAgregarMarca() {
+  $.ajax({
+    url: './../../Controller/MarcaController.php?op=ListarMarca',
+    dataType: 'json',
+    success: function (response) {
+      llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
+    },
+    error: function (xhr, status, error) {
+      console.error('Error al obtener los datos:', error);
+    }
+  });
+
+  // Función para rellenar el select con los datos recibidos del servidor
+  function llenarSelect(datos) {
+    var select = $('#Id_Marca');
+
+    // Limpiamos las opciones actuales
+    select.empty();
+    // Creamos una opción por cada objeto en el JSON recibido del servidor
+    $.each(datos, function (i, dato) {
+      select.append($('<option>', {
+        value: dato.IdMarca,
+        text: dato.Marca
+      }));
+    });
+
+    // Aplicamos la inicialización de Select2
+    select.select2();
+  }
+};
+
+
+function llenarSelectEditarMarca(data) {
+  $.ajax({
+    url: './../../Controller/MarcaController.php?op=ListarMarca',
+    dataType: 'json',
+    success: function (response) {
+      llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
+    },
+    error: function (xhr, status, error) {
+      console.error('Error al obtener los datos:', error);
+    }
+  });
+  function llenarSelect(datos) {
+    var val;
+    var te;
+    var temporales = [];
+    
+    for (i = 0; i < datos.length; i++) {
+      if (data[15] == datos[i].IdMarca) {
+        val = datos[i].IdMarca;
+        te = datos[i].Marca;
+      }
+    }
+
+
+    for (i = 0; i < datos.length; i++) {
+      if (datos[i].IdMarca != data[15])
+        temporales.push(datos[i]);
+    }
+    var select = $('#Nuevo_Id_Marca');
+    // Limpiamos las opciones actuales
+    select.empty();
+    // Añadimos la opción predeterminada
+    select.append($('<option>', {
+      value: val,
+      text: te
+    }));
+
+    // Creamos una opción por cada objeto en el JSON recibido del servidor
+    $.each(JSON.parse(JSON.stringify(temporales)), function (i, temps) {
+      select.append($('<option>', {
+        value: temps.IdMarca,
+        text: temps.Marca
+        
+      }));
+    });
+
+    // Aplicamos la inicialización de Select2
+    select.select2();
+  }
+}
+function llenarSelectEditarCategoria(data) {
+  $.ajax({
+    url: './../../Controller/CategoriaController.php?op=ListarCategoria',
+    dataType: 'json',
+    success: function (response) {
+      llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
+    },
+    error: function (xhr, status, error) {
+      console.error('Error al obtener los datos:', error);
+    }
+  });
+  function llenarSelect(datos) {
+    var val;
+    var te;
+    var temporales = [];
+    
+    for (i = 0; i < datos.length; i++) {
+      if (data[14] == datos[i].IdCategoria) {
+        val = datos[i].IdCategoria;
+        te = datos[i].Categoria;
+      }
+    }
+
+
+    for (i = 0; i < datos.length; i++) {
+      if (datos[i].IdCategoria != data[14])
+        temporales.push(datos[i]);
+    }
+    
+
+
+    var select = $('#Nuevo_Id_Categoria');
+
+    // Limpiamos las opciones actuales
+    select.empty();
+    // Añadimos la opción predeterminada
+    select.append($('<option>', {
+      value: val,
+      text: te
+    }));
+
+    // Creamos una opción por cada objeto en el JSON recibido del servidor
+    $.each(JSON.parse(JSON.stringify(temporales)), function (i, temps) {
+      select.append($('<option>', {
+        value: temps.IdCategoria,
+        text: temps.Categoria
+        
+      }));
+    });
+
+    // Aplicamos la inicialización de Select2
+    select.select2();
+  }
 }

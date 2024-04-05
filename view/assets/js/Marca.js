@@ -40,78 +40,7 @@ $(function () {
     $("#formulario_agregar_marca").hide();
     $("#formulario_editar_marca").hide();
   });
-$(document).ready(function () {
-    $.ajax({
-        url: './../../Controller/MarcaController.php?op=ListarMarca',
-        dataType: 'json',
-        success: function (response) {
-            llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
-        },
-        error: function (xhr, status, error) {
-            console.error('Error al obtener los datos:', error);
-        }
-    });
 
-    // Función para rellenar el select con los datos recibidos del servidor
-    function llenarSelect(datos) {
-        var select = $('#Nuevo_Id_Marca');
-
-        // Limpiamos las opciones actuales
-        select.empty();
-
-        // Añadimos la opción predeterminada
-
-
-        // Creamos una opción por cada objeto en el JSON recibido del servidor
-        $.each(datos, function (i, dato) {
-            select.append($('<option>', {
-                value: dato.IdMarca,
-                text: dato.Marca
-            }));
-        });
-
-        // Aplicamos la inicialización de Select2
-        select.select2();
-    }
-});
-
-$(document).ready(function () {
-    $.ajax({
-        url: './../../Controller/MarcaController.php?op=ListarMarca',
-        dataType: 'json',
-        success: function (response) {
-            llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
-        },
-        error: function (xhr, status, error) {
-            console.error('Error al obtener los datos:', error);
-        }
-    });
-
-    // Función para rellenar el select con los datos recibidos del servidor
-    function llenarSelect(datos) {
-        var select = $('#Id_Marca');
-
-        // Limpiamos las opciones actuales
-        select.empty();
-
-        // Añadimos la opción predeterminada
-        select.append($('<option>', {
-            value: '',
-            text: 'Seleccionar'
-        }));
-
-        // Creamos una opción por cada objeto en el JSON recibido del servidor
-        $.each(datos, function (i, dato) {
-            select.append($('<option>', {
-                value: dato.IdMarca,
-                text: dato.Marca
-            }));
-        });
-
-        // Aplicamos la inicialización de Select2
-        select.select2();
-    }
-});
 $(document).ready(function() {
     // Evento clic para el botón #agregarMarca
     $('#agregarMarca').click(function() {
