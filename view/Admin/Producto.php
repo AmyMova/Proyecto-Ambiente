@@ -34,11 +34,13 @@
                                             <div class="input-group">
                                                 <label class="input-group" for="Precio_Venta">Precio Venta<span
                                                         class="text-danger">*</span></label>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">₡</span>
+                                                </div>
                                                 <input type="text" class="form-control" id="Precio_Venta"
                                                     name="Precio_Venta" onkeyup="EliminarLetras();"
                                                     required><!-- Esta función elimina las letras que se encuentran en el campo -->
                                                 <div class="input-group-append">
-                                                    <span class="input-group-text">₡</span>
                                                     <span class="input-group-text">,00</span>
                                                 </div>
                                             </div>
@@ -47,11 +49,13 @@
                                             <div class="input-group">
                                                 <label class="input-group" for="Precio_Credito">Precio Crédito<span
                                                         class="text-danger">*</span></label>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">₡</span>
+                                                </div>
                                                 <input type="text" class="form-control" id="Precio_Credito"
                                                     name="Precio_Credito" onkeyup="EliminarLetras();"
                                                     required><!-- Esta función elimina las letras que se encuentran en el campo -->
                                                 <div class="input-group-append">
-                                                    <span class="input-group-text">₡</span>
                                                     <span class="input-group-text">,00</span>
                                                 </div>
                                             </div>
@@ -218,11 +222,13 @@
                                             <div class="input-group">
                                                 <label class="input-group" for="Nuevo_Precio_Venta">Precio Venta<span
                                                         class="text-danger">*</span></label>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">₡</span>
+                                                </div>
                                                 <input type="text" class="form-control" id="Nuevo_Precio_Venta"
                                                     name="Nuevo_Precio_Venta" onkeyup="EliminarLetras();"
                                                     required><!-- Esta función elimina las letras que se encuentran en el campo -->
                                                 <div class="input-group-append">
-                                                    <span class="input-group-text">₡</span>
                                                     <span class="input-group-text">,00</span>
                                                 </div>
                                             </div>
@@ -231,11 +237,13 @@
                                             <div class="input-group">
                                                 <label class="input-group" for="Nuevo_Precio_Credito">Precio
                                                     Venta<span class="text-danger">*</span></label>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">₡</span>
+                                                </div>
                                                 <input type="text" class="form-control" id="Nuevo_Precio_Credito"
                                                     name="Nuevo_Precio_Credito" onkeyup="EliminarLetras();"
                                                     required><!-- Esta función elimina las letras que se encuentran en el campo -->
                                                 <div class="input-group-append">
-                                                    <span class="input-group-text">₡</span>
                                                     <span class="input-group-text">,00</span>
                                                 </div>
                                             </div>
