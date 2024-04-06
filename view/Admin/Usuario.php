@@ -9,11 +9,11 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg">
                             <form name="modulos_agregar_usuario" id="usuario_agregar" method="POST"
                                 enctype="multipart/form-data">
                                 <input type="hidden" id="existeModulo" name="existeModulo">
-                                <div class="col-9 ">
+                                <div class="col ">
                                     <div class="row row-cols-3">
                                         <div class="col">
                                             <div class="form-group">
@@ -31,18 +31,21 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Numero_Cedula">Cédula<span class="text-danger">*</span></label>
+                                                <label for="Numero_Cedula">Cédula<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Numero_Cedula"
                                                     name="Numero_Cedula" maxlength='9' onblur="fetchDataApi()" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-9">
+
+                                <div class="col">
                                     <div class="row ">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Dia_Cumpleanos">Día Cumpleaños<span class="text-danger">*</span></label>
+                                                <label for="Dia_Cumpleanos">Día Cumpleaños<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Dia_Cumpleanos"
                                                     name="Dia_Cumpleanos" required>
                                             </div>
@@ -50,7 +53,8 @@
 
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Mes_Cumpleanos">Mes Cumpleaños<span class="text-danger">*</span></label>
+                                                <label for="Mes_Cumpleanos">Mes Cumpleaños<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Mes_Cumpleanos"
                                                     name="Mes_Cumpleanos" value="1" max="12" min="1"
                                                     data-validation-max-message="No existe ese mes"
@@ -59,19 +63,22 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Ano_Cumpleanos">Año Cumpleaños<span class="text-danger">*</span></label>
+                                                <label for="Ano_Cumpleanos">Año Cumpleaños<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Ano_Cumpleanos"
                                                     name="Ano_Cumpleanos" required>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <label class="input-group" for="Id_Rol">Rol<span class="text-danger">*</span></label>
+                                            <label class="input-group" for="Id_Rol">Rol<span
+                                                    class="text-danger">*</span></label>
                                             <select name="Id_Rol" id="Id_Rol" class="form-control">
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-9">
+
+                                <div class="col">
                                     <div class="row ">
                                         <div class="col">
                                             <div class="form-group">
@@ -82,11 +89,13 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Correo">Correo Electronico<span class="text-danger">*</span></label>
+                                                <label for="Correo">Correo Electronico<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="Correo" name="Correo"
                                                     required>
                                             </div>
                                         </div>
+
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="Contrasena">Contraseña</label>
@@ -94,7 +103,12 @@
                                                     name="Contrasena" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
                                             <div class="form-group">
                                                 <label for="Imagen_Usuario">Imagen</label>
                                                 <input type="file" class="form-control" id="Imagen_Usuario"
@@ -141,10 +155,10 @@
                 </div>
                 <div class="card-body">
                     <div class="row justify-content-center">
-                        <div class="col-lg-9">
+                        <div class="col-lg">
                             <form name="usuario_editar" id="usuario_editar" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" id="id" name="id">
-                                <div class="col-9">
+                                <div class="col">
                                     <div class="row">
                                         <div class="col-">
                                             <div class="form-group">
@@ -162,7 +176,8 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Numero_Cedula">Cédula<span class="text-danger">*</span></label>
+                                                <label for="Nuevo_Numero_Cedula">Cédula<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Nuevo_Numero_Cedula"
                                                     name="Nuevo_Numero_Cedula" required>
                                             </div>
@@ -170,54 +185,65 @@
                                     </div>
                                 </div>
 
-                                <div class="col-9">
+                                <div class="col">
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Dia_Cumpleanos">Día Cumpleaños<span class="text-danger">*</span></label>
+                                                <label for="Nuevo_Dia_Cumpleanos">Día Cumpleaños<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Nuevo_Dia_Cumpleanos"
                                                     name="Nuevo_Dia_Cumpleanos" required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Mes_Cumpleanos">Mes Cumpleaños<span class="text-danger">*</span></label>
+                                                <label for="Nuevo_Mes_Cumpleanos">Mes Cumpleaños<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Nuevo_Mes_Cumpleanos"
                                                     name="Nuevo_Mes_Cumpleanos" required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Ano_Cumpleanos">Año Cumpleaños<span class="text-danger">*</span></label>
+                                                <label for="Nuevo_Ano_Cumpleanos">Año Cumpleaños<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Nuevo_Ano_Cumpleanos"
                                                     name="Nuevo_Ano_Cumpleanos" required>
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <label class="input-group" for="Nuevo_Rol">Rol<span class="text-danger">*</span></label>
+                                            <label class="input-group" for="Nuevo_Rol">Rol<span
+                                                    class="text-danger">*</span></label>
                                             <select name="Nuevo_Rol" id="Nuevo_Rol" class="form-control">
                                             </select>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-9">
+                                <div class="col">
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Numero_Telefono">Teléfono<span class="text-danger">*</span></label>
+                                                <label for="Nuevo_Numero_Telefono">Teléfono<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="Nuevo_Numero_Telefono"
                                                     name="Nuevo_Numero_Telefono" required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="Nuevo_Correo">Correo Electronico<span class="text-danger">*</span></label>
+                                                <label for="Nuevo_Correo">Correo Electronico<span
+                                                        class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="Nuevo_Correo"
                                                     name="Nuevo_Correo" required>
                                             </div>
                                         </div>
-                                        <div class="col-lg-12">
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
                                             <div class="form-group">
                                                 <label for="Nueva_Imagen_Usuario">Imagen</label>
                                                 <input type="file" class="form-control" id="Nueva_Imagen_Usuario"
@@ -226,6 +252,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <div class="row">
                                     <div class="button-group">
@@ -269,6 +296,7 @@
                                         id="agregarUsuario">Agregar</button>
                                 </div>
                             </div>
+                            <br>
                             <table id="tblListadoUsuario" class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <th>ID</th>

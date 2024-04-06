@@ -1,25 +1,24 @@
 /*Funcion para limpieza de los formularios*/
-function limpiarFormsMovimiento() {
-    $("#modulo_read").trigger("reset");
+function limpiarFormsError() {
+    $("#modulos_ver_error").trigger("reset");
   }
-  function cancelarFormMovimiento() {
-    limpiarFormsMovimiento();
-    
-  $("#formulario_ver_movimiento").hide();
+  function cancelarFormError() {
+    limpiarFormsError();
+  $("#formulario_ver_error").hide();
     
   }
   /*Funcion para cancelacion del uso de formulario de modificación*/
  
   
   /*Funcion para cargar el listado en el Datatable*/
-  function ListarMovimientos() {
-    tabla = $("#tblListadoMovimiento").dataTable({
+  function ListarErrors() {
+    tabla = $("#tblListadoError").dataTable({
       aProcessing: true, //actiavmos el procesamiento de datatables
       aServerSide: true, //paginacion y filtrado del lado del serevr
       dom: "Bfrtip", //definimos los elementos del control de tabla
       buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
       ajax: {
-        url: "./../../Controller/MovimientoController.php?op=ListarTablaMovimientos",
+        url: "./../../Controller/ErrorController.php?op=ListarTablaError",
         type: "get",
         dataType: "json",
         error: function (e) {
@@ -34,24 +33,22 @@ function limpiarFormsMovimiento() {
   Funcion Principal
   */
   $(function () {
-    $("#formulario_ver_movimiento").hide();
-    ListarMovimientos();
+    $("#formulario_ver_error").hide();
+    ListarErrors();
     
   });
   /*Habilitacion de form de modificacion al presionar el boton en la tabla*/
-  $("#tblListadoMovimiento tbody").on(
+  $("#tblListadoError tbody").on(
     "click",
     'button[id="VerMás"]',
     function () {
-      var data = $("#tblListadoMovimiento").DataTable().row($(this).parents("tr")).data();
-      limpiarFormsMovimiento();
-      $("#formulario_ver_movimiento").show();
+      var data = $("#tblListadoError").DataTable().row($(this).parents("tr")).data();
+      limpiarFormsError();
+      $("#formulario_ver_error").show();
       $("#id").val(data[0]);
       $("#Descripcion").val(data[1]);
-      $("#Producto").val(data[2]);
-      $("#Usuario").val(data[3]);
-      $("#Fecha").val(data[4]);
-      $("#Accion").val(data[5]);
+      $("#Usuario").val(data[2]);
+      $("#Fecha").val(data[3]);
       return false;
     }
   );
