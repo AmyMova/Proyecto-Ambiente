@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="es">
 <!--Conseguir la informacion del usuario para poner en la foto de perfil y el nombre del usuario-->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +17,9 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../plugins/toastr/toastr.css">
     <!-- Favicon icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="../assets/libs/select2/dist/css/select2.min.css">
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/LogoRosayAnilRedondo.PNG">
     <title>Rosa y Añil</title>
@@ -67,12 +70,14 @@
                             <b class="logo-icon">
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                                 <!-- Dark Logo icon -->
-                                <img src="../assets/img/LogoRosayAnil.PNG" width="150px" height="50px" alt="homepage" class="dark-logo" />
+                                <img src="../assets/img/LogoRosayAnil.PNG" width="150px" height="50px" alt="homepage"
+                                    class="dark-logo" />
                                 <!-- Light Logo icon -->
-                                <img src="../assets/img/LogoRosayAnil.PNG" width="150px" height="50px"alt="homepage" class="light-logo" />
+                                <img src="../assets/img/LogoRosayAnil.PNG" width="150px" height="50px" alt="homepage"
+                                    class="light-logo" />
                             </b>
                             <!--End Logo icon -->
-                            
+
                         </a>
                     </div>
                     <!-- ============================================================== -->
@@ -81,7 +86,8 @@
                     <!-- ============================================================== -->
                     <!-- Toggle which is visible on mobile only -->
                     <!-- ============================================================== -->
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                        data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="ti-more"></i>
                     </a>
@@ -103,7 +109,7 @@
                         <!-- Search -->
                         <!-- ============================================================== -->
                         <li class="nav-item search-box">
-                            
+
                         </li>
                     </ul>
                     <!-- ============================================================== -->
@@ -114,9 +120,14 @@
                         <!-- User profile  -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/img/<?php echo $_SESSION["Imagen"]?>" alt="user" class="rounded-circle" width="40"><!--Encontrar la foto del usuario-->
-                                <span class="m-l-5 font-medium d-none d-sm-inline-block"><?php echo $_SESSION["NombreUsuario"]," ",  $_SESSION["ApellidoUsuario"]?><!--Encontrar el nombre del usuario--> <i class="mdi mdi-chevron-down"></i></span>
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark pro-pic" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../assets/img/<?php echo $_SESSION["Imagen"] ?>" alt="user"
+                                    class="rounded-circle" width="40"><!--Encontrar la foto del usuario-->
+                                <span class="m-l-5 font-medium d-none d-sm-inline-block">
+                                    <?php echo $_SESSION["NombreUsuario"], " ", $_SESSION["ApellidoUsuario"] ?><!--Encontrar el nombre del usuario-->
+                                    <i class="mdi mdi-chevron-down"></i>
+                                </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <span class="with-arrow">
@@ -124,19 +135,25 @@
                                 </span>
                                 <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
                                     <div class="">
-                                        <img src="../assets/img/<?php echo $_SESSION["Imagen"]?>" alt="user" class="rounded-circle" width="60" height="60">
+                                        <img src="../assets/img/<?php echo $_SESSION["Imagen"] ?>" alt="user"
+                                            class="rounded-circle" width="60" height="60">
                                     </div>
                                     <div class="m-l-10">
-                                        <h4 class="m-b-0"><?php echo $_SESSION["NombreUsuario"]," ",  $_SESSION["ApellidoUsuario"]?></h4><!--Encontrar el nombre del usuario-->
-                                        <p class=" m-b-0"><?php echo $_SESSION["CorreoElectronico"]?></p><!--Encontrar el correo del usuario-->
+                                        <h4 class="m-b-0">
+                                            <?php echo $_SESSION["NombreUsuario"], " ", $_SESSION["ApellidoUsuario"] ?>
+                                        </h4><!--Encontrar el nombre del usuario-->
+                                        <p class=" m-b-0">
+                                            <?php echo $_SESSION["CorreoElectronico"] ?>
+                                        </p><!--Encontrar el correo del usuario-->
                                     </div>
                                 </div>
                                 <a class="dropdown-item" href="../UsuarioPersonal.php">
                                     <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="../Autenticacion/Login.php">
-                                    <i class="fa fa-power-off m-r-5 m-l-5"></i> Cerrar Sesión</a><!--Cerrar la sesion del usuario-->
-                                
+                                    <i class="fa fa-power-off m-r-5 m-l-5"></i> Cerrar
+                                    Sesión</a><!--Cerrar la sesion del usuario-->
+
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -159,46 +176,85 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <!-- User Profile-->
-                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Inevntario</span></li>
-                        
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-boxes"></i><span class="hide-menu">Inventario </span></a>
+                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span
+                                class="hide-menu">Inevntario</span></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-boxes"></i><span
+                                    class="hide-menu">Inventario </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="Producto.php?p=<?php echo $_SESSION["IdUsuario"]; ?>" class="sidebar-link"><i class=" fas fa-box"></i><span class="hide-menu"> Producto </span></a></li>
-                                <li class="sidebar-item"><a href="Categoria.php" class="sidebar-link"><i class=" fas fa-box"></i><span class="hide-menu"> Categoría </span></a></li>
-                                <li class="sidebar-item"><a href="Marca.php" class="sidebar-link"><i class=" fas fa-box"></i><span class="hide-menu"> Marca </span></a></li>
-                                <li class="sidebar-item"><a href="Etiqueta.php" class="sidebar-link"><i class="fa-solid fa-ticket-simple"></i></i><span class="hide-menu"> Etiqueta </span></a></li>
+                                <li class="sidebar-item"><a href="Producto.php?p=<?php echo $_SESSION["IdUsuario"]; ?>"
+                                        class="sidebar-link"><i class=" fas fa-box"></i><span class="hide-menu">
+                                            Producto </span></a></li>
+                                <li class="sidebar-item"><a href="Categoria.php" class="sidebar-link"><i
+                                            class=" fas fa-box"></i><span class="hide-menu"> Categoría </span></a></li>
+                                <li class="sidebar-item"><a href="Marca.php" class="sidebar-link"><i
+                                            class=" fas fa-box"></i><span class="hide-menu"> Marca </span></a></li>
+                                <li class="sidebar-item"><a href="Etiqueta.php" class="sidebar-link"><i
+                                            class="fa-solid fa-ticket-simple"></i></i><span class="hide-menu"> Etiqueta
+                                        </span></a></li>
                             </ul>
                         </li>
-                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Reportes</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link two-column has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa-solid fa-chart-pie"></i><span class="hide-menu">Reportes </span></a>
+                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span
+                                class="hide-menu">Reportes</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link two-column has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class="fa-solid fa-chart-pie"></i><span class="hide-menu">Reportes </span></a>
                             <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item"><a href="Grafica.php" class="sidebar-link"><i class="fa-solid fa-chart-line"></i><span class="hide-menu"> Gráficas </span></a></li>
-                                <li class="sidebar-item"><a href="Movimiento.php" class="sidebar-link"><i class="mdi mdi-email-alert"></i><span class="hide-menu"> Movimientos </span></a></li>
-                                <li class="sidebar-item"><a href="Reporte.php" class="sidebar-link"><i class="fa-solid fa-table"></i><span class="hide-menu"> Reportes </span></a></li>
-                                <li class="sidebar-item"><a href="Error.php" class="sidebar-link"><i class="fa-solid fa-bug"></i><span class="hide-menu"> Errores </span></a></li>
+                                <li class="sidebar-item"><a href="Grafica.php" class="sidebar-link"><i
+                                            class="fa-solid fa-chart-line"></i><span class="hide-menu"> Gráficas
+                                        </span></a></li>
+                                <li class="sidebar-item"><a href="Movimiento.php" class="sidebar-link"><i
+                                            class="mdi mdi-email-alert"></i><span class="hide-menu"> Movimientos
+                                        </span></a></li>
+                                <li class="sidebar-item"><a href="Reporte.php" class="sidebar-link"><i
+                                            class="fa-solid fa-table"></i><span class="hide-menu"> Reportes </span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="Error.php" class="sidebar-link"><i
+                                            class="fa-solid fa-bug"></i><span class="hide-menu"> Errores </span></a>
+                                </li>
                             </ul>
                         </li>
-                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Ventas</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-clipboard-check"></i><span class="hide-menu">Ventas </span></a>
+                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span
+                                class="hide-menu">Ventas</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class=" fas fa-clipboard-check"></i><span class="hide-menu">Ventas </span></a>
                             <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item"><a href="Factura.php" class="sidebar-link"><i class="fa-solid fa-receipt"></i><span class="hide-menu"> Facturas</span></a></li>
-                                <li class="sidebar-item"><a href="Apartado.php" class="sidebar-link"><i class="fa-solid fa-bookmark"></i><span class="hide-menu"> Apartados</span></a></li>
-                                <li class="sidebar-item"><a href="Devolucion.php" class="sidebar-link"><i class="fa-solid fa-share"></i><span class="hide-menu"> Devoluciones</span></a></li>
+                                <li class="sidebar-item"><a href="Factura.php" class="sidebar-link"><i
+                                            class="fa-solid fa-receipt"></i><span class="hide-menu"> Facturas</span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="Apartado.php" class="sidebar-link"><i
+                                            class="fa-solid fa-bookmark"></i><span class="hide-menu">
+                                            Apartados</span></a></li>
+                                <li class="sidebar-item"><a href="Devolucion.php" class="sidebar-link"><i
+                                            class="fa-solid fa-share"></i><span class="hide-menu">
+                                            Devoluciones</span></a></li>
                             </ul>
                         </li>
-                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Facturación</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa-solid fa-cart-shopping"></i><span class="hide-menu">Ventas </span></a>
+                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span
+                                class="hide-menu">Facturación</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i
+                                    class="fa-solid fa-cart-shopping"></i><span class="hide-menu">Ventas </span></a>
                             <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item"><a href="Carrito.php" class="sidebar-link"><i class="fa-solid fa-cart-plus"></i><span class="hide-menu"> Crear Factura</span></a></li>
+                                <li class="sidebar-item"><a href="Carrito.php" class="sidebar-link"><i
+                                            class="fa-solid fa-cart-plus"></i><span class="hide-menu"> Crear
+                                            Factura</span></a></li>
                             </ul>
                         </li>
-                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Usuarios</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fa-solid fa-users"></i><span class="hide-menu">Usuarios </span></a>
+                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span
+                                class="hide-menu">Usuarios</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i class="fa-solid fa-users"></i><span
+                                    class="hide-menu">Usuarios </span></a>
                             <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item"><a href="Usuario.php" class="sidebar-link"><i class="fa-solid fa-user"></i><span class="hide-menu"> Editar Usuario </span></a></li>
+                                <li class="sidebar-item"><a href="Usuario.php" class="sidebar-link"><i
+                                            class="fa-solid fa-user"></i><span class="hide-menu"> Editar Usuario
+                                        </span></a></li>
                             </ul>
                         </li>
-                        
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

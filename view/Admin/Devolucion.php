@@ -1,172 +1,98 @@
-<?php include ("Component\Header.php") ?>
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <!-- Formulario de creacion de xxx -->
-        <div class="col-lg-12" id="formulario_add_etiqueta">
-            <div class="card card-dark">
-                <div class="card-header">
-                    <h3 class="card-title">Agregar un Etiqueta</h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <form name="modulos_add" id="etiqueta_add" method="POST">
-                                <input type="hidden" id="existeModulo" name="existeModulo">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label for="IdProducto">IdProducto</label>
-                                            <input type="text" class="form-control" id="IdProducto" name="IdProducto"
-                                                required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <label for="XS">XS</label>
-                                            <input type="number" class="form-control" id="XS" name="XS" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <label for="S">S</label>
-                                            <input type="number" class="form-control" id="S" name="S" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <label for="M">M</label>
-                                            <input type="number" class="form-control" id="M" name="M" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <label for="L">L</label>
-                                            <input type="number" class="form-control" id="L" name="L" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <label for="XL">XL</label>
-                                            <input type="number" class="form-control" id="XL" name="XL" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <label for="XXL">XXL</label>
-                                            <input type="number" class="form-control" id="XXL" name="XXL" required>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-6">
-                                        <input type="submit" id="btnRegistar" class="btn btn-success" value="Registrar">
-                                        <input type="reset" class="btn btn-warning" value="Borrar datos">
-                                    </div>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-            </div>
-        </div>
+<?php include ("Component\Header.php"); ?><!-- Aqui se llama el encabezado de la pagina -->
+<div class="container-fluid"><!-- Aqui se agrega el contenedor fluido para que la pagina sea responsive -->
 
 
-        <!-- Formulario de modificacion de xxx -->
-        <<div id="formulario_actualizar_Etiqueta">
+
+
+    <!-- Formulario de modificacion de devoluciones -->
+    <div class="col-xs-2 col-sm-12 col-md-12 col-lg-12" id="formulario_editar_devolucion">
         <div class="card card-dark">
+            <!-- Encabezado de la tarjeta del formulario de devoluciones -->
             <div class="card-header">
-                <h3 class="card-title">Modificar una Etiqueta</h3>
+                <h3 class="card-title">Ver Devolución</h3>
             </div>
+            <!-- Encabezado de la tarjeta del formulario de devoluciones -->
+            <!-- Aqui empieza el cuerpo de la tarjeta del formulario de devoluciones -->
             <div class="card-body">
                 <div class="row justify-content-center">
-                    <div class="col">
-                            <form name="etiqueta_update" id="etiqueta_update" method="POST">
-                                <input type="hidden" class="form-control" id="id" name="id">
-                                <div class="row">
-                                    <div class="col-md-4">
+                    <div class="col-xs-2 col-sm-12 col-md-12 col-lg-9">
+                        <form name="modulos_editar_devolucion" id="devolucion_editar" method="POST"
+                            enctype="multipart/form-data">
+                            <input type="hidden" class="form-control" id="id" name="id">
+
+                            <div class="col">
+                                <div class="row row-cols-3">
+                                    <div class="col">
                                         <div class="form-group">
-                                            <label for="Id_Producto">IdProducto</label>
-                                            <input type="text" class="form-control" id="Id_Producto" name="Id_Producto"
-                                                required>
+                                            <label class="input-group" for="Nueva_Descripcion">Descripción<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="Nueva_Descripcion"
+                                                name="Nueva_Descripcion" minlength="10" maxlength="50"
+                                                onkeyup="EliminarNumeros();"
+                                                required><!-- Esta función elimina los números que se encuentran en el campo -->
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="Nuevo_XS">XS</label>
-                                            <input type="number" class="form-control" id="Nuevo_XS" name="Nuevo_XS"
-                                                required>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <label class="input-group" for="Nuevo_Precio_Venta">Precio Venta<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="Nuevo_Precio_Venta"
+                                                name="Nuevo_Precio_Venta" onkeyup="EliminarLetras();"
+                                                required><!-- Esta función elimina las letras que se encuentran en el campo -->
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">₡</span>
+                                                <span class="input-group-text">,00</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="Nuevo_S">S</label>
-                                            <input type="number" class="form-control" id="Nuevo_S" name="Nuevo_S"
-                                                required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="Nuevo_M">M</label>
-                                            <input type="number" class="form-control" id="Nuevo_M" name="Nuevo_M"
-                                                required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="Nuevo_L">L</label>
-                                            <input type="number" class="form-control" id="Nuevo_L" name="Nuevo_L"
-                                                required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="Nuevo_XL">XL</label>
-                                            <input type="number" class="form-control" id="Nuevo_XL" name="Nuevo_XL"
-                                                required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="Nuevo_XXL">XXL</label>
-                                            <input type="number" class="form-control" id="Nuevo_XXL" name="Nuevo_XXL"
-                                                required>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <label class="input-group" for="Nuevo_Precio_Credito">Precio
+                                                Venta<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="Nuevo_Precio_Credito"
+                                                name="Nuevo_Precio_Credito" onkeyup="EliminarLetras();"
+                                                required><!-- Esta función elimina las letras que se encuentran en el campo -->
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">₡</span>
+                                                <span class="input-group-text">,00</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            
 
-
-                                <div class="row">
-                                    <div class="button-group">
-                                        <input type="submit" class="btn btn-warning" value="Modificar">
-                                        <input type="button" class="btn btn-secondary" value="Cancelar"
-                                            onclick="cancelarForm()">
-                                    </div>
+                            <div class="row"><!-- Grupo de botones con diferentes funciones  -->
+                                <div class="button-group">
+                                    <input type="button" class="btn btn-secondary" value="Cancelar"
+                                        onclick="cancelarFormDevolucion()"><!-- se cancelan los cambios que se iban a hacer y oculta el formulario -->
                                 </div>
-                            </form>
-                        </div>
+                            </div>
 
-
+                        </form>
                     </div>
-                </div>
-            </div>
-        </div>
-        <!-- /.card-body -->
 
+                </div>
+            </div><!-- Aqui termina el cuerpo de la tarjeta del formulario de devoluciones -->
+        </div>
     </div>
-    <!-- listado -->
+
+
+
+
+
+    <!-- listado de devoluciones -->
     <div class="row">
         <div class="col-12">
             <div class="card card-dark">
+                <!--Encabezado y titulo de la tabla devoluciones-->
                 <div class="card-header">
-                    <h3 class="card-title">Etiquetas existentes</h3>
+                    <h3 class="card-title">Devoluciones</h3>
+
                 </div>
-                <!-- /.card-header -->
+                <!-- Encabezado y titulo de la tabla devoluciones -->
+                <!-- Cuerpo de la tabla devoluciones -->
                 <div class="card-body ">
 
                     <div class="row ">
@@ -175,55 +101,38 @@
                             <div class="row">
                                 <div class="col-lg-2">
                                     <button class="btn waves-effect waves-light  btn-success"
-                                        id="agregarEtiqueta">Agregar</button>
+                                        id="agregarDevolucion">Devolución</button>
                                 </div>
                             </div>
-                            <table id="tbllistadoEtiqueta" class="table table-striped table-bordered table-hover">
+                            <br>
+                            <table id="tblListadoDevolucion" class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <th>ID</th>
-                                    <th>Descripción</th>
-                                    <th>Categoría</th>
-                                    <th>Marca</th>
-                                    <th>XS</th>
-                                    <th>S</th>
-                                    <th>M</th>
-                                    <th>L</th>
-                                    <th>XL</th>
-                                    <th>XXL</th>
-                                    <th>Precio Venta</th>
-                                    <th>Precio Crédito</th>
-                                    <th>Opciones</th>
+                                    <th>Producto</th>
+                                    <th>Motivo</th>
+                                    <th>Opción</th>
                                 </thead>
                                 <tbody>
                                 </tbody>
                                 <tfooter>
                                     <th>ID</th>
-                                    <th>Descripción</th>
-                                    <th>Categoría</th>
-                                    <th>Marca</th>
-                                    <th>XS</th>
-                                    <th>S</th>
-                                    <th>M</th>
-                                    <th>L</th>
-                                    <th>XL</th>
-                                    <th>XXL</th>
-                                    <th>Precio Venta</th>
-                                    <th>Precio Crédito</th>
-                                    <th>Opciones</th>
+                                    <th>Producto</th>
+                                    <th>Motivo</th>
+                                    <th>Opción</th>
                                 </tfooter>
                             </table>
                         </div>
+
+
                     </div>
-                </div>
+                </div><!-- Cuerpo de la tabla devoluciones -->
+
             </div>
         </div>
     </div>
-    <!-- sample modal content -->
 
 
 
 
-
-
-
+    <!-- Desde aqui se llama el footer -->
     <?php include ("Component\Footer.php") ?>

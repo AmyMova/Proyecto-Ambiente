@@ -15,46 +15,60 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label for="IdProducto">IdProducto</label>
+                                            <label for="IdProducto">IdProducto<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="IdProducto" name="IdProducto"
-                                                required>
+                                                required ><!--onblur="BuscarProductoByID();"-->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="Descripcion">Descripción<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="Descripcion" name="Descripcion"
+                                                required ><!--onblur="BuscarProductoByDescripcion();"-->
                                         </div>
                                     </div>
 
                                     <div class="col-lg-2">
                                         <div class="form-group">
                                             <label for="XS">XS</label>
-                                            <input type="number" class="form-control" id="XS" name="XS" required>
+                                            <input type="number" class="form-control" id="XS" name="XS" value="0" required min=0
+                                                max=999>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group">
                                             <label for="S">S</label>
-                                            <input type="number" class="form-control" id="S" name="S" required>
+                                            <input type="number" class="form-control" id="S" name="S" value="0" required min=0
+                                                max=999>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group">
                                             <label for="M">M</label>
-                                            <input type="number" class="form-control" id="M" name="M" required>
+                                            <input type="number" class="form-control" id="M" name="M" value="0" required min=0
+                                                max=999>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group">
                                             <label for="L">L</label>
-                                            <input type="number" class="form-control" id="L" name="L" required>
+                                            <input type="number" class="form-control" id="L" name="L" value="0" required min=0
+                                                max=999>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group">
                                             <label for="XL">XL</label>
-                                            <input type="number" class="form-control" id="XL" name="XL" required>
+                                            <input type="number" class="form-control" id="XL" name="XL" value="0" required min=0
+                                                max=999>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group">
                                             <label for="XXL">XXL</label>
-                                            <input type="number" class="form-control" id="XXL" name="XXL" required>
+                                            <input type="number" class="form-control" id="XXL" name="XXL" value="0" required min=0
+                                                max=999>
                                         </div>
                                     </div>
 
@@ -82,7 +96,7 @@
 
 
         <!-- Formulario de modificacion de xxx -->
-        <<div id="formulario_editar_etiqueta">
+        <div id="formulario_editar_etiqueta">
             <div class="card card-dark">
                 <div class="card-header">
                     <h3 class="card-title">Modificar una Etiqueta</h3>
@@ -105,42 +119,42 @@
                                         <div class="form-group">
                                             <label for="Nuevo_XS">XS</label>
                                             <input type="number" class="form-control" id="Nuevo_XS" name="Nuevo_XS"
-                                                required>
+                                                required min=0 max=999>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="Nuevo_S">S</label>
                                             <input type="number" class="form-control" id="Nuevo_S" name="Nuevo_S"
-                                                required>
+                                                required min=0 max=999>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="Nuevo_M">M</label>
                                             <input type="number" class="form-control" id="Nuevo_M" name="Nuevo_M"
-                                                required>
+                                                required min=0 max=999>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="Nuevo_L">L</label>
                                             <input type="number" class="form-control" id="Nuevo_L" name="Nuevo_L"
-                                                required>
+                                                required min=0 max=999>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="Nuevo_XL">XL</label>
                                             <input type="number" class="form-control" id="Nuevo_XL" name="Nuevo_XL"
-                                                required>
+                                                required min=0 max=999>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="Nuevo_XXL">XXL</label>
                                             <input type="number" class="form-control" id="Nuevo_XXL" name="Nuevo_XXL"
-                                                required>
+                                                required min=0 max=999>
                                         </div>
                                     </div>
                                 </div>
@@ -183,7 +197,8 @@
                                     id="agregarEtiqueta">Agregar</button>
                                 <a role="button" class="btn waves-effect waves-light  btn-info"
                                     href="ImprimirEtiqueta.php">Imprimir</a>
-                                <button class="btn waves-effect waves-light  btn-danger" onclick="EliminarEtiquetas();">Limpiar
+                                <button class="btn waves-effect waves-light  btn-danger"
+                                    onclick="EliminarEtiquetas();">Limpiar
                                     Etiquetas</button>
                             </div>
                         </div>
