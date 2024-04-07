@@ -8,25 +8,25 @@ function cancelarForm() {
  }
 
 /*Función para cargar el listado en el Datatable*/
-function ListarApartados () {
+function ListarApartados() {
   tabla = $("#tbllistado").dataTable({
-    aProcessing: true, //actiavmos el procesamiento de datatables
-    aServerSide: true, //paginacion y filtrado del lado del serevr
-    dom: "Bfrtip", //definimos los elementos del control de tabla
+    processing: true, // Activamos el procesamiento de datatables
+    serverSide: true, // Paginación y filtrado del lado del servidor
+    dom: "Bfrtip", // Definimos los elementos del control de tabla
     buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
     ajax: {
-      //url: "../Controller/ProductoController.php?op=ListarTablaProducto",
       url: "../Controller/NewApartadoController.php?op=ListarTablaApartado",
-      type: "get",
+      type: "GET",
       dataType: "json",
       error: function (e) {
         console.log(e.responseText);
       },
-      bDestroy: true,
-      iDisplayLength: 5,
     },
+    destroy: true, // Destruir la tabla antes de crearla de nuevo
+    pageLength: 5, // Número de filas a mostrar por página
   });
 }
+
 
 /*
 Función Principal

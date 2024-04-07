@@ -8,7 +8,7 @@ switch ($_GET["op"]) {
         $apartadoModel = new NewApartadoModel();
 
         // Obtener todos los apartados
-        $apartados = $apartadoModel->VerApartado();
+        $apartados = $apartadoModel->VerApartadosAdmin();
 
         // Verificar si se obtuvieron los apartados correctamente
         if ($apartados !== false) {

@@ -30,6 +30,16 @@ class NewApartadoModel extends Conexion
     /*=============================================
     =            Encapsuladores de la Clase       =
     =============================================*/
+    public function setIdApartado($idApartado)
+    {
+        $this->idApartado = $idApartado;
+    }
+
+    public function getIdApartado()
+    {
+        return $this->idApartado;
+    }
+
     public function getValorTotal()
     {
         return $this->valor_total;
@@ -160,25 +170,18 @@ class NewApartadoModel extends Conexion
         }
     }
 
-    public function VerApartado($id = null)
+    public function VerApartadosAdmin()
     {
-        $query = "CALL VerApartado(:id)";
+        $query = "CALL VerApartadosAdmin()";
         $arr = array();
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
-            // Si se proporciona un ID, se pasa como parámetro, de lo contrario, se pasa null
-            if ($id !== null) {
-                $resultado->bindParam(":id", $id, PDO::PARAM_INT);
-            } else {
-                // Si no se proporciona un ID, se asigna un valor null al parámetro
-                $id = null;
-                $resultado->bindParam(":id", $id, PDO::PARAM_NULL);
-            }
             $resultado->execute();
             self::desconectar();
             foreach ($resultado->fetchAll() as $encontrado) {
-                $apartado = new NewApartadoModel(); 
+                $apartado = new NewApartadoModel();
+                // Establecer los valores de las propiedades del objeto apartado
                 $apartado->setIdApartado($encontrado['IdApartado']);
                 $apartado->setValorTotal($encontrado['ValorTotal']);
                 $apartado->setProducto($encontrado['Producto']);
@@ -196,7 +199,7 @@ class NewApartadoModel extends Conexion
         } catch (PDOException $Exception) {
             self::desconectar();
             $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
-            return json_encode($error);
+            return $error;
         }
     }
     
