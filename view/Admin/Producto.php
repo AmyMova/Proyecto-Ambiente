@@ -158,19 +158,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="button-group "><!-- grupo de botones con diferentes funciones -->
-                                        <input type="submit" id="btnRegistar" class="btn btn-success"
-                                            value="Registrar"><!-- registra lo que tiene el formulario -->
-
-                                        <input type="reset" class="btn btn-warning "
-                                            value="Borrar datos"><!-- Borra los datos del formulario -->
-
-                                        <input type="button" id="btnCancelar" class="btn btn-secondary" value="Cancelar"
-                                            onclick="cancelarFormProducto()"><!-- Cancela y oculta el formulario -->
-
+                                <div class="col">
+                                    <div class="row button-group">
+                                        <div class="col-2">
+                                            <input type="submit" id="btnRegistar" class="btn btn-success btn-block"
+                                                value="Registrar"><!-- registra lo que tiene el formulario -->
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="reset" class="btn btn-warning  btn-block"
+                                                value="Borrar datos"><!-- Borra los datos del formulario -->
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="button" id="btnCancelar" class="btn btn-secondary btn-block"
+                                                value="Cancelar"
+                                                onclick="cancelarFormProducto()"><!-- Cancela y oculta el formulario -->
+                                        </div>
                                     </div>
                                 </div>
+
                             </form>
 
                         </div>
@@ -199,7 +204,7 @@
                 <!-- Encabezado de la tarjeta del formulario de productos -->
                 <!-- Aqui empieza el cuerpo de la tarjeta del formulario de productos -->
                 <div class="card-body">
-                    <div class="row justify-content-center">
+                    <div class="row ">
                         <div class="col-xs-2 col-sm-12 col-md-12 col-lg-9">
                             <form name="modulos_editar_producto" id="producto_editar" method="POST"
                                 enctype="multipart/form-data">
@@ -343,117 +348,124 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row"><!-- Grupo de botones con diferentes funciones  -->
-                                    <div class="button-group">
-                                        <input type="submit" class="btn btn-warning"
-                                            value="Modificar"><!-- se guardan los cambios -->
-                                        <input type="button" class="btn btn-secondary" value="Cancelar"
-                                            onclick="cancelarFormProducto()"><!-- se cancelan los cambios que se iban a hacer y oculta el formulario -->
-                                    </div>
-                                </div>
+                                <div class="col">
+                                    <div class="row button-group"><!-- Grupo de botones con diferentes funciones  -->
+                                        <div class="col-2">
+                                            <input type="submit" class="btn btn-warning btn-block" value="Modificar">
+                                        </div>
+                                        <!-- se guardan los cambios -->
+                                        <div class="col-2">
+                                            <input type="button" class="btn btn-secondary btn-block" value="Cancelar"
+                                                onclick="cancelarFormProducto()"><!-- se cancelan los cambios que se iban a hacer y oculta el formulario -->
+                                        </div>
 
-                            </form>
+                                    </div>
                         </div>
-                        <div class="col-lg-3">
-                            <!-- Aqui se visualiza ya sea la imagen que ya esta guardada en la bd o la nueva imagen que se va a guardar -->
-                            <div class="card">
-                                <div class="preview-edit">
-                                    <img src="" id="img_edit" alt="Preview" width="280px" height="275px">
-                                </div>
+
+
+
+                        </form>
+                    </div>
+                    <div class="col-lg-3">
+                        <!-- Aqui se visualiza ya sea la imagen que ya esta guardada en la bd o la nueva imagen que se va a guardar -->
+                        <div class="card">
+                            <div class="preview-edit">
+                                <img src="" id="img_edit" alt="Preview" width="280px" height="275px">
                             </div>
                         </div>
-
                     </div>
-                </div><!-- Aqui termina el cuerpo de la tarjeta del formulario de productos -->
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <!-- listado de productos -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-dark">
-                <!--Encabezado y titulo de la tabla productos-->
-                <div class="card-header">
-                    <h3 class="card-title">Productos existentes</h3>
 
                 </div>
-                <!-- Encabezado y titulo de la tabla productos -->
-                <!-- Cuerpo de la tabla productos -->
-                <div class="card-body ">
-
-                    <div class="row ">
-
-                        <div class="col">
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <button class="btn waves-effect waves-light  btn-success"
-                                        id="agregarProducto">Agregar</button>
-                                </div>
-                            </div>
-                            <br>
-                            <table id="tblListadoProducto" class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <th>ID</th>
-                                    <th>Descripción</th>
-                                    <th>Categoría</th>
-                                    <th>Marca</th>
-                                    <th>XS</th>
-                                    <th>S</th>
-                                    <th>M</th>
-                                    <th>L</th>
-                                    <th>XL</th>
-                                    <th>XXL</th>
-                                    <th>Precio</th>
-                                    <th>Opciones</th>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                <tfooter>
-                                    <th>ID</th>
-                                    <th>Descripción</th>
-                                    <th>Categoría</th>
-                                    <th>Marca</th>
-                                    <th>XS</th>
-                                    <th>S</th>
-                                    <th>M</th>
-                                    <th>L</th>
-                                    <th>XL</th>
-                                    <th>XXL</th>
-                                    <th>Precio</th>
-                                    <th>Opciones</th>
-                                </tfooter>
-                            </table>
-                        </div>
-                    </div>
-                </div><!-- Cuerpo de la tabla productos -->
-
-            </div>
+            </div><!-- Aqui termina el cuerpo de la tarjeta del formulario de productos -->
         </div>
     </div>
+</div>
 
 
 
-    <!-- Estos scripts cambian el preview de la imagen tanto para editar como al agregar  -->
-    <script type="text/javascript">
-        imagenP.onchange = evt => {
-            const [file] = imagenP.files;
-            if (file) {
-                img.src = URL.createObjectURL(file);
-            }
+
+<!-- listado de productos -->
+<div class="row">
+    <div class="col-12">
+        <div class="card card-dark">
+            <!--Encabezado y titulo de la tabla productos-->
+            <div class="card-header">
+                <h3 class="card-title">Productos existentes</h3>
+
+            </div>
+            <!-- Encabezado y titulo de la tabla productos -->
+            <!-- Cuerpo de la tabla productos -->
+            <div class="card-body ">
+
+                <div class="row ">
+
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <button class="btn waves-effect waves-light btn-block btn-success"
+                                    id="agregarProducto">Agregar</button>
+                            </div>
+                        </div>
+                        <br>
+                        <table id="tblListadoProducto" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <th>ID</th>
+                                <th>Descripción</th>
+                                <th>Categoría</th>
+                                <th>Marca</th>
+                                <th>XS</th>
+                                <th>S</th>
+                                <th>M</th>
+                                <th>L</th>
+                                <th>XL</th>
+                                <th>XXL</th>
+                                <th>Precio</th>
+                                <th>Opciones</th>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfooter>
+                                <th>ID</th>
+                                <th>Descripción</th>
+                                <th>Categoría</th>
+                                <th>Marca</th>
+                                <th>XS</th>
+                                <th>S</th>
+                                <th>M</th>
+                                <th>L</th>
+                                <th>XL</th>
+                                <th>XXL</th>
+                                <th>Precio</th>
+                                <th>Opciones</th>
+                            </tfooter>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- Cuerpo de la tabla productos -->
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Estos scripts cambian el preview de la imagen tanto para editar como al agregar  -->
+<script type="text/javascript">
+    imagenP.onchange = evt => {
+        const [file] = imagenP.files;
+        if (file) {
+            img.src = URL.createObjectURL(file);
         }
-    </script>
-    <script type="text/javascript">
-        Nueva_Imagen.onchange = evt => {
-            const [file] = Nueva_Imagen.files;
-            if (file) {
-                img_edit.src = URL.createObjectURL(file);
-            }
+    }
+</script>
+<script type="text/javascript">
+    Nueva_Imagen.onchange = evt => {
+        const [file] = Nueva_Imagen.files;
+        if (file) {
+            img_edit.src = URL.createObjectURL(file);
         }
-    </script>
+    }
+</script>
 
-    <!-- Desde aqui se llama el footer -->
-    <?php include ("Component\Footer.php") ?>
+<!-- Desde aqui se llama el footer -->
+<?php include ("Component\Footer.php") ?>

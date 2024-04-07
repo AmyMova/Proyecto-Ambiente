@@ -1,7 +1,7 @@
 <?php
 session_start();
 $_SESSION["IdUsuario"] = "1";
-$_SESSION["IdRol"] = "1";
+$_SESSION["IdRol"] = "2";
 $_SESSION["NombreUsuario"] = "Amy";
 $_SESSION["ApellidoUsuario"] = "Moreno";
 $_SESSION["CorreoElectronico"] = "amymix2014@gmail.com";

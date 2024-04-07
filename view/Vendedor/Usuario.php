@@ -71,12 +71,7 @@
                                                     name="Ano_Cumpleanos" value="2004" max="2004" min="1920"required>
                                             </div>
                                         </div>
-                                        <div class="col">
-                                            <label class="input-group" for="Id_Rol">Rol<span
-                                                    class="text-danger">*</span></label>
-                                            <select name="Id_Rol" id="Id_Rol" class="form-control">
-                                            </select>
-                                        </div>
+                                        
                                     </div>
                                 </div>
 
@@ -223,12 +218,7 @@
                                                     name="Nuevo_Ano_Cumpleanos" required>
                                             </div>
                                         </div>
-                                        <div class="col">
-                                            <label class="input-group" for="Nuevo_Rol">Rol<span
-                                                    class="text-danger">*</span></label>
-                                            <select name="Nuevo_Rol" id="Nuevo_Rol" class="form-control">
-                                            </select>
-                                        </div>
+                                        
                                     </div>
                                 </div>
 
