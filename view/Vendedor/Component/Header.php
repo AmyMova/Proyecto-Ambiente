@@ -147,7 +147,8 @@
                                         </p><!--Encontrar el correo del usuario-->
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="../UsuarioPersonal.php?p=<?php echo $_SESSION["IdUsuario"]; ?>">
+                                <a class="dropdown-item"
+                                    href="../UsuarioPersonal.php?p=<?php echo $_SESSION["IdUsuario"]; ?>">
                                     <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="../Autenticacion/Login.php">
@@ -177,42 +178,15 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span
-                                class="hide-menu">Inevntario</span></li>
+                                class="hide-menu">Inventario</span></li>
 
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
                                 href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-boxes"></i><span
                                     class="hide-menu">Inventario </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="Producto.php?p=<?php echo $_SESSION["IdUsuario"]; ?>"
-                                        class="sidebar-link"><i class=" fas fa-box"></i><span class="hide-menu">
+                                <li class="sidebar-item"><a href="Producto.php?>" class="sidebar-link"><i
+                                            class=" fas fa-box"></i><span class="hide-menu">
                                             Producto </span></a></li>
-                                <li class="sidebar-item"><a href="Categoria.php" class="sidebar-link"><i
-                                            class=" fas fa-box"></i><span class="hide-menu"> Categoría </span></a></li>
-                                <li class="sidebar-item"><a href="Marca.php" class="sidebar-link"><i
-                                            class=" fas fa-box"></i><span class="hide-menu"> Marca </span></a></li>
-                                <li class="sidebar-item"><a href="Etiqueta.php" class="sidebar-link"><i
-                                            class="fa-solid fa-ticket-simple"></i></i><span class="hide-menu"> Etiqueta
-                                        </span></a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span
-                                class="hide-menu">Reportes</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link two-column has-arrow waves-effect waves-dark"
-                                href="javascript:void(0)" aria-expanded="false"><i
-                                    class="fa-solid fa-chart-pie"></i><span class="hide-menu">Reportes </span></a>
-                            <ul aria-expanded="false" class="collapse first-level">
-                                <li class="sidebar-item"><a href="Grafica.php" class="sidebar-link"><i
-                                            class="fa-solid fa-chart-line"></i><span class="hide-menu"> Gráficas
-                                        </span></a></li>
-                                <li class="sidebar-item"><a href="Movimiento.php" class="sidebar-link"><i
-                                            class="mdi mdi-email-alert"></i><span class="hide-menu"> Movimientos
-                                        </span></a></li>
-                                <li class="sidebar-item"><a href="Reporte.php" class="sidebar-link"><i
-                                            class="fa-solid fa-table"></i><span class="hide-menu"> Reportes </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="Error.php" class="sidebar-link"><i
-                                            class="fa-solid fa-bug"></i><span class="hide-menu"> Errores </span></a>
-                                </li>
                             </ul>
                         </li>
                         <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span

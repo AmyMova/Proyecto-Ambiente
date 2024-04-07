@@ -35,35 +35,35 @@
                     <i class="mdi mdi-wrench font-20"></i>
                 </a>
             </li>
-
+            
         </ul>
         <div class="tab-content" id="pills-tabContent">
             <!-- Tab 1 -->
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <div class="p-15 border-bottom">
                     <!-- Sidebar -->
-                    <h5 class="font-medium m-b-10 m-t-10">Layout Settings</h5>
+                    <h5 class="font-medium m-b-10 m-t-10">Opciones de Diseño</h5>
                     <div class="custom-control custom-checkbox m-t-10">
                         <input type="checkbox" class="custom-control-input" name="theme-view" id="theme-view">
-                        <label class="custom-control-label" for="theme-view">Dark Theme</label>
+                        <label class="custom-control-label" for="theme-view">Tema Oscuro</label>
                     </div>
                     <div class="custom-control custom-checkbox m-t-10">
                         <input type="checkbox" class="custom-control-input" name="sidebar-position"
                             id="sidebar-position">
-                        <label class="custom-control-label" for="sidebar-position">Fixed Sidebar</label>
+                        <label class="custom-control-label" for="sidebar-position">Barra Lateral Fija</label>
                     </div>
                     <div class="custom-control custom-checkbox m-t-10">
                         <input type="checkbox" class="custom-control-input" name="header-position" id="header-position">
-                        <label class="custom-control-label" for="header-position">Fixed Header</label>
+                        <label class="custom-control-label" for="header-position">Encabezado Fijo</label>
                     </div>
                     <div class="custom-control custom-checkbox m-t-10">
                         <input type="checkbox" class="custom-control-input" name="boxed-layout" id="boxed-layout">
-                        <label class="custom-control-label" for="boxed-layout">Boxed Layout</label>
+                        <label class="custom-control-label" for="boxed-layout">Diseño en Caja</label>
                     </div>
                 </div>
                 <div class="p-15 border-bottom">
                     <!-- Logo BG -->
-                    <h5 class="font-medium m-b-10 m-t-10">Logo Backgrounds</h5>
+                    <h5 class="font-medium m-b-10 m-t-10">Fondo del Logo</h5>
                     <ul class="theme-color">
                         <li class="theme-item">
                             <a href="javascript:void(0)" class="theme-link" data-logobg="skin1"></a>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="p-15 border-bottom">
                     <!-- Navbar BG -->
-                    <h5 class="font-medium m-b-10 m-t-10">Navbar Backgrounds</h5>
+                    <h5 class="font-medium m-b-10 m-t-10">Fondo para la Barra de Navegación</h5>
                     <ul class="theme-color">
                         <li class="theme-item">
                             <a href="javascript:void(0)" class="theme-link" data-navbarbg="skin1"></a>
@@ -113,7 +113,7 @@
                 </div>
                 <div class="p-15 border-bottom">
                     <!-- Logo BG -->
-                    <h5 class="font-medium m-b-10 m-t-10">Sidebar Backgrounds</h5>
+                    <h5 class="font-medium m-b-10 m-t-10">Fondo para la Barra Lateral</h5>
                     <ul class="theme-color">
                         <li class="theme-item">
                             <a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin1"></a>
@@ -141,7 +141,6 @@
         </div>
     </div>
 </aside>
-<div class="chat-windows"></div>
 <!-- ============================================================== -->
 <!-- All Jquery -->
 <!-- ============================================================== -->
@@ -172,6 +171,31 @@
 <script src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
 <script src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
 <script src="../assets/dist/js/pages/dashboards/dashboard1.js"></script>
+<!-- This Page JS -->
+<script src="../assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="../assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="../assets/dist/js/pages/forms/select2/select2.init.js"></script>
+<!--Para que funcione los módulos-->
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="./../plugins/DataTables/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
+    <script src="./../plugins/bootbox/bootbox.min.js"></script>
+    <script src="./../plugins/toastr/toastr.js"></script>
+    <script src="./../assets/js/Producto.js"></script>
+    <script src="./../assets/js/Marca.js"></script>
+    <script src="./../assets/js/Categoria.js"></script>
+    <script src="./../assets/js/Etiqueta.js"></script>
+    <script src="./../assets/js/Usuario.js"></script>
+    <script src="./../assets/js/Rol.js"></script>
+    <script src="./../assets/js/Otros.js"></script>
+    <script src="./../assets/js/Movimiento.js"></script>
+    <script type="module" src="./../assets/js/Reporte.js"></script>
 </body>
 
 </html>

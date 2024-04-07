@@ -88,13 +88,6 @@
                     <div class="row ">
 
                         <div class="col">
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <a role="button" class="btn waves-effect waves-light  btn-success"
-                                        href="CrearDevolucion.php">Devolución</a>
-                                </div>
-                            </div>
-                            <br>
                             <table id="tblListadoDevolucion" class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <th>ID</th>
