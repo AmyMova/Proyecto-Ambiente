@@ -1,11 +1,8 @@
 <?php
 session_start();
-$_SESSION["IdUsuario"] = "1";
-$_SESSION["IdRol"] = "2";
-$_SESSION["NombreUsuario"] = "Amy";
-$_SESSION["ApellidoUsuario"] = "Moreno";
-$_SESSION["CorreoElectronico"] = "amymix2014@gmail.com";
-$_SESSION["Imagen"] = "sinPerfil.png";
+echo "<pre>";
+print_r($_SESSION);
+echo "</pre>";
 //Roles= 1:Admin, 2:Cliente, 3:Vendedor*/
 switch ($_SESSION["IdRol"]) {
   case "1":

@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php session_start();
+if($_SESSION["IdRol"]!="3"){
+    header("Location:../Autenticacion/Login.php");
+}
+
+?>
 
 <!DOCTYPE html>
 <html dir="ltr" lang="es">
