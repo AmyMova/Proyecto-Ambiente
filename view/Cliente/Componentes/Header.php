@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php session_start();
+if($_SESSION["IdRol"]!="2"){
+    header("Location:../Autenticacion/Login.php");
+}
+
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="es">
 
@@ -152,7 +157,7 @@
                                     <i class="ti-envelope m-r-5 m-l-5"></i> Mis Apartados</a>
                                 <div class="dropdown-divider"></div>
 
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="../Autenticacion/Login.php">
                                     <i class="fa fa-power-off m-r-5 m-l-5"></i> Cerrar Sesión</a>
 
                             </div>

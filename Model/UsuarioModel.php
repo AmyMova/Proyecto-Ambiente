@@ -238,6 +238,7 @@ class Usuario extends Conexion
             return $error;
         }
     }
+
     public function verificarExistenciaByIdDb()
     {
         $query = "SELECT * FROM usuario where usuario.IdUsuario=:id";
@@ -266,11 +267,11 @@ class Usuario extends Conexion
             "Call CrearUsuario(:Nombre_Usuario,:Apellido_Usuario,:Numero_Cedula,:Numero_Telefono,:Correo_Electronico,:Contrasena,:Imagen_Usuario,:Id_Rol,:Dia_Cumpleanos,:Mes_Cumpleanos,:Ano_Cumpleanos)";
         try {
             self::getConexion();
-            $NombreUsuario = $this->getNombreUsuario();
-            $ApellidoUsuario = $this->getApellidoUsuario();
+            $NombreUsuario = ucwords(strtolower($this->getNombreUsuario()));
+            $ApellidoUsuario = ucwords(strtolower($this->getApellidoUsuario()));
             $NumeroCedula = $this->getNumeroCedula();
             $NumeroTelefono = $this->getNumeroTelefono();
-            $CorreoElectronico = $this->getCorreoElectronico();
+            $CorreoElectronico = strtolower($this->getCorreoElectronico());
             $Contrasenna = $this->getContrasenna();
             $DiaCumpleanos = $this->getDiaCumpleanos();
             $MesCumpleanos = $this->getMesCumpleanos();
@@ -289,6 +290,43 @@ class Usuario extends Conexion
             $resultado->bindParam(":Mes_Cumpleanos", $MesCumpleanos, PDO::PARAM_INT);
             $resultado->bindParam(":Ano_Cumpleanos", $AnoCumpleanos, PDO::PARAM_INT);
             $resultado->bindParam(":Id_Rol", $IdRol, PDO::PARAM_INT);
+            $resultado->execute();
+            self::desconectar();
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            ;
+            return json_encode($error);
+        }
+    }
+
+    public function Registrar()
+    {
+        $query =
+            "Call RegistrarUsuario(:Nombre_Usuario,:Apellido_Usuario,:Cedula,:Telefono,:Correo_Electronico,:Contrasena,:Imagen_Usuario,:Dia_Cumpleanos,:Mes_Cumpleanos,:Ano_Cumpleanos)";
+        try {
+            self::getConexion();
+            $NombreUsuario = ucwords(strtolower($this->getNombreUsuario()));
+            $ApellidoUsuario = ucwords(strtolower($this->getApellidoUsuario()));
+            $NumeroCedula = $this->getNumeroCedula();
+            $NumeroTelefono = $this->getNumeroTelefono();
+            $CorreoElectronico = strtolower($this->getCorreoElectronico());
+            $Contrasenna = $this->getContrasenna();
+            $DiaCumpleanos = $this->getDiaCumpleanos();
+            $MesCumpleanos = $this->getMesCumpleanos();
+            $AnoCumpleanos = $this->getAnoCumpleanos();
+            $Imagen = $this->getImagen();
+            $resultado = self::$cnx->prepare($query);
+            $resultado->bindParam(":Imagen_Usuario", $Imagen, PDO::PARAM_STR);
+            $resultado->bindParam(":Nombre_Usuario", $NombreUsuario, PDO::PARAM_STR);
+            $resultado->bindParam(":Apellido_Usuario", $ApellidoUsuario, PDO::PARAM_STR);
+            $resultado->bindParam(":Cedula", $NumeroCedula, PDO::PARAM_STR);
+            $resultado->bindParam(":Telefono", $NumeroTelefono, PDO::PARAM_STR);
+            $resultado->bindParam(":Correo_Electronico", $CorreoElectronico, PDO::PARAM_STR);
+            $resultado->bindParam(":Contrasena", $Contrasenna, PDO::PARAM_STR);
+            $resultado->bindParam(":Dia_Cumpleanos", $DiaCumpleanos, PDO::PARAM_INT);
+            $resultado->bindParam(":Mes_Cumpleanos", $MesCumpleanos, PDO::PARAM_INT);
+            $resultado->bindParam(":Ano_Cumpleanos", $AnoCumpleanos, PDO::PARAM_INT);
             $resultado->execute();
             self::desconectar();
         } catch (PDOException $Exception) {
@@ -331,6 +369,32 @@ class Usuario extends Conexion
         }
     }
 
+    public function Login()
+    {
+        $query = "CALL VerificarUsuario(:Correo_Electronico,:Contrasenna)";
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            $Correo_Electronico = $this->getCorreoElectronico();
+            $Contrasenna = $this->getContrasenna();
+            $resultado->bindParam(":Correo_Electronico", $Correo_Electronico, PDO::PARAM_STR);
+            $resultado->bindParam(":Contrasenna", $Contrasenna, PDO::PARAM_STR);
+            $resultado->execute();
+
+            $numFilas = $resultado->rowCount();
+            if ($numFilas > 0) {
+                return $resultado->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            return $error;
+        }
+    }
+
+
     public function EditarUsuario()
     {
         $query =
@@ -339,11 +403,11 @@ class Usuario extends Conexion
         try {
             self::getConexion();
             $IdUsuario = $this->getIdUsuario();
-            $NombreUsuario = $this->getNombreUsuario();
-            $ApellidoUsuario = $this->getApellidoUsuario();
+            $NombreUsuario = ucwords(strtolower($this->getNombreUsuario()));
+            $ApellidoUsuario = ucwords(strtolower($this->getApellidoUsuario()));
             $NumeroCedula = $this->getNumeroCedula();
             $NumeroTelefono = $this->getNumeroTelefono();
-            $CorreoElectronico = $this->getCorreoElectronico();
+            $CorreoElectronico = strtolower($this->getCorreoElectronico());
             $DiaCumpleanos = $this->getDiaCumpleanos();
             $MesCumpleanos = $this->getMesCumpleanos();
             $AnoCumpleanos = $this->getAnoCumpleanos();
@@ -377,7 +441,7 @@ class Usuario extends Conexion
             return $error;
         }
     }
-    
+
     public function EliminarUsuario()
     {
         $IdUsuario = $this->getIdUsuario();
