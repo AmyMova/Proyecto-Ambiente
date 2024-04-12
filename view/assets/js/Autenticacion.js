@@ -89,13 +89,13 @@ $("#SignInForm").on("submit", function (event) {
         },
     });
 });
-
+/*Ya Aplico los cambios 14*/
 $("#forgotform").on("submit", function (event) {
     event.preventDefault();
     $("#btnforgot").prop("disabled", true);
     var formData = new FormData($("#forgotform")[0]);
     $.ajax({
-        url: "../../Controller/AutentificacionController.php?op=Forgot",
+        url: "./../../Controller/AutentificacionController.php?op=Forgot",
         type: "POST",
         data: formData,
         contentType: false,

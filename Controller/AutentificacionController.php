@@ -1,6 +1,10 @@
 <?php
 require_once '../Model/UsuarioModel.php';
-
+require ('../view/assets/libs/phpMailer/PHPMailer.php');
+require ('../view/assets/libs/phpMailer/Exception.php');
+require ('../view/assets/libs/phpMailer/SMTP.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 switch ($_GET["op"]) {
     case 'IniciarSesion':
         session_start();
@@ -71,9 +75,49 @@ switch ($_GET["op"]) {
         } else {
             echo 4; //Las contraseñas no son las mismas
         }
+        break;
+    case 'Forgot':
 
 
 
+        $Correo_Electronico = isset($_POST["Correo_Electronico"]) ? trim($_POST["Correo_Electronico"]) : "";
+        $usuario = new Usuario();
+
+        $usuario->setCorreoElectronico($Correo_Electronico);
+        $encontrado = $usuario->Forgot();
+
+        if ($encontrado !== false) {
+
+            $correo_Usuario = $encontrado["CorreoElectronico"];
+            $nombre_usuario = $encontrado["NombreUsuario"];
+            //configuracion servidor
+            $contrasenna = $encontrado["Contrasenna"];
+            //Configuracion Correo Electronico (Para Enviar el correo)
+
+            $subject = "Recuperar Contraseña";
+            $msg =  "Hola " . $nombre_usuario . "Esta es tu contraseña: " . $contrasenna . "\n !Recomendamos que cambies tu contraseña!";
+            $receiver = $correo_Usuario;
+            $mailer = new PHPMailer();
+            $mailer->isSMTP();
+            $mailer->Host = "smtp.office365.com";
+            $mailer->Port = 587;
+            $mailer->SMTPSecure = "tls";
+            $mailer->SMTPAuth = true;
+            $mailer->Username = "Rosa.Anil@outlook.com";
+            $mailer->Password = "RosayAnil2024";
+            $mailer->setFrom("Rosa.Anil@outlook.com", "Administración");
+            $mailer->addAddress($receiver, $nombre_usuario);
+            $mailer->Subject = $subject;
+            $mailer->msgHTML($msg);
+            if (!$mailer->send()) {
+                echo $mailer->ErrorInfo;
+            }
+
+
+            echo 1;
+        } else {
+            echo 2;
+        }
         break;
 
 }

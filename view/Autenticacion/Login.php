@@ -109,7 +109,7 @@ session_destroy();
                             <div class="form-group row">
                                 <div class="col-12">
                                     <input class="form-control form-control-lg" type="email" required=""
-                                        placeholder="Correo Electrónico">
+                                        placeholder="Correo Electrónico" id="Correo_Electronico" name="Correo_Electronico">
                                 </div>
                             </div>
                             <!-- pwd -->
