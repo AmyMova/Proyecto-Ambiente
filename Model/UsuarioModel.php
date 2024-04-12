@@ -375,10 +375,33 @@ class Usuario extends Conexion
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
-            $Correo_Electronico = $this->getCorreoElectronico();
+            $Correo_Electronico = strtolower($this->getCorreoElectronico());
             $Contrasenna = $this->getContrasenna();
             $resultado->bindParam(":Correo_Electronico", $Correo_Electronico, PDO::PARAM_STR);
             $resultado->bindParam(":Contrasenna", $Contrasenna, PDO::PARAM_STR);
+            $resultado->execute();
+
+            $numFilas = $resultado->rowCount();
+            if ($numFilas > 0) {
+                return $resultado->fetch(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            return $error;
+        }
+    }
+
+    public function Forgot()
+    {
+        $query = "SELECT * FROM usuario u  WHERE u.CorreoElectronico=:Correo_Electronico";
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            $Correo_Electronico = strtolower($this->getCorreoElectronico());
+            $resultado->bindParam(":Correo_Electronico", $Correo_Electronico, PDO::PARAM_STR);
             $resultado->execute();
 
             $numFilas = $resultado->rowCount();
