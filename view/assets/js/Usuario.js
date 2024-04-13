@@ -101,7 +101,7 @@ $("#usuario_agregar").on("submit", function (event) {
                     toastr.success("Usuario registrado");
                     $("#usuario_agregar")[0].reset();
                     $("#formulario_agregar_usuario").hide();
-                    tabla.api().ajax.reload();
+                    location.reload();
                     break;
 
                 case "2":
@@ -144,7 +144,7 @@ $("#tblListadoUsuario tbody").on(
         var dia = data[9];
         var mes = data[10];
         var ano = data[11];
-        $("#Nuevo_Rol").val(Rol);
+        $("#Nuevo_Rol").val(data[7]);
         $("#Nuevo_Dia_Cumpleanos").val(dia);
         $("#Nuevo_Mes_Cumpleanos").val(mes);
         $("#Nuevo_Ano_Cumpleanos").val(ano);
@@ -177,7 +177,7 @@ $("#usuario_editar").on("submit", function (event) {
                             break;
                         case "1":
                             toastr.success("Usuario actualizado exitosamente");
-                            tabla.api().ajax.reload();
+                            location.reload();
                             limpiarFormsUsuario();
                             $("#formulario_editar_usuario").hide();
                             $("#formulario_agregar_usuario").show();
@@ -201,7 +201,7 @@ function Eliminar(IdUsuario) {
                     switch (data) {
                         case '1':
                             toastr.success('Usuario Eliminado');
-                            tabla.api().ajax.reload();
+                            location.reload();
                             break;
 
                         case '0':

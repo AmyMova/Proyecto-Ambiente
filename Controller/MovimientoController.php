@@ -11,10 +11,11 @@ switch ($_GET["op"]) {
                 "0" => $reg->getIdMovimiento(),
                 "1" => $reg->getDescripcion(),
                 "2" => $reg->getProducto(),
-                "3" => $reg->getFecha(),
-                "4" => $reg->getAccion(),
-                "5" => '<button class="btn btn-info" id="VerMás">Ver Más</button> ' ,
-                "6" => $reg->getIdProducto()
+                "3" => $reg->getUsuario(),
+                "4" => $reg->getFecha(),
+                "5" => $reg->getAccion(),
+                "6" => '<button class="btn btn-info" id="VerMás">Ver Más</button> ' ,
+                "7" => $reg->getIdProducto()
             );
         }
         $resultados = array(
@@ -29,6 +30,7 @@ switch ($_GET["op"]) {
     case 'VerMovimiento':
         $IdMovimiento = isset ($_POST["id"]) ? trim($_POST["id"]) : "";
         $Descripcion = isset ($_POST["Descripcion"]) ? trim($_POST["Descripcion"]) : "";
+        $Usuario = isset ($_POST["Usuario"]) ? trim($_POST["Usuario"]) : "";
         $Accion = isset ($_POST["Accion"]) ? trim($_POST["Accion"]) : "";
         $Producto = isset ($_POST["Producto"]) ? trim($_POST["Producto"]) : "";
         $Fecha = isset ($_POST["Fecha"]) ? trim($_POST["Fecha"]) : "";
@@ -43,6 +45,7 @@ switch ($_GET["op"]) {
             $movimiento->llenarCampos($IdMovimiento);
 
             $movimiento->setDescripcion($Descripcion);
+            $movimiento->setUsuario($Usuario);
             $movimiento->setAccion($Accion);
             $movimiento->setProducto($Producto);
             $movimiento->setFecha($Fecha);

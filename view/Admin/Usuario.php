@@ -74,7 +74,10 @@
                                         <div class="col">
                                             <label class="input-group" for="Id_Rol">Rol<span
                                                     class="text-danger">*</span></label>
-                                            <select name="Id_Rol" id="Id_Rol" class="form-control">
+                                            <select name="Id_Rol" id="Id_Rol" class="form-control" placedholder="Seleccionar Rol">
+                                                <option value="1">Administrador</option>
+                                                <option value="2" selected>Cliente</option>
+                                                <option value="3">Vendedor</option>
                                             </select>
                                         </div>
                                     </div>
@@ -227,6 +230,9 @@
                                             <label class="input-group" for="Nuevo_Rol">Rol<span
                                                     class="text-danger">*</span></label>
                                             <select name="Nuevo_Rol" id="Nuevo_Rol" class="form-control">
+                                            <option value="1">Administrador</option>
+                                                <option value="2">Cliente</option>
+                                                <option value="3">Vendedor</option>
                                             </select>
                                         </div>
                                     </div>

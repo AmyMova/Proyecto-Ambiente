@@ -1,5 +1,5 @@
 <?php session_start();
-if($_SESSION["IdRol"]!="1"){
+if ($_SESSION["IdRol"] != "1") {
     header("Location:../Autenticacion/Login.php");
 }
 
@@ -34,6 +34,8 @@ if($_SESSION["IdRol"]!="1"){
     <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <!-- Custom CSS -->
     <link href="../assets/dist/css/style.min.css" rel="stylesheet">
+    <!--CDN Select2-->
+    <link rel="stylesheet" type="text/css" href="../assets/libs/select2/dist/css/select2.min.css"></link>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -152,7 +154,8 @@ if($_SESSION["IdRol"]!="1"){
                                         </p><!--Encontrar el correo del usuario-->
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="../UsuarioPersonal.php?p=<?php echo $_SESSION["IdUsuario"]; ?>">
+                                <a class="dropdown-item"
+                                    href="../UsuarioPersonal.php?p=<?php echo $_SESSION["IdUsuario"]; ?>">
                                     <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="../Autenticacion/Login.php">
@@ -188,7 +191,7 @@ if($_SESSION["IdRol"]!="1"){
                                 href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-boxes"></i><span
                                     class="hide-menu">Inventario </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="Producto.php?p=<?php echo $_SESSION["IdUsuario"]; ?>"
+                                <li class="sidebar-item"><a href="Producto.php"
                                         class="sidebar-link"><i class=" fas fa-box"></i><span class="hide-menu">
                                             Producto </span></a></li>
                                 <li class="sidebar-item"><a href="Categoria.php" class="sidebar-link"><i
