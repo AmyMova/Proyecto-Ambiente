@@ -249,7 +249,7 @@ class Producto extends Conexion
             return json_encode($error);
         }
     }
-    
+
 
     public function EliminarProducto()
     {
@@ -327,7 +327,7 @@ class Producto extends Conexion
             $CantXXL = $this->getCantXXL();
             $resultado = self::$cnx->prepare($query);
 
-
+            $resultado->bindParam(":id", $IdProducto, PDO::PARAM_INT);
             $resultado->bindParam(":Nueva_Cant_XS", $CantXS, PDO::PARAM_INT);
             $resultado->bindParam(":Nueva_Cant_S", $CantS, PDO::PARAM_INT);
             $resultado->bindParam(":Nueva_Cant_M", $CantM, PDO::PARAM_INT);
@@ -338,7 +338,6 @@ class Producto extends Conexion
             $resultado->bindParam(":Nueva_Imagen", $Imagen, PDO::PARAM_STR);
             $resultado->bindParam(":Id_Categoria", $IdCategoria, PDO::PARAM_INT);
             $resultado->bindParam(":Id_Marca", $IdMarca, PDO::PARAM_INT);
-            $resultado->bindParam(":id", $IdProducto, PDO::PARAM_INT);
             $resultado->bindParam(":Nuevo_Precio_Venta", $PrecioVenta, PDO::PARAM_INT);
             $resultado->bindParam(":Nuevo_Precio_Credito", $PrecioCredito, PDO::PARAM_INT);
             self::$cnx->beginTransaction();//desactiva el autocommit
@@ -355,26 +354,26 @@ class Producto extends Conexion
     }
 
     public function verificarExistenciaProductoDb()
-{
-    $query = "SELECT COUNT(*) FROM producto WHERE Descripcion=:Descripcion";
-    try {
-        self::getConexion();
-        $resultado = self::$cnx->prepare($query);
-        $Descripcion = $this->getDescripcion();
+    {
+        $query = "SELECT COUNT(*) FROM producto WHERE Descripcion=:Descripcion";
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            $Descripcion = $this->getDescripcion();
 
-        $resultado->bindParam(":Descripcion", $Descripcion, PDO::PARAM_STR);
-        $resultado->execute();
-        $count = $resultado->fetchColumn();
-        self::desconectar();
-        
-        // Si count es mayor que 0, significa que el producto existe
-        return $count > 0;
-    } catch (PDOException $Exception) {
-        self::desconectar();
-        $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
-        return $error;
+            $resultado->bindParam(":Descripcion", $Descripcion, PDO::PARAM_STR);
+            $resultado->execute();
+            $count = $resultado->fetchColumn();
+            self::desconectar();
+
+            // Si count es mayor que 0, significa que el producto existe
+            return $count > 0;
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            return $error;
+        }
     }
-}
 
     public function verificarExistenciaProductoByIdDb()
     {

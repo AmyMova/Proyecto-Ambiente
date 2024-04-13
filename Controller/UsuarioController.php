@@ -1,5 +1,10 @@
 <?php
 require_once '../Model/UsuarioModel.php';
+require ('../view/assets/libs/phpMailer/PHPMailer.php');
+require ('../view/assets/libs/phpMailer/Exception.php');
+require ('../view/assets/libs/phpMailer/SMTP.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 switch ($_GET["op"]) {
     case 'ListarTablaUsuario':
@@ -85,6 +90,25 @@ switch ($_GET["op"]) {
             $usuario->setDiaCumpleanos($DiaCumpleanos);
             $usuario->setNumeroTelefono($NumeroTelefono);
             $usuario->guardarEnDb();
+
+            $subject = "Contraseña Temporal";
+            $msg =  "Hola " . $NombreUsuario . " Esta es tu contraseña: " . $Contrasenna . "\n !Recomendamos que cambies tu contraseña!";
+            $receiver = $CorreoElectronico;
+            $mailer = new PHPMailer();
+            $mailer->isSMTP();
+            $mailer->Host = "smtp.office365.com";
+            $mailer->Port = 587;
+            $mailer->SMTPSecure = "tls";
+            $mailer->SMTPAuth = true;
+            $mailer->Username = "Rosa.Anil@outlook.com";
+            $mailer->Password = "RosayAnil2024";
+            $mailer->setFrom("Rosa.Anil@outlook.com", "Administración");
+            $mailer->addAddress($receiver, $NombreUsuario);
+            $mailer->Subject = $subject;
+            $mailer->msgHTML($msg);
+            if (!$mailer->send()) {
+                echo $mailer->ErrorInfo;
+            }
             move_uploaded_file($tmpName, '../view/assets/img/' . $newImageName);
             if ($usuario->verificarExistenciaDb()) {
                 echo 1; //usuario registrado 

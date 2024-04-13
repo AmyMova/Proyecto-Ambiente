@@ -122,9 +122,8 @@
                                             <div class="input-group">
                                                 <label class="input-group" class="input-group"
                                                     for="Id_Marca">Marca</label><br>
-                                                <select class="select2 form-control custom-select" name="Id_Marca"
-                                                    id="Id_Marca">
-                                                    <option>Seleccionar</option>
+                                                <select class="form-control" name="Id_Marca" id="Id_Marca">
+                                                    <selected>Seleccionar Marca</selected>
                                                     <!-- se hizo un select en el cual se puede buscar información dicha informacion se pasa por medio de un json -->
                                                 </select>
 
@@ -134,9 +133,8 @@
                                             <div class="input-group">
                                                 <label class="input-group" class="input-group"
                                                     for="Id_Categoria">Categoría</label><br>
-                                                <select class="select2 form-control custom-select" name="Id_Categoria"
-                                                    id="Id_Categoria">
-                                                    <option>Seleccionar</option>
+                                                <select class="form-control" name="Id_Categoria" id="Id_Categoria">
+                                                    <selected>Seleccionar Categoría</selected>
                                                     <!-- se hizo un select en el cual se puede buscar información dicha informacion se pasa por medio de un json -->
                                                 </select>
 
@@ -318,8 +316,7 @@
                                             <div class="input-group">
                                                 <label class="input-group" class="input-group"
                                                     for="Nuevo_Id_Marca">Marca</label><!-- se hace un select con todas las marcas que existen en la bd y se selecciona el valor que tiene el producto -->
-                                                <select name="Nuevo_Id_Marca" id="Nuevo_Id_Marca"
-                                                    class="form-control select-marcas-editar">
+                                                <select name="Nuevo_Id_Marca" id="Nuevo_Id_Marca" class="form-control ">
                                                 </select>
                                             </div>
                                         </div>
@@ -329,7 +326,7 @@
                                                 <label class="input-group" class="input-group"
                                                     for="Nuevo_Id_Categoria">Categoría</label><!-- se hace un select con todas las categorias que existen en la bd y se selecciona el valor que tiene el producto -->
                                                 <select name="Nuevo_Id_Categoria" id="Nuevo_Id_Categoria"
-                                                    class="select2 form-control custom-select">
+                                                    class="form-control">
                                                 </select>
                                             </div>
                                         </div>
@@ -360,112 +357,112 @@
                                         </div>
 
                                     </div>
+                                </div>
+
+
+
+                            </form>
                         </div>
-
-
-
-                        </form>
-                    </div>
-                    <div class="col-lg-3">
-                        <!-- Aqui se visualiza ya sea la imagen que ya esta guardada en la bd o la nueva imagen que se va a guardar -->
-                        <div class="card">
-                            <div class="preview-edit">
-                                <img src="" id="img_edit" alt="Preview" width="280px" height="275px">
+                        <div class="col-lg-3">
+                            <!-- Aqui se visualiza ya sea la imagen que ya esta guardada en la bd o la nueva imagen que se va a guardar -->
+                            <div class="card">
+                                <div class="preview-edit">
+                                    <img src="" id="img_edit" alt="Preview" width="280px" height="275px">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-            </div><!-- Aqui termina el cuerpo de la tarjeta del formulario de productos -->
+                    </div>
+                </div><!-- Aqui termina el cuerpo de la tarjeta del formulario de productos -->
+            </div>
         </div>
     </div>
-</div>
 
 
 
 
-<!-- listado de productos -->
-<div class="row">
-    <div class="col-12">
-        <div class="card card-dark">
-            <!--Encabezado y titulo de la tabla productos-->
-            <div class="card-header">
-                <h3 class="card-title">Productos existentes</h3>
+    <!-- listado de productos -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-dark">
+                <!--Encabezado y titulo de la tabla productos-->
+                <div class="card-header">
+                    <h3 class="card-title">Productos existentes</h3>
+
+                </div>
+                <!-- Encabezado y titulo de la tabla productos -->
+                <!-- Cuerpo de la tabla productos -->
+                <div class="card-body ">
+
+                    <div class="row ">
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <button class="btn waves-effect waves-light btn-block btn-success"
+                                        id="agregarProducto">Agregar</button>
+                                </div>
+                            </div>
+                            <br>
+                            <table id="tblListadoProducto" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <th>ID</th>
+                                    <th>Descripción</th>
+                                    <th>Categoría</th>
+                                    <th>Marca</th>
+                                    <th>XS</th>
+                                    <th>S</th>
+                                    <th>M</th>
+                                    <th>L</th>
+                                    <th>XL</th>
+                                    <th>XXL</th>
+                                    <th>Precio</th>
+                                    <th>Opciones</th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfooter>
+                                    <th>ID</th>
+                                    <th>Descripción</th>
+                                    <th>Categoría</th>
+                                    <th>Marca</th>
+                                    <th>XS</th>
+                                    <th>S</th>
+                                    <th>M</th>
+                                    <th>L</th>
+                                    <th>XL</th>
+                                    <th>XXL</th>
+                                    <th>Precio</th>
+                                    <th>Opciones</th>
+                                </tfooter>
+                            </table>
+                        </div>
+                    </div>
+                </div><!-- Cuerpo de la tabla productos -->
 
             </div>
-            <!-- Encabezado y titulo de la tabla productos -->
-            <!-- Cuerpo de la tabla productos -->
-            <div class="card-body ">
-
-                <div class="row ">
-
-                    <div class="col">
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <button class="btn waves-effect waves-light btn-block btn-success"
-                                    id="agregarProducto">Agregar</button>
-                            </div>
-                        </div>
-                        <br>
-                        <table id="tblListadoProducto" class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <th>ID</th>
-                                <th>Descripción</th>
-                                <th>Categoría</th>
-                                <th>Marca</th>
-                                <th>XS</th>
-                                <th>S</th>
-                                <th>M</th>
-                                <th>L</th>
-                                <th>XL</th>
-                                <th>XXL</th>
-                                <th>Precio</th>
-                                <th>Opciones</th>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                            <tfooter>
-                                <th>ID</th>
-                                <th>Descripción</th>
-                                <th>Categoría</th>
-                                <th>Marca</th>
-                                <th>XS</th>
-                                <th>S</th>
-                                <th>M</th>
-                                <th>L</th>
-                                <th>XL</th>
-                                <th>XXL</th>
-                                <th>Precio</th>
-                                <th>Opciones</th>
-                            </tfooter>
-                        </table>
-                    </div>
-                </div>
-            </div><!-- Cuerpo de la tabla productos -->
-
         </div>
     </div>
-</div>
 
 
 
-<!-- Estos scripts cambian el preview de la imagen tanto para editar como al agregar  -->
-<script type="text/javascript">
-    imagenP.onchange = evt => {
-        const [file] = imagenP.files;
-        if (file) {
-            img.src = URL.createObjectURL(file);
+    <!-- Estos scripts cambian el preview de la imagen tanto para editar como al agregar  -->
+    <script type="text/javascript">
+        imagenP.onchange = evt => {
+            const [file] = imagenP.files;
+            if (file) {
+                img.src = URL.createObjectURL(file);
+            }
         }
-    }
-</script>
-<script type="text/javascript">
-    Nueva_Imagen.onchange = evt => {
-        const [file] = Nueva_Imagen.files;
-        if (file) {
-            img_edit.src = URL.createObjectURL(file);
+    </script>
+    <script type="text/javascript">
+        Nueva_Imagen.onchange = evt => {
+            const [file] = Nueva_Imagen.files;
+            if (file) {
+                img_edit.src = URL.createObjectURL(file);
+            }
         }
-    }
-</script>
+    </script>
 
-<!-- Desde aqui se llama el footer -->
-<?php include ("Component\Footer.php") ?>
+    <!-- Desde aqui se llama el footer -->
+    <?php include ("Component\Footer.php") ?>

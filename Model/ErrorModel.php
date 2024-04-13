@@ -1,19 +1,17 @@
 <?php
 require_once '../config/Conexion.php';
 
-class Movimiento extends Conexion
+class Errores extends Conexion
 {
     /*=============================================
     =            Atributos de la Clase            =
     =============================================*/
     protected static $cnx;
-    private $IdProducto = null;
-    private $IdMovimiento = null;
-    private $Descripcion = null;
+    private $IdError = null;
+    private $IdUsuario = null;
     private $Usuario = null;
+    private $Descripcion = null;
     private $Fecha = null;
-    private $Accion = null;
-    private $Producto = null;
     /*=====  End of Atributos de la Clase  ======*/
 
     /*=============================================
@@ -27,31 +25,30 @@ class Movimiento extends Conexion
     /*=============================================
     =            Encapsuladores de la Clase       =
     =============================================*/
-    public function getIdProducto()
+    public function getIdError()
     {
-        return $this->IdProducto;
+        return $this->IdError;
     }
-    public function setIdProducto($IdProducto)
+    public function setIdError($IdError)
     {
-        $this->IdProducto = $IdProducto;
-    }
-
-    public function getIdMovimiento()
-    {
-        return $this->IdMovimiento;
-    }
-    public function setIdMovimiento($IdMovimiento)
-    {
-        $this->IdMovimiento = $IdMovimiento;
+        $this->IdError = $IdError;
     }
 
-    public function getProducto()
+    public function getIdUsuario()
     {
-        return $this->Producto;
+        return $this->IdUsuario;
     }
-    public function setProducto($Producto)
+    public function setIdUsuario($IdUsuario)
     {
-        $this->Producto = $Producto;
+        $this->IdUsuario = $IdUsuario;
+    }
+    public function getUsuario()
+    {
+        return $this->Usuario;
+    }
+    public function setUsuario($Usuario)
+    {
+        $this->Usuario = $Usuario;
     }
     public function getFecha()
     {
@@ -61,14 +58,6 @@ class Movimiento extends Conexion
     {
         $this->Fecha = $Fecha;
     }
-    public function getAccion()
-    {
-        return $this->Accion;
-    }
-    public function setAccion($Accion)
-    {
-        $this->Accion = $Accion;
-    }
     
     public function getDescripcion()
     {
@@ -77,14 +66,6 @@ class Movimiento extends Conexion
     public function setDescripcion($Descripcion)
     {
         $this->Descripcion = $Descripcion;
-    }
-    public function getUsuario()
-    {
-        return $this->Usuario;
-    }
-    public function setUsuario($Usuario)
-    {
-        $this->Usuario = $Usuario;
     }
     
     /*=====  End of Encapsuladores de la Clase  ======*/
@@ -102,9 +83,9 @@ class Movimiento extends Conexion
         self::$cnx = null;
     }
 
-    public function VerMovimientosDB()
+    public function VerErroresDB()
     {
-        $query = "Call VerMovimientos()";
+        $query = "SELECT IdError,e.IdUsuario,concat(u.NombreUsuario,' ',u.ApellidoUsuario) as Usuario, e.Descripcion, e.Fecha FROM Error e INNER JOIN usuario u ON  e.IdUsuario=u.IdUsuario";
         $arr = array();
         try {
             self::getConexion();
@@ -112,15 +93,13 @@ class Movimiento extends Conexion
             $resultado->execute();
             self::desconectar();
             foreach ($resultado->fetchAll() as $encontrado) {
-                $movimiento = new Movimiento();
-                $movimiento->setIdProducto($encontrado['IdProducto']);
-                $movimiento->setIdMovimiento($encontrado['IdMovimiento']);
-                $movimiento->setProducto($encontrado['Producto']);
-                $movimiento->setUsuario($encontrado['Usuario']);
-                $movimiento->setDescripcion($encontrado['Descripcion']);
-                $movimiento->setFecha($encontrado['Fecha']);
-                $movimiento->setAccion($encontrado['Accion']);
-                $arr[] = $movimiento;
+                $error = new Errores();
+                $error->setIdError($encontrado['IdError']);
+                $error->setIdUsuario($encontrado['IdUsuario']);
+                $error->setUsuario($encontrado['Usuario']);
+                $error->setDescripcion($encontrado['Descripcion']);
+                $error->setFecha($encontrado['Fecha']);
+                $arr[] = $error;
             }
             return $arr;
         } catch (PDOException $Exception) {
@@ -134,7 +113,7 @@ class Movimiento extends Conexion
 
     public function llenarCampos($id)
     {
-        $query = "Call VerMovimiento(id)";
+        $query = "SELECT IdError,e.IdUsuario,concat(u.NombreUsuario,' ',u.ApellidoUsuario) as Usuario, e.Descripcion, e.Fecha FROM Error e INNER JOIN usuario u ON  e.IdUsuario=u.IdUsuario WHERE :id=e.IdError";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
@@ -142,13 +121,11 @@ class Movimiento extends Conexion
             $resultado->execute();
             self::desconectar();
             foreach ($resultado->fetchAll() as $encontrado) {
-                $this->setIdProducto($encontrado['IdProducto']);
-                $this->setIdMovimiento($encontrado['IdMovimiento']);
-                $this->setProducto($encontrado['Producto']);
+                $this->setIdError($encontrado['IdError']);
+                $this->setIdUsuario($encontrado['IdUsuario']);
                 $this->setUsuario($encontrado['Usuario']);
                 $this->setDescripcion($encontrado['Descripcion']);
                 $this->setFecha($encontrado['Fecha']);
-                $this->setAccion($encontrado['Accion']);
             }
         } catch (PDOException $Exception) {
             self::desconectar();
@@ -160,13 +137,13 @@ class Movimiento extends Conexion
 
     public function verificarExistenciaByIDDb()
     {
-        $query = "SELECT * FROM movimiento where IdMovimiento=:id";
+        $query = "SELECT * FROM error where IdError=:id";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
-            $IdMovimiento = $this->getIdMovimiento();
+            $IdError = $this->getIdError();
 
-            $resultado->bindParam(":id", $IdMovimiento, PDO::PARAM_INT);
+            $resultado->bindParam(":id", $IdError, PDO::PARAM_INT);
             $resultado->execute();
             self::desconectar();
             $encontrado = false;
@@ -180,6 +157,28 @@ class Movimiento extends Conexion
             return $error;
         }
     }
+    public function CrearErrorDB()
+    {
+        $query = "INSERT INTO `error`(`IdUsuario`,`Descripcion`,`Fecha`) VALUES(:IdUsuario,:Descripcion,now()) ";
+        try {
+            self::getConexion();
+            $IdUsuario = $this->getIdUsuario();
+            $Descripcion = $this->getDescripcion();
+
+            $resultado = self::$cnx->prepare($query);
+
+            $resultado->bindParam(":IdUsuario", $IdUsuario, PDO::PARAM_INT);
+            $resultado->bindParam(":Descripcion", $Descripcion, PDO::PARAM_INT);
+            $resultado->execute();
+            self::desconectar();
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            ;
+            return json_encode($error);
+        }
+    }
+
 }
 /*=====  End of Metodos de la Clase  ======*/
 

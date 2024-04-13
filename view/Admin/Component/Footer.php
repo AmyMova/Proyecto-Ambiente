@@ -192,9 +192,9 @@
     <script src="./../assets/js/Categoria.js"></script>
     <script src="./../assets/js/Etiqueta.js"></script>
     <script src="./../assets/js/Usuario.js"></script>
-    <script src="./../assets/js/Rol.js"></script>
     <script src="./../assets/js/Otros.js"></script>
     <script src="./../assets/js/Movimiento.js"></script>
+    <script src="./../assets/js/Error.js"></script>
     <script type="module" src="./../assets/js/Reporte.js"></script>
 </body>
 

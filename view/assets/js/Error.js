@@ -11,7 +11,7 @@ function limpiarFormsError() {
  
   
   /*Funcion para cargar el listado en el Datatable*/
-  function ListarErrors() {
+  function ListarErrores() {
     tabla = $("#tblListadoError").dataTable({
       aProcessing: true, //actiavmos el procesamiento de datatables
       aServerSide: true, //paginacion y filtrado del lado del serevr
@@ -34,13 +34,13 @@ function limpiarFormsError() {
   */
   $(function () {
     $("#formulario_ver_error").hide();
-    ListarErrors();
+    ListarErrores();
     
   });
   /*Habilitacion de form de modificacion al presionar el boton en la tabla*/
   $("#tblListadoError tbody").on(
     "click",
-    'button[id="VerMás"]',
+    'button[id="VerMasError"]',
     function () {
       var data = $("#tblListadoError").DataTable().row($(this).parents("tr")).data();
       limpiarFormsError();
