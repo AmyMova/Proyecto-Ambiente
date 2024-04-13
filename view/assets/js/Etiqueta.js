@@ -32,6 +32,42 @@ function ListarEtiquetas() {
     },
   });
 }
+function ListarProductosAgregar() {
+  tabla = $("#tblListadoBuscarProductoA").dataTable({
+    aProcessing: true, //actiavmos el procesamiento de datatables
+    aServerSide: true, //paginacion y filtrado del lado del serevr
+    dom: "Bfrtip", //definimos los elementos del control de tabla
+    buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
+    ajax: {
+      url: "./../../Controller/EtiquetaController.php?op=BuscarProductoAgregar",
+      type: "get",
+      dataType: "json",
+      error: function (e) {
+        console.log(e.responseText);
+      },
+      bDestroy: true,
+      iDisplayLength: 5,
+    },
+  });
+}
+function ListarProductosEditar() {
+  tabla = $("#tblListadoBuscarProductoE").dataTable({
+    aProcessing: true, //actiavmos el procesamiento de datatables
+    aServerSide: true, //paginacion y filtrado del lado del serevr
+    dom: "Bfrtip", //definimos los elementos del control de tabla
+    buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
+    ajax: {
+      url: "./../../Controller/EtiquetaController.php?op=BuscarProductoEditar",
+      type: "get",
+      dataType: "json",
+      error: function (e) {
+        console.log(e.responseText);
+      },
+      bDestroy: true,
+      iDisplayLength: 5,
+    },
+  });
+}
 /*
 Funcion Principal
 */
@@ -39,6 +75,7 @@ $(function () {
   $("#formulario_editar_etiqueta").hide();
   $("#formulario_agregar_etiqueta").hide();
   ListarEtiquetas();
+
 });
 /*
 CRUD
@@ -89,6 +126,45 @@ $(document).ready(function() {
   });
 });
 
+$(document).ready(function() {
+  // Evento clic para el botón #agregarEtiqueta
+  $('#BuscarProductoA').click(function() {
+      return false; // Para evitar que el evento de clic se propague
+  });
+});
+
+$("#tblListadoBuscarProductoA tbody").on(
+  "click",
+  'button[id="SeleccionarA"]',
+  function () {
+    var data = $("#tblListadoBuscarProductoA").DataTable().row($(this).parents("tr")).data();
+    $("#IdProducto").val(data[0]);
+    $("#Descripcion").val(data[1]);
+    $('#BuscarProductoA').modal('hide');
+    return false;
+  }
+);
+
+$(document).ready(function() {
+  // Evento clic para el botón #agregarEtiqueta
+  $('#BuscarProductoE').click(function() {
+    
+      return false; // Para evitar que el evento de clic se propague
+  });
+});
+
+$("#tblListadoBuscarProductoE tbody").on(
+  "click",
+  'button[id="SeleccionarE"]',
+  function () {
+    var data = $("#tblListadoBuscarProductoE").DataTable().row($(this).parents("tr")).data();
+    $("#Id_Producto").val(data[0]);
+    $("#Descripcion_Producto").val(data[1]);
+    $('#BuscarProductoE').modal('hide');
+    return false;
+  }
+);
+
 /*Habilitacion de form de modificacion al presionar el boton en la tabla*/
 $("#tblListadoEtiqueta tbody").on(
   "click",
@@ -100,13 +176,14 @@ $("#tblListadoEtiqueta tbody").on(
     $("#formulario_agregar_etiqueta").hide();
     $("#formulario_editar_etiqueta").show();
     $("#id").val(data[0]);
-    $("#Nuevo_XS").val(data[4]);
-      $("#Nuevo_S").val(data[5]);
-      $("#Nuevo_M").val(data[6]);
-      $("#Nuevo_L").val(data[7]);
-      $("#Nuevo_XL").val(data[8]);
-      $("#Nuevo_XXL").val(data[9]);
-      $("#Id_Producto").val(data[13])
+    $("#Nuevo_XS").val(data[2]);
+      $("#Nuevo_S").val(data[3]);
+      $("#Nuevo_M").val(data[4]);
+      $("#Nuevo_L").val(data[5]);
+      $("#Nuevo_XL").val(data[6]);
+      $("#Nuevo_XXL").val(data[7]);
+      $("#Id_Producto").val(data[11])
+      $("#Descripcion_Producto").val(data[1])
     return false;
   }
 );
