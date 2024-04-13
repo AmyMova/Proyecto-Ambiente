@@ -14,24 +14,30 @@
                                 <form name="modulos_agregar_etiqueta" id="etiqueta_agregar" method="POST">
                                     <input type="hidden" id="existeModulo" name="existeModulo">
                                     <div class="row">
-                                        <div class="col-lg-4">
+                                        <div class="col">
                                             <div class="form-group">
-                                                <label for="IdProducto">IdProducto<span
-                                                        class="text-danger">*</span></label>
+                                                <label for="IdProducto">IdProducto</label>
                                                 <input type="text" class="form-control" id="IdProducto"
-                                                    name="IdProducto" required><!--onblur="BuscarProductoByID();"-->
+                                                    name="IdProducto" readonly>
+
                                             </div>
                                         </div>
-                                        <div class="col-lg-4">
+                                        <div class="col">
                                             <div class="form-group">
                                                 <label for="Descripcion">Descripción<span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="Descripcion"
-                                                    name="Descripcion"
-                                                    required><!--onblur="BuscarProductoByDescripcion();"-->
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="Descripcion"
+                                                        name="Descripcion" readonly>
+                                                    <button class="btn btn-info" type="button" data-toggle="modal"
+                                                        data-target="#BuscarProductoA"><i
+                                                            class="fas fa-search"></i></button>
+                                                </div>
+
                                             </div>
                                         </div>
-
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label for="XS">XS</label>
@@ -112,21 +118,28 @@
                             <input type="hidden" class="form-control" id="id" name="id">
                             <div class="col">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col">
                                         <div class="form-group">
                                             <label for="Id_Producto">IdProducto</label>
                                             <input type="text" class="form-control" id="Id_Producto" name="Id_Producto"
-                                                required>
+                                                readonly>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col">
                                         <div class="form-group">
                                             <label for="Descripcion_Producto">Producto</label>
-                                            <input type="text" class="form-control" id="Descripcion_Producto"
-                                                name="Descripcion_Producto" required>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="Descripcion_Producto"
+                                                    name="Descripcion_Producto" readonly>
+                                                <button class="btn btn-info" type="button" data-toggle="modal"
+                                                    data-target="#BuscarProductoE"><i
+                                                        class="fas fa-search"></i></button>
+                                            </div>
+
                                         </div>
                                     </div>
-
+                                </div>
+                                <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="Nuevo_XS">XS</label>
@@ -223,8 +236,6 @@
                                 <thead>
                                     <th>ID</th>
                                     <th>Descripción</th>
-                                    <th>Categoría</th>
-                                    <th>Marca</th>
                                     <th>XS</th>
                                     <th>S</th>
                                     <th>M</th>
@@ -240,8 +251,6 @@
                                 <tfooter>
                                     <th>ID</th>
                                     <th>Descripción</th>
-                                    <th>Categoría</th>
-                                    <th>Marca</th>
                                     <th>XS</th>
                                     <th>S</th>
                                     <th>M</th>
@@ -259,7 +268,66 @@
             </div>
         </div>
     </div>
-    <!-- sample modal content -->
+    <!--Modal buscar producto -->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" style="display: none;" id="BuscarProductoA"onclick="  ListarProductosAgregar();">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Buscar Producto</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <table id="tblListadoBuscarProductoA" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Opción</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--Modal para editar el producto-->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" style="display: none;" id="BuscarProductoE" onclick="  ListarProductosEditar();">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Buscar Producto</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <table id="tblListadoBuscarProductoE" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Opción</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
 
 

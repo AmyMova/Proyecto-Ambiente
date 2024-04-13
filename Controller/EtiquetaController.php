@@ -1,5 +1,6 @@
 <?php
 require_once '../Model/EtiquetaModel.php';
+require_once '../Model/ProductoModel.php';
 
 switch ($_GET["op"]) {
     case 'ListarTablaEtiqueta':
@@ -10,19 +11,19 @@ switch ($_GET["op"]) {
             $data[] = array(
                 "0" => $reg->getIdEtiqueta(),
                 "1" => $reg->getDescripcion(),
-                "2" => $reg->getCategoria(),
-                "3" => $reg->getMarca(),
-                "4" => $reg->getXS(),
-                "5" => $reg->getS(),
-                "6" => $reg->getM(),
-                "7" => $reg->getL(),
-                "8" => $reg->getXL(),
-                "9" => $reg->getXXL(),
-                "10" => $reg->getPrecioVenta(),
-                "11" => $reg->getPrecioCredito(),
-                "12" => '</button> <button class="btn btn-warning" id="modificarEtiqueta"><i class="ti-pencil-alt"></i></button> | ' .
+                "2" => $reg->getXS(),
+                "3" => $reg->getS(),
+                "4" => $reg->getM(),
+                "5" => $reg->getL(),
+                "6" => $reg->getXL(),
+                "7" => $reg->getXXL(),
+                "8" => $reg->getPrecioVenta(),
+                "9" => $reg->getPrecioCredito(),
+                "10" => '</button> <button class="btn btn-warning" id="modificarEtiqueta"><i class="ti-pencil-alt"></i></button> | ' .
                     '<button class="btn btn-danger" onclick="EliminarEtiqueta(\'' . $reg->getIdEtiqueta() . '\')"><i class="ti-trash"></i></button>',
-                "13" => $reg->getIdProducto()
+                "11" => $reg->getIdProducto(),
+                "12" => $reg->getCategoria(),
+                "13" => $reg->getMarca(),
             );
         }
         $resultados = array(
@@ -153,4 +154,43 @@ switch ($_GET["op"]) {
             }
 
         }
+    case 'BuscarProductoAgregar':
+        $etiqueta = new Producto();
+        $etiquetas = $etiqueta->VerProductosDB();
+        $data = array();
+        foreach ($etiquetas as $reg) {
+            $data[] = array(
+                "0" => $reg->getIdProducto(),
+                "1" => $reg->getDescripcion(),
+                "2" => '</button> <button class="btn btn-success" id="SeleccionarA"><i class="fa-solid fa-check"></i></button>' 
+            );
+        }
+        $resultados = array(
+            "sEcho" => 1, ##informacion para datatables
+            "iTotalRecords" => count($data), ## total de registros al datatable
+            "iTotalDisplayRecords" => count($data), ## enviamos el total de registros a visualizar
+            "aaData" => $data
+        );
+        echo json_encode($resultados);
+        break;
+    case 'BuscarProductoEditar':
+        $etiqueta = new Producto();
+        $etiquetas = $etiqueta->VerProductosDB();
+        $data = array();
+        foreach ($etiquetas as $reg) {
+            $data[] = array(
+                "0" => $reg->getIdProducto(),
+                "1" => $reg->getDescripcion(),
+                "2" => '</button> <button class="btn btn-success" id="SeleccionarE"><i class="fa-solid fa-check"></i></button>' 
+            );
+        }
+        $resultados = array(
+            "sEcho" => 1, ##informacion para datatables
+            "iTotalRecords" => count($data), ## total de registros al datatable
+            "iTotalDisplayRecords" => count($data), ## enviamos el total de registros a visualizar
+            "aaData" => $data
+        );
+        echo json_encode($resultados);
+        break;
+
 }
