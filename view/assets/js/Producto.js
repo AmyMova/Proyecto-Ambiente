@@ -121,11 +121,11 @@ $("#tblListadoProducto tbody").on(
   }
 );
 /*Funcion para modificacion de datos de producto*/
-$("#formulario_editar_producto").on("submit", function (event) {
+$("#producto_editar").on("submit", function (event) {
   event.preventDefault();
   bootbox.confirm("¿Desea modificar los datos?", function (result) {
     if (result) {
-      var formData = new FormData($("#producto_update")[0]);
+      var formData = new FormData($("#producto_editar")[0]);
       $.ajax({
         url: "./../../Controller/ProductoController.php?op=EditarProducto",
         type: "POST",

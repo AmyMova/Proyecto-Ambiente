@@ -3,7 +3,7 @@
 
     <div class="row justify-content-center">
         <!-- Formulario de creacion de carritos -->
-        <div class="col-xs-2 col-sm-12 col-md-12 col-lg-12" id="formulario_agregar_carrito">
+        <div class="col-xs-2 col-sm-12 col-md-12 col-lg-12" id="formulario_agregar_carritoInterno">
             <div class="card card-dark">
                 <!-- Encabezado del formulario para crear carritos -->
                 <div class="card-header">
@@ -14,7 +14,7 @@
                 <div class="card-body"><!-- Aqui empieza la tarjeta que contiene el formulario de crear carritos -->
                     <div class="row">
                         <div class="col-xs-2 col-sm-12 col-md-12 col-lg-8">
-                            <form name="modulos_agregar_carrito" id="carrito_agregar" method="POST"
+                            <form name="modulos_agregar_carritoInterno" id="carritoInterno_agregar" method="POST"
                                 enctype="multipart/form-data">
                                 <!-- se agrega el enctype para que el formulario acepte imagenes -->
                                 <input type="hidden" id="existeModulo" name="existeModulo">
@@ -24,10 +24,9 @@
                                             <div class="form-group">
                                                 <label class="input-group" for="Id_Producto">ID Producto<span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="Id_Producto" required
+                                                <input type="text" class="form-control" id="Id_Producto" readonly
                                                     data-validation-required-message="Este campo es necesario"
-                                                    name="Id_Producto" minlength="10" maxlength="50"
-                                                    onkeyup="EliminarLetras();"><!-- Esta función elimina los números que se encuentran en el campo -->
+                                                    name="Id_Producto" required><!-- Esta función elimina los números que se encuentran en el campo -->
                                             </div>
                                         </div>
                                         <div class="col">
@@ -35,13 +34,11 @@
                                                 <label class="input-group" for="descripcionP">Descripción<span
                                                         class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" id="descripcionP" required
-                                                        data-validation-required-message="Este campo es necesario"
-                                                        name="descripcionP" minlength="10" maxlength="50"
-                                                        onkeyup="EliminarNumeros();">
+                                                    <input type="text" class="form-control" id="descripcionP" readonly
+                                                        name="descripcionP" required>
                                                     <div class="input-group-append">
                                                         <button class="btn btn-info" type="button" data-toggle="modal"
-                                                            data-target="#BuscarProductoAgregar"><i
+                                                            data-target="#BuscarProductoAgregarC"><i
                                                                 class="fas fa-search"></i></button>
                                                     </div>
                                                 </div>
@@ -58,7 +55,7 @@
                                                 </div>
                                                 <input type="text" class="form-control" id="Precio_Venta"
                                                     name="Precio_Venta"
-                                                    readonly><!-- Esta función elimina las letras que se encuentran en el campo -->
+                                                    readonly required><!-- Esta función elimina las letras que se encuentran en el campo -->
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">,00</span>
                                                 </div>
@@ -74,12 +71,13 @@
                                                 <label class="form-group" for="Cantidad_XS">Tamaño XS</label>
                                                 <div class="input-group">
                                                     <input type="number" class="form-control" id="Cantidad_XS"
-                                                        name="Cantidad_XS" value="0" min=0
-                                                        max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
-                                                    <input type="number" class="form-control" id="Cantidad_XS_BD"
+                                                        name="Cantidad_XS" value="0"
+                                                        min=0 required><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
+                                                    <input type="number" class="form-control" id="Cantidad_XS_DB"
                                                         name="Cantidad_XS_BD"
-                                                        readonly><!--Este input es para conocer la cantidad actual del producto-->
+                                                        readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible"><!--Este input es para conocer la cantidad actual del producto-->
                                                 </div>
+
                                             </div>
                                         </div>
                                         <div class="col">
@@ -90,7 +88,7 @@
                                                         name="Cantidad_S" value="0" min=0
                                                         max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
                                                     <input type="number" class="form-control" id="Cantidad_S_DB"
-                                                        name="Cantidad_S_DB" readonly>
+                                                        name="Cantidad_S_DB" readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible">
                                                 </div>
                                             </div>
                                         </div>
@@ -102,7 +100,7 @@
                                                         name="Cantidad_M" value="0" min=0
                                                         max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
                                                     <input type="number" class="form-control" id="Cantidad_M_DB"
-                                                        name="Cantidad_M_DB" readonly>
+                                                        name="Cantidad_M_DB" readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible">
                                                 </div>
                                             </div>
                                         </div>
@@ -119,7 +117,7 @@
                                                         name="Cantidad_L" value="0" min=0
                                                         max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
                                                     <input type="number" class="form-control" id="Cantidad_L_DB"
-                                                        name="Cantidad_L_DB" readonly>
+                                                        name="Cantidad_L_DB" readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible">
                                                 </div>
                                             </div>
                                         </div>
@@ -131,7 +129,7 @@
                                                         name="Cantidad_XL" value="0" min=0
                                                         max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
                                                     <input type="number" class="form-control" id="Cantidad_XL_DB"
-                                                        name="Cantidad_XL_DB" readonly>
+                                                        name="Cantidad_XL_DB" readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible">
                                                 </div>
                                             </div>
                                         </div>
@@ -144,7 +142,7 @@
                                                         name="Cantidad_XXL" value="0" min=0
                                                         max=999><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
                                                     <input type="number" class="form-control" id="Cantidad_XXL_DB"
-                                                        name="Cantidad_XXL_DB" readonly>
+                                                        name="Cantidad_XXL_DB" readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible">
                                                 </div>
                                             </div>
                                         </div>
@@ -194,7 +192,7 @@
 
 
         <!-- Formulario de modificacion de carritos -->
-        <div class="col-xs-2 col-sm-12 col-md-12 col-lg-12" id="formulario_editar_carrito">
+        <div class="col-xs-2 col-sm-12 col-md-12 col-lg-12" id="formulario_editar_carritoInterno">
             <div class="card card-dark">
                 <!-- Encabezado de la tarjeta del formulario de carritos -->
                 <div class="card-header">
@@ -205,7 +203,7 @@
                 <div class="card-body">
                     <div class="row justify-content-center">
                         <div class="col-xs-2 col-sm-12 col-md-12 col-lg-8">
-                            <form name="modulos_editar_carrito" id="carrito_editar" method="POST"
+                            <form name="modulos_editar_carritoInterno" id="carritoInterno_editar" method="POST"
                                 enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" id="id" name="id">
 
@@ -267,7 +265,7 @@
                                                         name="Nueva_Cant_XS" required min=0
                                                         max=999><!-- se agrego un minimo y maximo -->
                                                     <input type="number" class="form-control" id="Nueva_Cant_XS_DB"
-                                                        name="Nueva_Cant_XS_DB" readonly>
+                                                        name="Nueva_Cant_XS_DB" readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible">
                                                 </div>
                                             </div>
                                         </div>
@@ -280,7 +278,7 @@
                                                         name="Nueva_Cant_S" required min=0
                                                         max=999><!-- se agrego un minimo y maximo -->
                                                     <input type="number" class="form-control" id="Nueva_Cant_S_DB"
-                                                        name="Nueva_Cant_S_DB" readonly>
+                                                        name="Nueva_Cant_S_DB" readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible">
                                                 </div>
                                             </div>
                                         </div>
@@ -293,7 +291,7 @@
                                                         name="Nueva_Cant_M" required min=0
                                                         max=999><!-- se agrego un minimo y maximo -->
                                                     <input type="number" class="form-control" id="Nueva_Cant_M_DB"
-                                                        name="Nueva_Cant_M_DB" readonly>
+                                                        name="Nueva_Cant_M_DB" readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible">
                                                 </div>
                                             </div>
                                         </div>
@@ -311,7 +309,7 @@
                                                         name="Nueva_Cant_L" required min=0
                                                         max=999><!-- se agrego un minimo y maximo -->
                                                     <input type="number" class="form-control" id="Nueva_Cant_L_DB"
-                                                        name="Nueva_Cant_L_DB" readonly>
+                                                        name="Nueva_Cant_L_DB" readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible">
                                                 </div>
                                             </div>
                                         </div>
@@ -324,7 +322,7 @@
                                                         name="Nueva_Cant_XL" required min=0
                                                         max=999><!-- se agrego un minimo y maximo -->
                                                     <input type="number" class="form-control" id="Nueva_Cant_XL_DB"
-                                                        name="Nueva_Cant_XL_DB" readonly>
+                                                        name="Nueva_Cant_XL_DB" readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible">
                                                 </div>
                                             </div>
                                         </div>
@@ -337,7 +335,7 @@
                                                         name="Nueva_Cant_XXL" required min=0
                                                         max=999><!-- se agrego un minimo y maximo -->
                                                     <input type="number" class="form-control" id="Nueva_Cant_XXL_DB"
-                                                        name="Nueva_Cant_XXL_DB" readonly>
+                                                        name="Nueva_Cant_XXL_DB" readonly data-toggle="tooltip" data-placement="top" title="Cantidad Disponible">
                                                 </div>
                                             </div>
                                         </div>
@@ -351,7 +349,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <input type="button" class="btn btn-secondary btn-block" value="Cancelar"
-                                                onclick="cancelarFormCarrito()"><!-- se cancelan los cambios que se iban a hacer y oculta el formulario -->
+                                                onclick="cancelarFormCarritoInterno()"><!-- se cancelan los cambios que se iban a hacer y oculta el formulario -->
                                         </div>
                                     </div>
                                 </div>
@@ -393,7 +391,7 @@
                 <div class="card-body ">
                     <div class="row ">
                         <div class="col">
-                            <table id="tblListadoCarrito" class="table table-striped table-bordered table-hover">
+                            <table id="tblListadoCarritoInterno" class="table table-striped table-bordered table-hover">
                                 <thead>
                                     <th>ID</th>
                                     <th>Producto</th>
@@ -426,7 +424,7 @@
                     <div class="col-12">
                         <div class="row button-group justify-content-end">
                             <div class="col-2">
-                                <input type="button" class="btn btn-secondary btn-block" value="Limpiar Carrito"
+                                <input type="button" class="btn btn-secondary btn-block" value="Limpiar CarritoInterno"
                                     onclick="cancelarFormCarrito()">
                             </div>
                             <div class="col-2">
@@ -446,8 +444,8 @@
     </div>
     <!--Aqui empieza el modal-->
     <!-- sample modal content -->
-    <div id="BuscarProductoAgregar" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="BuscarProductoAgregarC" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true" ondblclick="ListarProductosAgregarC();">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -455,8 +453,9 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <table id="tblListadoBuscarProductoA" class="table table-striped table-bordered table-hover">
+                    <table id="tblListadoBuscarProductoAC" class="table table-striped table-bordered table-hover">
                         <thead>
+                            <th>ID</th>
                             <th>Producto</th>
                             <th>Opción</th>
                         </thead>
@@ -480,7 +479,7 @@
 
 
     <div id="BuscarProductoEditar" class="modal fade modal-lg" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel" aria-hidden="true">
+        aria-labelledby="myModalLabel" aria-hidden="true" onclick="ListarProductosEditarC();">>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

@@ -270,7 +270,7 @@
     </div>
     <!--Modal buscar producto -->
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" style="display: none;" id="BuscarProductoA"onclick="  ListarProductosAgregar();">
+        aria-hidden="true" style="display: none;" id="BuscarProductoA">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -278,7 +278,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <table id="tblListadoBuscarProductoA" class="table table-striped table-bordered table-hover">
+
+                    <table id="tblListadoBuscarProductoA" class="table table-striped table-bordered table-hover" style="width:100%;">
                         <thead>
                             <th>ID</th>
                             <th>Producto</th>

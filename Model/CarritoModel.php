@@ -1,313 +1,398 @@
 <?php
 require_once '../config/Conexion.php';
 
-class Usuario extends Conexion
+class Carrito extends Conexion
 {
     /*=============================================
-	=            Atributos de la Clase            =
-	=============================================*/
-        protected static $cnx;
-		private $id=null;
-		private $email=null;
-		private $nombre= null;
-		private $clave= null;
-        private $imagen=null;
-		private $telefono=null;
-		private $estado= null;
-		private $cambioContrasena= null;
-	/*=====  End of Atributos de la Clase  ======*/
+    =            Atributos de la Clase            =
+    =============================================*/
+    protected static $cnx;
+    private $IdCarrito = null;
+    private $IdProducto = null;
+    private $IdUsuario = null;
+    private $XS = null;
+    private $S = null;
+    private $M = null;
+    private $L = null;
+    private $XL = null;
+    private $XXL = null;
+    private $Precio = null;
+    private $Descripcion = null;
+    private $Marca = null;
+    private $Categoria = null;
+    private $PrecioVenta = null;
+    private $Imagen = null;
+    /*=====  End of Atributos de la Clase  ======*/
 
     /*=============================================
-	=            Contructores de la Clase          =
-	=============================================*/
-        public function __construct(){}
+    =            Contructores de la Clase          =
+    =============================================*/
+    public function __construct()
+    {
+    }
     /*=====  End of Contructores de la Clase  ======*/
 
     /*=============================================
-	=            Encapsuladores de la Clase       =
-	=============================================*/
-        public function getId()
-        {
-            return $this->id;
-        }
-        public function setId($id)
-        {
-            $this->id = $id;
-        }
-        public function getEmail()
-        {
-            return $this->email;
-        }
-        public function setEmail($email)
-        {
-            $this->email = $email;
-        }
-        public function getNombre()
-        {
-            return $this->nombre;
-        }
-        public function setNombre($nombre)
-        {
-            $this->nombre = $nombre;
-        }
-        public function setClave($clave)
-        {
-            $this->clave = $clave;
-        }
-        public function getClave()
-        {
-            return $this->clave;
-        }
-        public function getImagen()
-        {
-            return $this->imagen;
-        }
-        public function setImagen($imagen)
-        {
-            $this->imagen = $imagen;
-        }
-        public function getTelefono()
-        {
-            return $this->telefono;
-        }
-        public function setTelefono($telefono)
-        {
-            $this->telefono = $telefono;
-        }
-        public function getEstado()
-        {
-            return $this->estado;
-        }
-        public function setEstado($estado)
-        {
-            $this->estado = $estado;
-        }
-        public function getCambioContrasena()
-        {
-            return $this->cambioContrasena;
-        }
-        public function setCambioContrasena($cambioContrasena)
-        {
-            $this->cambioContrasena = $cambioContrasena;
-        }
+    =            Encapsuladores de la Clase       =
+    =============================================*/
+    public function getIdCarrito()
+    {
+        return $this->IdCarrito;
+    }
+    public function setIdCarrito($IdCarrito)
+    {
+        $this->IdCarrito = $IdCarrito;
+    }
+
+    public function getIdProducto()
+    {
+        return $this->IdProducto;
+    }
+    public function setIdProducto($IdProducto)
+    {
+        $this->IdProducto = $IdProducto;
+    }
+
+    public function getIdUsuario()
+    {
+        return $this->IdUsuario;
+    }
+    public function setIdUsuario($IdUsuario)
+    {
+        $this->IdUsuario = $IdUsuario;
+    }
+    public function getXS()
+    {
+        return $this->XS;
+    }
+    public function setXS($XS)
+    {
+        $this->XS = $XS;
+    }
+    public function getS()
+    {
+        return $this->S;
+    }
+    public function setS($S)
+    {
+        $this->S = $S;
+    }
+    public function getM()
+    {
+        return $this->M;
+    }
+    public function setM($M)
+    {
+        $this->M = $M;
+    }
+    public function getL()
+    {
+        return $this->L;
+    }
+    public function setL($L)
+    {
+        $this->L = $L;
+    }
+    public function getXL()
+    {
+        return $this->XL;
+    }
+    public function setXL($XL)
+    {
+        $this->XL = $XL;
+    }
+    public function getXXL()
+    {
+        return $this->XXL;
+    }
+    public function setXXL($XXL)
+    {
+        $this->XXL = $XXL;
+    }
+    public function getPrecio()
+    {
+        return $this->Precio;
+    }
+    public function setPrecio($Precio)
+    {
+        $this->Precio = $Precio;
+    }
+
+    public function getPrecioVenta()
+    {
+        return $this->PrecioVenta;
+    }
+    public function setPrecioVenta($PrecioVenta)
+    {
+        $this->PrecioVenta = $PrecioVenta;
+    }
+    
+    public function getDescripcion()
+    {
+        return $this->Descripcion;
+    }
+    public function setDescripcion($Descripcion)
+    {
+        $this->Descripcion = $Descripcion;
+    }
+    public function getImagen()
+    {
+        return $this->Imagen;
+    }
+    public function setImagen($Imagen)
+    {
+        $this->Imagen = $Imagen;
+    }
+    public function getCategoria()
+    {
+        return $this->Categoria;
+    }
+    public function setCategoria($Categoria)
+    {
+        $this->Categoria = $Categoria;
+    }
+    public function getMarca()
+    {
+        return $this->Marca;
+    }
+    public function setMarca($Marca)
+    {
+        $this->Marca = $Marca;
+    }
     /*=====  End of Encapsuladores de la Clase  ======*/
 
     /*=============================================
-	=            Metodos de la Clase              =
-	=============================================*/
-        public static function getConexion(){
-            self::$cnx = Conexion::conectar();
-        }
+    =            Metodos de la Clase              =
+    =============================================*/
+    public static function getConexion()
+    {
+        self::$cnx = Conexion::conectar();
+    }
 
-        public static function desconectar(){
-            self::$cnx = null;
-        }
+    public static function desconectar()
+    {
+        self::$cnx = null;
+    }
 
-        public function listarTodosDb(){
-            $query = "SELECT * FROM usuarios";
-            $arr = array();
-            try {
-                self::getConexion();
-                $resultado = self::$cnx->prepare($query);
-                $resultado->execute();
-                self::desconectar();
-                foreach ($resultado->fetchAll() as $encontrado) {
-                    $user = new Usuario();
-                    $user->setId($encontrado['id']);
-                    $user->setEmail($encontrado['email']);
-                    $user->setNombre($encontrado['nombre']);
-                    $user->setImagen($encontrado['imagen']);
-                    $user->setTelefono($encontrado['telefono']);
-                    $user->setEstado($encontrado['estado']);
-                    $arr[] = $user;
-                }
-                return $arr;
-            } catch (PDOException $Exception) {
-                self::desconectar();
-                $error = "Error ".$Exception->getCode( ).": ".$Exception->getMessage( );;
-                return json_encode($error);
-            }
-        }
-
-        public function verificarExistenciaDb(){
-            $query = "SELECT * FROM usuarios where email=:email";
-         try {
-             self::getConexion();
-                $resultado = self::$cnx->prepare($query);		
-                $email= $this->getEmail();	
-                $resultado->bindParam(":email",$email,PDO::PARAM_STR);
-                $resultado->execute();
-                self::desconectar();
-                $encontrado = false;
-                foreach ($resultado->fetchAll() as $reg) {
-                    $encontrado = true;
-                }
-                return $encontrado;
-               } catch (PDOException $Exception) {
-                   self::desconectar();
-                   $error = "Error ".$Exception->getCode().": ".$Exception->getMessage();
-                 return $error;
-               }
-        }
-
-        public function guardarEnDb(){
-            $query = "INSERT INTO `usuarios`(`email`, `nombre`, `clave`, `imagen`, `telefono`, `estado`, `cambioContrasena`, `created_at`) VALUES (:email,:nombre,:clave,:imagen,:telefono,:estado,:cambioContrasena,now())";
-         try {
-             self::getConexion();
-             $email=$this->getEmail();
-             $nombre=strtoupper($this->getNombre());
-             $clave=$this->getClave();
-             $imagen=$this->getImagen();
-             $telefono=$this->getTelefono();
-             $estado=$this->getEstado();
-             $cambioContrasena=$this->getCambioContrasena();
-    
-            $resultado = self::$cnx->prepare($query);
-            $resultado->bindParam(":email",$email,PDO::PARAM_STR);
-            $resultado->bindParam(":nombre",$nombre,PDO::PARAM_STR);
-            $resultado->bindParam(":clave",$clave,PDO::PARAM_STR);
-            $resultado->bindParam(":imagen",$imagen,PDO::PARAM_STR);
-            $resultado->bindParam(":telefono",$telefono,PDO::PARAM_STR);
-            $resultado->bindParam(":estado",$estado,PDO::PARAM_INT);
-            $resultado->bindParam(":cambioContrasena",$cambioContrasena,PDO::PARAM_INT);
-                $resultado->execute();
-                self::desconectar();
-               } catch (PDOException $Exception) {
-                   self::desconectar();
-                   $error = "Error ".$Exception->getCode( ).": ".$Exception->getMessage( );;
-                 return json_encode($error);
-               }
-        }
-
-        public function activar(){
-            $id = $this->getId();
-            $query = "UPDATE usuarios SET estado='1' WHERE id=:id";
-           try {
-             self::getConexion();
-              $resultado = self::$cnx->prepare($query);
-              $resultado->bindParam(":id",$id,PDO::PARAM_INT);
-              self::$cnx->beginTransaction();//desactiva el autocommit
-              $resultado->execute();
-              self::$cnx->commit();//realiza el commit y vuelve al modo autocommit
-              self::desconectar();
-              return $resultado->rowCount();
-             } catch (PDOException $Exception) {
-               self::$cnx->rollBack();
-               self::desconectar();
-               $error = "Error ".$Exception->getCode().": ".$Exception->getMessage();
-               return $error;
-             }
-        }
-
-        public function desactivar(){
-            $id = $this->getId();
-            $query = "UPDATE usuarios SET estado='0' WHERE id=:id";
-            try {
+    public function VerCarritoDB()
+    {
+        $query = "Call VerCarrito(1)";
+        $arr = array();
+        try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
-            $resultado->bindParam(":id",$id,PDO::PARAM_INT);
+            $resultado->execute();
+            self::desconectar();
+            foreach ($resultado->fetchAll() as $encontrado) {
+                $producto = new Carrito();
+                $producto->setIdCarrito($encontrado['IdCarrito']);
+                $producto->setIdProducto($encontrado['IdProducto']);
+                $producto->setIdUsuario($encontrado['IdUsuario']);
+                $producto->setXS($encontrado['XS']);
+                $producto->setS($encontrado['S']);
+                $producto->setM($encontrado['M']);
+                $producto->setL($encontrado['L']);
+                $producto->setXL($encontrado['XL']);
+                $producto->setXXL($encontrado['XXL']);
+                $producto->setPrecio($encontrado['Precio']);
+                $producto->setDescripcion($encontrado['Descripcion']);
+                $producto->setCategoria($encontrado['Categoria']);
+                $producto->setMarca($encontrado['Marca']);
+                $producto->setImagen($encontrado['Imagen']);
+                $arr[] = $producto;
+            }
+            return $arr;
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            ;
+            return json_encode($error);
+        }
+    }
+    public function AgregarProductoCarrito()
+    {
+        $query = "Call AgregarACarrito(:Id_Producto,:Id_Usuario,:Cant_XS,:Cant_S,:Cant_M,:Cant_L,:Cant_XL,:Cant_XXL)";
+        try {
+            self::getConexion();
+            $IdProducto = $this->getIdProducto();
+            $IdUsuario = $this->getIdUsuario();
+            $XS = $this->getXS();
+            $S = $this->getS();
+            $M = $this->getM();
+            $L = $this->getL();
+            $XL = $this->getXL();
+            $XXL = $this->getXXL();
+
+            $resultado = self::$cnx->prepare($query);
+
+            $resultado->bindParam(":Cant_XS", $XS, PDO::PARAM_INT);
+            $resultado->bindParam(":Cant_S", $S, PDO::PARAM_INT);
+            $resultado->bindParam(":Cant_M", $M, PDO::PARAM_INT);
+            $resultado->bindParam(":Cant_L", $L, PDO::PARAM_INT);
+            $resultado->bindParam(":Cant_XL", $XL, PDO::PARAM_INT);
+            $resultado->bindParam(":Cant_XXL", $XXL, PDO::PARAM_INT);
+            $resultado->bindParam(":Id_Producto", $IdProducto, PDO::PARAM_INT);
+            $resultado->bindParam(":Id_Usuario", $IdUsuario, PDO::PARAM_INT);
+            $resultado->execute();
+            self::desconectar();
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            ;
+            return json_encode($error);
+        }
+    }
+
+
+    public function EliminarProducto()
+    {
+        $IdCarrito = $this->getIdCarrito();
+        $query = "Call EliminarProducto(:id)";
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            $resultado->bindParam(":id", $IdCarrito, PDO::PARAM_INT);
             self::$cnx->beginTransaction();//desactiva el autocommit
             $resultado->execute();
             self::$cnx->commit();//realiza el commit y vuelve al modo autocommit
             self::desconectar();
             return $resultado->rowCount();
-            } catch (PDOException $Exception) {
+        } catch (PDOException $Exception) {
             self::$cnx->rollBack();
             self::desconectar();
-            $error = "Error ".$Exception->getCode().": ".$Exception->getMessage();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
             return $error;
-            }
         }
+    }
 
-        public static function mostrar($correo){
-            $query = "SELECT * FROM usuarios where email=:id";
-            $id = $correo;
-            try {
-                self::getConexion();
-                $resultado = self::$cnx->prepare($query);
-                $resultado->bindParam(":id",$id,PDO::PARAM_STR);
-                $resultado->execute();
-                self::desconectar();
-                return $resultado->fetch();
-            } catch (PDOException $Exception) {
-                self::desconectar();
-                $error = "Error ".$Exception->getCode().": ".$Exception->getMessage();
-                return $error;
-            }
-    
-        }
 
-        public function llenarCampos($id){
-            $query = "SELECT * FROM usuarios where id=:id";
-            try {
+    public function llenarCampos($id)
+    {
+        $query = "Call VerProducto(id)";
+        try {
             self::getConexion();
-            $resultado = self::$cnx->prepare($query);		 	
-            $resultado->bindParam(":id",$id,PDO::PARAM_INT);
+            $resultado = self::$cnx->prepare($query);
+            $resultado->bindParam(":id", $id, PDO::PARAM_INT);
             $resultado->execute();
             self::desconectar();
             foreach ($resultado->fetchAll() as $encontrado) {
-                $this->setId($encontrado['id']);
-                $this->setNombre($encontrado['nombre']);
-                $this->setEstado($encontrado['estado']);
+                $this->setIdCarrito($encontrado['IdCarrito']);
+                $this->setIdProducto($encontrado['IdProducto']);
+                $this->setIdUsuario($encontrado['IdUsuario']);
+                $this->setDescripcion($encontrado['Descripcion']);
+                $this->setImagen($encontrado['Imagen']);
+                $this->setPrecio($encontrado['Precio']);
+                $this->setPrecioVenta($encontrado['PrecioVenta']);
+                $this->setXS($encontrado['XS']);
+                $this->setS($encontrado['S']);
+                $this->setM($encontrado['M']);
+                $this->setL($encontrado['L']);
+                $this->setXL($encontrado['XL']);
+                $this->setXXL($encontrado['XXL']);
+                $this->setMarca($encontrado['Marca']);
+                $this->setCategoria($encontrado['Categoria']);
             }
-            } catch (PDOException $Exception) {
+        } catch (PDOException $Exception) {
             self::desconectar();
-            $error = "Error ".$Exception->getCode().": ".$Exception->getMessage();;
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            ;
             return json_encode($error);
-            }
         }
+    }
 
-        public function actualizarUsuario(){
-            $query = "update usuarios set nombre=:nombre,telefono=:telefono where id=:id and email=:email";
-            try {
-                self::getConexion();
-                $id=$this->getId();
-                $email=$this->getEmail();
-                $nombre=$this->getNombre();
-                $telefono=$this->getTelefono();
-                $resultado = self::$cnx->prepare($query);
-                $resultado->bindParam(":email",$email,PDO::PARAM_STR);
-                $resultado->bindParam(":nombre",$nombre,PDO::PARAM_STR);
-                $resultado->bindParam(":telefono",$telefono,PDO::PARAM_STR);
-                $resultado->bindParam(":id",$id,PDO::PARAM_INT);
-                self::$cnx->beginTransaction();//desactiva el autocommit
-                $resultado->execute();
-                self::$cnx->commit();//realiza el commit y vuelve al modo autocommit
-                self::desconectar();
-                return $resultado->rowCount();
-            } catch (PDOException $Exception) {
-                self::$cnx->rollBack();
-                self::desconectar();
-                $error = "Error ".$Exception->getCode().": ".$Exception->getMessage();
-                return $error;
-            }
-        }
-
-        public function verificarExistenciaEmail(){
-            $query = "SELECT email,id,nombre,telefono FROM usuarios where email=:email and estado =1";
-            try {
+    public function EditarProducto()
+    {
+        $query = "Call EditarProducto(:id,:Id_Categoria,:Id_Marca,:Nueva_Imagen,:Nueva_Descripcion,:Nuevo_Precio_Venta,:Nuevo_Precio,:Nueva__XS,:Nueva__S,:Nueva__M,:Nueva__L,:Nueva__XL,:Nueva__XXL)";
+        try {
             self::getConexion();
-            $resultado = self::$cnx->prepare($query);		
-            $email= $this->getEmail();		
-            $resultado->bindParam(":email",$email,PDO::PARAM_STR);
+            $IdCarrito = $this->getIdCarrito();
+            $IdProducto = $this->getIdProducto();
+            $IdUsuario = $this->getIdUsuario();
+            $Descripcion = strtoupper($this->getDescripcion());
+            $Imagen = $this->getImagen();
+            $PrecioVenta = $this->getPrecioVenta();
+            $Precio = $this->getPrecio();
+            $XS = $this->getXS();
+            $S = $this->getS();
+            $M = $this->getM();
+            $L = $this->getL();
+            $XL = $this->getXL();
+            $XXL = $this->getXXL();
+            $resultado = self::$cnx->prepare($query);
+
+            $resultado->bindParam(":id", $IdCarrito, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva__XS", $XS, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva__S", $S, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva__M", $M, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva__L", $L, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva__XL", $XL, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva__XXL", $XXL, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva_Descripcion", $Descripcion, PDO::PARAM_STR);
+            $resultado->bindParam(":Nueva_Imagen", $Imagen, PDO::PARAM_STR);
+            $resultado->bindParam(":Id_Categoria", $IdProducto, PDO::PARAM_INT);
+            $resultado->bindParam(":Id_Marca", $IdUsuario, PDO::PARAM_INT);
+            $resultado->bindParam(":Nuevo_Precio", $Precio, PDO::PARAM_INT);
+            $resultado->bindParam(":Nuevo_Precio_Venta", $PrecioVenta, PDO::PARAM_INT);
+            self::$cnx->beginTransaction();//desactiva el autocommit
+            $resultado->execute();
+            self::$cnx->commit();//realiza el commit y vuelve al modo autocommit
+            self::desconectar();
+            return $resultado->rowCount();
+        } catch (PDOException $Exception) {
+            self::$cnx->rollBack();
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            return $error;
+        }
+    }
+
+    public function verificarExistenciaProductoCarritoDb()
+    {
+        $query = "SELECT COUNT(*) FROM carrito WHERE IdProducto=:idP and :id=IdUsuario";
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            $IdProducto = $this->getIdProducto();
+            $IdUsuario = $this->getIdUsuario();
+
+            $resultado->bindParam(":idP", $IdProducto, PDO::PARAM_INT);
+            $resultado->bindParam(":id", $IdUsuario, PDO::PARAM_INT);
+            $resultado->execute();
+            $count = $resultado->fetchColumn();
+            self::desconectar();
+
+            // Si count es mayor que 0, significa que el producto existe
+            return $count > 0;
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            return $error;
+        }
+    }
+
+    public function verificarExistenciaProductoByIdDb()
+    {
+        $query = "SELECT * FROM producto where IdCarrito=:id";
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            $IdCarrito = $this->getIdCarrito();
+
+            $resultado->bindParam(":id", $IdCarrito, PDO::PARAM_INT);
             $resultado->execute();
             self::desconectar();
             $encontrado = false;
-            $arr=array();
             foreach ($resultado->fetchAll() as $reg) {
-                $arr[]=$reg['id'];
-                $arr[]=$reg['email'];   
-                $arr[]=$reg['nombre'];  
-                $arr[]=$reg['telefono'];  
+                $encontrado = true;
             }
-            return $arr;
             return $encontrado;
-            } catch (PDOException $Exception) {
-                self::desconectar();
-                $error = "Error ".$Exception->getCode().": ".$Exception->getMessage();
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
             return $error;
-            }
         }
-    /*=====  End of Metodos de la Clase  ======*/  
+    }
 }
+/*=====  End of Metodos de la Clase  ======*/
+
 ?>
