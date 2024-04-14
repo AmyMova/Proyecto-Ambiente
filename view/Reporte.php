@@ -49,6 +49,9 @@
         </div>
     </div>
 
+    <?php include 'grafico.php'; ?>
+
+
     <!-- Scripts -->
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/DataTables/datatables.min.js"></script>

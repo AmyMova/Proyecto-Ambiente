@@ -111,5 +111,17 @@ switch ($_GET["op"]) {
             }
             break;
             
+
+            case 'VentasDiarias':
+                $apartadoModel = new NewApartadoModel();
+                $datos = $apartadoModel->obtenerVentasDiarias();
+            
+                if ($datos !== false) {
+                    echo json_encode($datos);
+                } else {
+                    echo json_encode(array("error" => true, "message" => "Error al obtener los datos de ventas diarias."));
+                }
+                break;
+            
 }
 ?>
