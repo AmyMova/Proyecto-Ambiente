@@ -4,27 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reporte</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <!-- Agrega los estilos necesarios para la tabla -->
+    <title>Reportes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/toastr/toastr.css">
+    <link rel="stylesheet" href="../view/assets/css/Apartado.css">
 </head>
 
 <body>
-
-    <!-- Navbar vertical -->
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link active" href="#">Apartado</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li>
-    </ul>
-
     <!-- Aquí agregamos la tabla de listado de apartados -->
     <div class="col-md-12">
         <div class="card card-dark">
@@ -49,12 +37,10 @@
                                 <th>NombreCliente</th>
                                 <th>FechaApartado</th>
                                 <th>CorreoCliente</th>
-                                <!-- Añadir más columnas según sea necesario -->
                             </thead>
                             <tbody>
-                                <!-- Filas de la tabla -->
+                                <!-- Los datos de los apartados se cargarán aquí -->
                             </tbody>
-
                         </table>
                     </div>
                     <div class="col-md-1"></div>
@@ -65,14 +51,8 @@
 
     <!-- Scripts -->
     <script src="plugins/jquery/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
     <script src="plugins/DataTables/datatables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
+
     <script src="plugins/bootbox/bootbox.min.js"></script>
     <script src="plugins/toastr/toastr.js"></script>
     <!-- Tu script personalizado -->

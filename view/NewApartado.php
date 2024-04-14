@@ -118,43 +118,6 @@
             </div>
         </div>
     </div>
-    <!-- Aquí agregamos la tabla de listado de apartados -->
-    <div class="col-md-12">
-        <div class="card card-dark">
-            <div class="card-header">
-                <h3 class="card-title">Listado de Apartados</h3>
-            </div>
-            <div class="card-body p-0">
-                <div class="row mt-2">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
-                        <table id="tbllistado" class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <!-- Encabezados de la tabla -->
-                                <th>IdApartado</th>
-                                <th>ValorTotal</th>
-                                <th>Producto</th>
-                                <th>CantidadTotal</th>
-                                <th>PrecioTotal</th>
-                                <th>Duracion</th>
-                                <th>AporteUsuario</th>
-                                <th>MetodoPago</th>
-                                <th>NombreCliente</th>
-                                <th>FechaApartado</th>
-                                <th>CorreoCliente</th>
-                                
-                            </thead>
-                            <tbody>
-                                <!-- Filas de la tabla -->
-                            </tbody>
-
-                        </table>
-                    </div>
-                    <div class="col-md-1"></div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Scripts -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/DataTables/datatables.min.js"></script>
