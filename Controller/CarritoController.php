@@ -1,30 +1,29 @@
 <?php
+require_once '../Model/CarritoModel.php';
 require_once '../Model/ProductoModel.php';
-
 switch ($_GET["op"]) {
-    case 'ListarTablaProducto':
-        $producto = new Producto();
-        $productos = $producto->VerProductosDB();
+    case 'ListarTablaCarrito':
+        $carrito = new Carrito();
+        $carritos = $carrito->VerCarritoDB();
         $data = array();
-        foreach ($productos as $reg) {
+        foreach ($carritos as $reg) {
             $data[] = array(
-                "0" => $reg->getIdProducto(),
+                "0" => $reg->getIdCarrito(),
                 "1" => $reg->getDescripcion(),
-                "2" => $reg->getNombreCategoria(),
-                "3" => $reg->getMarca(),
-                "4" => $reg->getCantXS(),
-                "5" => $reg->getCantS(),
-                "6" => $reg->getCantM(),
-                "7" => $reg->getCantL(),
-                "8" => $reg->getCantXL(),
-                "9" => $reg->getCantXXL(),
-                "10" => $reg->getPrecioVenta(),
-                "11" => $reg->getPrecioCredito(),
-                "12" => $reg->getImagen(),
-                "13" => '</button> <button class="btn btn-warning" id="modificarProducto">Modificar</button> ' .
-                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdProducto() . '\')">Eliminar</button>',
-                    "14" => $reg->getIdCategoria(),
-                "15" => $reg->getIdMarca()
+                "2" => $reg->getXS(),
+                "3" => $reg->getS(),
+                "4" => $reg->getM(),
+                "5" => $reg->getL(),
+                "6" => $reg->getXL(),
+                "7" => $reg->getXXL(),
+                "8" => $reg->getPrecio(),
+                "9" => '<button class="btn btn-warning" id="modificarCarrito"><i class="ti-pencil-alt"></i></button> | ' .
+                    '<button class="btn btn-danger" onclick="Eliminar(\'' . $reg->getIdCarrito() . '\')"><i class="ti-trash"></i></button>',
+                "10" => $reg->getCategoria(),
+                "11" => $reg->getMarca(),
+                "12" => $reg->getPrecioVenta(),
+                "13" => $reg->getImagen()
+
             );
         }
         $resultados = array(
@@ -35,126 +34,74 @@ switch ($_GET["op"]) {
         );
         echo json_encode($resultados);
         break;
-    case 'AgregarProducto':
-        $Descripcion = isset($_POST["descripcionP"]) ? trim($_POST["descripcionP"]) : "";
-        $CantXS = isset($_POST["Cantidad_XS"]) ? trim($_POST["Cantidad_XS"]) : "";
-        $CantS = isset($_POST["Cantidad_S"]) ? trim($_POST["Cantidad_S"]) : "";
-        $CantM = isset($_POST["Cantidad_M"]) ? trim($_POST["Cantidad_M"]) : "";
-        $CantL = isset($_POST["Cantidad_L"]) ? trim($_POST["Cantidad_L"]) : "";
-        $CantXL = isset($_POST["Cantidad_XL"]) ? trim($_POST["Cantidad_XL"]) : "";
-        $CantXXL = isset($_POST["Cantidad_XXL"]) ? trim($_POST["Cantidad_XXL"]) : "";
-        $IdCategoria = isset($_POST["Id_Categoria"]) ? trim($_POST["Id_Categoria"]) : "";
-        $IdMarca = isset($_POST["Id_Marca"]) ? trim($_POST["Id_Marca"]) : "";
-        $PrecioVenta = isset($_POST["Precio_Venta"]) ? trim($_POST["Precio_Venta"]) : "";
-        $PrecioCredito = isset($_POST["Precio_Credito"]) ? trim($_POST["Precio_Credito"]) : "";
-        
-        $newImageName = ""; 
-        if (isset($_FILES["imagenP"]["name"])) {
-            $imagenName = $_FILES["imagenP"]["name"];
-            $tmpName = $_FILES["imagenP"]["tmp_name"];
 
-            $validImageExtension = ['jpeg', 'jpg', 'png'];
-            $imageExtension = explode('.', $imagenName);
+    case 'AgregarCarrito':
+        $XS = isset($_POST["Cantidad_XS"]) ? intval(trim($_POST["Cantidad_XS"])) : "";
+        $S = isset($_POST["Cantidad_S"]) ? intval(trim($_POST["Cantidad_S"])) : "";
+        $M = isset($_POST["Cantidad_M"]) ? intval(trim($_POST["Cantidad_M"])) : "";
+        $L = isset($_POST["Cantidad_L"]) ? intval(trim($_POST["Cantidad_L"])) : "";
+        $XL = isset($_POST["Cantidad_XL"]) ? intval(trim($_POST["Cantidad_XL"])) : "";
+        $XXL = isset($_POST["Cantidad_XXL"]) ? intval(trim($_POST["Cantidad_XXL"])) : "";
+        //Verificar que la cantidad que se haya agregado exista en en la bd
 
-            $name = $imageExtension[0];
-            $imageExtension = strtolower(end($imageExtension));
-
-            if (!in_array($imageExtension, $validImageExtension)) {
-                
-                $newImageName="imagenPredeterminada-65f0e2911dded.jpg";
- 
-            } else {
-                $newImageName = $name . "-" . uniqid() . '.' . $imageExtension;
-                
-            }
-
-        }
-
-        $producto = new Producto();
-
-        $producto->setDescripcion($Descripcion);
-        $encontrado = $producto->verificarExistenciaProductoDb();
-        if ($encontrado == 0) {
-            $producto->setCantXS($CantXS);
-            $producto->setCantS($CantS);
-            $producto->setCantM($CantM);
-            $producto->setCantL($CantL);
-            $producto->setCantXL($CantXL);
-            $producto->setCantXXL($CantXXL);
-            $producto->setIdCategoria($IdCategoria);
-            $producto->setIdMarca($IdMarca);
-            $producto->setPrecioCredito($PrecioCredito);
-            $producto->setPrecioVenta($PrecioVenta);
-            $producto->setImagen($newImageName);
-            $producto->CrearProductoDB();
-            move_uploaded_file($tmpName, '../view/assets/img/'. $newImageName);
-            if ($producto->verificarExistenciaProductoDb()) {
-                echo 1; //producto registrado 
-                //  echo 4; //producto registrado y envio de correo fallido
-                //}
-            } else {
-                echo 3; //Fallo al realizar el registro
-            }
+        $IdProducto = isset($_POST["Id_Producto"]) ? trim($_POST["Id_Producto"]) : "";
+        if (!$IdProducto) {
+            echo 5;//los datos no estan completos
         } else {
-            echo 2; //el producto ya existe
-        }
+            $carrito = new Carrito();
 
-        break;
-    case 'EditarProducto':
-        $IdProducto = isset($_POST["id"]) ? trim($_POST["id"]) : "";
-        $Descripcion = isset($_POST["Nueva_Descripcion"]) ? trim($_POST["Nueva_Descripcion"]) : "";
-        $CantXS = isset($_POST["Nueva_Cant_XS"]) ? trim($_POST["Nueva_Cant_XS"]) : "";
-        $CantS = isset($_POST["Nueva_Cant_S"]) ? trim($_POST["Nueva_Cant_S"]) : "";
-        $CantM = isset($_POST["Nueva_Cant_M"]) ? trim($_POST["Nueva_Cant_M"]) : "";
-        $CantL = isset($_POST["Nueva_Cant_L"]) ? trim($_POST["Nueva_Cant_L"]) : "";
-        $CantXL = isset($_POST["Nueva_Cant_XL"]) ? trim($_POST["Nueva_Cant_XL"]) : "";
-        $CantXXL = isset($_POST["Nueva_Cant_XXL"]) ? trim($_POST["Nueva_Cant_XXL"]) : "";
-        $IdCategoria = isset($_POST["Nuevo_Id_Categoria"]) ? trim($_POST["Nuevo_Id_Categoria"]) : "";
-        $IdMarca = isset($_POST["Nuevo_Id_Marca"]) ? trim($_POST["Nuevo_Id_Marca"]) : "";
-        $PrecioVenta = isset($_POST["Nuevo_Precio_Venta"]) ? trim($_POST["Nuevo_Precio_Venta"]) : "";
-        $PrecioCredito = isset($_POST["Nuevo_Precio_Credito"]) ? trim($_POST["Nuevo_Precio_Credito"]) : "";
-        $Imagen = isset($_POST["Nueva_Imagen"]) ? trim($_POST["Nueva_Imagen"]) : "";
+            $carrito->setIdProducto($IdProducto);
+            $carrito->setIdUsuario(1);
+            $encontrado = $carrito->verificarExistenciaProductoCarritoDb();
 
-        $producto = new Producto();
-
-        $producto->setDescripcion($Descripcion);
-        $encontrado = $producto->verificarExistenciaProductoDb();
-        if ($encontrado == 1) {
-            $producto->llenarCampos($IdProducto);
-
-            $producto->setDescripcion($Descripcion);
-            $producto->setCantXS($CantXS);
-            $producto->setCantS($CantS);
-            $producto->setCantM($CantM);
-            $producto->setCantL($CantL);
-            $producto->setCantXL($CantXL);
-            $producto->setCantXXL($CantXXL);
-            $producto->setIdCategoria($IdCategoria);
-            $producto->setIdMarca($IdMarca);
-            $producto->setImagen($Imagen);
-            $producto->setPrecioCredito($PrecioCredito);
-            $producto->setPrecioVenta($PrecioVenta);
-            $producto->setIdProducto($IdProducto);
-            $modificados = $producto->EditarProducto();
-            if ($modificados > 0) {
-                echo 1;
+            if ($encontrado == 0) {
+                $carrito->setXS($XS);
+                $carrito->setS($S);
+                $carrito->setM($M);
+                $carrito->setL($L);
+                $carrito->setXL($XL);
+                $carrito->setXXL($XXL);
+                $carrito->setIdUsuario(1);
+                $carrito->setIdProducto($IdProducto);
+                echo "paso la verificicacion";
+                $carrito->AgregarProductoCarrito();
+                if ($carrito->verificarExistenciaProductoCarritoDb()) {
+                    echo 1; //carrito registrado 
+                    //  echo 4; //carrito registrado y envio de correo fallido
+                    //}
+                } else {
+                    echo 3; //Fallo al realizar el registro
+                }
             } else {
-                echo 0;
+                echo 2; //el carrito ya existe
             }
-        } else {
-            echo 2;
+
         }
         break;
-    case 'EliminarProducto':
-        $producto = new Producto();
-        $producto->setIdProducto(trim($_POST['IdProducto']));
-        $encontrado = $producto->verificarExistenciaProductoByIDDb();
-        if ($encontrado == 1) {
-            $rspta = $producto->EliminarProducto();
-        } else {
-            $rspta = "No encontrado";
+    case 'BuscarProductoAgregarC':
+        $etiqueta = new Producto();
+        $etiquetas = $etiqueta->VerProductosDB();
+        $data = array();
+        foreach ($etiquetas as $reg) {
+            $data[] = array(
+                "0" => $reg->getIdProducto(),
+                "1" => $reg->getDescripcion(),
+                "2" => '<button class="btn btn-success" id="SeleccionarAC"><i class="fa-solid fa-check"></i></button>',
+                "3" => $reg->getPrecioVenta(),
+                "4" => $reg->getCantXS(),
+                "5" => $reg->getCantS(),
+                "6" => $reg->getCantM(),
+                "7" => $reg->getCantL(),
+                "8" => $reg->getCantXL(),
+                "9" => $reg->getCantXXL()
+            );
         }
-
-        echo $rspta;
-
+        $resultados = array(
+            "sEcho" => 1, ##informacion para datatables
+            "iTotalRecords" => count($data), ## total de registros al datatable
+            "iTotalDisplayRecords" => count($data), ## enviamos el total de registros a visualizar
+            "aaData" => $data
+        );
+        echo json_encode($resultados);
+        break;
 }

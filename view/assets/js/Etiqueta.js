@@ -33,7 +33,7 @@ function ListarEtiquetas() {
   });
 }
 function ListarProductosAgregar() {
-  tabla = $("#tblListadoBuscarProductoA").dataTable({
+  tabla2 = $("#tblListadoBuscarProductoA").dataTable({
     aProcessing: true, //actiavmos el procesamiento de datatables
     aServerSide: true, //paginacion y filtrado del lado del serevr
     dom: "Bfrtip", //definimos los elementos del control de tabla
@@ -50,6 +50,7 @@ function ListarProductosAgregar() {
     },
   });
 }
+
 function ListarProductosEditar() {
   tabla = $("#tblListadoBuscarProductoE").dataTable({
     aProcessing: true, //actiavmos el procesamiento de datatables
@@ -75,6 +76,7 @@ $(function () {
   $("#formulario_editar_etiqueta").hide();
   $("#formulario_agregar_etiqueta").hide();
   ListarEtiquetas();
+  ListarProductosAgregar();
 
 });
 /*
@@ -259,6 +261,7 @@ function EliminarEtiquetas() {
           switch (data) {
             case '1':
               toastr.success('Etiquetas Eliminadas');
+              
               location.reload();
               break;
 

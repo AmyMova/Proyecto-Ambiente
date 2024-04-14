@@ -140,6 +140,7 @@ switch ($_GET["op"]) {
             $rspta = "No encontrado";
         }
 
+
         echo $rspta;
     case 'EliminarEtiquetas':
         $etiqueta = new Etiqueta();
@@ -147,13 +148,15 @@ switch ($_GET["op"]) {
         if ($encontrado == 1) {
             $etiqueta->EliminarEtiquetas();
             $eliminado = $etiqueta->verificarCantidadDB();
-            if ($eliminado > 0) {
+            if ($eliminado == 0) {
                 echo 1;
             } else {
                 echo 0;
             }
 
         }
+
+        
     case 'BuscarProductoAgregar':
         $etiqueta = new Producto();
         $etiquetas = $etiqueta->VerProductosDB();
@@ -173,6 +176,7 @@ switch ($_GET["op"]) {
         );
         echo json_encode($resultados);
         break;
+
     case 'BuscarProductoEditar':
         $etiqueta = new Producto();
         $etiquetas = $etiqueta->VerProductosDB();

@@ -195,6 +195,7 @@
     <script src="./../assets/js/Otros.js"></script>
     <script src="./../assets/js/Movimiento.js"></script>
     <script src="./../assets/js/Error.js"></script>
+    <script src="./../assets/js/CarritoInterno.js"></script>
     <script type="module" src="./../assets/js/Reporte.js"></script>
 </body>
 
