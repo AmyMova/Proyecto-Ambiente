@@ -227,6 +227,30 @@ class NewApartadoModel extends Conexion
         }
     }
     
+    public function obtenerVentasDiarias() {
+        // Define la consulta SQL para obtener la fecha y la suma de `PrecioTotal`.
+        $query = "SELECT FechaApartado, SUM(PrecioTotal) AS TotalVenta
+                  FROM apartado
+                  GROUP BY FechaApartado
+                  ORDER BY FechaApartado";
+    
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            $resultado->execute();
+            self::desconectar();
+    
+            $ventasDiarias = array();
+            while ($row = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                $ventasDiarias[] = $row;
+            }
+    
+            return $ventasDiarias;
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            return false;
+        }
+    }
     
     /*=====  End of Metodos de la Clase  ======*/
 }
