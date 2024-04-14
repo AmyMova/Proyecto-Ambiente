@@ -203,7 +203,29 @@ class NewApartadoModel extends Conexion
         }
     }
     
+    public function obtenerDatosParaGrafico() {
+        // Define la consulta SQL para obtener `NombreCliente` y la suma de `PrecioTotal`.
+        $query = "SELECT NombreCliente, SUM(PrecioTotal) AS PrecioTotal
+                  FROM apartado
+                  GROUP BY NombreCliente";
     
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            $resultado->execute();
+            self::desconectar();
+            
+            $datos = array();
+            while ($row = $resultado->fetch(PDO::FETCH_ASSOC)) {
+                $datos[] = $row;
+            }
+    
+            return $datos;
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            return false;
+        }
+    }
     
     
     /*=====  End of Metodos de la Clase  ======*/

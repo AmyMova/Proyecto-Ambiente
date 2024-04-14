@@ -99,5 +99,17 @@ switch ($_GET["op"]) {
             echo json_encode(array("success" => false, "message" => "Faltan campos obligatorios: " . implode(", ", $missing_fields)));
         }
         break;
+
+        case 'DatosParaGrafico':
+            $apartadoModel = new NewApartadoModel();
+            $datos = $apartadoModel->obtenerDatosParaGrafico();
+            
+            if ($datos !== false) {
+                echo json_encode($datos);
+            } else {
+                echo json_encode(array("error" => true, "message" => "Error al obtener los datos para el gráfico."));
+            }
+            break;
+            
 }
 ?>

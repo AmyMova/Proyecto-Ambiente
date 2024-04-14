@@ -20,6 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `rosayanil`
 --
+
+
+
 CREATE DATABASE IF NOT EXISTS `rosayanil` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `rosayanil`;
 
@@ -27,6 +30,26 @@ DELIMITER $$
 --
 -- Procedimientos
 --
+
+-- Procedimiento para crear un apartado
+CREATE PROCEDURE CrearApartado(
+    IN p_ValorTotal VARCHAR(255),
+    IN Producto VARCHAR(255),
+    IN CantidadTotal VARCHAR(255),
+    IN PrecioTotal VARCHAR(255),
+    IN Duracion VARCHAR(50),
+    IN AporteUsuario VARCHAR(255),
+    IN MetodoPago VARCHAR(255),
+    IN NombreCliente VARCHAR(100),
+    IN FechaApartado VARCHAR(100),
+    IN CorreoCliente VARCHAR(100)
+)
+BEGIN
+    -- Insertar el nuevo apartado en la tabla de apartados
+    INSERT INTO apartado (ValorTotal, Producto, CantidadTotal, PrecioTotal, Duracion, AporteUsuario, MetodoPago, NombreCliente, FechaApartado, CorreoCliente)
+    VALUES (p_ValorTotal, Producto, CantidadTotal, PrecioTotal, Duracion, AporteUsuario, MetodoPago, NombreCliente, FechaApartado, CorreoCliente);
+END$$
+
 DROP PROCEDURE IF EXISTS `CopiarEtiquetas`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `CopiarEtiquetas` (IN `Precio_Venta` DECIMAL, IN `Precio_Credito` DECIMAL, IN `Id_Categoria` INT, IN `Id_Marca` INT, IN `Id_Producto` INT, IN `Id_Talla` INT)   BEGIN
     INSERT INTO producto
@@ -240,13 +263,17 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `apartado`;
 CREATE TABLE `apartado` (
-  `ValorTotal` decimal(10,0) NOT NULL,
+  `IdApartado` INT AUTO_INCREMENT PRIMARY KEY,
+  `ValorTotal` varchar(100) NOT NULL,
   `Producto` varchar(100) NOT NULL,  
-  `CantidadTotal` int(11) NOT NULL,  
-  `PrecioTotal` decimal(10,0) NOT NULL,
-  `Duracion` varchar(50) NOT NULL,
-  `AporteUsuario` decimal(10,2) NOT NULL,
-  `MetodoPago` varchar(50) NOT NULL
+  `CantidadTotal` varchar(100) NOT NULL,  
+  `PrecioTotal` varchar(100) NOT NULL,
+  `Duracion` varchar(100) NOT NULL,
+  `AporteUsuario` varchar(100) NOT NULL,
+  `MetodoPago` varchar(100) NOT NULL,
+  `NombreCliente` varchar(100) NOT NULL,
+  `FechaApartado` varchar(100) NOT NULL,
+  `CorreoCliente` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -563,6 +590,13 @@ ALTER TABLE `producto`
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`IdRol`) REFERENCES `rol` (`IdRol`);
 COMMIT;
+
+
+DROP PROCEDURE IF EXISTS `VerApartadosAdmin`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `VerApartadosAdmin` ()   begin
+select * from 
+apartado;
+end$$
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
