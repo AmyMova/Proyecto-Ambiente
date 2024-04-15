@@ -117,3 +117,5 @@
 
 
         <?php include ("Component\Footer.php") ?>
+
+        <script src="./../assets/js/Movimiento.js"></script>

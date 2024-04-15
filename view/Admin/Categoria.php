@@ -118,5 +118,7 @@
         </div>
     </div><br>
     <div class="row row-cols-4 text-center" id="contenedor-tarjetas-Categoria"></div>
-
+    
     <?php include ("Component\Footer.php") ?>
+    <script src="./../assets/js/Categoria.js"></script>
+    <script src="./../assets/js/Otros.js"></script>

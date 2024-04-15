@@ -3,6 +3,7 @@ require_once '../Model/UsuarioModel.php';
 require ('../view/assets/libs/phpMailer/PHPMailer.php');
 require ('../view/assets/libs/phpMailer/Exception.php');
 require ('../view/assets/libs/phpMailer/SMTP.php');
+require_once '../Model/ErrorModel.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 switch ($_GET["op"]) {

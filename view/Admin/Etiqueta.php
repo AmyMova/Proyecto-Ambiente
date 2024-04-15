@@ -227,7 +227,7 @@
                                         href="ImprimirEtiqueta.php">Imprimir</a>
                                 </div>
                                 <div class="col-2"><button class="btn waves-effect waves-light btn-danger btn-block"
-                                        onclick="EliminarEtiquetas();">Limpiar
+                                        onclick="EliminarEtiquetas(event);">Limpiar
                                         Etiquetas</button>
                                 </div>
                             </div>
@@ -279,7 +279,8 @@
                 </div>
                 <div class="modal-body">
 
-                    <table id="tblListadoBuscarProductoA" class="table table-striped table-bordered table-hover" style="width:100%;">
+                    <table id="tblListadoBuscarProductoA" class="table table-striped table-bordered table-hover"
+                        style="width:100%;">
                         <thead>
                             <th>ID</th>
                             <th>Producto</th>
@@ -337,3 +338,4 @@
 
 
     <?php include ("Component\Footer.php") ?>
+    <script src="./../assets/js/Etiqueta.js"></script>

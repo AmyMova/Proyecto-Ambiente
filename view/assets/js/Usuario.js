@@ -47,7 +47,7 @@ function cancelarFormUsuario() {
 
 /*Funcion para cargar el listado en el Datatable*/
 function ListarUsuarios() {
-    tabla = $("#tblListadoUsuario").dataTable({
+    tablaUsuario = $("#tblListadoUsuario").dataTable({
         aProcessing: true, //actiavmos el procesamiento de datatables
         aServerSide: true, //paginacion y filtrado del lado del serevr
         dom: "Bfrtip", //definimos los elementos del control de tabla
@@ -101,8 +101,7 @@ $("#usuario_agregar").on("submit", function (event) {
                     toastr.success("Usuario registrado");
                     $("#usuario_agregar")[0].reset();
                     $("#formulario_agregar_usuario").hide();
-                    location.reload();
-                    break;
+                    tablaUsuario.api().ajax.reload();
 
                 case "2":
                     toastr.error(
@@ -177,7 +176,7 @@ $("#usuario_editar").on("submit", function (event) {
                             break;
                         case "1":
                             toastr.success("Usuario actualizado exitosamente");
-                            location.reload();
+                            tablaUsuario.api().ajax.reload();
                             limpiarFormsUsuario();
                             $("#formulario_editar_usuario").hide();
                             $("#formulario_agregar_usuario").show();
@@ -201,7 +200,7 @@ function Eliminar(IdUsuario) {
                     switch (data) {
                         case '1':
                             toastr.success('Usuario Eliminado');
-                            location.reload();
+                            tablaUsuario.api().ajax.reload();
                             break;
 
                         case '0':

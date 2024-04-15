@@ -7,7 +7,7 @@
             <div class="card card-dark">
                 <!-- Encabezado del formulario para crear productos -->
                 <div class="card-header">
-                <?php echo $_SESSION["IdUsuario"];?>
+                    <?php echo $_SESSION["IdUsuario"]; ?>
                     <h3 class="card-title">Agregar un Producto</h3>
                 </div>
                 <!-- Encabezado del formulario para crear productos -->
@@ -121,9 +121,9 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="input-group">
-                                                <label class="input-group" class="input-group"
-                                                    for="Id_Marca">Marca</label><br>
-                                                <select class="form-control" name="Id_Marca" id="Id_Marca">
+                                                <label class="input-group" for="Id_Marca">Marca</label><br>
+                                                <select class="select2 form-control custom-select" name="Id_Marca"
+                                                    id="Id_Marca">
                                                     <selected>Seleccionar Marca</selected>
                                                     <!-- se hizo un select en el cual se puede buscar información dicha informacion se pasa por medio de un json -->
                                                 </select>
@@ -132,9 +132,9 @@
                                         </div>
                                         <div class="col">
                                             <div class="input-group">
-                                                <label class="input-group" class="input-group"
-                                                    for="Id_Categoria">Categoría</label><br>
-                                                <select class="form-control" name="Id_Categoria" id="Id_Categoria">
+                                                <label class="input-group" for="Id_Categoria">Categoría</label><br>
+                                                <select class="select2 form-control custom-select" name="Id_Categoria"
+                                                    id="Id_Categoria">
                                                     <selected>Seleccionar Categoría</selected>
                                                     <!-- se hizo un select en el cual se puede buscar información dicha informacion se pasa por medio de un json -->
                                                 </select>
@@ -317,7 +317,8 @@
                                             <div class="input-group">
                                                 <label class="input-group" class="input-group"
                                                     for="Nuevo_Id_Marca">Marca</label><!-- se hace un select con todas las marcas que existen en la bd y se selecciona el valor que tiene el producto -->
-                                                <select name="Nuevo_Id_Marca" id="Nuevo_Id_Marca" class="form-control ">
+                                                <select name="Nuevo_Id_Marca" id="Nuevo_Id_Marca"
+                                                    class="select2 form-control custom-select ">
                                                 </select>
                                             </div>
                                         </div>
@@ -327,7 +328,7 @@
                                                 <label class="input-group" class="input-group"
                                                     for="Nuevo_Id_Categoria">Categoría</label><!-- se hace un select con todas las categorias que existen en la bd y se selecciona el valor que tiene el producto -->
                                                 <select name="Nuevo_Id_Categoria" id="Nuevo_Id_Categoria"
-                                                    class="form-control">
+                                                    class="select2 form-control custom-select">
                                                 </select>
                                             </div>
                                         </div>
@@ -467,3 +468,5 @@
 
     <!-- Desde aqui se llama el footer -->
     <?php include ("Component\Footer.php") ?>
+    <script src="../assets/js/Producto.js"></script>
+    <script src="./../assets/js/Otros.js"></script>

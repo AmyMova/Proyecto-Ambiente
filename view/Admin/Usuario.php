@@ -68,13 +68,14 @@
                                                 <label for="Ano_Cumpleanos">Año Cumpleaños<span
                                                         class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="Ano_Cumpleanos"
-                                                    name="Ano_Cumpleanos" value="2004" max="2004" min="1920"required>
+                                                    name="Ano_Cumpleanos" value="2004" max="2004" min="1920" required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <label class="input-group" for="Id_Rol">Rol<span
                                                     class="text-danger">*</span></label>
-                                            <select name="Id_Rol" id="Id_Rol" class="form-control" placedholder="Seleccionar Rol">
+                                            <select name="Id_Rol" id="Id_Rol" class="form-control"
+                                                placedholder="Seleccionar Rol">
                                                 <option value="1">Administrador</option>
                                                 <option value="2" selected>Cliente</option>
                                                 <option value="3">Vendedor</option>
@@ -126,20 +127,23 @@
                                 <div class="col">
                                     <div class="row button-group">
                                         <div class="col-2">
-                                            <input type="submit" id="btnRegistar" class="btn btn-success btn-block" value="Registrar">
+                                            <input type="submit" id="btnRegistar" class="btn btn-success btn-block"
+                                                value="Registrar">
                                         </div>
-                                        <div class="col-2"><input type="reset" class="btn btn-warning  btn-block" value="Borrar datos"></div>
-                                        <div class="col-2"><input type="button" id="btnCancelar" class="btn btn-secondary btn-block" value="Cancelar"
-                                            onclick="cancelarFormUsuario()"></div>
+                                        <div class="col-2"><input type="reset" class="btn btn-warning  btn-block"
+                                                value="Borrar datos"></div>
+                                        <div class="col-2"><input type="button" id="btnCancelar"
+                                                class="btn btn-secondary btn-block" value="Cancelar"
+                                                onclick="cancelarFormUsuario()"></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="button-group ">
-                                        
 
-                                        
 
-                                        
+
+
+
 
                                     </div>
                                 </div>
@@ -230,7 +234,7 @@
                                             <label class="input-group" for="Nuevo_Rol">Rol<span
                                                     class="text-danger">*</span></label>
                                             <select name="Nuevo_Rol" id="Nuevo_Rol" class="form-control">
-                                            <option value="1">Administrador</option>
+                                                <option value="1">Administrador</option>
                                                 <option value="2">Cliente</option>
                                                 <option value="3">Vendedor</option>
                                             </select>
@@ -363,3 +367,4 @@
 
 
     <?php include ("Component\Footer.php") ?>
+    <script src="./../assets/js/Usuario.js"></script>

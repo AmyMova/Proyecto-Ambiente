@@ -187,16 +187,16 @@
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap4.min.js"></script>
     <script src="./../plugins/bootbox/bootbox.min.js"></script>
     <script src="./../plugins/toastr/toastr.js"></script>
-    <script src="./../assets/js/Producto.js"></script>
-    <script src="./../assets/js/Marca.js"></script>
-    <script src="./../assets/js/Categoria.js"></script>
-    <script src="./../assets/js/Etiqueta.js"></script>
-    <script src="./../assets/js/Usuario.js"></script>
-    <script src="./../assets/js/Otros.js"></script>
-    <script src="./../assets/js/Movimiento.js"></script>
-    <script src="./../assets/js/Error.js"></script>
-    <script src="./../assets/js/CarritoInterno.js"></script>
-    <script type="module" src="./../assets/js/Reporte.js"></script>
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    <!--<script type="module" src="./../assets/js/Reporte.js"></script>-->
 </body>
 
 </html>

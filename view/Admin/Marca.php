@@ -18,24 +18,25 @@
                                             <label for="Nombre_Marca">Marca<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="Nombre_Marca"
                                                 name="Nombre_Marca" minlength="8" maxlength="20" required
-                                                onkeyup="EliminarNumeros();">
+                                                onkeyup="EliminarNumerosM();">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="col">
                                 <div class="row button-group">
-                                    <div class="col-2"><input type="submit" id="btnRegistar" class="btn btn-success btn-block"
-                                            value="Registrar"></div>
+                                    <div class="col-2"><input type="submit" id="btnRegistar"
+                                            class="btn btn-success btn-block" value="Registrar"></div>
                                     <div class="col-2"><input type="reset" class="btn btn-warning  btn-block"
                                             value="Borrar datos"></div>
-                                    <div class="col-2"><input type="button" id="btnCancelar" class="btn btn-secondary btn-block"
-                                            value="Cancelar" onclick="cancelarFormMarca()"></div>
+                                    <div class="col-2"><input type="button" id="btnCancelar"
+                                            class="btn btn-secondary btn-block" value="Cancelar"
+                                            onclick="cancelarFormMarca()"></div>
 
                                 </div>
                             </div>
-                            
+
                         </form>
                     </div>
                 </div>
@@ -69,7 +70,7 @@
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="Nuevo_Nombre_Marca"
                                                 name="Nuevo_Nombre_Marca" minlength="8" maxlength="20" required
-                                                onkeyup="EliminarNumeros();">
+                                                onkeyup="EliminarNumerosM();">
                                         </div>
                                     </div>
                                 </div>
@@ -112,3 +113,5 @@
     <div class="row row-cols-4 text-center" id="contenedor-tarjetas-Marca"></div>
 
     <?php include ("Component\Footer.php") ?>
+    <script src="./../assets/js/Marca.js"></script>
+    <script src="./../assets/js/Otros.js"></script>
