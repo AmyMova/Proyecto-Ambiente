@@ -16,10 +16,15 @@ class Carrito extends Conexion
     private $L = null;
     private $XL = null;
     private $XXL = null;
+
+    private $DB_XS = null;
+    private $DB_S = null;
+    private $DB_M = null;
+    private $DB_L = null;
+    private $DB_XL = null;
+    private $DB_XXL = null;
     private $Precio = null;
     private $Descripcion = null;
-    private $Marca = null;
-    private $Categoria = null;
     private $PrecioVenta = null;
     private $Imagen = null;
     /*=====  End of Atributos de la Clase  ======*/
@@ -109,6 +114,59 @@ class Carrito extends Conexion
     {
         $this->XXL = $XXL;
     }
+
+
+    //cantidades para de la db
+
+    public function getDB_XS()
+    {
+        return $this->DB_XS;
+    }
+    public function setDB_XS($DB_XS)
+    {
+        $this->DB_XS = $DB_XS;
+    }
+    public function getDB_S()
+    {
+        return $this->DB_S;
+    }
+    public function setDB_S($DB_S)
+    {
+        $this->DB_S = $DB_S;
+    }
+    public function getDB_M()
+    {
+        return $this->DB_M;
+    }
+    public function setDB_M($DB_M)
+    {
+        $this->DB_M = $DB_M;
+    }
+    public function getDB_L()
+    {
+        return $this->DB_L;
+    }
+    public function setDB_L($DB_L)
+    {
+        $this->DB_L = $DB_L;
+    }
+    public function getDB_XL()
+    {
+        return $this->DB_XL;
+    }
+    public function setDB_XL($DB_XL)
+    {
+        $this->DB_XL = $DB_XL;
+    }
+    public function getDB_XXL()
+    {
+        return $this->XXL;
+    }
+    public function setDB_XXL($DB_XXL)
+    {
+        $this->DB_XXL = $DB_XXL;
+    }
+
     public function getPrecio()
     {
         return $this->Precio;
@@ -126,7 +184,7 @@ class Carrito extends Conexion
     {
         $this->PrecioVenta = $PrecioVenta;
     }
-    
+
     public function getDescripcion()
     {
         return $this->Descripcion;
@@ -143,22 +201,7 @@ class Carrito extends Conexion
     {
         $this->Imagen = $Imagen;
     }
-    public function getCategoria()
-    {
-        return $this->Categoria;
-    }
-    public function setCategoria($Categoria)
-    {
-        $this->Categoria = $Categoria;
-    }
-    public function getMarca()
-    {
-        return $this->Marca;
-    }
-    public function setMarca($Marca)
-    {
-        $this->Marca = $Marca;
-    }
+
     /*=====  End of Encapsuladores de la Clase  ======*/
 
     /*=============================================
@@ -174,13 +217,13 @@ class Carrito extends Conexion
         self::$cnx = null;
     }
 
-    public function VerCarritoDB()
+    public function VerCarritoDB($id)
     {
-        $query = "Call VerCarrito(1)";
-        $arr = array();
+        $query = "Call VerCarrito(:id)";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
+            $resultado->bindParam(":id", $id, PDO::PARAM_INT);
             $resultado->execute();
             self::desconectar();
             foreach ($resultado->fetchAll() as $encontrado) {
@@ -194,11 +237,16 @@ class Carrito extends Conexion
                 $producto->setL($encontrado['L']);
                 $producto->setXL($encontrado['XL']);
                 $producto->setXXL($encontrado['XXL']);
+                $producto->setPrecioVenta($encontrado['PrecioVenta']);
                 $producto->setPrecio($encontrado['Precio']);
                 $producto->setDescripcion($encontrado['Descripcion']);
-                $producto->setCategoria($encontrado['Categoria']);
-                $producto->setMarca($encontrado['Marca']);
                 $producto->setImagen($encontrado['Imagen']);
+                $producto->setDB_XS($encontrado['CantXS']);
+                $producto->setDB_S($encontrado['CantS']);
+                $producto->setDB_M($encontrado['CantM']);
+                $producto->setDB_L($encontrado['CantL']);
+                $producto->setDB_XL($encontrado['CantXL']);
+                $producto->setDB_XXL($encontrado['CantXXL']);
                 $arr[] = $producto;
             }
             return $arr;
@@ -244,21 +292,44 @@ class Carrito extends Conexion
     }
 
 
-    public function EliminarProducto()
+    public function EliminarProductoCarrito()
     {
-        $IdCarrito = $this->getIdCarrito();
-        $query = "Call EliminarProducto(:id)";
+        $query = "Call EliminarDeCarrito(:id);";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
+            $IdCarrito = $this->getIdCarrito();
+
             $resultado->bindParam(":id", $IdCarrito, PDO::PARAM_INT);
-            self::$cnx->beginTransaction();//desactiva el autocommit
             $resultado->execute();
-            self::$cnx->commit();//realiza el commit y vuelve al modo autocommit
+            $count = $resultado->fetchColumn();
             self::desconectar();
-            return $resultado->rowCount();
+
+            // Si count es mayor que 0, significa que el producto existe
+            return $count > 0;
         } catch (PDOException $Exception) {
-            self::$cnx->rollBack();
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            return $error;
+        }
+    }
+
+    public function EliminarProductosCarrito()
+    {
+        $query = "Call EliminarCarrito(:id);";
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            $IdIdUsuario = $this->getIdUsuario();
+
+            $resultado->bindParam(":id", $IdIdUsuario, PDO::PARAM_INT);
+            $resultado->execute();
+            $count = $resultado->fetchColumn();
+            self::desconectar();
+
+            // Si count es mayor que 0, significa que el producto existe
+            return $count > 0;
+        } catch (PDOException $Exception) {
             self::desconectar();
             $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
             return $error;
@@ -268,7 +339,7 @@ class Carrito extends Conexion
 
     public function llenarCampos($id)
     {
-        $query = "Call VerProducto(id)";
+        $query = "Call VerProducto(:id)";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
@@ -288,9 +359,13 @@ class Carrito extends Conexion
                 $this->setM($encontrado['M']);
                 $this->setL($encontrado['L']);
                 $this->setXL($encontrado['XL']);
-                $this->setXXL($encontrado['XXL']);
-                $this->setMarca($encontrado['Marca']);
-                $this->setCategoria($encontrado['Categoria']);
+                $this->setDB_XXL($encontrado['CantXXL']);
+                $this->setDB_XS($encontrado['CantXS']);
+                $this->setDB_S($encontrado['CantS']);
+                $this->setDB_M($encontrado['CantM']);
+                $this->setDB_L($encontrado['CantL']);
+                $this->setDB_XL($encontrado['CantXL']);
+                $this->setDB_XXL($encontrado['CantXXL']);
             }
         } catch (PDOException $Exception) {
             self::desconectar();
@@ -300,18 +375,13 @@ class Carrito extends Conexion
         }
     }
 
-    public function EditarProducto()
+    public function EditarProductoCarrito()
     {
-        $query = "Call EditarProducto(:id,:Id_Categoria,:Id_Marca,:Nueva_Imagen,:Nueva_Descripcion,:Nuevo_Precio_Venta,:Nuevo_Precio,:Nueva__XS,:Nueva__S,:Nueva__M,:Nueva__L,:Nueva__XL,:Nueva__XXL)";
+        $query = "Call EditarCarrito(:id,:Id_Producto,:Nueva_Cant_XS,:Nueva_Cant_S,:Nueva_Cant_M,:Nueva_Cant_L,:Nueva_Cant_XL,:Nueva_Cant_XXL)";
         try {
             self::getConexion();
             $IdCarrito = $this->getIdCarrito();
             $IdProducto = $this->getIdProducto();
-            $IdUsuario = $this->getIdUsuario();
-            $Descripcion = strtoupper($this->getDescripcion());
-            $Imagen = $this->getImagen();
-            $PrecioVenta = $this->getPrecioVenta();
-            $Precio = $this->getPrecio();
             $XS = $this->getXS();
             $S = $this->getS();
             $M = $this->getM();
@@ -321,18 +391,13 @@ class Carrito extends Conexion
             $resultado = self::$cnx->prepare($query);
 
             $resultado->bindParam(":id", $IdCarrito, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva__XS", $XS, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva__S", $S, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva__M", $M, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva__L", $L, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva__XL", $XL, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva__XXL", $XXL, PDO::PARAM_INT);
-            $resultado->bindParam(":Nueva_Descripcion", $Descripcion, PDO::PARAM_STR);
-            $resultado->bindParam(":Nueva_Imagen", $Imagen, PDO::PARAM_STR);
-            $resultado->bindParam(":Id_Categoria", $IdProducto, PDO::PARAM_INT);
-            $resultado->bindParam(":Id_Marca", $IdUsuario, PDO::PARAM_INT);
-            $resultado->bindParam(":Nuevo_Precio", $Precio, PDO::PARAM_INT);
-            $resultado->bindParam(":Nuevo_Precio_Venta", $PrecioVenta, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva_Cant_XS", $XS, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva_Cant_S", $S, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva_Cant_M", $M, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva_Cant_L", $L, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva_Cant_XL", $XL, PDO::PARAM_INT);
+            $resultado->bindParam(":Nueva_Cant_XXL", $XXL, PDO::PARAM_INT);
+            $resultado->bindParam(":Id_Producto", $IdProducto, PDO::PARAM_INT);
             self::$cnx->beginTransaction();//desactiva el autocommit
             $resultado->execute();
             self::$cnx->commit();//realiza el commit y vuelve al modo autocommit
@@ -370,9 +435,31 @@ class Carrito extends Conexion
         }
     }
 
-    public function verificarExistenciaProductoByIdDb()
+    public function verificarProductosDB()
     {
-        $query = "SELECT * FROM producto where IdCarrito=:id";
+        $query = "SELECT COUNT(*) FROM carrito WHERE :id=IdUsuario";
+        try {
+            self::getConexion();
+            $resultado = self::$cnx->prepare($query);
+            $IdUsuario = $this->getIdUsuario();
+
+            $resultado->bindParam(":id", $IdUsuario, PDO::PARAM_INT);
+            $resultado->execute();
+            $count = $resultado->fetchColumn();
+            self::desconectar();
+
+            // Si count es mayor que 0, significa que el producto existe
+            return $count > 0;
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            return $error;
+        }
+    }
+
+    public function verificarExistenciaByIdDb()
+    {
+        $query = "SELECT * FROM carrito where IdCarrito=:id";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
@@ -393,6 +480,8 @@ class Carrito extends Conexion
         }
     }
 }
+
+
 /*=====  End of Metodos de la Clase  ======*/
 
 ?>

@@ -9,13 +9,13 @@ function cancelarFormEtiqueta() {
   limpiarFormsEtiqueta();
   $("#formulario_agregar_etiqueta").hide();
   $("#formulario_editar_etiqueta").hide();
-  
+
 }
 
 
 /*Funcion para cargar el listado en el Datatable*/
 function ListarEtiquetas() {
-  tabla = $("#tblListadoEtiqueta").dataTable({
+  tablaEtiqueta = $("#tblListadoEtiqueta").dataTable({
     aProcessing: true, //actiavmos el procesamiento de datatables
     aServerSide: true, //paginacion y filtrado del lado del serevr
     dom: "Bfrtip", //definimos los elementos del control de tabla
@@ -97,7 +97,7 @@ $("#etiqueta_agregar").on("submit", function (event) {
         case "1":
           toastr.success("Etiqueta registrado");
           $("#etiqueta_agregar")[0].reset();
-          location.reload();
+          tablaEtiqueta.api().ajax.reload();
           break;
 
         case "2":
@@ -118,20 +118,20 @@ $("#etiqueta_agregar").on("submit", function (event) {
   });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
   // Evento clic para el botón #agregarEtiqueta
-  $('#agregarEtiqueta').click(function() {
-      limpiarFormsEtiqueta();
-      $('#formulario_agregar_etiqueta').show();
-      $("#formulario_editar_etiqueta").hide();
-      return false; // Para evitar que el evento de clic se propague
+  $('#agregarEtiqueta').click(function () {
+    limpiarFormsEtiqueta();
+    $('#formulario_agregar_etiqueta').show();
+    $("#formulario_editar_etiqueta").hide();
+    return false; // Para evitar que el evento de clic se propague
   });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
   // Evento clic para el botón #agregarEtiqueta
-  $('#BuscarProductoA').click(function() {
-      return false; // Para evitar que el evento de clic se propague
+  $('#BuscarProductoA').click(function () {
+    return false; // Para evitar que el evento de clic se propague
   });
 });
 
@@ -147,11 +147,11 @@ $("#tblListadoBuscarProductoA tbody").on(
   }
 );
 
-$(document).ready(function() {
+$(document).ready(function () {
   // Evento clic para el botón #agregarEtiqueta
-  $('#BuscarProductoE').click(function() {
-    
-      return false; // Para evitar que el evento de clic se propague
+  $('#BuscarProductoE').click(function () {
+
+    return false; // Para evitar que el evento de clic se propague
   });
 });
 
@@ -179,13 +179,13 @@ $("#tblListadoEtiqueta tbody").on(
     $("#formulario_editar_etiqueta").show();
     $("#id").val(data[0]);
     $("#Nuevo_XS").val(data[2]);
-      $("#Nuevo_S").val(data[3]);
-      $("#Nuevo_M").val(data[4]);
-      $("#Nuevo_L").val(data[5]);
-      $("#Nuevo_XL").val(data[6]);
-      $("#Nuevo_XXL").val(data[7]);
-      $("#Id_Producto").val(data[11])
-      $("#Descripcion_Producto").val(data[1])
+    $("#Nuevo_S").val(data[3]);
+    $("#Nuevo_M").val(data[4]);
+    $("#Nuevo_L").val(data[5]);
+    $("#Nuevo_XL").val(data[6]);
+    $("#Nuevo_XXL").val(data[7]);
+    $("#Id_Producto").val(data[11])
+    $("#Descripcion_Producto").val(data[1])
     return false;
   }
 );
@@ -209,7 +209,7 @@ $("#formulario_editar_etiqueta").on("submit", function (event) {
               break;
             case "1":
               toastr.success("Etiqueta actualizado exitosamente");
-              location.reload();
+              tablaEtiqueta.api().ajax.reload();
               limpiarFormsEtiqueta();
               $("#formulario_editar_etiqueta").hide();
               break;
@@ -233,7 +233,7 @@ function EliminarEtiqueta(IdEtiqueta) {
           switch (data) {
             case '1':
               toastr.success('Etiqueta Eliminado');
-              location.reload();
+              tablaEtiqueta.api().ajax.reload();
               break;
 
             case '0':
@@ -252,7 +252,8 @@ function EliminarEtiqueta(IdEtiqueta) {
   });
 }
 
-function EliminarEtiquetas() {
+function EliminarEtiquetas(event) {
+  event.preventDefault();
   bootbox.confirm('¿Esta seguro de eliminar todas las etiquetas?', function (result) {
     if (result) {
       $.post(
@@ -261,8 +262,8 @@ function EliminarEtiquetas() {
           switch (data) {
             case '1':
               toastr.success('Etiquetas Eliminadas');
-              
-              location.reload();
+
+              tablaEtiqueta.api().ajax.reload();
               break;
 
             case '0':

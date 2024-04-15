@@ -15,13 +15,13 @@ function cancelarFormProducto() {
 
 /*Funcion para cargar el listado en el Datatable*/
 function ListarProductos() {
-  tabla = $("#tblListadoProducto").dataTable({
+  tablaProducto = $("#tblListadoProducto").dataTable({
     aProcessing: true, //actiavmos el procesamiento de datatables
     aServerSide: true, //paginacion y filtrado del lado del serevr
     dom: "Bfrtip", //definimos los elementos del control de tabla
     buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
     ajax: {
-      url: "./../../Controller/ProductoController.php?op=ListarTablaProducto",
+      url: "../../Controller/ProductoController.php?op=ListarTablaProducto",
       type: "get",
       dataType: "json",
       error: function (e) {
@@ -48,7 +48,7 @@ $("#producto_agregar").on("submit", function (event) {
   $("#btnRegistar").prop("disabled", true);
   var formData = new FormData($("#producto_agregar")[0]);
   $.ajax({
-    url: "./../../Controller/ProductoController.php?op=AgregarProducto",
+    url: "../../Controller/ProductoController.php?op=AgregarProducto",
     type: "POST",
     data: formData,
     contentType: false,
@@ -59,7 +59,7 @@ $("#producto_agregar").on("submit", function (event) {
           toastr.success("Producto registrado");
           $("#producto_agregar")[0].reset();
           $("#formulario_agregar").hide();
-          location.reload();
+          tablaProducto.api().ajax.reload();
           break;
 
         case "2":
@@ -127,7 +127,7 @@ $("#producto_editar").on("submit", function (event) {
     if (result) {
       var formData = new FormData($("#producto_editar")[0]);
       $.ajax({
-        url: "./../../Controller/ProductoController.php?op=EditarProducto",
+        url: "../../Controller/ProductoController.php?op=EditarProducto",
         type: "POST",
         data: formData,
         contentType: false,
@@ -140,7 +140,7 @@ $("#producto_editar").on("submit", function (event) {
               break;
             case "1":
               toastr.success("Producto actualizado exitosamente");
-              location.reload();
+              tablaProducto.api().ajax.reload();
               limpiarFormsProducto();
               $("#formulario_editar_producto").hide();
               break;
@@ -158,13 +158,13 @@ function EliminarProducto(IdProducto) {
   bootbox.confirm('¿Esta seguro de eliminar el producto?', function (result) {
     if (result) {
       $.post(
-        './../../Controller/ProductoController.php?op=EliminarProducto',
+        '../../Controller/ProductoController.php?op=EliminarProducto',
         { IdProducto: IdProducto },
         function (data, textStatus, xhr) {
           switch (data) {
             case '1':
               toastr.success('Producto Eliminado');
-              location.reload();
+              tablaProducto.api().ajax.reload();
               break;
 
             case '0':
@@ -185,7 +185,7 @@ function EliminarProducto(IdProducto) {
 
 function RellenarSelectAgregarCategoria() {
   $.ajax({
-    url: './../../Controller/CategoriaController.php?op=ListarCategoria',
+    url: '../../Controller/CategoriaController.php?op=ListarCategoria',
     dataType: 'json',
     success: function (response) {
       llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
@@ -221,7 +221,7 @@ function RellenarSelectAgregarCategoria() {
 
 function RellenarSelectAgregarMarca() {
   $.ajax({
-    url: './../../Controller/MarcaController.php?op=ListarMarca',
+    url: '../../Controller/MarcaController.php?op=ListarMarca',
     dataType: 'json',
     success: function (response) {
       llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
@@ -258,7 +258,7 @@ function RellenarSelectAgregarMarca() {
 
 function llenarSelectEditarMarca(data) {
   $.ajax({
-    url: './../../Controller/MarcaController.php?op=ListarMarca',
+    url: '../../Controller/MarcaController.php?op=ListarMarca',
     dataType: 'json',
     success: function (response) {
       llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos
@@ -297,7 +297,7 @@ function llenarSelectEditarMarca(data) {
 
 function llenarSelectEditarCategoria(data) {
   $.ajax({
-    url: './../../Controller/CategoriaController.php?op=ListarCategoria',
+    url: '../../Controller/CategoriaController.php?op=ListarCategoria',
     dataType: 'json',
     success: function (response) {
       llenarSelect(response); // Llamamos a la función para llenar el select con los datos recibidos

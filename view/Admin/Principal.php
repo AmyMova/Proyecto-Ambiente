@@ -1,4 +1,5 @@
 <?php include ("Component\Header.php") ?>
+
 <div class="container-fluid">
     <!-- ============================================================== -->
     <!-- Sales chart -->

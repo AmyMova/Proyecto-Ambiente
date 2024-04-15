@@ -97,3 +97,4 @@
 
 
     <?php include ("Component\Footer.php") ?>
+    <script src="./../assets/js/Error.js"></script>

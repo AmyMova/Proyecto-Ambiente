@@ -8,6 +8,7 @@ class Movimiento extends Conexion
     =============================================*/
     protected static $cnx;
     private $IdProducto = null;
+    private $IdUsuario = null;
     private $IdMovimiento = null;
     private $Descripcion = null;
     private $Usuario = null;
@@ -34,6 +35,14 @@ class Movimiento extends Conexion
     public function setIdProducto($IdProducto)
     {
         $this->IdProducto = $IdProducto;
+    }
+    public function getIdUsuario()
+    {
+        return $this->IdUsuario;
+    }
+    public function setIdUsuario($IdUsuario)
+    {
+        $this->IdUsuario = $IdUsuario;
     }
 
     public function getIdMovimiento()
@@ -178,6 +187,31 @@ class Movimiento extends Conexion
             self::desconectar();
             $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
             return $error;
+        }
+    }
+    public function CrearMovimientoDB()
+    {
+        $query = "Call CrearMovimiento(:Id_Usuario,:Id_Producto,:DescripcionM,:AccionM) ";
+        try {
+            self::getConexion();
+            $IdUsuario = $this->getIdUsuario();
+            $IdProducto = $this->getIdProducto();
+            $Descripcion = $this->getDescripcion();
+            $Accion = $this->getAccion();
+
+            $resultado = self::$cnx->prepare($query);
+
+            $resultado->bindParam(":IdUsuario", $IdUsuario, PDO::PARAM_INT);
+            $resultado->bindParam(":DescripcionM", $Descripcion, PDO::PARAM_STR);
+            $resultado->bindParam(":AccionM", $Accion, PDO::PARAM_STR);
+            $resultado->bindParam(":Id_Producto", $IdProducto, PDO::PARAM_INT);
+            $resultado->execute();
+            self::desconectar();
+        } catch (PDOException $Exception) {
+            self::desconectar();
+            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+            ;
+            return json_encode($error);
         }
     }
 }

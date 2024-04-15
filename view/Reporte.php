@@ -60,6 +60,7 @@
     <script src="plugins/toastr/toastr.js"></script>
     <!-- Tu script personalizado -->
     <script src="assets/js/NewApartado.js"></script>
+    
     <script>
         // Llamar a la función para listar los apartados cuando la página se cargue
         $(document).ready(function() {

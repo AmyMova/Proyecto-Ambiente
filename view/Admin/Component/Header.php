@@ -35,7 +35,6 @@ if ($_SESSION["IdRol"] != "1") {
     <!-- Custom CSS -->
     <link href="../assets/dist/css/style.min.css" rel="stylesheet">
     <!--CDN Select2-->
-    <link rel="stylesheet" type="text/css" href="../assets/libs/select2/dist/css/select2.min.css"></link>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
