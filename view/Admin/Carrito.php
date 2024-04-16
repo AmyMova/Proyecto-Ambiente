@@ -21,7 +21,8 @@
                                     <div class="row row-cols-3">
                                         <div class="col">
                                             <div class="form-group">
-                                                <input type="hidden"id="idUsuario"name="idUsuario" value="<?php echo $_SESSION["IdUsuario"];?>">
+                                                <input type="hidden" id="idUsuario" name="idUsuario"
+                                                    value="<?php echo $_SESSION["IdUsuario"]; ?>">
                                                 <label class="input-group" for="Id_Producto">ID Producto<span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="Id_Producto" readonly
@@ -213,7 +214,8 @@
                             <form name="modulos_editar_carritoInterno" id="carritoInterno_editar" method="POST"
                                 enctype="multipart/form-data">
                                 <input type="hidden" class="form-control" id="id" name="id">
-                                <input type="hidden"id="EidUsuario"name="EidUsuario" value="<?php echo $_SESSION["IdUsuario"];?>">
+                                <input type="hidden" id="EidUsuario" name="EidUsuario"
+                                    value="<?php echo $_SESSION["IdUsuario"]; ?>">
                                 <div class="col">
                                     <div class="row">
                                         <div class="col">
@@ -222,8 +224,8 @@
                                                         class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="Nuevo_Id_Producto"
                                                     name="Nuevo_Id_Producto" minlength="10" maxlength="50"
-                                                    onkeyup="EliminarLetras();"
-                                                    required readonly><!-- Esta función elimina los números que se encuentran en el campo -->
+                                                    onkeyup="EliminarLetras();" required
+                                                    readonly><!-- Esta función elimina los números que se encuentran en el campo -->
                                             </div>
                                         </div>
 
@@ -403,15 +405,6 @@
                 <!-- Cuerpo de la tabla carritos -->
                 <div class="card-body ">
                     <div class="row ">
-                        <div class="col-4">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="NombreUsuario"
-                                    name="NombreUsuario" placeholder="Buscar Usuario"readonly>
-                                <button class="btn btn-info" type="button" data-toggle="modal"
-                                    data-target="#BuscarUsuario"><i class="fas fa-search"></i></button>
-                            </div></br>
-                        </div>
-
                         <div class="col-12">
                             <table id="tblListadoCarritoInterno" class="table table-striped table-bordered table-hover">
                                 <thead>
@@ -442,23 +435,41 @@
                                 </tfooter>
                             </table>
                         </div>
-                        
+
                     </div>
                     <br>
                     <div class="col-12">
-                        <div class="row button-group justify-content-end">
+
+                        <div class="row  justify-content-between">
                             <div class="col-2">
                                 <input type="button" class="btn btn-secondary btn-block" value="Limpiar Carrito"
                                     onclick="LimpiarCarrito(event);" id="btnLimpiarCarrito">
                             </div>
-                            <div class="col-2">
-                                <input type="button" class="btn btn-info btn-block" value="Apartar"
-                                    onclick="Apartar()">
-                            </div>
-                            <div class="col-2">
-                                <input type="button" class="btn btn-success btn-block" value="Facturar"
-                                    onclick="Facturar()">
-                            </div>
+                            <form name="modulos_agregar_factura" id="factura_agregar" method="POST">
+                                <input type="hidden" id="idUsuario" name="idUsuario">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="NombreUsuario"
+                                                    name="NombreUsuario" placeholder="Buscar Usuario" readonly>
+                                                <button class="btn btn-info" type="button" data-toggle="modal"
+                                                    data-target="#BuscarUsuario"><i class="fas fa-search"></i></button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col">
+                                            <input type="button" class="btn btn-info btn-block" value="Apartar"
+                                                onclick="Apartar()">
+                                        </div>
+                                        <div class="col">
+                                            <input type="submit" id="btnFacturar" class="btn btn-success btn-block"
+                                                value="Facturar">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                 </div><!-- Cuerpo de la tabla carritos -->
@@ -477,7 +488,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <table id="tblListadoBuscarProductoAC" class="table table-striped table-bordered table-hover" style="width:100%;">
+                    <table id="tblListadoBuscarProductoAC" class="table table-striped table-bordered table-hover"
+                        style="width:100%;">
                         <thead>
                             <th>ID</th>
                             <th>Producto</th>
@@ -511,7 +523,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <table id="tblListadoBuscarProductoEC" class="table table-striped table-bordered table-hover" style="width:100%;">
+                    <table id="tblListadoBuscarProductoEC" class="table table-striped table-bordered table-hover"
+                        style="width:100%;">
                         <thead>
                             <th>ID</th>
                             <th>Producto</th>
@@ -535,17 +548,18 @@
     </div>
 
     <!-- /.modal -->
-<!--Buscar Usuario-->
+    <!--Buscar Usuario-->
     <div id="BuscarUsuario" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel" aria-hidden="true" ondblclick="ListarProductosAgregarC();">
+        aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Buscar Producto</h4>
+                    <h4 class="modal-title" id="myModalLabel">Buscar Usuario</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <table id="tblListadoBuscarProductoAC" class="table table-striped table-bordered table-hover">
+                    <table id="tblListadoBuscarUsuario" class="table table-striped table-bordered table-hover"
+                        style="width:100%;">
                         <thead>
                             <th>ID</th>
                             <th>Nombre</th>

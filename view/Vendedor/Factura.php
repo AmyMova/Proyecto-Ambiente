@@ -95,7 +95,7 @@
                 <div class="card-body ">
                     <div class="row ">
                         <div class="col">
-                            <table id="tbllistadoFactura" class="table table-striped table-bordered table-hover">
+                            <table id="tblListadoFacturaVendedor" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <th>ID</th>
                                     <th>Usuario</th>
@@ -123,3 +123,5 @@
     </div>
 
     <?php include ("Component\Footer.php") ?>
+
+    <script src="./../assets/js/Factura.js"></script>

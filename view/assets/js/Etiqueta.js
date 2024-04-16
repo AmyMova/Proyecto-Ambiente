@@ -29,11 +29,25 @@ function ListarEtiquetas() {
       },
       bDestroy: true,
       iDisplayLength: 5,
+    }, language: {
+      "emptyTable": "No hay datos disponibles en la tabla",
+      "loadingRecords": "Cargando...",
+      "processing": "Procesando...",
+      "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+      "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+      "search": "Buscar:",
+      "zeroRecords": "No se encontraron registros coincidentes",
+      "paginate": {
+        "first": "Primero",
+        "last": "Último",
+        "next": "Siguiente",
+        "previous": "Anterior"
+      },
     },
   });
 }
 function ListarProductosAgregar() {
-  tabla2 = $("#tblListadoBuscarProductoA").dataTable({
+  tablaProductosAgregar = $("#tblListadoBuscarProductoA").dataTable({
     aProcessing: true, //actiavmos el procesamiento de datatables
     aServerSide: true, //paginacion y filtrado del lado del serevr
     dom: "Bfrtip", //definimos los elementos del control de tabla
@@ -47,12 +61,26 @@ function ListarProductosAgregar() {
       },
       bDestroy: true,
       iDisplayLength: 5,
+    }, language: {
+      "emptyTable": "No hay datos disponibles en la tabla",
+      "loadingRecords": "Cargando...",
+      "processing": "Procesando...",
+      "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+      "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+      "search": "Buscar:",
+      "zeroRecords": "No se encontraron registros coincidentes",
+      "paginate": {
+        "first": "Primero",
+        "last": "Último",
+        "next": "Siguiente",
+        "previous": "Anterior"
+      },
     },
   });
 }
 
 function ListarProductosEditar() {
-  tabla = $("#tblListadoBuscarProductoE").dataTable({
+  tablaProductosEditar = $("#tblListadoBuscarProductoE").dataTable({
     aProcessing: true, //actiavmos el procesamiento de datatables
     aServerSide: true, //paginacion y filtrado del lado del serevr
     dom: "Bfrtip", //definimos los elementos del control de tabla
@@ -66,6 +94,20 @@ function ListarProductosEditar() {
       },
       bDestroy: true,
       iDisplayLength: 5,
+    }, language: {
+      "emptyTable": "No hay datos disponibles en la tabla",
+      "loadingRecords": "Cargando...",
+      "processing": "Procesando...",
+      "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+      "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+      "search": "Buscar:",
+      "zeroRecords": "No se encontraron registros coincidentes",
+      "paginate": {
+        "first": "Primero",
+        "last": "Último",
+        "next": "Siguiente",
+        "previous": "Anterior"
+      },
     },
   });
 }

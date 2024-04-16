@@ -6,6 +6,7 @@ require ('../view/assets/libs/phpMailer/SMTP.php');
 require_once '../Model/ErrorModel.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 switch ($_GET["op"]) {
     case 'IniciarSesion':
         session_start();
@@ -96,7 +97,7 @@ switch ($_GET["op"]) {
             //Configuracion Correo Electronico (Para Enviar el correo)
 
             $subject = "Recuperar Contraseña";
-            $msg =  "Hola " . $nombre_usuario . "Esta es tu contraseña: " . $contrasenna . "\n !Recomendamos que cambies tu contraseña!";
+            $msg = "Hola " . $nombre_usuario . "Esta es tu contraseña: " . $contrasenna . "\n !Recomendamos que cambies tu contraseña!";
             $receiver = $correo_Usuario;
             $mailer = new PHPMailer();
             $mailer->isSMTP();
@@ -122,3 +123,5 @@ switch ($_GET["op"]) {
         break;
 
 }
+
+

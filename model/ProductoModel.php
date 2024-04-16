@@ -7,6 +7,7 @@ class Producto extends Conexion
     =            Atributos de la Clase            =
     =============================================*/
     protected static $cnx;
+    private $IdUsuario = null;
     private $IdProducto = null;
     private $IdCategoria = null;
     private $IdMarca = null;
@@ -42,6 +43,15 @@ class Producto extends Conexion
     public function setIdProducto($IdProducto)
     {
         $this->IdProducto = $IdProducto;
+    }
+
+    public function getIdUsuario()
+    {
+        return $this->IdUsuario;
+    }
+    public function setIdUsuario($IdUsuario)
+    {
+        $this->IdUsuario = $IdUsuario;
     }
 
     public function getIdCategoria()
@@ -275,7 +285,7 @@ class Producto extends Conexion
 
     public function llenarCampos($id)
     {
-        $query = "Call VerProducto(id)";
+        $query = "Call VerProducto(:id)";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
@@ -296,8 +306,6 @@ class Producto extends Conexion
                 $this->setCantL($encontrado['CantL']);
                 $this->setCantXL($encontrado['CantXL']);
                 $this->setCantXXL($encontrado['CantXXL']);
-                $this->setMarca($encontrado['Marca']);
-                $this->setCategoria($encontrado['Categoria']);
             }
         } catch (PDOException $Exception) {
             self::desconectar();
@@ -312,6 +320,7 @@ class Producto extends Conexion
         $query = "Call EditarProducto(:id,:Id_Categoria,:Id_Marca,:Nueva_Imagen,:Nueva_Descripcion,:Nuevo_Precio_Credito,:Nuevo_Precio_Venta,:Nueva_Cant_XS,:Nueva_Cant_S,:Nueva_Cant_M,:Nueva_Cant_L,:Nueva_Cant_XL,:Nueva_Cant_XXL)";
         try {
             self::getConexion();
+            $IdUsuario = $this->getIdUsuario();
             $IdProducto = $this->getIdProducto();
             $IdCategoria = $this->getIdCategoria();
             $IdMarca = $this->getIdMarca();
@@ -325,6 +334,11 @@ class Producto extends Conexion
             $CantL = $this->getCantL();
             $CantXL = $this->getCantXL();
             $CantXXL = $this->getCantXXL();
+            //esto es para el trigger
+            $resultado = self::$cnx->prepare("Set @IdUsuario=:IdUsuario");
+            $resultado->bindParam(":IdUsuario", $IdUsuario, PDO::PARAM_INT);
+            $resultado->execute();
+            //Aqui ya es para el procedimiento almacenado
             $resultado = self::$cnx->prepare($query);
 
             $resultado->bindParam(":id", $IdProducto, PDO::PARAM_INT);

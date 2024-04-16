@@ -17,7 +17,7 @@ switch ($_GET["op"]) {
                         "IdCategoria" => $reg->getIdCategoria(),
                         "Categoria" => $reg->getCategoria(),
                         "OpcionCategoria" => '<button class="btn btn-warning" id="modificarCategoria"><i class="ti-pencil-alt"></i></button> | ' .
-                            '<button class="btn btn-danger" onclick="EliminarCategoria(\'' . $reg->getIdCategoria() . '\')"><i class="ti-trash"></i></button>'
+                            '<button class="btn btn-danger" onclick="EliminarCategoria(\'' . $reg->getIdCategoria() . '\',event)"><i class="ti-trash"></i></button>'
                     );
                 }
 

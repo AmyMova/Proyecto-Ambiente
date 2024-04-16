@@ -20,14 +20,14 @@ $(document).ready(function () {
             data.forEach(function (categoria) {
                 var tarjetaHTML =
                     '<div class="col-sx-1 col-sm-4 col-md-4 col-lg-3 col-lx-2">' +
-                        '<div class="tarjeta-categoria">' +
-                            '<div class="card" >' +
-                                '<div class="card-body">' +
-                                    '<h3 class="card-title">' + categoria.IdCategoria + '</h3>' +
-                                    '<p class="card-text">' + categoria.Categoria + '</p>' + categoria.OpcionCategoria +
-                                '</div>' +
-                            '</div>' +
-                        '</div>' +
+                    '<div class="tarjeta-categoria">' +
+                    '<div class="card" >' +
+                    '<div class="card-body">' +
+                    '<h3 class="card-title">' + categoria.IdCategoria + '</h3>' +
+                    '<p class="card-text">' + categoria.Categoria + '</p>' + categoria.OpcionCategoria +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
                     '</div>';
                 $('#contenedor-tarjetas-Categoria').append(tarjetaHTML);
             })
@@ -44,22 +44,22 @@ $(document).ready(function () {
 $(function () {
     $("#formulario_agregar_categoria").hide();
     $("#formulario_editar_categoria").hide();
-  });
+});
 
 
- /*En esta parte se rellena el select del crear producto*/
+/*En esta parte se rellena el select del crear producto*/
 
 /*Eto es para poder mostrar el formulario de agregar*/
-$(document).ready(function() {
+$(document).ready(function () {
     // Evento clic para el botón #agregarCategoria
-    $('#agregarCategoria').click(function() {
+    $('#agregarCategoria').click(function () {
         limpiarFormsCategoria();
         $('#formulario_agregar_categoria').show();
         $("#formulario_editar_categoria").hide();
         return false; // Para evitar que el evento de clic se propague
     });
-  });
-  /*Función para crear una categoria nueva*/
+});
+/*Función para crear una categoria nueva*/
 $("#categoria_agregar").on("submit", function (event) {
     event.preventDefault();
     $("#btnRegistar").prop("disabled", true);
@@ -150,7 +150,8 @@ $("#categoria_editar").on("submit", function (event) {
     });
 });
 /*Función para eliminar una categoria*/
-function EliminarCategoria(IdCategoria) {
+function EliminarCategoria(IdCategoria, event) {
+    event.preventDefault();
     bootbox.confirm('¿Esta seguro de eliminar la categoria?', function (result) {
         if (result) {
             $.post('./../../Controller/CategoriaController.php?op=EliminarCategoria',

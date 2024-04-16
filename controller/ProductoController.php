@@ -161,12 +161,10 @@ switch ($_GET["op"]) {
             }
 
             
-            $movimiento = new Movimiento();
-            $movimiento->setIdProducto($IdProducto);
-            $movimiento->setIdUsuario($IdUsuario);
-            $movimiento->setAccion($Accion);
+            
 
             $producto = new Producto();
+            $producto->setIdUsuario($IdUsuario);
             $producto->setIdProducto($IdProducto);
             $encontrado = $producto->verificarExistenciaProductoByIdDb();
             if ($encontrado == 1) {
