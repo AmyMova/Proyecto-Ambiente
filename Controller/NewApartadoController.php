@@ -5,42 +5,58 @@ require_once '../Model/NewApartadoModel.php';
 // Verificar la operación solicitada
 switch ($_GET["op"]) {
     case 'ListarTablaApartado':
-        $apartadoModel = new NewApartadoModel();
-
-        // Obtener todos los apartados
-        $apartados = $apartadoModel->VerApartadosAdmin();
-
-        // Verificar si se obtuvieron los apartados correctamente
-        if ($apartados !== false) {
+        try {
+            // Recupera la sesión y el ID de usuario (si lo necesitas)
+            session_start();
+            $IdUsuario = isset($_SESSION["IdUsuario"]) ? $_SESSION["IdUsuario"] : "";
+            
+            // Instancia del modelo NewApartadoModel
+            $apartado = new NewApartadoModel();
+            
+            // Obtener todos los apartados de la base de datos
+            $apartados = $apartado->VerApartadosAdmin();
+            
+            // Inicializa el arreglo que contendrá los datos de la tabla
             $data = array();
-            foreach ($apartados as $apartado) {
+            
+            // Procesa cada apartado y agrega sus datos al arreglo
+            foreach ($apartados as $reg) {
                 $data[] = array(
-                    "0" => $apartado->getIdApartado(),
-                    "1" => $apartado->getValorTotal(),
-                    "2" => $apartado->getProducto(),
-                    "3" => $apartado->getCantidadTotal(),
-                    "4" => $apartado->getPrecioTotal(),
-                    "5" => $apartado->getDuracion(),
-                    "6" => $apartado->getAporteUsuario(),
-                    "7" => $apartado->getMetodoPago(),
-                    "8" => $apartado->getNombreCliente(),
-                    "9" => $apartado->getFechaApartado(),
-                    "10" => $apartado->getCorreoCliente(),
+                    "0" => $reg->getIdApartado(),
+                    "1" => $reg->getIdUsuario(),
+                    "2" => $reg->getVendedor(),
+                    "3" => $reg->getProducto(),
+                    "4" => $reg->getFechaCreacion(),
+                    "5" => $reg->getPrecioTotal(),
+                    "6" => $reg->getFechaPago1(),
+                    "7" => $reg->getSaldoPendiente(),
+                    "8" => $reg->getSaldoCancelado(),
+                    // Puedes añadir acciones de edición y eliminación si lo deseas:
+                    "9" => '<button class="btn btn-warning" onclick="VER MÁS(' . $reg->getIdApartado() . ')">VER MÁS</button>  '
                 );
             }
             
+            // Prepara la respuesta para DataTables
             $resultados = array(
-                "sEcho" => 1, // Información para datatables
-                "iTotalRecords" => count($data), // Total de registros al datatable
-                "iTotalDisplayRecords" => count($data), // Enviamos el total de registros a visualizar
-                "aaData" => $data
+                "sEcho" => 1, // Información para DataTables
+                "iTotalRecords" => count($data), // Total de registros
+                "iTotalDisplayRecords" => count($data), // Total de registros a mostrar
+                "aaData" => $data // Datos en sí
             );
+            
+            // Envía la respuesta como JSON
             echo json_encode($resultados);
-        } else {
-            // Error al obtener los apartados
-            echo json_encode(array("error" => true, "message" => "Error al obtener los apartados."));
+        } catch (Exception $e) {
+            // Captura cualquier excepción y muestra un mensaje
+            echo "Error inesperado. Por favor, intente nuevamente más tarde.";
+            $error = new Errores();
+            $error->setIdUsuario($IdUsuario);
+            $error->setDescripcion($e->getMessage());
+            $error->CrearErrorDB();
         }
         break;
+    
+    
 
     case 'EliminarApartado':
         // Obtener el ID del apartado a eliminar

@@ -7,34 +7,27 @@ function cancelarForm() {
   limpiarForms();
  }
 
-/*Función para cargar el listado en el Datatable*/
+/* Funcion para cargar el listado en el Datatable */
 function ListarApartados() {
-  tabla = $("#tbllistado").dataTable({
-    processing: true, // Activamos el procesamiento de datatables
-    serverSide: true, // Paginación y filtrado del lado del servidor
-    dom: "Bfrtip", // Definimos los elementos del control de tabla
-    buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
-    ajax: {
-      url: "../Controller/NewApartadoController.php?op=ListarTablaApartado",
-      type: "GET",
-      dataType: "json",
-      error: function (e) {
-        console.log(e.responseText);
-      },
-    },
-    destroy: true, // Destruir la tabla antes de crearla de nuevo
-    pageLength: 5, // Número de filas a mostrar por página
-  });
+    tabla = $("#tbllistadoApartado").dataTable({
+        aProcessing: true, // Activa el procesamiento de DataTables
+        aServerSide: true, // Paginación y filtrado del lado del servidor
+        dom: "Bfrtip", // Definimos los elementos del control de la tabla
+        buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf"],
+        ajax: {
+            url: "../../Controller/NewApartadoController.php?op=ListarTablaApartado",
+            type: "get",
+            dataType: "json",
+            error: function(e) {
+                console.log(e.responseText);
+            },
+            bDestroy: true,
+            iDisplayLength: 5,
+        },
+    });
 }
 
 
-/*
-Función Principal
-*/
-$(function () {
-
-  ListarApartados();
-});
 
 
 
@@ -136,5 +129,4 @@ function mostrarGrafico() {
 // Llama a la función para mostrar el gráfico cuando el documento está listo
 $(function() {
   ListarApartados(); // Llama a la función de listado existente
-  mostrarGrafico(); // Llama a la función para mostrar el gráfico
 });
