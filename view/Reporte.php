@@ -23,25 +23,27 @@
                 <div class="row mt-2">
                     <div class="col-md-1"></div>
                     <div class="col-md-10">
-                        <table id="tbllistado" class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <!-- Encabezados de la tabla -->
-                                <th>IdApartado</th>
-                                <th>ValorTotal</th>
+                    <table id="tbllistadoApartado" class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <th>ID</th>
+                                    <th>Usuario</th>
+                                    <th>Vendedor</th>
+                                    <th>Producto</th>
+                                    <th>Fecha</th>
+                                    <th>Total</th>
+                                    
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                <tfooter>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Vendedor</th>
                                 <th>Producto</th>
-                                <th>CantidadTotal</th>
-                                <th>PrecioTotal</th>
-                                <th>Duracion</th>
-                                <th>AporteUsuario</th>
-                                <th>MetodoPago</th>
-                                <th>NombreCliente</th>
-                                <th>FechaApartado</th>
-                                <th>CorreoCliente</th>
-                            </thead>
-                            <tbody>
-                                <!-- Los datos de los apartados se cargarán aquí -->
-                            </tbody>
-                        </table>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                </tfooter>
+                            </table>
                     </div>
                     <div class="col-md-1"></div>
                 </div>

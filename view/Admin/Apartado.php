@@ -98,21 +98,29 @@
                             <table id="tbllistadoApartado" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <th>ID</th>
-                                    <th>Usuario</th>
-                                    <th>Vendedor</th>
-                                    <th>Fecha</th>
-                                    <th>Total</th>
-                                    <th>Opciones</th>
+                                <th>Usuario</th>
+                                <th>Vendedor</th>
+                                <th>Producto</th>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                <th>Fecha Pago 1</th>
+                                <th>Saldo Pendiente</th>
+                                <th>Saldo Cancelado</th>
+                                <th></th>
                                 </thead>
                                 <tbody>
                                 </tbody>
                                 <tfooter>
-                                    <th>ID</th>
-                                    <th>Usuario</th>
-                                    <th>Vendedor</th>
-                                    <th>Fecha</th>
-                                    <th>Total</th>
-                                    <th>Opciones</th>
+                                <th>ID</th>
+                                <th>Usuario</th>
+                                <th>Vendedor</th>
+                                <th>Producto</th>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                <th>Fecha Pago 1</th>
+                                <th>Saldo Pendiente</th>
+                                <th>Saldo Cancelado</th>
+                                <th></th>
                                 </tfooter>
                             </table>
                         </div>
@@ -123,3 +131,4 @@
     </div>
 
     <?php include ("Component\Footer.php") ?>
+    <script src="./../assets/js/NewApartado.js" ></script>

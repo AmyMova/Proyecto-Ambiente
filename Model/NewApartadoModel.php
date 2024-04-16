@@ -17,6 +17,21 @@ class NewApartadoModel extends Conexion
     private $NombreCliente = null;
     private $FechaApartado = null;
     private $CorreoCliente = null;
+    private $IdUsuario = null;
+    private $Vendedor = null;
+    private $FechaCreacion = null;
+    private $FechaPago1 = null;
+    private $FechaPago2 = null;
+    private $FechaPago3 = null;
+    private $Notificacion1 = null;
+    private $Notificacion2 = null;
+    private $Notificacion3 = null;
+    private $Pago1 = null;
+    private $Pago2 = null;
+    private $Pago3 = null;
+    private $SaldoPendiente = null;
+    private $SaldoCancelado = null;
+    
     /*=====  End of Atributos de la Clase  ======*/
 
     /*=============================================
@@ -30,6 +45,23 @@ class NewApartadoModel extends Conexion
     /*=============================================
     =            Encapsuladores de la Clase       =
     =============================================*/
+
+    public function setIdUsuario($IdUsuario) {
+        $this->IdUsuario = $IdUsuario;
+    }
+    
+    public function getIdUsuario() {
+        return $this->IdUsuario;
+    }
+    
+    public function setVendedor($Vendedor) {
+        $this->Vendedor = $Vendedor;
+    }
+    
+    public function getVendedor() {
+        return $this->Vendedor;
+    }
+    
     public function setIdApartado($idApartado)
     {
         $this->idApartado = $idApartado;
@@ -129,6 +161,102 @@ class NewApartadoModel extends Conexion
     {
         $this->CorreoCliente = $CorreoCliente;
     }
+
+    public function getFechaCreacion() {
+        return $this->FechaCreacion;
+    }
+    
+    public function setFechaCreacion($FechaCreacion) {
+        $this->FechaCreacion = $FechaCreacion;
+    }
+    
+    public function getFechaPago1() {
+        return $this->FechaPago1;
+    }
+    
+    public function setFechaPago1($FechaPago1) {
+        $this->FechaPago1 = $FechaPago1;
+    }
+    
+    public function getFechaPago2() {
+        return $this->FechaPago2;
+    }
+    
+    public function setFechaPago2($FechaPago2) {
+        $this->FechaPago2 = $FechaPago2;
+    }
+    
+    public function getFechaPago3() {
+        return $this->FechaPago3;
+    }
+    
+    public function setFechaPago3($FechaPago3) {
+        $this->FechaPago3 = $FechaPago3;
+    }
+    
+    public function getNotificacion1() {
+        return $this->Notificacion1;
+    }
+    
+    public function setNotificacion1($Notificacion1) {
+        $this->Notificacion1 = $Notificacion1;
+    }
+    
+    public function getNotificacion2() {
+        return $this->Notificacion2;
+    }
+    
+    public function setNotificacion2($Notificacion2) {
+        $this->Notificacion2 = $Notificacion2;
+    }
+    
+    public function getNotificacion3() {
+        return $this->Notificacion3;
+    }
+    
+    public function setNotificacion3($Notificacion3) {
+        $this->Notificacion3 = $Notificacion3;
+    }
+    
+    public function getPago1() {
+        return $this->Pago1;
+    }
+    
+    public function setPago1($Pago1) {
+        $this->Pago1 = $Pago1;
+    }
+    
+    public function getPago2() {
+        return $this->Pago2;
+    }
+    
+    public function setPago2($Pago2) {
+        $this->Pago2 = $Pago2;
+    }
+    
+    public function getPago3() {
+        return $this->Pago3;
+    }
+    
+    public function setPago3($Pago3) {
+        $this->Pago3 = $Pago3;
+    }
+    
+    public function getSaldoPendiente() {
+        return $this->SaldoPendiente;
+    }
+    
+    public function setSaldoPendiente($SaldoPendiente) {
+        $this->SaldoPendiente = $SaldoPendiente;
+    }
+    
+    public function getSaldoCancelado() {
+        return $this->SaldoCancelado;
+    }
+    
+    public function setSaldoCancelado($SaldoCancelado) {
+        $this->SaldoCancelado = $SaldoCancelado;
+    }
     /*=====  End of Encapsuladores de la Clase  ======*/
 
     /*=============================================
@@ -181,20 +309,29 @@ class NewApartadoModel extends Conexion
             self::desconectar();
             foreach ($resultado->fetchAll() as $encontrado) {
                 $apartado = new NewApartadoModel();
-                // Establecer los valores de las propiedades del objeto apartado
+                
+                // Establece los valores de las propiedades del objeto apartado
                 $apartado->setIdApartado($encontrado['IdApartado']);
-                $apartado->setValorTotal($encontrado['ValorTotal']);
-                $apartado->setProducto($encontrado['Producto']);
-                $apartado->setCantidadTotal($encontrado['CantidadTotal']);
+                $apartado->setIdUsuario($encontrado['IdUsuario']);
+                $apartado->setVendedor($encontrado['Vendedor']);
+                $apartado->setProducto($encontrado['Productos']);
+                $apartado->setFechaCreacion($encontrado['FechaCreacion']);
                 $apartado->setPrecioTotal($encontrado['PrecioTotal']);
-                $apartado->setDuracion($encontrado['Duracion']);
-                $apartado->setAporteUsuario($encontrado['AporteUsuario']);
-                $apartado->setMetodoPago($encontrado['MetodoPago']);
-                $apartado->setNombreCliente($encontrado['NombreCliente']);
-                $apartado->setFechaApartado($encontrado['FechaApartado']);
-                $apartado->setCorreoCliente($encontrado['CorreoCliente']);
+                $apartado->setFechaPago1($encontrado['FechaPago1']);
+                $apartado->setFechaPago2($encontrado['FechaPago2']);
+                $apartado->setFechaPago3($encontrado['FechaPago3']);
+                $apartado->setNotificacion1($encontrado['Notificacion1']);
+                $apartado->setNotificacion2($encontrado['Notificacion2']);
+                $apartado->setNotificacion3($encontrado['Notificacion3']);
+                $apartado->setPago1($encontrado['Pago1']);
+                $apartado->setPago2($encontrado['Pago2']);
+                $apartado->setPago3($encontrado['Pago3']);
+                $apartado->setSaldoPendiente($encontrado['SaldoPendiente']);
+                $apartado->setSaldoCancelado($encontrado['SaldoCancelado']);
+    
                 $arr[] = $apartado;
             }
+            
             return $arr;
         } catch (PDOException $Exception) {
             self::desconectar();
