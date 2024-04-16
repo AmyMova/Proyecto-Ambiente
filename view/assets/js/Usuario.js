@@ -1,4 +1,4 @@
-const contrasenna=document.getElementById("Contrasena");
+const contrasenna = document.getElementById("Contrasena");
 const GenerarContrasena = (length) => {
     let result = "";
     const x = "a b c d e f g h i j k l m n o p q r s t u v w x y z 1 2 3 4 5 6 7 8 9 0 ° | ! # $ % & / ? ¿ ¡ - + * / , . _ ; :  ".split(" ");
@@ -61,6 +61,20 @@ function ListarUsuarios() {
             },
             bDestroy: true,
             iDisplayLength: 5,
+        }, language: {
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "search": "Buscar:",
+            "zeroRecords": "No se encontraron registros coincidentes",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
         },
     });
 }
@@ -80,7 +94,7 @@ $(document).ready(function () {
     $('#agregarUsuario').click(function () {
         limpiarFormsUsuario();
         $('#formulario_agregar_usuario').show();
-        contrasenna.value=GenerarContrasena(8);
+        contrasenna.value = GenerarContrasena(8);
         $("#formulario_editar_usuario").hide();
         return false; // Para evitar que el evento de clic se propague
     });

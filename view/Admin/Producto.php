@@ -7,7 +7,6 @@
             <div class="card card-dark">
                 <!-- Encabezado del formulario para crear productos -->
                 <div class="card-header">
-                    <?php echo $_SESSION["IdUsuario"]; ?>
                     <h3 class="card-title">Agregar un Producto</h3>
                 </div>
                 <!-- Encabezado del formulario para crear productos -->

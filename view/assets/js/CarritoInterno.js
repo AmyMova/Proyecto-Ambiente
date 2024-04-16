@@ -28,7 +28,22 @@ function ListarCarritoInternos() {
                 console.log(e.responseText);
             },
             bDestroy: true,
-            iDisplayLength: 5,
+            iDisplayLength: 5
+        },
+        language: {
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "search": "Buscar:",
+            "zeroRecords": "No se encontraron registros coincidentes",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
         },
     });
 }
@@ -39,6 +54,7 @@ $(function () {
     ListarCarritoInternos();
     ListarProductosAgregarC();
     ListarProductosEditarC();
+    ListarUsuario();
 
 });
 //Funcion para agregar productos en el carrito de administrador o de vendedor
@@ -97,6 +113,21 @@ function ListarProductosAgregarC() {
             },
             bDestroy: true,
             iDisplayLength: 5,
+        }, lengthMenu: [[5], [5]],
+        language: {
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "search": "Buscar:",
+            "zeroRecords": "No se encontraron registros coincidentes",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
         },
     });
 }
@@ -144,6 +175,21 @@ function ListarProductosEditarC() {
             },
             bDestroy: true,
             iDisplayLength: 5,
+        }, lengthMenu: [[5], [5]],
+        language: {
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "search": "Buscar:",
+            "zeroRecords": "No se encontraron registros coincidentes",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
         },
     });
 }
@@ -182,6 +228,56 @@ $("#tblListadoBuscarProductoEC tbody").on(
     }
 );
 
+//Funcion para visualizar y seleccionar los datos del usuario para hacer la factura
+function ListarUsuario() {
+    tablaUsuarioVenta = $("#tblListadoBuscarUsuario").dataTable({
+        aProcessing: true, //actiavmos el procesamiento de datatables
+        aServerSide: true, //paginacion y filtrado del lado del serevr
+        dom: "Bfrtip", //definimos los elementos del control de tabla
+        buttons: [],
+        ajax: {
+            url: "./../../Controller/CarritoController.php?op=BuscarUsuario",
+            type: "get",
+            dataType: "json",
+            error: function (e) {
+                console.log(e.responseText);
+            },
+            bDestroy: true,
+            iDisplayLength: 5,
+        },
+        lengthMenu: [[5], [5]],
+        language: {
+            "emptyTable": "No hay datos disponibles en la tabla",
+            "loadingRecords": "Cargando...",
+            "processing": "Procesando...",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+            "search": "Buscar:",
+            "zeroRecords": "No se encontraron registros coincidentes",
+            "paginate": {
+                "first": "Primero",
+                "last": "Último",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+        },
+    });
+}
+//Rellena los campos seleccionados con la informacion de la tabla para editar algun producto del carrito
+$("#tblListadoBuscarUsuario tbody").on(
+    "click",
+    'button[id="SeleccionarU"]',
+    function () {
+        var data = $("#tblListadoBuscarUsuario").DataTable().row($(this).parents("tr")).data();
+
+        $("#NombreUsuario").val(data[1]);
+        $("#idUsuario").val(data[0]);
+        $('#BuscarUsuario').modal('hide');
+
+        return false;
+    }
+);
+
 
 //Eliminar los datos de un producto en el carrito
 function EliminarProductoCarrito(IdCarrito, event) {
@@ -195,7 +291,7 @@ function EliminarProductoCarrito(IdCarrito, event) {
                     switch (data) {
                         case '1':
                             toastr.success('Producto Eliminado');
-                            tablaCarritoInterno.api().ajax.reload();
+                            location.reload();
                             break;
                         case '2':
                             toastr.error('Producto no encontrado');
@@ -225,11 +321,11 @@ function LimpiarCarrito(event) {
                 function (data, textStatus, xhr) {
                     switch (data) {
                         case '1':
-                            toastr.success('Producto Eliminado');
-                            tablaCarritoInterno.api().ajax.reload();
+                            toastr.success('Productos Eliminados');
+                            location.reload();
                             break;
                         case '2':
-                            toastr.error('Producto no encontrado');
+                            toastr.error('Productos no encontrados');
                             break;
                         case '3':
                             toastr.error('Error al tratar de eliminar el producto. Por favor, consulte con el administrador');

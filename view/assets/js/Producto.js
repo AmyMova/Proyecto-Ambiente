@@ -29,6 +29,20 @@ function ListarProductos() {
       },
       bDestroy: true,
       iDisplayLength: 5,
+    }, language: {
+      "emptyTable": "No hay datos disponibles en la tabla",
+      "loadingRecords": "Cargando...",
+      "processing": "Procesando...",
+      "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+      "infoEmpty": "Mostrando 0 a 0 de 0 registros",
+      "search": "Buscar:",
+      "zeroRecords": "No se encontraron registros coincidentes",
+      "paginate": {
+        "first": "Primero",
+        "last": "Último",
+        "next": "Siguiente",
+        "previous": "Anterior"
+      },
     },
   });
 }

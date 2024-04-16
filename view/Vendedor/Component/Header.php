@@ -1,6 +1,11 @@
 <?php session_start();
 if($_SESSION["IdRol"]!="3"){
-    header("Location:../Autenticacion/Login.php");
+    if($_SESSION["IdRol"]=="1"){
+        header("Location:../Admin/Principal.php");
+    }else{
+        header("Location:../Cliente/Catalogo.php");
+    }
+    
 }
 
 ?>

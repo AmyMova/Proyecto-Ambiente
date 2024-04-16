@@ -2,6 +2,7 @@
 require_once '../Model/CarritoModel.php';
 require_once '../Model/ProductoModel.php';
 require_once '../Model/ErrorModel.php';
+require_once '../Model/UsuarioModel.php';
 switch ($_GET["op"]) {
     case 'ListarTablaCarrito':
         try {
@@ -36,12 +37,18 @@ switch ($_GET["op"]) {
 
                 );
             }
-            $resultados = array(
-                "sEcho" => 1, ##informacion para datatables
-                "iTotalRecords" => count($data), ## total de registros al datatable
-                "iTotalDisplayRecords" => count($data), ## enviamos el total de registros a visualizar
-                "aaData" => $data
-            );
+            
+            if (empty($data)) {
+                $resultados=[];
+            } else {
+                $resultados = array(
+                    "sEcho" => 1, ##informacion para datatables
+                    "iTotalRecords" => count($data), ## total de registros al datatable
+                    "iTotalDisplayRecords" => count($data), ## enviamos el total de registros a visualizar
+                    "aaData" => $data
+                );
+            }
+
             echo json_encode($resultados);
         } catch (Exception $e) {
             //Captura cualquier excepcion y muestra un mensaje 
@@ -123,7 +130,7 @@ switch ($_GET["op"]) {
             $IdProducto = isset($_POST["Nuevo_Id_Producto"]) ? trim($_POST["Nuevo_Id_Producto"]) : "";
             $Descripcion = isset($_POST["Nueva_Descripcion"]) ? trim($_POST["Nueva_Descripcion"]) : "";
             //Verificacion de imagen en el campo nuevaImagen
-            
+
             $carrito = new Carrito();
             $carrito->setIdCarrito($IdCarrito);
             $encontrado = $carrito->verificarExistenciaByIdDb();
@@ -162,10 +169,10 @@ switch ($_GET["op"]) {
             session_start();
             $IdUsuario = isset($_SESSION["IdUsuario"]) ? ($_SESSION["IdUsuario"]) : "";
             //Aqui se rellena la tabla de productos para agregar al carrito
-            $etiqueta = new Producto();
-            $etiquetas = $etiqueta->VerProductosDB();
+            $producto = new Producto();
+            $productos = $producto->VerProductosDB();
             $data = array();
-            foreach ($etiquetas as $reg) {
+            foreach ($productos as $reg) {
                 $data[] = array(
                     "0" => $reg->getIdProducto(),
                     "1" => $reg->getDescripcion(),
@@ -177,7 +184,7 @@ switch ($_GET["op"]) {
                     "7" => $reg->getCantL(),
                     "8" => $reg->getCantXL(),
                     "9" => $reg->getCantXXL(),
-                    "10"=>$reg->getImagen()
+                    "10" => $reg->getImagen()
                 );
             }
             $resultados = array(
@@ -201,10 +208,10 @@ switch ($_GET["op"]) {
         try {
             session_start();
             $IdUsuario = isset($_SESSION["IdUsuario"]) ? ($_SESSION["IdUsuario"]) : "";
-            $etiqueta = new Producto();
-            $etiquetas = $etiqueta->VerProductosDB();
+            $producto = new Producto();
+            $productos = $producto->VerProductosDB();
             $data = array();
-            foreach ($etiquetas as $reg) {
+            foreach ($productos as $reg) {
                 $data[] = array(
                     "0" => $reg->getIdProducto(),
                     "1" => $reg->getDescripcion(),
@@ -216,7 +223,40 @@ switch ($_GET["op"]) {
                     "7" => $reg->getCantL(),
                     "8" => $reg->getCantXL(),
                     "9" => $reg->getCantXXL(),
-                    "10"=>$reg->getImagen()
+                    "10" => $reg->getImagen()
+                );
+            }
+            $resultados = array(
+                "sEcho" => 1, ##informacion para datatables
+                "iTotalRecords" => count($data), ## total de registros al datatable
+                "iTotalDisplayRecords" => count($data), ## enviamos el total de registros a visualizar
+                "aaData" => $data
+            );
+            echo json_encode($resultados);
+        } catch (Exception $e) {
+            //Captura cualquier excepcion y muestra un mensaje 
+            echo "Error inesperado. Por favor, intente nuevamente más tarde.";
+            $error = new Errores();
+            $error->setIdUsuario($IdUsuario);
+            $error->setDescripcion($e->getMessage());
+            $error->CrearErrorDB();
+        }
+        //Aqui se rellena la tabla de productos para editar algun producto del carrito
+
+        break;
+
+    case 'BuscarUsuario':
+        try {
+            session_start();
+            $IdUsuario = isset($_SESSION["IdUsuario"]) ? ($_SESSION["IdUsuario"]) : "";
+            $usuario = new Usuario();
+            $usuarios = $usuario->listarTodosDb();
+            $data = array();
+            foreach ($usuarios as $reg) {
+                $data[] = array(
+                    "0" => $reg->getIdUsuario(),
+                    "1" => $reg->getNombreCompleto(),
+                    "2" => '<button class="btn btn-success" id="SeleccionarU"><i class="fa-solid fa-check"></i></button>'
                 );
             }
             $resultados = array(
@@ -269,16 +309,14 @@ switch ($_GET["op"]) {
         break;
 
     //Elimina Todos los productos del carrito
+
     case 'EliminarProductosCarrito':
         try {
             session_start();
             $IdUsuario = isset($_SESSION["IdUsuario"]) ? ($_SESSION["IdUsuario"]) : "";
             $carrito = new Carrito();
             $carrito->setIdUsuario($IdUsuario);
-
-
             $encontrado = $carrito->verificarProductosDB();
-
             if ($encontrado == 1) {
                 $carrito->EliminarProductosCarrito();
                 $eliminado = $carrito->verificarProductosDB();

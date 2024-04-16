@@ -146,11 +146,11 @@ if($_SESSION["IdRol"]!="2"){
                                         </p>
                                     </div>
                                 </div>
-                                <a class="dropdown-item" href="../Cliente/Usuario.php">
+                                <a class="dropdown-item" href="Cliente/Usuario.php">
                                     <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i class="ti-shopping-cart m-r-5 m-l-5"></i>Mi Carrito</a>
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="Factura.php">
                                     <i class="ti-receipt m-r-5 m-l-5"></i> Mis Facturas</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)">

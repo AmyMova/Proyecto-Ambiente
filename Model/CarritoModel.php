@@ -218,45 +218,49 @@ class Carrito extends Conexion
     }
 
     public function VerCarritoDB($id)
-    {
-        $query = "Call VerCarrito(:id)";
-        try {
-            self::getConexion();
-            $resultado = self::$cnx->prepare($query);
-            $resultado->bindParam(":id", $id, PDO::PARAM_INT);
-            $resultado->execute();
-            self::desconectar();
-            foreach ($resultado->fetchAll() as $encontrado) {
-                $producto = new Carrito();
-                $producto->setIdCarrito($encontrado['IdCarrito']);
-                $producto->setIdProducto($encontrado['IdProducto']);
-                $producto->setIdUsuario($encontrado['IdUsuario']);
-                $producto->setXS($encontrado['XS']);
-                $producto->setS($encontrado['S']);
-                $producto->setM($encontrado['M']);
-                $producto->setL($encontrado['L']);
-                $producto->setXL($encontrado['XL']);
-                $producto->setXXL($encontrado['XXL']);
-                $producto->setPrecioVenta($encontrado['PrecioVenta']);
-                $producto->setPrecio($encontrado['Precio']);
-                $producto->setDescripcion($encontrado['Descripcion']);
-                $producto->setImagen($encontrado['Imagen']);
-                $producto->setDB_XS($encontrado['CantXS']);
-                $producto->setDB_S($encontrado['CantS']);
-                $producto->setDB_M($encontrado['CantM']);
-                $producto->setDB_L($encontrado['CantL']);
-                $producto->setDB_XL($encontrado['CantXL']);
-                $producto->setDB_XXL($encontrado['CantXXL']);
-                $arr[] = $producto;
-            }
-            return $arr;
-        } catch (PDOException $Exception) {
-            self::desconectar();
-            $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
-            ;
-            return json_encode($error);
+{
+    $query = "Call VerCarrito(:id)";
+    try {
+        self::getConexion();
+        $resultado = self::$cnx->prepare($query);
+        $resultado->bindParam(":id", $id, PDO::PARAM_INT);
+        $resultado->execute();
+        self::desconectar();
+        
+        $arr = array();
+        
+        foreach ($resultado->fetchAll() as $encontrado) {
+            $producto = new Carrito();
+            $producto->setIdCarrito($encontrado['IdCarrito']);
+            $producto->setIdProducto($encontrado['IdProducto']);
+            $producto->setIdUsuario($encontrado['IdUsuario']);
+            $producto->setXS($encontrado['XS']);
+            $producto->setS($encontrado['S']);
+            $producto->setM($encontrado['M']);
+            $producto->setL($encontrado['L']);
+            $producto->setXL($encontrado['XL']);
+            $producto->setXXL($encontrado['XXL']);
+            $producto->setPrecioVenta($encontrado['PrecioVenta']);
+            $producto->setPrecio($encontrado['Precio']);
+            $producto->setDescripcion($encontrado['Descripcion']);
+            $producto->setImagen($encontrado['Imagen']);
+            $producto->setDB_XS($encontrado['CantXS']);
+            $producto->setDB_S($encontrado['CantS']);
+            $producto->setDB_M($encontrado['CantM']);
+            $producto->setDB_L($encontrado['CantL']);
+            $producto->setDB_XL($encontrado['CantXL']);
+            $producto->setDB_XXL($encontrado['CantXXL']);
+            $arr[] = $producto;
         }
+        return $arr;
+    } catch (PDOException $Exception) {
+        self::desconectar();
+        $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+        ;
+        return json_encode($error);
     }
+}
+
     public function AgregarProductoCarrito()
     {
         $query = "Call AgregarACarrito(:Id_Producto,:Id_Usuario,:Cant_XS,:Cant_S,:Cant_M,:Cant_L,:Cant_XL,:Cant_XXL)";

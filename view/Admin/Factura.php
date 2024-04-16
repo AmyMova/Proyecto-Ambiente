@@ -3,13 +3,13 @@
     <div class="row justify-content-center">
         <!-- Formulario de modificacion de xxx -->
         <div id="formulario_ver_Factura">
-        <div class="card card-dark">
-            <div class="card-header">
-                <h3 class="card-title">Información de Factura</h3>
-            </div>
-            <div class="card-body">
-                <div class="row justify-content-center">
-                    <div class="col">
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Información de Factura</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-center">
+                        <div class="col">
                             <form name="modulos_ver_factura" id="factura_ver" method="POST">
                                 <input type="hidden" class="form-control" id="id" name="id">
                                 <div class="row">
@@ -95,9 +95,9 @@
                 <div class="card-body ">
                     <div class="row ">
                         <div class="col">
-                            <table id="tbllistadoFactura" class="table table-striped table-bordered table-hover">
+                            <table id="tblListadoFacturaAdmin" class="table table-striped table-bordered table-hover">
                                 <thead>
-                                <th>ID</th>
+                                    <th>ID</th>
                                     <th>Usuario</th>
                                     <th>Vendedor</th>
                                     <th>Fecha</th>
@@ -123,3 +123,5 @@
     </div>
 
     <?php include ("Component\Footer.php") ?>
+
+    <script src="./../assets/js/Factura.js"></script>
