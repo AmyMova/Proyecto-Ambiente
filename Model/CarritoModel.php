@@ -27,6 +27,7 @@ class Carrito extends Conexion
     private $Descripcion = null;
     private $PrecioVenta = null;
     private $Imagen = null;
+    private $Cantidad = null;
     /*=====  End of Atributos de la Clase  ======*/
 
     /*=============================================
@@ -202,6 +203,15 @@ class Carrito extends Conexion
         $this->Imagen = $Imagen;
     }
 
+    public function getCantidad()
+    {
+        return $this->Cantidad;
+    }
+    public function setCantidad($Cantidad)
+    {
+        $this->Cantidad = $Cantidad;
+    }
+
     /*=====  End of Encapsuladores de la Clase  ======*/
 
     /*=============================================
@@ -250,6 +260,34 @@ class Carrito extends Conexion
             $producto->setDB_L($encontrado['CantL']);
             $producto->setDB_XL($encontrado['CantXL']);
             $producto->setDB_XXL($encontrado['CantXXL']);
+            $arr[] = $producto;
+        }
+        return $arr;
+    } catch (PDOException $Exception) {
+        self::desconectar();
+        $error = "Error " . $Exception->getCode() . ": " . $Exception->getMessage();
+        ;
+        return json_encode($error);
+    }
+}
+
+public function ListarTotalCompra($id)
+{
+    $query = "SELECT IdUsuario,SUM(precio) AS Precio,Count(*) as Cantidad FROM carrito WHERE IdUsuario=:id; ";
+    try {
+        self::getConexion();
+        $resultado = self::$cnx->prepare($query);
+        $resultado->bindParam(":id", $id, PDO::PARAM_INT);
+        $resultado->execute();
+        self::desconectar();
+        
+        $arr = array();
+        
+        foreach ($resultado->fetchAll() as $encontrado) {
+            $producto = new Carrito();
+            $producto->setIdUsuario($encontrado['IdUsuario']);
+            $producto->setPrecio($encontrado['Precio']);
+            $producto->setCantidad($encontrado['Cantidad']);
             $arr[] = $producto;
         }
         return $arr;

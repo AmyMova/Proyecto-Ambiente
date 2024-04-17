@@ -47,6 +47,7 @@ function ListarCarritoInternos() {
         },
     });
 }
+
 //Funcion principal en donde se llama por primera y unica vez todas las tablas para que no haya error alguno
 $(function () {
     $("#formulario_editar_carritoInterno").hide();

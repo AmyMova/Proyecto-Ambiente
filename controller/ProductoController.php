@@ -13,7 +13,7 @@ switch ($_GET["op"]) {
             foreach ($productos as $reg) {
                 $data[] = array(
                     "0" => $reg->getIdProducto(),
-                    "1" => $reg->getDescripcion(),
+                    "1" => substr($reg->getDescripcion(),0,10),
                     "2" => $reg->getCategoria(),
                     "3" => $reg->getMarca(),
                     "4" => $reg->getCantXS(),
@@ -22,10 +22,10 @@ switch ($_GET["op"]) {
                     "7" => $reg->getCantL(),
                     "8" => $reg->getCantXL(),
                     "9" => $reg->getCantXXL(),
-                    "10" => $reg->getPrecioVenta(),
+                    "10" => '₡' . $reg->getPrecioVenta(),
                     "11" => '<button class="btn waves-effect waves-light  btn-warning" id="modificarProducto"><i class="ti-pencil-alt"></i></button> | ' .
                         '<button class="btn waves-effect waves-light  btn-danger" onclick="EliminarProducto(\'' . $reg->getIdProducto() . '\')"><i class="ti-trash"></i></button>',
-                    "12" => $reg->getPrecioCredito(),
+                    "12" => '₡' . $reg->getPrecioCredito(),
                     "13" => $reg->getImagen(),
                     "14" => $reg->getIdCategoria(),
                     "15" => $reg->getIdMarca()
@@ -160,8 +160,8 @@ switch ($_GET["op"]) {
                 $newImageName = $imagenName . "-" . uniqid() . '.' . $imageExtension;
             }
 
-            
-            
+
+
 
             $producto = new Producto();
             $producto->setIdUsuario($IdUsuario);
@@ -215,7 +215,7 @@ switch ($_GET["op"]) {
             $IdUsuario = isset($_SESSION["IdUsuario"]) ? ($_SESSION["IdUsuario"]) : "";
             $producto = new Producto();
             $producto->setIdProducto(trim($_POST['IdProducto']));
-            
+
             $encontrado = $producto->verificarExistenciaProductoByIdDb();
             if ($encontrado == 1) {
                 $producto->EliminarProducto();
