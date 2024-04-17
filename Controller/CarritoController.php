@@ -37,9 +37,9 @@ switch ($_GET["op"]) {
 
                 );
             }
-            
+
             if (empty($data)) {
-                $resultados=[];
+                $resultados = [];
             } else {
                 $resultados = array(
                     "sEcho" => 1, ##informacion para datatables
@@ -216,7 +216,7 @@ switch ($_GET["op"]) {
                     "0" => $reg->getIdProducto(),
                     "1" => $reg->getDescripcion(),
                     "2" => '<button class="btn btn-success" id="SeleccionarEC"><i class="fa-solid fa-check"></i></button>',
-                    "3" => $reg->getPrecioVenta(),
+                    "3" => '₡' . $reg->getPrecioVenta(),
                     "4" => $reg->getCantXS(),
                     "5" => $reg->getCantS(),
                     "6" => $reg->getCantM(),
@@ -328,6 +328,89 @@ switch ($_GET["op"]) {
             } else {
                 echo 2;//no hay productos
             }
+        } catch (Exception $e) {
+            //Captura cualquier excepcion y muestra un mensaje 
+            echo "Error inesperado. Por favor, intente nuevamente más tarde.";
+            $error = new Errores();
+            $error->setIdUsuario($IdUsuario);
+            $error->setDescripcion($e->getMessage());
+            $error->CrearErrorDB();
+        }
+        break;
+
+    case 'ListarTablaCarritoEnLinea':
+        try {
+            session_start();
+            $IdUsuario = isset($_SESSION["IdUsuario"]) ? ($_SESSION["IdUsuario"]) : "";
+            //Lista los datos necesarios en la tabla de carrito
+            $carrito = new Carrito();
+            $carritos = $carrito->VerCarritoDB($IdUsuario);
+            $data = array();
+            foreach ($carritos as $reg) {
+                $imagen = "../assets/img/" . $reg->getImagen();
+                $data[] = array(
+
+                    "0" => '<img src="' . $imagen . '" width="80"/>',
+                    "1" => '<h5 class="font-500">' . substr($reg->getDescripcion(),0,10) . '</h5>',
+                    "2" => $reg->getXS(),
+                    "3" => $reg->getS(),
+                    "4" => $reg->getM(),
+                    "5" => $reg->getL(),
+                    "6" => $reg->getXL(),
+                    "7" => $reg->getXXL(),
+                    "8" => '₡' . $reg->getPrecioVenta(),
+                    "9" => '<button class="btn btn-warning" id="modificarProductoCarritoEnLinea"><i class="ti-pencil-alt"></i></button> | ' .
+                        '<button class="btn btn-danger" onclick="EliminarProductoCarritoEnLinea(\'' . $reg->getIdCarrito() . '\',event)"><i class="ti-trash"></i></button>',
+                    "10" => $reg->getIdCarrito(),
+                    "11" => $reg->getIdProducto(),
+                    "12" => $reg->getDescripcion()
+
+                );
+            }
+            if (empty($data)) {
+                $resultados = [];
+            } else {
+                $resultados = array(
+                    "sEcho" => 1, ##informacion para datatables
+                    "iTotalRecords" => count($data), ## total de registros al datatable
+                    "iTotalDisplayRecords" => count($data), ## enviamos el total de registros a visualizar
+                    "aaData" => $data
+                );
+            }
+            echo json_encode($resultados);
+        } catch (Exception $e) {
+            //Captura cualquier excepcion y muestra un mensaje 
+            echo "Error inesperado. Por favor, intente nuevamente más tarde.";
+            $error = new Errores();
+            $error->setIdUsuario($IdUsuario);
+            $error->setDescripcion($e->getMessage());
+            $error->CrearErrorDB();
+        }
+        break;
+    case 'ListarPrecioTotalCompra':
+        try {
+            session_start();
+            $IdUsuario = isset($_SESSION["IdUsuario"]) ? ($_SESSION["IdUsuario"]) : "";
+            $carrito = new Carrito();
+            $carritos = $carrito->ListarTotalCompra($IdUsuario);
+            $data = array();
+
+            if (is_array($carritos) || is_object($carritos)) {
+                foreach ($carritos as $reg) {
+                    $data[] = array(
+                        "IdUsuario" => $reg->getIdUsuario(),
+                        "Precio" => $reg->getPrecio(),
+                        "Cantidad" => $reg->getCantidad()
+                    );
+                }
+
+
+            } else {
+                error_log("Catalog data is not an array or object.");
+                $data = array();
+            }
+
+            echo json_encode($data);
         } catch (Exception $e) {
             //Captura cualquier excepcion y muestra un mensaje 
             echo "Error inesperado. Por favor, intente nuevamente más tarde.";
