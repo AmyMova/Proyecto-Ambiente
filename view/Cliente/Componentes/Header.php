@@ -1,5 +1,5 @@
 <?php session_start();
-if($_SESSION["IdRol"]!="2"){
+if ($_SESSION["IdRol"] != "2") {
     header("Location:../Autenticacion/Login.php");
 }
 
@@ -22,6 +22,9 @@ if($_SESSION["IdRol"]!="2"){
     <link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
     <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="../assets/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -77,6 +80,7 @@ if($_SESSION["IdRol"]!="2"){
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
+                    
                     <!-- ============================================================== -->
                     <!-- Toggle which is visible on mobile only -->
                     <!-- ============================================================== -->
@@ -169,6 +173,41 @@ if($_SESSION["IdRol"]!="2"){
                 </div>
             </nav>
         </header>
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <!-- User Profile-->
+                        <li class="sidebar-item"><a class="sidebar-link  waves-dark" href="#" data-id="ALL">Todos</a>
+                        </li>
+
+                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span
+                                class="hide-menu">Categorías</span></li>
+                        <li class="sidebar-item mega-dropdown"> <a
+                                class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                                aria-expanded="false"><span class="hide-menu">Categorías
+                                </span></a>
+
+                            <ul aria-expanded="false" class="collapse first-level Category_wrapper">
+                            </ul>
+                        </li>
+                        <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span
+                                class="hide-menu">Marcas</span></li>
+                        <li class="sidebar-item"> <a class="sidebar-link two-column has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><span class="hide-menu">Marcas
+                                </span></a>
+                            <ul aria-expanded="false" class="collapse first-level Brand_wrapper">
+
+                        </li>
+
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
         <!-- ============================================================== -->
         <!-- End Topbar header -->
         <!-- ============================================================== -->

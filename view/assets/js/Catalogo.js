@@ -8,121 +8,105 @@ function cancelarForm() {
     limpiarForms();
     $("#formulario_update").hide();
 }
+var datosJSON;
 
-$(document).ready(function () {
+function DatosAJSON() {
     $.ajax({
-        url: '../Controller/CatalogoController.php?op=ListarTarjetaProducto',
+        url: './../../Controller/CatalogoController.php?op=Catalogo',
         dataType: 'json',
         success: function (data) {
-            console.log(data);
-            // Iterar sobre los datos y crear tarjetas de producto
-            data.forEach(function (producto) {
-                var tarjetaHTML =
-                    '<div class="col-3">' +
-                    '<div class="tarjeta-producto">' +
-                    '<div class="card my-3" >' +
-                    '<img src="assets/img/' + producto.Imagen +'" class="card-img-top imagen" />' +
-                    '<div class="card-body">' +
-                    '<div hidden class="XS">' + producto.CantXS + '</div>' +
-                    '<div hidden class="S">' + producto.CantS + '</div>' +
-                    '<div hidden class="M">' + producto.CantM + '</div>' +
-                    '<div hidden class="L">' + producto.CantL + '</div>' +
-                    '<div hidden class="XL">' + producto.CantXL + '</div>' +
-                    '<div hidden class="XXL">' + producto.CantXXL + '</div>' +
-                    '<div hidden class="Marca">' + producto.Marca + '</div>' +
-                    '<div hidden class="NombreCategoria">' + producto.Categoria + '</div>' +
-                    '<div hidden class="imagen">' + producto.Imagen + '</div>' +
-                    '<h6 class="card-title">' + producto.Descripcion + '</h6>' +
-                    '<p class="card-text preciov">₡' + producto.PrecioV + '</p>' +
-                    producto.Opcion +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</br>';
-                $('#contenedor-tarjetas').append(tarjetaHTML);
-            })
-        },
-        error: function (e) {
-            console.log(e.responseText);
-
+            // Asigna los datos y luego llama a la función
+            datosJSON = data;
+            displayProductsData(datosJSON);
         }
     });
-});
-// Manejar clic en el botón "Modificar Producto" en una tarjeta
-$(document).on("click", 'button[id="VerInformacion"]', function () {
-    var card = $(this).closest('.card');
-    var id = card.data('id');
-    var descripcion = card.find('.card-title').text();
-    var precioVenta = card.find('.preciov').text();
-    var cantXS = card.find('.XS').text();
-    var cantS = card.find('.S').text();
-    var cantM = card.find('.M').text();
-    var cantL = card.find('.L').text();
-    var cantXL = card.find('.XL').text();
-    var cantXXL = card.find('.XXL').text();
-    var NombreCategoria = card.find('.NombreCategoria').text();
-    var Marca = card.find('.Marca').text();
-    var imagen = card.find('.imagen').text();
+}
 
-    var PrecioVenta = parseInt((precioVenta.replace("₡", " ")).trim());
-   var URLImagen="assets/img/"+imagen;
-
-    // Obtener otros datos necesarios según la estructura de tus tarjetas
-
-    limpiarForms();
-    $("#formulario_update").show();
-    $("#id").val(id);
-    $("#Nueva_Descripcion").val(descripcion);
-    $("#Nuevo_Precio_Venta").val(PrecioVenta);
-    $("#Nueva_Cant_XS").val(cantXS);
-    $("#Nueva_Cant_S").val(cantS);
-    $("#Nueva_Cant_M").val(cantM);
-    $("#Nueva_Cant_L").val(cantL);
-    $("#Nueva_Cant_XL").val(cantXL);
-    $("#Nueva_Cant_XXL").val(cantXXL);
-    $("#Nueva_Categoria").val(NombreCategoria);
-    $("#Nueva_Marca").val(Marca);
-    $("#img").attr("src", URLImagen);
-
-    // Llenar otros campos del formulario según sea necesario
-
-    return false;
+window.addEventListener("DOMContentLoaded", () => {
+    DatosAJSON();
+    displaycategoryData();
+    displayBrandsData();
 });
 
-// Manejar envío del formulario de actualización de producto
-$("#producto_update").on("submit", function (event) {
-    event.preventDefault();
-    bootbox.confirm("¿Desea modificar los datos?", function (result) {
-        if (result) {
-            var formData = new FormData($("#producto_update")[0]);
-            $.ajax({
-                url: "../Controller/ProductoController.php?op=EditarProducto",
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (datos) {
-                    switch (datos) {
-                        case "0":
-                            toastr.error("Error: No se pudieron actualizar los datos");
-                            break;
-                        case "1":
-                            toastr.success("Producto actualizado exitosamente");
-                            // Actualizar tarjetas o hacer cualquier otra acción necesaria
-                            limpiarForms();
-                            $("#formulario_update").hide();
-                            $("#formulario_add").show();
-                            break;
-                        case "2":
-                            toastr.error("Error: Descripción no pertenece al producto.");
-                            break;
-                    }
-                },
+
+const productContainer = document.querySelector(".products_wrapper");
+const BrandContainer = document.querySelector(".Brand_wrapper");
+const CategoryContainer = document.querySelector(".Category_wrapper");
+const inputElem = document.querySelector(".form-control");
+
+function displayProductsData(datosJSON) {
+
+    let displayData = datosJSON.map(function (producto) {
+        return `<div class="product">
+                <div class="image">
+                <img class="imagen" src="../assets/img/${producto.Imagen}"alt="">
+                </div>
+                <div class="contenido">
+                <h3 class="titulo">${producto.Descripcion}</h3>
+                <p class="precio">
+                Precio:${producto.PrecioV}
+                </p>
+                </div>
+                <div class="row button-group justify-content-center">
+                ${producto.Opcion}
+                </div>
+                </div> `;
+    });
+    displayData = displayData.join("");
+    productContainer.innerHTML = displayData;
+
+
+}
+
+function displaycategoryData() {
+    $.ajax({
+        url: './../../Controller/CatalogoController.php?op=Categoria',
+        dataType: 'json',
+        success: function (data) {
+            let displayData = data.map(function (categoria) {
+                return `<li class="sidebar-item "><a href="#" data-id="${categoria.Categoria}"class="sidebar-link"><span class="hide-menu">
+                ${categoria.Categoria}</span></a></li>`;
             });
+            displayData = displayData.join("");
+            CategoryContainer.innerHTML = displayData;
+
         }
-    });
-});
+    })
+}
+
+function displayBrandsData() {
+    $.ajax({
+        url: './../../Controller/CatalogoController.php?op=Marca',
+        dataType: 'json',
+        success: function (data) {
+            let displayData = data.map(function (brand) {
+                return `<li class="sidebar-item "><a href="#" data-id="${brand.Marca}"class="sidebar-link"><span class="hide-menu">
+                ${brand.Marca}</span></a></li>`;
+            });
+            displayData = displayData.join("");
+            BrandContainer.innerHTML = displayData;
+
+            const Enlaces = document.querySelectorAll(".sidebar-link ");
+            Enlaces.forEach((links) => {
+                links.addEventListener("click", (e) => {
+                    const category = e.target.dataset.id;
+                    const productos = datosJSON.filter(function (data) {
+                        if (data.Categoria === category) {
+                            return data;
+                        } if (data.Marca === category) {
+                            return data;
+                        }
+                    });
+                    if (category === "ALL") {
+                        displayProductsData(datosJSON);
+                    }
+                    else {
+                        displayProductsData(productos);
+                    }
+                })
+            })
+        }
+    })
+}
+
+
