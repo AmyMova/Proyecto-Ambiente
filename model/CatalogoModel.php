@@ -195,6 +195,8 @@ class Catalogo extends Conexion
                 $producto->setDescripcion($encontrado['Descripcion']);
                 $producto->setCategoria($encontrado['Categoria']);
                 $producto->setMarca($encontrado['Marca']);
+                $producto->setIdCategoria($encontrado['IdCategoria']);
+                $producto->setIdMarca($encontrado['IdMarca']);
                 $producto->setImagen($encontrado['Imagen']);
                 $arr[] = $producto;
             }

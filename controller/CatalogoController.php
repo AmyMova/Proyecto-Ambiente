@@ -1,9 +1,11 @@
 <?php
 require_once '../Model/CatalogoModel.php';
+require_once '../Model/CategoriaModel.php';
+require_once '../Model/MarcaModel.php';
 
 switch ($_GET["op"]) {
 
-    case 'ListarTarjetaProducto':
+    case 'Catalogo':
 
         $catalogo = new Catalogo();
         $catalogos = $catalogo->VerCatalogosDB();
@@ -18,16 +20,18 @@ switch ($_GET["op"]) {
                     "Descripcion" => $reg->getDescripcion(),
                     "Categoria" => $reg->getCategoria(),
                     "Marca" => $reg->getMarca(),
+                    "IdCategoria" => $reg->getIdCategoria(),
+                    "IdMarca" => $reg->getIdMarca(),
                     "CantXS" => $reg->getCantXS(),
                     "CantS" => $reg->getCantS(),
                     "CantM" => $reg->getCantM(),
                     "CantL" => $reg->getCantL(),
                     "CantXL" => $reg->getCantXL(),
                     "CantXXL" => $reg->getCantXXL(),
-                    "PrecioV" => $reg->getPrecioVenta(),
-                    "PrecioC" => $reg->getPrecioCredito(),
+                    "PrecioV" =>'₡' . $reg->getPrecioVenta(),
+                    "PrecioC" =>'₡' . $reg->getPrecioCredito(),
                     "Imagen" => $reg->getImagen(),
-                    "Opcion" => '<button class="btn btn-success" id="VerInformacion">Más</button> '
+                    "Opcion" => '<button class="btn btn-info"data-target="#VerInformacion" >Más</button>    '.'<button class="btn btn-success" id="AgregarACarrito">Comprar</button> '
                 );
             }
 
@@ -41,6 +45,57 @@ switch ($_GET["op"]) {
 
         echo json_encode($data);
         break;
+        case 'Categoria':
+
+            $categoria = new Categoria();
+            $categorias = $categoria->listarTodosDb();
+    
+            $data = array();
+    
+            if (is_array($categorias) || is_object($categorias)) {
+                foreach ($categorias as $reg) {
+    
+                    $data[] = array(
+                        "IdCategoria" => $reg->getIdCategoria(),
+                        "Categoria" => $reg->getCategoria()
+                    );
+                }
+    
+    
+            } else {
+                // Handle the case where $catalogos is not an array or object
+                // For example, log an error message or return an empty array
+                error_log("Catalog data is not an array or object.");
+                $data = array();
+            }
+    
+            echo json_encode($data);
+            break;
+            case 'Marca':
+
+                $marca = new Marca();
+                $marcas = $marca->listarTodosDb();
+        
+                $data = array();
+        
+                if (is_array($marcas) || is_object($cmarcas)) {
+                    foreach ($marcas as $reg) {
+        
+                        $data[] = array(
+                            "IdMarca" => $reg->getMarca(),
+                            "Marca" => $reg->getMarca()
+                        );
+                    }
+        
+        
+                } else {
+                    
+                    error_log("Catalog data is not an array or object.");
+                    $data = array();
+                }
+        
+                echo json_encode($data);
+                break;
         case 'VerInformacion':
             $IdProducto = isset($_POST["id"]) ? trim($_POST["id"]) : "";
             $Descripcion = isset($_POST["Nueva_Descripcion"]) ? trim($_POST["Nueva_Descripcion"]) : "";

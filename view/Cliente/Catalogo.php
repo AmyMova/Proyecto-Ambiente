@@ -1,24 +1,22 @@
 <?php include ("Componentes/Header.php"); ?>
-<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/Catalogo.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <div class="container-fluid">
-    <!-- ============================================================== -->
-    <!-- Start Page Content -->
-    <!-- ============================================================== -->
-    <!-- row -->
     <div class="row justify-content-center">
-
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body ">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active"> <img class="img-fluid" src="../assets/img/big/img4.jpg"
-                                    alt="First slide"> </div>
-                            <div class="carousel-item"> <img class="img-fluid" src="../assets/img/big/img5.jpg"
-                                    alt="Second slide"> </div>
-                            <div class="carousel-item"> <img class="img-fluid" src="../assets/img/big/img6.jpg"
-                                    alt="Third slide"> </div>
+                            <div class="carousel-item active"> <img class="img-fluid"
+                                    src="../assets/img/Carousel/portada 1.jpg" alt="First slide"
+                                    style="height:500px;width:1120px;"> </div>
+                            <div class="carousel-item"> <img class="img-fluid"
+                                    src="../assets/img/Carousel/portada 2.jpg" alt="Second slide"
+                                    style="height:500px;width:1120px;"> </div>
+                            <div class="carousel-item"> <img class="img-fluid"
+                                    src="../assets/img/Carousel/portada 3.jpg" alt="Third slide"
+                                    style="height:500px;width:1120px;"> </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
                             data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -32,55 +30,66 @@
             </div>
         </div>
     </div>
-    <div class="wrapper">
-        <header class="header-mobile">
-            <h1 class="logo">Ropa</h1>
-            <button class="open-menu" id="open-menu">
-                <i class="bi bi-list"></i>
-            </button>
-        </header>
-        <aside>
-            <button class="close-menu" id="close-menu">
-                <i class="bi bi-x"></i>
-            </button>
-            <header>
-                <h1 class="logo">Ropa</h1>
-            </header>
-            <nav>
-                <ul class="menu">
-                    <li>
-                        <button id="todos" class="boton-menu boton-categoria active"><i class="bi bi-hand-index-thumb-fill"></i> Todos los productos</button>
-                    </li>
-                
-                    <li>
-                        <button id="abrigos" class="boton-menu boton-categoria"><i class="bi bi-hand-index-thumb"></i> Abrigos</button>
-                    </li>
-                    <li>
-                        <button id="camisetas" class="boton-menu boton-categoria"><i class="bi bi-hand-index-thumb"></i> Camisetas</button>
-                    </li>
-                    <li>
-                        <button id="pantalones" class="boton-menu boton-categoria"><i class="bi bi-hand-index-thumb"></i> Pantalones</button>
-                    </li>
-                    <li>
-                        <a class="boton-menu boton-carrito" href="carrito.php">
-                            <i class="bi bi-cart-fill"></i> Carrito <span id="numerito" class="numerito">0</span>
-                        </a>
+    <button class="btn btn-info"data-target="#VerInformacion" >Más</button>
+    <div class="row ">
+        <div class="container">
+            <div class="products_wrapper text-center justify-content-center">
 
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-        <main>
-            <h2 class="titulo-principal" id="titulo-principal">Todos los productos</h2>
-            <div id="contenedor-productos" class="contenedor-productos">
-            
             </div>
-        </main>
+        </div>
     </div>
 
-
-    <!-- End row -->
-
+    <!--Modal Ver Más Información-->
+    <div id="VerInformacion" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">Ver más Información</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <h4>Título</h4>
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                        augue laoreet rutrum faucibus dolor auctor.</p>
+                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                        nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    
+    <!--Modal Comprar -->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <h4>Overflowing text to show scroll behavior</h4>
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                        augue laoreet rutrum faucibus dolor auctor.</p>
+                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                        nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger waves-effect text-left"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
     <?php include ("Componentes/Footer.php"); ?>
+    <script src="./../assets/js/Catalogo.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
