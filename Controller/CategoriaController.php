@@ -115,7 +115,7 @@ switch ($_GET["op"]) {
             $encontrado = $categoria->verificarExistenciaByIDDb();
             if ($encontrado == 1) {
                 $categoria->EliminarCategoria();
-                $encontrado = $categoria->verificarExistenciaByIDDb();
+                $eliminado = $categoria->verificarExistenciaByIDDb();
                 if ($eliminado == 0) {
                     echo 1;//Se elimino el producto
                 } else {

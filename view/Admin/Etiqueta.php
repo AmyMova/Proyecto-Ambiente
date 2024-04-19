@@ -302,7 +302,7 @@
     </div>
     <!--Modal para editar el producto-->
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" style="display: none;" id="BuscarProductoE" onclick="  ListarProductosEditar();">
+        aria-hidden="true" style="display: none;" id="BuscarProductoE">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -310,7 +310,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <table id="tblListadoBuscarProductoE" class="table table-striped table-bordered table-hover">
+                    <table id="tblListadoBuscarProductoE" class="table table-striped table-bordered table-hover"
+                        style="width:100%;">
                         <thead>
                             <th>ID</th>
                             <th>Producto</th>

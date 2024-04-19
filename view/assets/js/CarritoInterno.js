@@ -72,31 +72,53 @@ $("#carritoInterno_agregar").on("submit", function (event) {
         success: function (datos) {
             switch (datos) {
                 case "1":
-                    toastr.success("Producto registrado");
-                    $("#carritoInterno_agregar")[0].reset();
-                    tablaCarritoInterno.api().ajax.reload();
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'Producto registrado',
+                    }).then(() => {
+                        $("#carritoInterno_agregar")[0].reset();
+                        tablaCarritoInterno.api().ajax.reload();
+                    });
                     break;
 
                 case "2":
-                    toastr.error(
-                        "El producto ya existe... Corrija e inténtelo nuevamente..."
-                    );
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'El producto ya existe. Corrija e inténtelo nuevamente.',
+                    });
                     break;
 
                 case "3":
-                    toastr.error("Hubo un error al tratar de ingresar los datos.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Hubo un error al tratar de ingresar los datos.',
+                    });
                     break;
+
                 case "4":
-                    toastr.error("Datos incompletos");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Datos incompletos.',
+                    });
                     break;
+
                 default:
-                    toastr.error(datos);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: datos,
+                    });
                     break;
             }
             $("#btnRegistar").removeAttr("disabled");
         },
     });
 });
+
 
 //Funcion para listar la tabla de productos para mostrarlos en el modal de agregar
 function ListarProductosAgregarC() {
@@ -283,25 +305,51 @@ $("#tblListadoBuscarUsuario tbody").on(
 //Eliminar los datos de un producto en el carrito
 function EliminarProductoCarrito(IdCarrito, event) {
     event.preventDefault();
-    bootbox.confirm('¿Está seguro de eliminar el producto?', function (result) {
-        if (result) {
+    Swal.fire({
+        title: '¿Está seguro de eliminar el producto?',
+        text: 'Esta acción eliminará el producto del carrito',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
             $.post(
                 '../../Controller/CarritoController.php?op=EliminarProductoCarrito',
                 { IdCarrito: IdCarrito },
                 function (data, textStatus, xhr) {
                     switch (data) {
                         case '1':
-                            toastr.success('Producto Eliminado');
-                            location.reload();
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Éxito!',
+                                text: 'Producto eliminado exitosamente',
+                            }).then(() => {
+                                location.reload();
+                            });
                             break;
                         case '2':
-                            toastr.error('Producto no encontrado');
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: 'Producto no encontrado',
+                            });
                             break;
                         case '3':
-                            toastr.error('Error al tratar de eliminar el producto. Por favor, consulte con el administrador');
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: 'Error al tratar de eliminar el producto. Por favor, consulte con el administrador',
+                            });
                             break;
                         default:
-                            toastr.error(data);
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: data,
+                            });
                             break;
                     }
                 }
@@ -315,34 +363,60 @@ function EliminarProductoCarrito(IdCarrito, event) {
 //Elimina todo los productos que tengan el idUsuario correcto
 function LimpiarCarrito(event) {
     event.preventDefault();
-    bootbox.confirm('¿Está seguro de eliminar el producto?', function (result) {
-        if (result) {
+    Swal.fire({
+        title: '¿Está seguro de eliminar todos los productos del carrito?',
+        text: 'Esta acción eliminará todos los productos del carrito',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
             $.post(
                 '../../Controller/CarritoController.php?op=EliminarProductosCarrito',
                 function (data, textStatus, xhr) {
                     switch (data) {
                         case '1':
-                            toastr.success('Productos Eliminados');
-                            location.reload();
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Éxito!',
+                                text: 'Productos Eliminados exitosamente',
+                            }).then(() => {
+                                location.reload();
+                            });
                             break;
                         case '2':
-                            toastr.error('Productos no encontrados');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Productos no encontrados',
+                            });
                             break;
                         case '3':
-                            toastr.error('Error al tratar de eliminar el producto. Por favor, consulte con el administrador');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: 'Error al tratar de eliminar los producto. Por favor, consulte con el administrador',
+                            });
                             break;
                         default:
-                            toastr.error(data);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error!',
+                                text: data,
+                            });
                             break;
                     }
                 }
             );
         }
-    });
+    })
 }
 
 
-/*Habilitacion de form de modificacion al presionar el boton en la tabla*/
+/*Habilitación de form de modificación al presionar el botón en la tabla*/
 $("#tblListadoCarritoInterno tbody").on(
     "click",
     'button[id="modificarProductoCarrito"]',
@@ -377,7 +451,7 @@ $("#tblListadoCarritoInterno tbody").on(
         return false;
     }
 );
-/*Funcion para modificacion de datos de producto*/
+/*Función para modificación de datos de producto*/
 $("#carritoInterno_editar").on("submit", function (event) {
     event.preventDefault();
     bootbox.confirm("¿Desea modificar los datos?", function (result) {

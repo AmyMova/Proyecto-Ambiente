@@ -23,7 +23,7 @@ switch ($_GET["op"]) {
                     "8" => $reg->getPrecioVenta(),
                     "9" => $reg->getPrecioCredito(),
                     "10" => '</button> <button class="btn btn-warning" id="modificarEtiqueta"><i class="ti-pencil-alt"></i></button> | ' .
-                        '<button class="btn btn-danger" onclick="EliminarEtiqueta(\'' . $reg->getIdEtiqueta() . '\')"><i class="ti-trash"></i></button>',
+                        '<button class="btn btn-danger" onclick="EliminarEtiqueta(\'' . $reg->getIdEtiqueta() . '\',event)"><i class="ti-trash"></i></button>',
                     "11" => $reg->getIdProducto(),
                     "12" => $reg->getCategoria(),
                     "13" => $reg->getMarca(),
@@ -90,31 +90,36 @@ switch ($_GET["op"]) {
             $L = isset($_POST["L"]) ? trim($_POST["L"]) : "";
             $XL = isset($_POST["XL"]) ? trim($_POST["XL"]) : "";
             $XXL = isset($_POST["XXL"]) ? trim($_POST["XXL"]) : "";
+            
+            if (!$IdProducto) {//Revisa que los datos esten completos
 
-            $etiqueta = new Etiqueta();
-
-            $etiqueta->setIdProducto($IdProducto);
-            $encontrado = $etiqueta->verificarExistenciaEtiquetaDb();
-
-            if ($encontrado == 0) {
-                $etiqueta->setXS($XS);
-                $etiqueta->setS($S);
-                $etiqueta->setM($M);
-                $etiqueta->setL($L);
-                $etiqueta->setXL($XL);
-                $etiqueta->setXXL($XXL);
-                $etiqueta->CrearEtiquetaDB();
-
-                if ($etiqueta->verificarExistenciaEtiquetaDb()) {
-                    echo 1; //etiqueta registrado 
-                    //  echo 4; //etiqueta registrado y envio de correo fallido
-                    //}
-                } else {
-                    echo 3; //Fallo al realizar el registro
-                }
+                echo 4;//los datos no estan completos
             } else {
-                echo 2; //el etiqueta ya existe
+                $etiqueta = new Etiqueta();
+
+                $etiqueta->setIdProducto($IdProducto);
+                $encontrado = $etiqueta->verificarExistenciaEtiquetaDb();
+
+                if ($encontrado == 0) {
+                    $etiqueta->setXS($XS);
+                    $etiqueta->setS($S);
+                    $etiqueta->setM($M);
+                    $etiqueta->setL($L);
+                    $etiqueta->setXL($XL);
+                    $etiqueta->setXXL($XXL);
+                    $etiqueta->CrearEtiquetaDB();
+
+                    if ($etiqueta->verificarExistenciaEtiquetaDb()) {
+                        echo 1; //etiqueta registrado 
+                        //}
+                    } else {
+                        echo 3; //Fallo al realizar el registro
+                    }
+                } else {
+                    echo 2; //la etiqueta ya existe
+                }
             }
+
 
         } catch (Exception $e) {
             //Captura cualquier excepcion y muestra un mensaje 

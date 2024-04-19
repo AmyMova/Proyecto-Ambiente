@@ -15,18 +15,18 @@ $(document).ready(function () {
         url: './../../Controller/MarcaController.php?op=ListarMarca',
         dataType: 'json',
         success: function (data) {
-            // Iterar sobre los datos y crear tarjetas de categoría
+            // Iterar sobre los datos y crear tarjetas de marca
             data.forEach(function (marca) {
                 var tarjetaHTML =
                     '<div class="col-sx-1 col-sm-4 col-md-4 col-lg-3 col-lx-2">' +
-                        '<div class="tarjeta-marca">' +
-                            '<div class="card" >' +
-                                '<div class="card-body">' +
-                                    '<h3 class="card-title">' + marca.IdMarca + '</h3>' +
-                                    '<p class="card-text">' + marca.Marca + '</p>' + marca.OpcionMarca +
-                                '</div>' +
-                            '</div>' +
-                        '</div>' +
+                    '<div class="tarjeta-marca">' +
+                    '<div class="card" >' +
+                    '<div class="card-body">' +
+                    '<h3 class="card-title">' + marca.IdMarca + '</h3>' +
+                    '<p class="card-text">' + marca.Marca + '</p>' + marca.OpcionMarca +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
                     '</div>';
                 $('#contenedor-tarjetas-Marca').append(tarjetaHTML);
             })
@@ -39,18 +39,18 @@ $(document).ready(function () {
 $(function () {
     $("#formulario_agregar_marca").hide();
     $("#formulario_editar_marca").hide();
-  });
+});
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Evento clic para el botón #agregarMarca
-    $('#agregarMarca').click(function() {
+    $('#agregarMarca').click(function () {
         limpiarFormsMarca();
         $('#formulario_agregar_marca').show();
         $("#formulario_editar_marca").hide();
         return false; // Para evitar que el evento de clic se propague
     });
-  });
-  
+});
+
 $("#marca_agregar").on("submit", function (event) {
     event.preventDefault();
     $("#btnRegistar").prop("disabled", true);
@@ -64,22 +64,39 @@ $("#marca_agregar").on("submit", function (event) {
         success: function (datos) {
             switch (datos) {
                 case "1":
-                    toastr.success("Marca registrado");
-                    $("#marca_agregar")[0].reset();
-                    location.reload();
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'Marca registrada',
+                        timer: 3000, // tiempo en milisegundos para que desaparezca el mensaje
+                        showConfirmButton: false
+                    }).then(() => {
+                        $("#marca_agregar")[0].reset();
+                        location.reload();
+                    });
                     break;
 
                 case "2":
-                    toastr.error(
-                        "La Marca ya existe... Corrija e inténtelo nuevamente..."
-                    );
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'La marca ya existe. Corrija e inténtelo nuevamente.'
+                    });
                     break;
 
                 case "3":
-                    toastr.error("Hubo un error al tratar de ingresar los datos.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Hubo un error al tratar de ingresar los datos.'
+                    });
                     break;
                 default:
-                    toastr.error(datos);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: datos
+                    });
                     break;
             }
             $("#btnRegistar").removeAttr("disabled");
@@ -107,11 +124,17 @@ $(document).on("click", 'button[id="modificarMarca"]', function () {
     return false;
 });
 /*Funcion para modificacion de datos de marca*/
-/*Funcion para modificacion de datos de marca*/
 $("#marca_editar").on("submit", function (event) {
     event.preventDefault();
-    bootbox.confirm("¿Desea modificar los datos?", function (result) {
-        if (result) {
+    Swal.fire({
+        title: '¿Desea modificar los datos?',
+        text: "Esta acción modificará los datos de la marca",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
             var formData = new FormData($("#marca_editar")[0]);
             $.ajax({
                 url: "./../../Controller/MarcaController.php?op=EditarMarca",
@@ -120,20 +143,32 @@ $("#marca_editar").on("submit", function (event) {
                 contentType: false,
                 processData: false,
                 success: function (datos) {
-                    //alert(datos);
                     switch (datos) {
                         case "0":
-                            toastr.error("Error: No se pudieron editar los datos");
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: 'No se pudieron actualizar los datos'
+                            });
                             break;
                         case "1":
-                            toastr.success("Marca actualizada exitosamente");
-                            location.reload();
-                            limpiarFormsMarca();
-                            $("#formulario_agregar_marca").hide();
-                            $("#formulario_editar_marca").hide();
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Éxito!',
+                                text: 'Marca actualizada exitosamente'
+                            }).then(() => {
+                                location.reload();
+                                limpiarFormsMarca();
+                                $("#formulario_agregar_marca").hide();
+                                $("#formulario_editar_marca").hide();
+                            });
                             break;
                         case "2":
-                            toastr.error("Error:Id no existe.");
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: 'El ID no existe'
+                            });
                             break;
                     }
                 },
@@ -141,26 +176,45 @@ $("#marca_editar").on("submit", function (event) {
         }
     });
 });
-function EliminarMarca(IdMarca) {
-    bootbox.confirm('¿Esta seguro de eliminar la marca?', function (result) {
-        if (result) {
-            $.post('./../../Controller/MarcaController.php?op=EliminarMarca',
-                { IdMarca: IdMarca },
+
+function EliminarMarca(IdMarca, event) {
+    event.preventDefault();
+    Swal.fire({
+        title: '¿Está seguro de eliminar la marca?',
+        text: 'Esta acción eliminará permanentemente la marca',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.post('./../../Controller/MarcaController.php?op=EliminarMarca', { IdMarca: IdMarca },
                 function (data, textStatus, xhr) {
                     switch (data) {
                         case '1':
-                            toastr.success('Marca Eliminada');
-                            location.reload();
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Éxito!',
+                                text: 'Marca eliminada exitosamente'
+                            }).then(() => {
+                                location.reload();
+                            });
                             break;
-
                         case '0':
-                            toastr.error(
-                                'Error: La marca no puede eliminarse. Consulte con el administrador...'
-                            );
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: 'La marca no puede eliminarse. Consulte con el administrador.'
+                            });
                             break;
-
                         default:
-                            toastr.error(data);
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: data
+                            });
                             break;
                     }
                 }

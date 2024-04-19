@@ -20,7 +20,6 @@ async function fetchDataApi() {
         console.error(error);
     }
 };
-
 $("#login_form").on("submit", function (event) {
     event.preventDefault();
     $("#btnLogIn").prop("disabled", true);
@@ -34,24 +33,44 @@ $("#login_form").on("submit", function (event) {
         success: function (datos) {
             switch (datos) {
                 case "1":
-                    location.href = "Index.php";
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Inicio de sesión exitoso!',
+                        text: 'Bienvenido de vuelta',
+                    }).then(() => {
+                        location.href = "Index.php";
+                    });
                     break;
 
                 case "2":
-                    toastr.error("Contraseña o Correo Equivocado");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Contraseña o correo equivocado',
+                    });
                     break;
 
                 case "3":
-                    toastr.error("Hubo un error al tratar de ingresar los datos.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Hubo un error al tratar de ingresar los datos.',
+                    });
                     break;
+                    
                 default:
-                    toastr.error(datos);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: datos,
+                    });
                     break;
             }
             $("#btnLogIn").removeAttr("disabled");
         },
     });
 });
+
 
 $("#SignInForm").on("submit", function (event) {
     event.preventDefault();
@@ -66,30 +85,53 @@ $("#SignInForm").on("submit", function (event) {
         success: function (datos) {
             switch (datos) {
                 case "1":
-                    location.href = "Login.php"
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'Usuario registrado exitosamente',
+                    }).then(() => {
+                        location.href = "Login.php";
+                    });
                     break;
 
                 case "2":
-                    toastr.error(
-                        "El usuario ya existe... Corrija e inténtelo nuevamente..."
-                    );
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'El usuario ya existe. Corrija e inténtelo nuevamente.',
+                    });
                     break;
 
                 case "3":
-                    toastr.error("Hubo un error al tratar de ingresar los datos.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Hubo un error al tratar de ingresar los datos.',
+                    });
                     break;
+                    
                 case "4":
-                    toastr.error("Las contraseñas tienen que ser las mismas.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Las contraseñas tienen que ser las mismas.',
+                    });
                     break;
+                    
                 default:
-                    toastr.error(datos);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: datos,
+                    });
                     break;
             }
             $("#btnSignin").removeAttr("disabled");
         },
     });
 });
-/*Ya Aplico los cambios 14*/
+
+
 $("#forgotform").on("submit", function (event) {
     event.preventDefault();
     $("#btnforgot").prop("disabled", true);
@@ -103,20 +145,37 @@ $("#forgotform").on("submit", function (event) {
         success: function (datos) {
             switch (datos) {
                 case "1":
-                    location.href = "Login.php"
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'Se ha enviado un correo para restablecer la contraseña',
+                    }).then(() => {
+                        location.href = "Login.php";
+                    });
                     break;
 
                 case "2":
-                    toastr.error(
-                        "!No Existe ese correo!"
-                    );
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'No existe ese correo',
+                    });
                     break;
 
                 case "3":
-                    toastr.error("Hubo un error al tratar de ingresar los datos.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Hubo un error al tratar de buscar los datos',
+                    });
                     break;
+                    
                 default:
-                    toastr.error(datos);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: datos,
+                    });
                     break;
             }
             $("#btnforgot").removeAttr("disabled");
