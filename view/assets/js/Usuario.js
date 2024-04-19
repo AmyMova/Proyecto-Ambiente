@@ -112,22 +112,39 @@ $("#usuario_agregar").on("submit", function (event) {
         success: function (datos) {
             switch (datos) {
                 case "1":
-                    toastr.success("Usuario registrado");
-                    $("#usuario_agregar")[0].reset();
-                    $("#formulario_agregar_usuario").hide();
-                    tablaUsuario.api().ajax.reload();
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'Usuario registrado',
+                        timer: 3000, // tiempo en milisegundos para que desaparezca el mensaje
+                        showConfirmButton: false
+                    }).then(() => {
+                        $("#usuario_agregar")[0].reset();
+                        tablaUsuario.api().ajax.reload();
+                    });
+                    break;
 
                 case "2":
-                    toastr.error(
-                        "El usuario ya existe... Corrija e inténtelo nuevamente..."
-                    );
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'La usuario ya existe. Corrija e inténtelo nuevamente.'
+                    });
                     break;
 
                 case "3":
-                    toastr.error("Hubo un error al tratar de ingresar los datos.");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Hubo un error al tratar de ingresar los datos.'
+                    });
                     break;
                 default:
-                    toastr.error(datos);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: datos
+                    });
                     break;
             }
             $("#btnRegistar").removeAttr("disabled");
@@ -168,13 +185,18 @@ $("#tblListadoUsuario tbody").on(
 );
 
 
-/*Funcion para modificacion de la contraseña del usuario*/
-
-/*Funcion para modificacion de datos de usuario*/
+/*Funcion para la  modificación de datos del usuario*/
 $("#usuario_editar").on("submit", function (event) {
     event.preventDefault();
-    bootbox.confirm("¿Desea modificar los datos?", function (result) {
-        if (result) {
+    Swal.fire({
+        title: '¿Desea modificar los datos?',
+        text: "Esta acción modificará los datos del usuario",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
             var formData = new FormData($("#usuario_editar")[0]);
             $.ajax({
                 url: "./../../Controller/UsuarioController.php?op=EditarUsuario",
@@ -183,20 +205,32 @@ $("#usuario_editar").on("submit", function (event) {
                 contentType: false,
                 processData: false,
                 success: function (datos) {
-                    //alert(datos);
                     switch (datos) {
                         case "0":
-                            toastr.error("Error: No se pudieron actualizar los datos");
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: 'No se pudieron actualizar los datos'
+                            });
                             break;
                         case "1":
-                            toastr.success("Usuario actualizado exitosamente");
-                            tablaUsuario.api().ajax.reload();
-                            limpiarFormsUsuario();
-                            $("#formulario_editar_usuario").hide();
-                            $("#formulario_agregar_usuario").show();
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Éxito!',
+                                text: 'Usuario actualizado exitosamente'
+                            }).then(() => {
+                                tablaUsuario.api().ajax.reload();
+                                limpiarFormsUsuario();
+                                $("#formulario_agregar_usuario").hide();
+                                $("#formulario_editar_usuario").hide();
+                            });
                             break;
                         case "2":
-                            toastr.error("Error:Id no pertenece al usuario.");
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: 'El ID no existe'
+                            });
                             break;
                     }
                 },
@@ -204,27 +238,45 @@ $("#usuario_editar").on("submit", function (event) {
         }
     });
 });
-function Eliminar(IdUsuario) {
-    bootbox.confirm('¿Esta seguro de eliminar el usuario?', function (result) {
-        if (result) {
-            $.post(
-                './../../Controller/UsuarioController.php?op=EliminarUsuario',
-                { IdUsuario: IdUsuario },
+/*Función para eliminar un usuario*/
+function EliminarUsuario(IdUsuario, event) {
+    event.preventDefault();
+    Swal.fire({
+        title: '¿Está seguro de eliminar el usuario?',
+        text: 'Esta acción eliminará permanentemente al usuario',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.post('./../../Controller/UsuarioController.php?op=EliminarUsuario', { IdUsuario: IdUsuario },
                 function (data, textStatus, xhr) {
                     switch (data) {
                         case '1':
-                            toastr.success('Usuario Eliminado');
-                            tablaUsuario.api().ajax.reload();
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Éxito!',
+                                text: 'Usuario eliminado exitosamente'
+                            }).then(() => {
+                                tablaUsuario.api().ajax.reload();
+                            });
                             break;
-
                         case '0':
-                            toastr.error(
-                                'Error: El usuario no puede eliminarse. Consulte con el administrador...'
-                            );
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: 'El usuario no puede eliminarse. Consulte con el administrador.'
+                            });
                             break;
-
                         default:
-                            toastr.error(data);
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Error!',
+                                text: data
+                            });
                             break;
                     }
                 }

@@ -62,35 +62,58 @@ $("#producto_agregar").on("submit", function (event) {
   $("#btnRegistar").prop("disabled", true);
   var formData = new FormData($("#producto_agregar")[0]);
   $.ajax({
-    url: "../../Controller/ProductoController.php?op=AgregarProducto",
-    type: "POST",
-    data: formData,
-    contentType: false,
-    processData: false,
-    success: function (datos) {
-      switch (datos) {
-        case "1":
-          toastr.success("Producto registrado");
-          $("#producto_agregar")[0].reset();
-          $("#formulario_agregar").hide();
-          tablaProducto.api().ajax.reload();
-          break;
+      url: "./../../Controller/ProductoController.php?op=AgregarProducto",
+      type: "POST",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (datos) {
+          switch (datos) {
+              case "1":
+                  Swal.fire({
+                      icon: 'success',
+                      title: '¡Éxito!',
+                      text: 'Producto agregado',
+                  }).then(() => {
+                      $("#producto_agregar")[0].reset();
+                      tablaProducto.api().ajax.reload();
+                  });
+                  break;
 
-        case "2":
-          toastr.error(
-            "El producto ya existe... Corrija e inténtelo nuevamente..."
-          );
-          break;
+              case "2":
+                  Swal.fire({
+                      icon: 'error',
+                      title: '¡Error!',
+                      text: 'El producto ya existe. Corrija e inténtelo nuevamente.',
+                  });
+                  break;
 
-        case "3":
-          toastr.error("Hubo un error al tratar de ingresar los datos.");
-          break;
-        default:
-          toastr.error(datos);
-          break;
-      }
-      $("#btnRegistar").removeAttr("disabled");
-    },
+              case "3":
+                  Swal.fire({
+                      icon: 'error',
+                      title: '¡Error!',
+                      text: 'Hubo un error al tratar de ingresar los datos.',
+                  });
+                  break;
+
+              case "4":
+                  Swal.fire({
+                      icon: 'error',
+                      title: '¡Error!',
+                      text: 'Datos incompletos.',
+                  });
+                  break;
+
+              default:
+                  Swal.fire({
+                      icon: 'error',
+                      title: '¡Error!',
+                      text: datos,
+                  });
+                  break;
+          }
+          $("#btnRegistar").removeAttr("disabled");
+      },
   });
 });
 
@@ -120,8 +143,8 @@ $("#tblListadoProducto tbody").on(
     $("#formulario_editar_producto").show();
     $("#id").val(data[0]);
     $("#Nueva_Descripcion").val(data[1]);
-    $("#Nuevo_Precio_Venta").val(data[10]);
-    $("#Nuevo_Precio_Credito").val(data[12]);
+    $("#Nuevo_Precio_Venta").val(data[16]);
+    $("#Nuevo_Precio_Credito").val(data[17]);
     $("#Nueva_Cant_XS").val(data[4]);
     $("#Nueva_Cant_S").val(data[5]);
     $("#Nueva_Cant_M").val(data[6]);
@@ -137,63 +160,100 @@ $("#tblListadoProducto tbody").on(
 /*Funcion para modificacion de datos de producto*/
 $("#producto_editar").on("submit", function (event) {
   event.preventDefault();
-  bootbox.confirm("¿Desea modificar los datos?", function (result) {
-    if (result) {
-      var formData = new FormData($("#producto_editar")[0]);
-      $.ajax({
-        url: "../../Controller/ProductoController.php?op=EditarProducto",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (datos) {
-          //alert(datos);
-          switch (datos) {
-            case "0":
-              toastr.error("Error: No se pudieron actualizar los datos");
-              break;
-            case "1":
-              toastr.success("Producto actualizado exitosamente");
-              tablaProducto.api().ajax.reload();
-              limpiarFormsProducto();
-              $("#formulario_editar_producto").hide();
-              break;
-            case "2":
-              toastr.error("Error:Id no encontrado.");
-              break;
-          }
-        },
-      });
-    }
+  Swal.fire({
+      title: '¿Desea modificar los datos?',
+      text: "Esta acción modificará los datos de la producto",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          var formData = new FormData($("#producto_editar")[0]);
+          $.ajax({
+              url: "./../../Controller/ProductoController.php?op=EditarProducto",
+              type: "POST",
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function (datos) {
+                  switch (datos) {
+                      case "0":
+                          Swal.fire({
+                              icon: 'error',
+                              title: '¡Error!',
+                              text: 'No se pudieron actualizar los datos'
+                          });
+                          break;
+                      case "1":
+                          Swal.fire({
+                              icon: 'success',
+                              title: '¡Éxito!',
+                              text: 'Producto actualizada exitosamente'
+                          }).then(() => {
+                              tablaProducto.api().ajax.reload();
+                              limpiarFormsProducto();
+                              $("#formulario_agregar_producto").hide();
+                              $("#formulario_editar_producto").hide();
+                          });
+                          break;
+                      case "2":
+                          Swal.fire({
+                              icon: 'error',
+                              title: '¡Error!',
+                              text: 'El ID no existe'
+                          });
+                          break;
+                  }
+              },
+          });
+      }
   });
 });
 /*Elimina el producto*/
-function EliminarProducto(IdProducto) {
-  bootbox.confirm('¿Esta seguro de eliminar el producto?', function (result) {
-    if (result) {
-      $.post(
-        '../../Controller/ProductoController.php?op=EliminarProducto',
-        { IdProducto: IdProducto },
-        function (data, textStatus, xhr) {
-          switch (data) {
-            case '1':
-              toastr.success('Producto Eliminado');
-              tablaProducto.api().ajax.reload();
-              break;
-
-            case '0':
-              toastr.error(
-                'Error: El producto no puede eliminarse. Consulte con el administrador...'
-              );
-              break;
-
-            default:
-              toastr.error(data);
-              break;
-          }
-        }
-      );
-    }
+function EliminarProducto(IdProducto, event) {
+  event.preventDefault();
+  Swal.fire({
+      title: '¿Está seguro de eliminar la producto?',
+      text: 'Esta acción eliminará permanentemente la producto',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          $.post('./../../Controller/ProductoController.php?op=EliminarProducto', { IdProducto: IdProducto },
+              function (data, textStatus, xhr) {
+                  switch (data) {
+                      case '1':
+                          Swal.fire({
+                              icon: 'success',
+                              title: '¡Éxito!',
+                              text: 'Producto eliminada exitosamente'
+                          }).then(() => {
+                            tablaProducto.api().ajax.reload();
+                          });
+                          break;
+                      case '0':
+                          Swal.fire({
+                              icon: 'error',
+                              title: '¡Error!',
+                              text: 'La producto no puede eliminarse. Consulte con el administrador.'
+                          });
+                          break;
+                      default:
+                          Swal.fire({
+                              icon: 'error',
+                              title: '¡Error!',
+                              text: data
+                          });
+                          break;
+                  }
+              }
+          );
+      }
   });
 }
 

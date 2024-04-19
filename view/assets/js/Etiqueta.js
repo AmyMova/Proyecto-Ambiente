@@ -46,6 +46,7 @@ function ListarEtiquetas() {
     },
   });
 }
+/*Funcion para cargar el listado de productos para agregar */
 function ListarProductosAgregar() {
   tablaProductosAgregar = $("#tblListadoBuscarProductoA").dataTable({
     aProcessing: true, //actiavmos el procesamiento de datatables
@@ -78,7 +79,7 @@ function ListarProductosAgregar() {
     },
   });
 }
-
+/*Funcion para cargar el listado de productos para editar */
 function ListarProductosEditar() {
   tablaProductosEditar = $("#tblListadoBuscarProductoE").dataTable({
     aProcessing: true, //actiavmos el procesamiento de datatables
@@ -119,6 +120,7 @@ $(function () {
   $("#formulario_agregar_etiqueta").hide();
   ListarEtiquetas();
   ListarProductosAgregar();
+  ListarProductosEditar();
 
 });
 /*
@@ -129,34 +131,58 @@ $("#etiqueta_agregar").on("submit", function (event) {
   $("#btnRegistar").prop("disabled", true);
   var formData = new FormData($("#etiqueta_agregar")[0]);
   $.ajax({
-    url: "./../../Controller/EtiquetaController.php?op=AgregarEtiqueta",
-    type: "POST",
-    data: formData,
-    contentType: false,
-    processData: false,
-    success: function (datos) {
-      switch (datos) {
-        case "1":
-          toastr.success("Etiqueta registrado");
-          $("#etiqueta_agregar")[0].reset();
-          tablaEtiqueta.api().ajax.reload();
-          break;
+      url: "./../../Controller/EtiquetaController.php?op=AgregarEtiqueta",
+      type: "POST",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (datos) {
+          switch (datos) {
+              case "1":
+                  Swal.fire({
+                      icon: 'success',
+                      title: '¡Éxito!',
+                      text: 'Producto agregado',
+                  }).then(() => {
+                      $("#etiqueta_agregar")[0].reset();
+                      tablaEtiqueta.api().ajax.reload();
+                  });
+                  break;
 
-        case "2":
-          toastr.error(
-            "El etiqueta ya existe... Corrija e inténtelo nuevamente..."
-          );
-          break;
+              case "2":
+                  Swal.fire({
+                      icon: 'error',
+                      title: '¡Error!',
+                      text: 'El producto ya existe. Corrija e inténtelo nuevamente.',
+                  });
+                  break;
 
-        case "3":
-          toastr.error("Hubo un error al tratar de ingresar los datos.");
-          break;
-        default:
-          toastr.error(datos);
-          break;
-      }
-      $("#btnRegistar").removeAttr("disabled");
-    },
+              case "3":
+                  Swal.fire({
+                      icon: 'error',
+                      title: '¡Error!',
+                      text: 'Hubo un error al tratar de ingresar los datos.',
+                  });
+                  break;
+
+              case "4":
+                  Swal.fire({
+                      icon: 'error',
+                      title: '¡Error!',
+                      text: 'Datos incompletos.',
+                  });
+                  break;
+
+              default:
+                  Swal.fire({
+                      icon: 'error',
+                      title: '¡Error!',
+                      text: datos,
+                  });
+                  break;
+          }
+          $("#btnRegistar").removeAttr("disabled");
+      },
   });
 });
 
@@ -170,12 +196,6 @@ $(document).ready(function () {
   });
 });
 
-$(document).ready(function () {
-  // Evento clic para el botón #agregarEtiqueta
-  $('#BuscarProductoA').click(function () {
-    return false; // Para evitar que el evento de clic se propague
-  });
-});
 
 $("#tblListadoBuscarProductoA tbody").on(
   "click",
@@ -188,15 +208,6 @@ $("#tblListadoBuscarProductoA tbody").on(
     return false;
   }
 );
-
-$(document).ready(function () {
-  // Evento clic para el botón #agregarEtiqueta
-  $('#BuscarProductoE').click(function () {
-
-    return false; // Para evitar que el evento de clic se propague
-  });
-});
-
 $("#tblListadoBuscarProductoE tbody").on(
   "click",
   'button[id="SeleccionarE"]',
@@ -232,94 +243,155 @@ $("#tblListadoEtiqueta tbody").on(
   }
 );
 /*Funcion para modificacion de datos de etiqueta*/
-$("#formulario_editar_etiqueta").on("submit", function (event) {
+$("#etiqueta_editar").on("submit", function (event) {
   event.preventDefault();
-  bootbox.confirm("¿Desea modificar los datos?", function (result) {
-    if (result) {
-      var formData = new FormData($("#etiqueta_editar")[0]);
-      $.ajax({
-        url: "./../../Controller/EtiquetaController.php?op=EditarEtiqueta",
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (datos) {
-          //alert(datos);
-          switch (datos) {
-            case "0":
-              toastr.error("Error: No se pudieron actualizar los datos");
-              break;
-            case "1":
-              toastr.success("Etiqueta actualizado exitosamente");
-              tablaEtiqueta.api().ajax.reload();
-              limpiarFormsEtiqueta();
-              $("#formulario_editar_etiqueta").hide();
-              break;
-            case "2":
-              toastr.error("Error:Descripción no pertenece al etiqueta.");
-              break;
-          }
-        },
-      });
-    }
+  Swal.fire({
+      title: '¿Desea modificar los datos?',
+      text: "Esta acción modificará los datos de la etiqueta",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          var formData = new FormData($("#etiqueta_editar")[0]);
+          $.ajax({
+              url: "./../../Controller/EtiquetaController.php?op=EditarEtiqueta",
+              type: "POST",
+              data: formData,
+              contentType: false,
+              processData: false,
+              success: function (datos) {
+                  switch (datos) {
+                      case "0":
+                          Swal.fire({
+                              icon: 'error',
+                              title: '¡Error!',
+                              text: 'No se pudieron actualizar los datos'
+                          });
+                          break;
+                      case "1":
+                          Swal.fire({
+                              icon: 'success',
+                              title: '¡Éxito!',
+                              text: 'Etiqueta actualizada exitosamente'
+                          }).then(() => {
+                              tablaEtiqueta.api().ajax.reload();
+                              limpiarFormsEtiqueta();
+                              $("#formulario_agregar_etiqueta").hide();
+                              $("#formulario_editar_etiqueta").hide();
+                          });
+                          break;
+                      case "2":
+                          Swal.fire({
+                              icon: 'error',
+                              title: '¡Error!',
+                              text: 'El ID no existe'
+                          });
+                          break;
+                  }
+              },
+          });
+      }
   });
 });
 /*Elimina el etiqueta*/
-function EliminarEtiqueta(IdEtiqueta) {
-  bootbox.confirm('¿Esta seguro de eliminar el etiqueta?', function (result) {
-    if (result) {
-      $.post(
-        './../../Controller/EtiquetaController.php?op=EliminarEtiqueta',
-        { IdEtiqueta: IdEtiqueta },
-        function (data, textStatus, xhr) {
-          switch (data) {
-            case '1':
-              toastr.success('Etiqueta Eliminado');
-              tablaEtiqueta.api().ajax.reload();
-              break;
-
-            case '0':
-              toastr.error(
-                'Error: El etiqueta no puede eliminarse. Consulte con el administrador...'
-              );
-              break;
-
-            default:
-              toastr.error(data);
-              break;
-          }
-        }
-      );
-    }
+function EliminarEtiqueta(IdEtiqueta, event) {
+  event.preventDefault();
+  Swal.fire({
+      title: '¿Está seguro de eliminar la etiqueta?',
+      text: 'Esta acción eliminará permanentemente la etiqueta',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          $.post('./../../Controller/EtiquetaController.php?op=EliminarEtiqueta', { IdEtiqueta: IdEtiqueta },
+              function (data, textStatus, xhr) {
+                  switch (data) {
+                      case '1':
+                          Swal.fire({
+                              icon: 'success',
+                              title: '¡Éxito!',
+                              text: 'Etiqueta eliminada exitosamente'
+                          }).then(() => {
+                              location.reload();
+                          });
+                          break;
+                      case '0':
+                          Swal.fire({
+                              icon: 'error',
+                              title: '¡Error!',
+                              text: 'La etiqueta no puede eliminarse. Consulte con el administrador.'
+                          });
+                          break;
+                      default:
+                          Swal.fire({
+                              icon: 'error',
+                              title: '¡Error!',
+                              text: data
+                          });
+                          break;
+                  }
+              }
+          );
+      }
   });
 }
 
 function EliminarEtiquetas(event) {
   event.preventDefault();
-  bootbox.confirm('¿Esta seguro de eliminar todas las etiquetas?', function (result) {
-    if (result) {
-      $.post(
-        './../../Controller/EtiquetaController.php?op=EliminarEtiquetas',
-        function (data, textStatus, xhr) {
-          switch (data) {
-            case '1':
-              toastr.success('Etiquetas Eliminadas');
-
-              tablaEtiqueta.api().ajax.reload();
-              break;
-
-            case '0':
-              toastr.error(
-                'Error: Las etiquetas no pueden eliminarse. Consulte con el administrador...'
-              );
-              break;
-
-            default:
-              toastr.error(data);
-              break;
-          }
-        }
-      );
-    }
-  });
+  Swal.fire({
+      title: '¿Está seguro de eliminar todas las etiquetas?',
+      text: 'Esta acción eliminará todos los productos',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          $.post(
+              '../../Controller/EtiquetaController.php?op=EliminarEtiquetas',
+              function (data, textStatus, xhr) {
+                  switch (data) {
+                      case '1':
+                          Swal.fire({
+                              icon: 'success',
+                              title: '¡Éxito!',
+                              text: 'Productos Eliminados exitosamente',
+                          }).then(() => {
+                              location.reload();
+                          });
+                          break;
+                      case '2':
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Error!',
+                              text: 'Productos no encontrados',
+                          });
+                          break;
+                      case '3':
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Error!',
+                              text: 'Error al tratar de eliminar los producto. Por favor, consulte con el administrador',
+                          });
+                          break;
+                      default:
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Error!',
+                              text: data,
+                          });
+                          break;
+                  }
+              }
+          );
+      }
+  })
 }

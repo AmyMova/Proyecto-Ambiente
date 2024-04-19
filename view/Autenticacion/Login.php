@@ -18,6 +18,7 @@ session_destroy();
     <!-- Custom CSS -->
     <link href="../assets/dist/css/style.min.css" rel="stylesheet">    
     <link rel="stylesheet" href="../plugins/toastr/toastr.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

@@ -16,7 +16,7 @@ switch ($_GET["op"]) {
                         "IdMarca" => $reg->getIdMarca(),
                         "Marca" => $reg->getMarca(),
                         "OpcionMarca" => '<button class="btn btn-warning" id="modificarMarca"><i class="ti-pencil-alt"></i></button> | ' .
-                            '<button class="btn btn-danger" onclick="EliminarMarca(\'' . $reg->getIdMarca() . '\')"><i class="ti-trash"></i></button>'
+                            '<button class="btn btn-danger" onclick="EliminarMarca(\'' . $reg->getIdMarca() . '\',event)"><i class="ti-trash"></i></button>'
                     );
                 }
 
