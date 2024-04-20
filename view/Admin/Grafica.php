@@ -39,7 +39,7 @@
                     <h4 class="m-b-0 text-white">Ventas Anuales</h4>
                 </div>
                 <div class="card-body"style="height:364px;">
-                    <p> Aqui va la grafica, usar una grafica de linea</p>
+                    <?php include ("grafico.php") ?>
                     <div style="width: 500px; "><canvas id="ventas_anuales"></canvas></div>
                 </div>
             </div>
