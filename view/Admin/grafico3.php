@@ -3,9 +3,9 @@ require_once __DIR__ . '/../../config/Conexion.php';
 
 class Graficos extends Conexion
 {
-    public function VerFacturasPorSemana()
+    public function Top5Compradores()
     {
-        $query = "CALL VerFacturasPorSemana()";
+        $query = "CALL Top5Compradores()";
         try {
             $conexion = Conexion::conectar();
             $resultado = $conexion->query($query);
@@ -19,26 +19,15 @@ class Graficos extends Conexion
 }
 
 $graficos = new Graficos();
-$datosVentas = $graficos->VerFacturasPorSemana();
+$datosClientes = $graficos->Top5Compradores();
 
 // Preparar los datos para el gráfico
-$ventasPorSemana = [];
-foreach ($datosVentas as $venta) {
-    $anio = $venta['Anio'];
-    $semana = $venta['Semana'];
-    $totalVentas = $venta['TotalVentas'];
-    $ventasPorSemana[$anio][$semana] = $totalVentas;
-}
-
-// Crear el array de etiquetas (semanas) y datos (total de ventas por semana)
 $labels = [];
 $data = [];
 
-foreach ($ventasPorSemana as $anio => $semanas) {
-    foreach ($semanas as $semana => $totalVentas) {
-        $labels[] = "Semana $semana, $anio";
-        $data[] = $totalVentas;
-    }
+foreach ($datosClientes as $cliente) {
+    $labels[] = "Cliente " . $cliente['IdUsuario'];
+    $data[] = $cliente['TotalGastado'];
 }
 ?>
 
@@ -47,34 +36,41 @@ foreach ($ventasPorSemana as $anio => $semanas) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Reporte de Ventas semanales</title>
+    <title>Top 5 Mejores Clientes</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <canvas id="ventasChart"></canvas>
+        <canvas id="clientesChart"></canvas>
     </div>
 
     <script>
-        // Configuración del gráfico de línea
+        // Configuración del gráfico de barras
         const labels = <?php echo json_encode($labels); ?>;
         const data = {
             labels: labels,
             datasets: [{
-                label: 'Ventas por semana',
+                label: 'Total Gastado',
                 data: <?php echo json_encode($data); ?>,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
             }]
         };
 
-        const ctx = document.getElementById('ventasChart').getContext('2d');
+        const ctx = document.getElementById('clientesChart').getContext('2d');
         const config = {
-            type: 'line',
+            type: 'bar',
             data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
         };
         new Chart(ctx, config);
     </script>
