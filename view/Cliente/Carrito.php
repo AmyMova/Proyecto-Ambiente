@@ -35,7 +35,7 @@
                                     <th>XL</th>
                                     <th>XXL</th>
 
-                                    <th>Total</th>
+                                    <th>Total Uni.</th>
 
                                 </tr>
                             </thead>

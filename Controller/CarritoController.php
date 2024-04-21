@@ -64,7 +64,8 @@ switch ($_GET["op"]) {
 
     case 'AgregarCarrito':
         try {
-            $idUsuario = isset($_POST["idUsuario"]) ? trim($_POST["idUsuario"]) : "";
+            session_start();
+            $IdUsuario = isset($_SESSION["IdUsuario"]) ? ($_SESSION["IdUsuario"]) : "";
             $XS = isset($_POST["Cantidad_XS"]) ? trim($_POST["Cantidad_XS"]) : "";
             $S = isset($_POST["Cantidad_S"]) ? trim($_POST["Cantidad_S"]) : "";
             $M = isset($_POST["Cantidad_M"]) ? trim($_POST["Cantidad_M"]) : "";
@@ -82,7 +83,7 @@ switch ($_GET["op"]) {
                 $carrito = new Carrito();
 
                 $carrito->setIdProducto($IdProducto);
-                $carrito->setIdUsuario($idUsuario);
+                $carrito->setIdUsuario($IdUsuario);
                 $encontrado = $carrito->verificarExistenciaProductoCarritoDb();
 
                 if ($encontrado == 0) {//Si no lo encontró entonces los deja ingresar
@@ -92,7 +93,7 @@ switch ($_GET["op"]) {
                     $carrito->setL($L);
                     $carrito->setXL($XL);
                     $carrito->setXXL($XXL);
-                    $carrito->setIdUsuario($idUsuario);
+                    $carrito->setIdUsuario($IdUsuario);
                     $carrito->setIdProducto($IdProducto);
                     $carrito->AgregarProductoCarrito();
                     if ($carrito->verificarExistenciaProductoCarritoDb()) {//Verifica que el producto se haya ingresado correctamente

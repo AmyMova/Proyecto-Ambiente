@@ -26,6 +26,8 @@ if ($_SESSION["IdRol"] != "2") {
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="../assets/dist/css/style.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -195,8 +197,9 @@ if ($_SESSION["IdRol"] != "2") {
                         </li>
                         <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span
                                 class="hide-menu">Marcas</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link two-column has-arrow waves-effect waves-dark"
-                                href="javascript:void(0)" aria-expanded="false"><span class="hide-menu">Marcas
+                                <li class="sidebar-item mega-dropdown"> <a
+                                class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                                aria-expanded="false"><span class="hide-menu">Marcas
                                 </span></a>
                             <ul aria-expanded="false" class="collapse first-level Brand_wrapper">
 

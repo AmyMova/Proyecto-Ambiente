@@ -157,3 +157,63 @@ function LimpiarCarrito(event) {
     });
 }
 
+$("#carritoEnLinea_agregar").on("submit", function (event) {
+    event.preventDefault();
+    $("#btnRegistar").prop("disabled", true);
+    var formData = new FormData($("#carritoEnLinea_agregar")[0]);
+    $.ajax({
+        url: "./../../Controller/CarritoController.php?op=AgregarCarrito",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (datos) {
+            switch (datos) {
+                case "1":
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Éxito!',
+                        text: 'Producto registrado',
+                    }).then(() => {
+                        $("#carritoEnLinea_agregar")[0].reset();
+                        $('#Comprar').modal('hide');
+                    });
+                    break;
+
+                case "2":
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'El producto ya existe. Corrija e inténtelo nuevamente.',
+                    });
+                    break;
+
+                case "3":
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Hubo un error al tratar de ingresar los datos.',
+                    });
+                    break;
+
+                case "4":
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Datos incompletos.',
+                    });
+                    break;
+
+                default:
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: datos,
+                    });
+                    break;
+            }
+            $("#btnRegistar").removeAttr("disabled");
+        },
+    });
+});
+

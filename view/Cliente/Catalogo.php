@@ -29,8 +29,10 @@
                 </div>
             </div>
         </div>
+
     </div>
-    <button class="btn btn-info"data-target="#VerInformacion" >Más</button>
+
+
     <div class="row ">
         <div class="container">
             <div class="products_wrapper text-center justify-content-center">
@@ -38,58 +40,211 @@
             </div>
         </div>
     </div>
-
     <!--Modal Ver Más Información-->
-    <div id="VerInformacion" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true" id="Vermas">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel">Ver más Información</h4>
+                    <h4 class="modal-title" id="myModalLabel" id="Modal_Title"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <h4>Título</h4>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
-                        augue laoreet rutrum faucibus dolor auctor.</p>
-                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                    <div class="card justify-content-center">
+                        <img src="" class="card-img-top mx-auto" alt=""><!--imagen del articulo -->
+                        <div class="card-body">
+                            <h5 class="card-title"></h5><!--Nombre del articulo -->
+                            <p class="card-text precioModal"></p><!--Nombre del articulo -->
+                            <p class="card-text">Disponibilidad por Talla:</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item XSModal"></li><!--Cantidad por talla del articulo -->
+                                <li class="list-group-item SModal"></li><!--Cantidad por talla del articulo -->
+                                <li class="list-group-item MModal"></li><!--Cantidad por talla del articulo -->
+                                <li class="list-group-item LModal"></li><!--Cantidad por talla del articulo -->
+                                <li class="list-group-item XLModal"></li><!--Cantidad por talla del articulo -->
+                                <li class="list-group-item XXLModal"></li><!--Cantidad por talla del articulo -->
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="Descripcion_Producto" id="Descripcion_Producto"></p>
+                    <p></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
-    
     <!--Modal Comprar -->
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-        aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true" id="Comprar">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+                    <h4 class="modal-title" id="myModalLabel" id="Modal_Title"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <h4>Overflowing text to show scroll behavior</h4>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
-                        augue laoreet rutrum faucibus dolor auctor.</p>
-                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
-                        nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                    <div class="card justify-content-center">
+                        <img src="" class="card-img-top mx-auto" alt=""><!--imagen del articulo -->
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <p class="card-text precioModal"></p>
+
+
+                            <form name="modulos_agregar_carritoEnLinea" id="carritoEnLinea_agregar" method="POST"
+                                enctype="multipart/form-data">
+                                <!-- se agrega el enctype para que el formulario acepte imagenes -->
+                                <input type="hidden" id="existeModulo" name="existeModulo">
+                                <div class="col ">
+                                    <div class="row row-cols-3">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <input type="hidden" class="ID" id="Id_Producto" name="Id_Producto" value="">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col ">
+                                    <div class="row ">
+                                        <div class="col">
+                                        <div class="input-group">
+                                        <input type="text" class="form-control ID" id="Id_Producto" readonly
+                                                    data-validation-required-message="Este campo es necesario"
+                                                    name="Id_Producto" 
+                                                     hidden><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
+
+                                                </div>
+                                            <div class="form-group">
+                                                <label class="form-group" for="Cantidad_XS">Tamaño XS</label></br>
+                                                <label class="form-group XSModal" for="Cantidad_XS"></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="Cantidad_XS"
+                                                        name="Cantidad_XS" value="0" min=0
+                                                        required><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label class="form-group" for="Cantidad_S">Tamaño S</label></br>
+                                                <label class="form-group SModal" for="Cantidad_S"></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="Cantidad_S"
+                                                        name="Cantidad_S" value="0" min=0
+                                                        required><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label class="form-group" for="Cantidad_M">Tamaño M</label></br>
+                                                <label class="form-group MModal" for="Cantidad_M"></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="Cantidad_M"
+                                                        name="Cantidad_M" value="0" min=0
+                                                        required><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row ">
+                                        <div class="col ">
+                                            <div class="form-group">
+                                                <label class="form-group" for="Cantidad_L">Tamaño L</label></br>
+                                                <label class="form-group LModal" for="Cantidad_L"></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="Cantidad_L"
+                                                        name="Cantidad_L" value="0" min=0
+                                                        required><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label class="form-group" for="Cantidad_XL">Tamaño XL</label></br>
+                                                <label class="form-group XLModal" for="Cantidad_XL"></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="Cantidad_XL"
+                                                        name="Cantidad_XL" value="0" min=0
+                                                        required><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col">
+
+                                            <div class="form-group">
+                                                <label class="form-group" for="Cantidad_XXL">Tamaño XXL</label></br>
+                                                <label class="form-group XXLModal" for="Cantidad_XXL"></label>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="Cantidad_XXL"
+                                                        name="Cantidad_XXL" value="0" min=0
+                                                        required><!-- se agrego un valor predeterminado y tambien un minimo y maximo -->
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row button-group">
+                                        <!-- grupo de botones con diferentes funciones -->
+                                        <div class="col-3">
+                                            <input type="submit" id="btnRegistar" class="btn btn-success btn-block"
+                                                value="Agregar"><!-- registra lo que tiene el formulario -->
+
+                                        </div>
+                                        <div class="col-3">
+                                            <input type="button" id="btnCancelar" class="btn btn-secondary btn-block"
+                                                value="Cancelar"
+                                                onclick="cancelarFormCarrito()"><!-- Cancela y oculta el formulario -->
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                            <!--Nombre del articulo -->
+                            <!--Nombre del articulo -->
+
+                        </div>
+                    </div>
+                    <p class="Descripcion_Producto" id="Descripcion_Producto"></p>
+                    <p></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger waves-effect text-left"
-                        data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info waves-effect" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
     </div>
+    <!-- sample modal content -->
+
+
+
+
+
+
+
 
     <?php include ("Componentes/Footer.php"); ?>
     <script src="./../assets/js/Catalogo.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./../assets/js/CarritoEnLinea.js"></script>
