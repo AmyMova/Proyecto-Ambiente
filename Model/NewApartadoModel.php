@@ -31,7 +31,7 @@ class NewApartadoModel extends Conexion
     private $Pago3 = null;
     private $SaldoPendiente = null;
     private $SaldoCancelado = null;
-    
+
     /*=====  End of Atributos de la Clase  ======*/
 
     /*=============================================
@@ -272,22 +272,28 @@ class NewApartadoModel extends Conexion
         self::$cnx = null;
     }
 
-    public function agregarApartado($valor_total, $Producto, $CantidadTotal, $PrecioTotal, $Duracion, $AporteUsuario, $MetodoPago, $NombreCliente, $FechaApartado, $CorreoCliente)
+    public function agregarApartado($IdUsuario, $Vendedor, $Productos, $FechaCreacion, $PrecioTotal, $FechaPago1, $FechaPago2, $FechaPago3, $Notificacion1, $Notificacion2, $Notificacion3, $Pago1, $Pago2, $Pago3, $SaldoPendiente, $SaldoCancelado)
     {
-        $query = "CALL CrearApartado(:ValorTotal, :Producto, :CantidadTotal, :PrecioTotal, :Duracion, :AporteUsuario, :MetodoPago, :NombreCliente, :FechaApartado, :CorreoCliente)";
+        $query = "CALL CrearApartado(:IdUsuario, :Vendedor, :Productos, :FechaCreacion, :PrecioTotal, :FechaPago1, :FechaPago2, :FechaPago3, :Notificacion1, :Notificacion2, :Notificacion3, :Pago1, :Pago2, :Pago3, :SaldoPendiente, :SaldoCancelado)";
         try {
             self::getConexion();
             $resultado = self::$cnx->prepare($query);
-            $resultado->bindParam(":ValorTotal", $valor_total, PDO::PARAM_STR);
-            $resultado->bindParam(":Producto", $Producto, PDO::PARAM_STR);
-            $resultado->bindParam(":CantidadTotal", $CantidadTotal, PDO::PARAM_STR);
+            $resultado->bindParam(":IdUsuario", $IdUsuario, PDO::PARAM_STR);
+            $resultado->bindParam(":Vendedor", $Vendedor, PDO::PARAM_STR);
+            $resultado->bindParam(":Productos", $Productos, PDO::PARAM_STR);
+            $resultado->bindParam(":FechaCreacion", $FechaCreacion, PDO::PARAM_STR);
             $resultado->bindParam(":PrecioTotal", $PrecioTotal, PDO::PARAM_STR);
-            $resultado->bindParam(":Duracion", $Duracion, PDO::PARAM_STR);
-            $resultado->bindParam(":AporteUsuario", $AporteUsuario, PDO::PARAM_STR);
-            $resultado->bindParam(":MetodoPago", $MetodoPago, PDO::PARAM_STR);
-            $resultado->bindParam(":NombreCliente", $NombreCliente, PDO::PARAM_STR);
-            $resultado->bindParam(":FechaApartado", $FechaApartado, PDO::PARAM_STR);
-            $resultado->bindParam(":CorreoCliente", $CorreoCliente, PDO::PARAM_STR);
+            $resultado->bindParam(":FechaPago1", $FechaPago1, PDO::PARAM_STR);
+            $resultado->bindParam(":FechaPago2", $FechaPago2, PDO::PARAM_STR);
+            $resultado->bindParam(":FechaPago3", $FechaPago3, PDO::PARAM_STR);
+            $resultado->bindParam(":Notificacion1", $Notificacion1, PDO::PARAM_STR);
+            $resultado->bindParam(":Notificacion2", $Notificacion2, PDO::PARAM_STR);
+            $resultado->bindParam(":Notificacion3", $Notificacion3, PDO::PARAM_STR);
+            $resultado->bindParam(":Pago1", $Pago1, PDO::PARAM_STR);
+            $resultado->bindParam(":Pago2", $Pago2, PDO::PARAM_STR);
+            $resultado->bindParam(":Pago3", $Pago3, PDO::PARAM_STR);
+            $resultado->bindParam(":SaldoPendiente", $SaldoPendiente, PDO::PARAM_STR);
+            $resultado->bindParam(":SaldoCancelado", $SaldoCancelado, PDO::PARAM_STR);
             $resultado->execute();
             self::desconectar();
             return true;

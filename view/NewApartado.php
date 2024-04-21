@@ -30,12 +30,20 @@
                                     <!-- Campos para capturar los datos del apartado -->
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="valor_total">Valor Total</label>
-                                            <input type="text" class="form-control" id="valor_total" 
-                                            name="valor_total" required>
+                                            <label for="IdUsuario">IdUsuario</label>
+                                            <input type="text" class="form-control" id="IdUsuario" 
+                                            name="IdUsuario" required>
                                         </div>
                                     </div>
-                                    
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="Vendedor">Vendedor</label>
+                                            <input type="text" class="form-control" id="Vendedor" 
+                                            name="Vendedor" required>
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="Producto">Producto</label>
@@ -46,15 +54,15 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="CantidadTotal">Cantidad Total</label>
-                                            <input type="text" class="form-control" id="CantidadTotal" 
-                                            name="CantidadTotal" required>
+                                            <label for="FechaCreacion">FechaCreacion</label>
+                                            <input type="text" class="form-control" id="FechaCreacion" 
+                                            name="FechaCreacion" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="PrecioTotal">Precio Total</label>
+                                            <label for="PrecioTotal">PrecioTotal</label>
                                             <input type="text" class="form-control" id="PrecioTotal" 
                                             name="PrecioTotal" required>
                                         </div>
@@ -62,54 +70,97 @@
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="Duracion">Duración</label>
-                                            <input type="text" class="form-control" id="Duracion" name="Duracion" required>
+                                            <label for="FechaPago1">FechaPago1</label>
+                                            <input type="text" class="form-control" id="FechaPago1" 
+                                            name="FechaPago1" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="AporteUsuario">Aporte Usuario</label>
-                                            <input type="text" class="form-control" id="AporteUsuario" name="AporteUsuario" required>
+                                            <label for="FechaPago2">FechaPago2</label>
+                                            <input type="text" class="form-control" id="FechaPago2" 
+                                            name="FechaPago2" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="MetodoPago">Método de Pago</label>
-                                            <input type="text" class="form-control" id="MetodoPago" name="MetodoPago" required>
-                                        </div>
-                                    </div>
-
-                                
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="NombreCliente">Nombre del Cliente</label>
-                                            <input type="text" class="form-control" id="NombreCliente" name="NombreCliente" required>
+                                            <label for="FechaPago3">FechaPago3</label>
+                                            <input type="text" class="form-control" id="FechaPago3" 
+                                            name="FechaPago3" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="FechaApartado">Fecha del Apartado</label>
-                                            <input type="text" class="form-control" id="FechaApartado" name="FechaApartado" required>
+                                            <label for="Notificacion1">Notificacion1</label>
+                                            <input type="text" class="form-control" id="Notificacion1" 
+                                            name="Notificacion1" required>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="CorreoCliente">Correo del Cliente</label>
-                                            <input type="email" class="form-control" id="CorreoCliente" name="CorreoCliente" required>
+                                            <label for="Notificacion2">Notificacion2</label>
+                                            <input type="text" class="form-control" id="Notificacion2" 
+                                            name="Notificacion2" required>
                                         </div>
                                     </div>
-                             
-                                </div>
-                                <div class="row">
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="Notificacion3">Notificacion3</label>
+                                            <input type="text" class="form-control" id="Notificacion3" 
+                                            name="Notificacion3" required>
+                                        </div>
+                                    </div>
+
+                                <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="Pago1">Pago1</label>
+                                            <input type="text" class="form-control" id="Pago1" 
+                                            name="Pago1" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="Pago2">Pago2</label>
+                                            <input type="text" class="form-control" id="Pago2" 
+                                            name="Pago2" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="Pago3">Pago3</label>
+                                            <input type="text" class="form-control" id="Pago3" 
+                                            name="Pago3" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="SaldoPendiente">SaldoPendiente</label>
+                                            <input type="text" class="form-control" id="SaldoPendiente" 
+                                            name="SaldoPendiente" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="SaldoCancelado">SaldoCancelado</label>
+                                            <input type="text" class="form-control" id="SaldoCancelado" 
+                                            name="SaldoCancelado" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                     <div class="form-group col-md-6">
                                         <input type="submit" id="btn-pagar" class="btn btn-success" value="Guardar Apartado">
                                         <input type="reset" class="btn btn-warning" value="Limpiar">
                                     </div>
-                                </div>
+                                </div> 
                             </form>
                         </div>
                         <div class="col-md-1"></div>

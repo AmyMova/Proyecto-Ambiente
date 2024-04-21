@@ -75,46 +75,52 @@ switch ($_GET["op"]) {
         }
         break;
 
-    case 'AgregarApartado':
-        // Verificar si se enviaron todos los datos necesarios y que no están vacíos
-        $required_fields = ["valor_total", "Producto", "CantidadTotal", "PrecioTotal", "Duracion", "AporteUsuario", "MetodoPago", "NombreCliente", "FechaApartado", "CorreoCliente"];
-        $missing_fields = [];
-        foreach ($required_fields as $field) {
-            if (!isset($_POST[$field]) || empty($_POST[$field])) {
-                $missing_fields[] = $field;
+        case 'AgregarApartado':
+            // Verificar si se enviaron todos los datos necesarios y que no están vacíos
+            $required_fields = ["IdUsuario", "Vendedor", "Producto", "FechaCreacion", "PrecioTotal", "FechaPago1", "FechaPago2", "FechaPago3", "Notificacion1", "Notificacion2", "Notificacion3", "Pago1", "Pago2", "Pago3", "SaldoPendiente", "SaldoCancelado"];
+            $missing_fields = [];
+            foreach ($required_fields as $field) {
+                if (!isset($_POST[$field]) || empty($_POST[$field])) {
+                    $missing_fields[] = $field;
+                }
             }
-        }
-        if (empty($missing_fields)) {
-            // Obtener los datos del formulario
-            $valor_total = $_POST["valor_total"];
-            $Producto = $_POST["Producto"];
-            $CantidadTotal = $_POST["CantidadTotal"];
-            $PrecioTotal = $_POST["PrecioTotal"];
-            $Duracion = $_POST["Duracion"];
-            $AporteUsuario = $_POST["AporteUsuario"];
-            $MetodoPago = $_POST["MetodoPago"];
-            $NombreCliente = $_POST["NombreCliente"];
-            $FechaApartado = $_POST["FechaApartado"];
-            $CorreoCliente = $_POST["CorreoCliente"];
-
-            // Crear una instancia del modelo de Apartado
-            $apartadoModel = new NewApartadoModel();
-
-            // Llamar al método para agregar un nuevo apartado
-            $resultado = $apartadoModel->agregarApartado($valor_total, $Producto, $CantidadTotal, $PrecioTotal, $Duracion, $AporteUsuario, $MetodoPago, $NombreCliente, $FechaApartado, $CorreoCliente);
-
-            if ($resultado === true) {
-                // El apartado se agregó correctamente
-                echo json_encode(array("success" => true, "message" => "El apartado se agregó correctamente."));
+            if (empty($missing_fields)) {
+                // Obtener los datos del formulario
+                $IdUsuario = $_POST["IdUsuario"];
+                $Vendedor = $_POST["Vendedor"];
+                $Producto = $_POST["Producto"];
+                $FechaCreacion = $_POST["FechaCreacion"];
+                $PrecioTotal = $_POST["PrecioTotal"];
+                $FechaPago1 = $_POST["FechaPago1"];
+                $FechaPago2 = $_POST["FechaPago2"];
+                $FechaPago3 = $_POST["FechaPago3"];
+                $Notificacion1 = $_POST["Notificacion1"];
+                $Notificacion2 = $_POST["Notificacion2"];
+                $Notificacion3 = $_POST["Notificacion3"];
+                $Pago1 = $_POST["Pago1"];
+                $Pago2 = $_POST["Pago2"];
+                $Pago3 = $_POST["Pago3"];
+                $SaldoPendiente = $_POST["SaldoPendiente"];
+                $SaldoCancelado = $_POST["SaldoCancelado"];
+        
+                // Crear una instancia del modelo de Apartado
+                $apartadoModel = new NewApartadoModel();
+        
+                // Llamar al método para agregar un nuevo apartado
+                $resultado = $apartadoModel->agregarApartado($IdUsuario, $Vendedor, $Producto, $FechaCreacion, $PrecioTotal, $FechaPago1, $FechaPago2, $FechaPago3, $Notificacion1, $Notificacion2, $Notificacion3, $Pago1, $Pago2, $Pago3, $SaldoPendiente, $SaldoCancelado);
+        
+                if ($resultado === true) {
+                    // El apartado se agregó correctamente
+                    echo json_encode(array("success" => true, "message" => "El apartado se agregó correctamente."));
+                } else {
+                    // Hubo un error al agregar el apartado
+                    echo json_encode(array("success" => false, "message" => $resultado)); // Enviar el mensaje de error devuelto por el modelo
+                }
             } else {
-                // Hubo un error al agregar el apartado
-                echo json_encode(array("success" => false, "message" => $resultado)); // Enviar el mensaje de error devuelto por el modelo
+                // No se enviaron todos los datos necesarios o algunos están vacíos
+                echo json_encode(array("success" => false, "message" => "Faltan campos obligatorios: " . implode(", ", $missing_fields)));
             }
-        } else {
-            // No se enviaron todos los datos necesarios o algunos están vacíos
-            echo json_encode(array("success" => false, "message" => "Faltan campos obligatorios: " . implode(", ", $missing_fields)));
-        }
-        break;
+            break;
 
         case 'DatosParaGrafico':
             $apartadoModel = new NewApartadoModel();
