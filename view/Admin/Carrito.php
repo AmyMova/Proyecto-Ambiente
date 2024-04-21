@@ -459,8 +459,8 @@
                                         </div>
 
                                         <div class="col">
-                                            <input type="button" class="btn btn-info btn-block" value="Apartar"
-                                                onclick="Apartar()">
+                                        <input type="button" class="btn btn-info btn-block" value="Apartar" onclick="window.location.href = './../NewApartado.php';">
+
                                         </div>
                                         <div class="col">
                                             <input type="submit" id="btnFacturar" class="btn btn-success btn-block"
